@@ -42,6 +42,10 @@ Used by `/wayfinder`. A map is a single issue with child issues as decision tick
 - **Claim**: `gh issue edit <number> --add-assignee @me`, before starting ticket work.
 - **Resolve**: post the answer with `gh issue comment <number> --body-file <path>`, close the ticket, then append a summary and ticket link to the map's Decisions so far.
 
-## Existing local map
+## Patients performance map
 
-The existing `.scratch/patients-performance/map.md` and its tickets use Local Markdown. When continuing that effort, follow its recorded tracker and session procedure; this setup does not migrate it to GitHub.
+[Plan Patients performance with the same results](https://github.com/khaoxkongz/ncd-api/issues/2) is the canonical map for this effort. Its nine decision tickets are native GitHub sub-issues, with native blocking relationships.
+
+Before continuing the effort, read the map's Notes for its session procedure and standing work limits. Execution work remains stopped until the user starts the relevant task.
+
+The original `.scratch/patients-performance/` documents are a local archive. Read and update live ticket state on GitHub. Reference documents are linked from the map and tickets.
