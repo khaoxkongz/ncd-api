@@ -1,0 +1,972 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NCD Dashboard API",
+    "version": "0.0.1",
+    "description": "API documentation for NCD Dashboard"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/ncds_api/api/v1/bar-chart-ex": {
+      "post": {
+        "summary": "Get expense data for different diseases",
+        "description": "Retrieves aggregated expense data and averages for various diseases based on the provided filters",
+        "tags": ["Bar Charts"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date for the data range",
+                    "example": "2024-01-01"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "End date for the data range",
+                    "example": "2024-12-31"
+                  },
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter (optional)"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter (optional)"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter (optional)"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter (optional)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคเบาหวาน"
+                          },
+                          "qtyOfExpense": {
+                            "type": "string",
+                            "example": "1234.56"
+                          },
+                          "avg": {
+                            "type": "string",
+                            "example": "123.45"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/bar-chart-pt": {
+      "post": {
+        "summary": "Get patient data for different diseases",
+        "description": "Retrieves aggregated patient counts and visit averages for various diseases based on the provided filters",
+        "tags": ["Bar Charts"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date for the data range",
+                    "example": "2024-01-01"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "End date for the data range",
+                    "example": "2024-12-31"
+                  },
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter (optional)"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter (optional)"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter (optional)"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter (optional)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคเบาหวาน"
+                          },
+                          "qtyOfPatient": {
+                            "type": "number",
+                            "description": "Total number of unique patients",
+                            "example": 150
+                          },
+                          "avg": {
+                            "type": "string",
+                            "description": "Average number of visits per patient",
+                            "example": "2.50"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/card": {
+      "post": {
+        "tags": ["Card Summary"],
+        "summary": "Get card summary data",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date for the data range",
+                    "example": "2024-01-01"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "End date for the data range",
+                    "example": "2024-12-31"
+                  },
+                  "area": {
+                    "type": "string"
+                  },
+                  "province": {
+                    "type": "string"
+                  },
+                  "district": {
+                    "type": "string"
+                  },
+                  "hcode": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "service_count": {
+                            "type": "number"
+                          },
+                          "patient_count": {
+                            "type": "number"
+                          },
+                          "expense": {
+                            "type": "number"
+                          },
+                          "hcode_count": {
+                            "type": "number"
+                          },
+                          "avg_service": {
+                            "type": "number"
+                          },
+                          "avg_expense": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-ca-ex": {
+      "post": {
+        "tags": ["Cancer Expense Graph"],
+        "summary": "ข้อมูลค่าใช้จ่ายของผู้ป่วยโรคมะเร็งแต่ละประเภท",
+        "description": "ดึงข้อมูลค่าใช้จ่ายของผู้ป่วยโรคมะเร็งประเภทต่างๆ (มะเร็งปอด มะเร็งเต้านม มะเร็งปากมดลูก มะเร็งตับ มะเร็งลำไส้ใหญ่) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคมะเร็งปอด"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Monthly expense values for 12 months",
+                            "example": ["0.00", "1234.56", "2345.67"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-ca-pt": {
+      "post": {
+        "tags": ["Cancer Patient Graph"],
+        "summary": "ข้อมูลจำนวนผู้ป่วยโรคมะเร็งแต่ละประเภท",
+        "description": "ดึงข้อมูลจำนวนผู้ป่วยโรคมะเร็งประเภทต่างๆ (มะเร็งปอด มะเร็งเต้านม มะเร็งปากมดลูก มะเร็งตับ มะเร็งลำไส้ใหญ่) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคมะเร็งปอด"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "description": "Monthly patient counts for 12 months",
+                            "example": [0, 123, 234]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-disease-ex": {
+      "post": {
+        "tags": ["Disease Expense Graph"],
+        "summary": "ข้อมูลค่าใช้จ่ายของผู้ป่วยโรคไม่ติดต่อเรื้อรังแต่ละประเภท",
+        "description": "ดึงข้อมูลค่าใช้จ่ายของผู้ป่วยโรคไม่ติดต่อเรื้อรังประเภทต่างๆ (เบาหวาน ความดันโลหิตสูง ปอดอุดกั้นเรื้อรัง มะเร็ง สุขภาพจิต โรคหัวใจและหลอดเลือด) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคเบาหวาน"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Monthly expense values for 12 months (fixed to 2 decimal places)",
+                            "example": ["0.00", "1234.56", "2345.67"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-disease-pt": {
+      "post": {
+        "tags": ["Disease Patient Graph"],
+        "summary": "ข้อมูลจำนวนผู้ป่วยโรคไม่ติดต่อเรื้อรังแต่ละประเภท",
+        "description": "ดึงข้อมูลจำนวนผู้ป่วยโรคไม่ติดต่อเรื้อรังประเภทต่างๆ (เบาหวาน ความดันโลหิตสูง ปอดอุดกั้นเรื้อรัง มะเร็ง สุขภาพจิต โรคหัวใจและหลอดเลือด) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "โรคเบาหวาน"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "description": "Monthly patient counts for 12 months",
+                            "example": [0, 123, 234]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-dm-ex": {
+      "post": {
+        "tags": ["Diabetes Expense Graph"],
+        "summary": "ข้อมูลค่าใช้จ่ายของผู้ป่วยโรคเบาหวานแต่ละประเภท",
+        "description": "ดึงข้อมูลค่าใช้จ่ายของผู้ป่วยโรคเบาหวานประเภทต่างๆ (ภาวะน้ำตาลในเลือดสูง ร่วมกับโรคไตเรื้อรัง ร่วมกับโรคหัวใจขาดเลือด ร่วมกับโรคหลอดเลือดสมอง) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Monthly expense values for 12 months (fixed to 2 decimal places)",
+                            "example": ["0.00", "1234.56", "2345.67"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/graph-dm-pt": {
+      "post": {
+        "tags": ["Diabetes Patient Graph"],
+        "summary": "ข้อมูลจำนวนผู้ป่วยโรคเบาหวานแต่ละประเภท",
+        "description": "ดึงข้อมูลจำนวนผู้ป่วยโรคเบาหวานประเภทต่างๆ (ภาวะน้ำตาลในเลือดสูง ร่วมกับโรคไตเรื้อรัง ร่วมกับโรคหัวใจขาดเลือด ร่วมกับโรคหลอดเลือดสมอง) โดยกรองตามพื้นที่ จังหวัด อำเภอ และรหัสโรงพยาบาล",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string",
+                    "description": "Area filter"
+                  },
+                  "province": {
+                    "type": "string",
+                    "description": "Province filter"
+                  },
+                  "district": {
+                    "type": "string",
+                    "description": "District filter"
+                  },
+                  "hcode": {
+                    "type": "string",
+                    "description": "Hospital code filter"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diseaseName": {
+                            "type": "string",
+                            "example": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "description": "Monthly patient counts for 12 months",
+                            "example": [0, 123, 234]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/aggregation/daily/{year}": {
+      "post": {
+        "tags": ["Migration"],
+        "summary": "Run daily data migration for entire year",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "year",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Year for daily migration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily migration completed successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/aggregation/daily/v2/{year}": {
+      "post": {
+        "tags": ["Migration"],
+        "summary": "Run daily data migration for entire year",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "year",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Year for daily migration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily migration completed successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/ncds_api/api/v1/aggregation/daily/sync": {
+      "post": {
+        "tags": ["Migration"],
+        "summary": "Sync daily data for records updated in the last 24 hours",
+        "responses": {
+          "200": {
+            "description": "Daily sync completed successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}

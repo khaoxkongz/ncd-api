@@ -1,0 +1,38 @@
+{
+  "name": "ncd-api",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "node --watch ./src/index.js",
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx eslint --fix ./src",
+    "generate-docs": "node ./src/lib/generate-docs.js"
+  },
+  "dependencies": {
+    "@scalar/express-api-reference": "^0.4.167",
+    "@t3-oss/env-core": "^0.11.1",
+    "cors": "^2.8.5",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.7",
+    "dotenv-expand": "^11.0.7",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "mongodb": "^6.10.0",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
+    "vite-plus": "1.1.0"
+  },
+  "packageManager": "npm@12.2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0"
+  }
+}
