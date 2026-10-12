@@ -1,6 +1,12 @@
 const { default: repository } = require("./filter.repository");
 
-async function filterDropDownService(type, area, province, district, hospital_code) {
+async function filterDropDownService(
+  type,
+  area,
+  province,
+  district,
+  hospital_code,
+) {
   try {
     // console.log("type", type)
     // console.log("hospital_code", hospital_code)
@@ -54,7 +60,9 @@ async function filterDropDownService(type, area, province, district, hospital_co
       // หาอำเภอในจังหวัด
       const find_province = await repository.getDistrictInProvince(queryString);
 
-      const resData = find_province.filter((item) => item !== null && item !== "");
+      const resData = find_province.filter(
+        (item) => item !== null && item !== "",
+      );
       result = resData;
     }
     // else if (type == 'district') { //เอาอำเภอมาหาโรงพยาบาลในอำเภอนั้นๆ

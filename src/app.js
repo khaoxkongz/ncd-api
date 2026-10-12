@@ -14,7 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.get("/ncds_api", (_req, res) => res.json({ message: "Welcome NCD Dashboard 🦄🌈✨👋🌎🌍🌏✨🌈🦄" }));
+app.get("/ncds_api", (_req, res) =>
+  res.json({ message: "Welcome NCD Dashboard 🦄🌈✨👋🌎🌍🌏✨🌈🦄" }),
+);
 
 configureOpenApi(app);
 

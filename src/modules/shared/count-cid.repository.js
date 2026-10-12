@@ -1,7 +1,14 @@
 const { db } = require("../../lib/mongo");
 const { COLLECTION_NAME } = require("../../models/ncd-summary");
 
-async function countDmCid({ startDate, endDate, area, province, district, hcode }) {
+async function countDmCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -41,7 +48,14 @@ async function countDmCid({ startDate, endDate, area, province, district, hcode 
   }
 }
 
-async function countHtCid({ startDate, endDate, area, province, district, hcode }) {
+async function countHtCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -81,7 +95,14 @@ async function countHtCid({ startDate, endDate, area, province, district, hcode 
   }
 }
 
-async function countCopdCid({ startDate, endDate, area, province, district, hcode }) {
+async function countCopdCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -121,7 +142,14 @@ async function countCopdCid({ startDate, endDate, area, province, district, hcod
   }
 }
 
-async function countCaCid({ startDate, endDate, area, province, district, hcode }) {
+async function countCaCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -161,7 +189,14 @@ async function countCaCid({ startDate, endDate, area, province, district, hcode 
   }
 }
 
-async function countPsyCid({ startDate, endDate, area, province, district, hcode }) {
+async function countPsyCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -201,7 +236,14 @@ async function countPsyCid({ startDate, endDate, area, province, district, hcode
   }
 }
 
-async function countHdCvdCid({ startDate, endDate, area, province, district, hcode }) {
+async function countHdCvdCid({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -241,4 +283,11 @@ async function countHdCvdCid({ startDate, endDate, area, province, district, hco
   }
 }
 
-module.exports = { countDmCid, countHtCid, countCopdCid, countCaCid, countPsyCid, countHdCvdCid };
+module.exports = {
+  countDmCid,
+  countHtCid,
+  countCopdCid,
+  countCaCid,
+  countPsyCid,
+  countHdCvdCid,
+};

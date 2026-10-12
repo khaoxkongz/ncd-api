@@ -1,4 +1,7 @@
-const { caExpenseRepository, getDataFromTempTable } = require("./ca-ex.repository");
+const {
+  caExpenseRepository,
+  getDataFromTempTable,
+} = require("./ca-ex.repository");
 
 // 1. หาข้อมูล NCD_SUMMARY โดย
 // - ถ้า Area, Province, District, และ Hcode หนึ่งในนี้มี String เปล่า
@@ -11,7 +14,8 @@ async function caExpenseService(body) {
   const isDistrictEmpty = body.district === "";
   const isHospitalCodeEmpty = body.hcode === "";
 
-  const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+  const shouldCallTempCollection =
+    isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
   try {
     if (shouldCallTempCollection) return getDataFromTempTable();
@@ -34,7 +38,9 @@ async function caExpenseService(body) {
     const result = await caExpenseRepository({ ...body, months });
 
     const filledResult = months.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         ca_expense: data ? data.ca_expense : 0,
         lung_ca_expense: data ? data.lung_ca_expense : 0,
@@ -76,7 +82,9 @@ async function caExpenseService(body) {
               item.cervical_ca_expense +
               item.liver_ca_expense +
               item.colorectal_ca_expense);
-          return difference < 0 ? 0 : Number.parseFloat(difference.toFixed(2), 10);
+          return difference < 0
+            ? 0
+            : Number.parseFloat(difference.toFixed(2), 10);
         }),
       },
     ];

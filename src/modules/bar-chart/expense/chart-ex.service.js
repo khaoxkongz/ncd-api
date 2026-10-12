@@ -6,7 +6,11 @@ const {
   countPsyCid,
   countHdCvdCid,
 } = require("../../shared/count-cid.repository");
-const { chartExpenseRepository, chartExpenseRepositoryV2, getDataFromTempTable } = require("./chart-ex.repository");
+const {
+  chartExpenseRepository,
+  chartExpenseRepositoryV2,
+  getDataFromTempTable,
+} = require("./chart-ex.repository");
 
 async function chartExpenseService(body) {
   try {
@@ -19,13 +23,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.dm_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.dm_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.dm_expense / item.dm_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.dm_expense / item.dm_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -35,13 +41,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.ht_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.ht_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.ht_expense / item.ht_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.ht_expense / item.ht_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -51,13 +59,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.copd_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.copd_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.copd_expense / item.copd_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.copd_expense / item.copd_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -67,13 +77,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.ca_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.ca_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.ca_expense / item.ca_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.ca_expense / item.ca_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -83,13 +95,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.psy_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.psy_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.psy_expense / item.psy_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.psy_expense / item.psy_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -99,14 +113,15 @@ async function chartExpenseService(body) {
           result
             .map((item) => item.hd_cvd_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg: result.some((item) => item.hd_cvd_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.hd_cvd_expense / item.hd_cvd_cid_count).reduce((a, b) => a + b, 0) /
-                result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.hd_cvd_expense / item.hd_cvd_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -160,14 +175,16 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.dm_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countDmPatient.dm_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.dm_expense).reduce((a, b) => a + b, 0) / countDmPatient.dm_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.dm_expense)
+                    .reduce((a, b) => a + b, 0) / countDmPatient.dm_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -177,14 +194,16 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.ht_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countHtPatient.ht_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.ht_expense).reduce((a, b) => a + b, 0) / countHtPatient.ht_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.ht_expense)
+                    .reduce((a, b) => a + b, 0) / countHtPatient.ht_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -194,14 +213,17 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.copd_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countCopdPatient.copd_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.copd_expense).reduce((a, b) => a + b, 0) / countCopdPatient.copd_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.copd_expense)
+                    .reduce((a, b) => a + b, 0) /
+                  countCopdPatient.copd_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -211,14 +233,16 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.ca_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countCaPatient.ca_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.ca_expense).reduce((a, b) => a + b, 0) / countCaPatient.ca_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.ca_expense)
+                    .reduce((a, b) => a + b, 0) / countCaPatient.ca_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -228,14 +252,16 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.psy_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countPsyPatient.psy_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.psy_expense).reduce((a, b) => a + b, 0) / countPsyPatient.psy_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.psy_expense)
+                    .reduce((a, b) => a + b, 0) / countPsyPatient.psy_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -245,15 +271,17 @@ async function chartExpenseServiceV2(body) {
           result
             .map((item) => item.hd_cvd_expense)
             .reduce((a, b) => a + b, 0)
-            .toFixed(2)
+            .toFixed(2),
         ),
         avg:
           countHdCvdPatient.hd_cvd_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.hd_cvd_expense).reduce((a, b) => a + b, 0) /
+                  result
+                    .map((item) => item.hd_cvd_expense)
+                    .reduce((a, b) => a + b, 0) /
                   countHdCvdPatient.hd_cvd_cid_count
-                ).toFixed(2)
+                ).toFixed(2),
               )
             : 0,
       },

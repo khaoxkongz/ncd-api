@@ -1,15 +1,25 @@
 const { db } = require("../../lib/mongo");
 const { COLLECTION_NAME_TEMP } = require("../../models/temp-table");
-const { COLLECTION_NAME_TEMP_CHART_PT } = require("../../models/temp-table-chart-pt");
+const {
+  COLLECTION_NAME_TEMP_CHART_PT,
+} = require("../../models/temp-table-chart-pt");
 
 const { YEAR } = require("../../utils/constant");
 const { cardServiceV2 } = require("../card-summary/card.service");
-const { chartExpenseServiceV2 } = require("../bar-chart/expense/chart-ex.service");
-const { chartPatientServiceV2 } = require("../bar-chart/patients/chart-pt.service");
+const {
+  chartExpenseServiceV2,
+} = require("../bar-chart/expense/chart-ex.service");
+const {
+  chartPatientServiceV2,
+} = require("../bar-chart/patients/chart-pt.service");
 const { caExpenseService } = require("../graph/ca-expense/ca-ex.service");
 const { caPatientServiceV2 } = require("../graph/ca-patients/ca-pt.service");
-const { diseaseExpenseService } = require("../graph/disease-expense/disease-ex.service");
-const { diseasePatientServiceV2 } = require("../graph/disease-patients/disease-pt.service");
+const {
+  diseaseExpenseService,
+} = require("../graph/disease-expense/disease-ex.service");
+const {
+  diseasePatientServiceV2,
+} = require("../graph/disease-patients/disease-pt.service");
 const { dmExpenseService } = require("../graph/dm-expense/dm-ex.service");
 const { dmPatientServiceV2 } = require("../graph/dm-patients/dm-pt.service");
 
@@ -57,7 +67,9 @@ async function tempTableService(_req, res) {
     await collection.replaceOne({ key: "main" }, tempData, { upsert: true });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 }
 
@@ -67,7 +79,10 @@ async function tempChartPtService(_req, res) {
   const endDate = new Date();
   const collection = db.collection(COLLECTION_NAME_TEMP_CHART_PT);
   try {
-    const chartPatientData = await chartPatientServiceV2({ startDate, endDate });
+    const chartPatientData = await chartPatientServiceV2({
+      startDate,
+      endDate,
+    });
 
     const tempData = {
       key: "main",
@@ -78,7 +93,9 @@ async function tempChartPtService(_req, res) {
     await collection.replaceOne({ key: "main" }, tempData, { upsert: true });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 }
 
@@ -137,7 +154,10 @@ async function temporaryChartPatientCollection() {
   const collection = db.collection(COLLECTION_NAME_TEMP_CHART_PT);
 
   try {
-    const chartPatientData = await chartPatientServiceV2({ startDate, endDate });
+    const chartPatientData = await chartPatientServiceV2({
+      startDate,
+      endDate,
+    });
 
     const tempData = {
       key: "main",

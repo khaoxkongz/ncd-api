@@ -20,7 +20,9 @@ async function caPatientService(body) {
     });
 
     const filledResult = fullMonths.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         ca_cid_count: data ? data.ca_cid_count : 0,
         lung_ca_cid_count: data ? data.lung_ca_cid_count : 0,
@@ -79,7 +81,8 @@ async function caPatientServiceV2(body) {
   const isDistrictEmpty = body.district === "";
   const isHospitalCodeEmpty = body.hcode === "";
 
-  const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+  const shouldCallTempCollection =
+    isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
   try {
     if (shouldCallTempCollection) return getDataFromTempTable();
@@ -99,23 +102,46 @@ async function caPatientServiceV2(body) {
       months.unshift({ year, month }); // Add to the beginning to keep chronological order
     }
 
-    const [caPatient, lungCaPatient, breastCaPatient, cervicalCaPatient, liverCaPatient, colorectalCaPatient] =
-      await Promise.all([
-        caPatientCount({ ...body, months }),
-        lungCaPatientCount({ ...body, months }),
-        breastCaPatientCount({ ...body, months }),
-        cervicalCaPatientCount({ ...body, months }),
-        liverCaPatientCount({ ...body, months }),
-        colorectalCaPatientCount({ ...body, months }),
-      ]);
+    const [
+      caPatient,
+      lungCaPatient,
+      breastCaPatient,
+      cervicalCaPatient,
+      liverCaPatient,
+      colorectalCaPatient,
+    ] = await Promise.all([
+      caPatientCount({ ...body, months }),
+      lungCaPatientCount({ ...body, months }),
+      breastCaPatientCount({ ...body, months }),
+      cervicalCaPatientCount({ ...body, months }),
+      liverCaPatientCount({ ...body, months }),
+      colorectalCaPatientCount({ ...body, months }),
+    ]);
 
     const filledResult = months.map(({ year, month }) => {
-      const caData = caPatient.find((item) => item.year === year && item.month === month) || {};
-      const lungData = lungCaPatient.find((item) => item.year === year && item.month === month) || {};
-      const breastData = breastCaPatient.find((item) => item.year === year && item.month === month) || {};
-      const cervicalData = cervicalCaPatient.find((item) => item.year === year && item.month === month) || {};
-      const liverData = liverCaPatient.find((item) => item.year === year && item.month === month) || {};
-      const colorectalData = colorectalCaPatient.find((item) => item.year === year && item.month === month) || {};
+      const caData =
+        caPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const lungData =
+        lungCaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const breastData =
+        breastCaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const cervicalData =
+        cervicalCaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const liverData =
+        liverCaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const colorectalData =
+        colorectalCaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
 
       return {
         year,

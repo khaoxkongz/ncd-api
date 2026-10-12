@@ -20,69 +20,91 @@ async function chartPatientService(body) {
     const finalResult = [
       {
         diseaseName: "โรคเบาหวาน",
-        qtyOfPatient: result.map((item) => item.dm_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.dm_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.dm_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.dm_uid_count / item.dm_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.dm_uid_count / item.dm_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
       {
         diseaseName: "โรคความดันโลหิตสูง",
-        qtyOfPatient: result.map((item) => item.ht_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.ht_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.ht_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.ht_uid_count / item.ht_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.ht_uid_count / item.ht_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
       {
         diseaseName: "โรคปอดอุดกั้นเรื้อรัง",
-        qtyOfPatient: result.map((item) => item.copd_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.copd_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.copd_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.copd_uid_count / item.copd_cid_count).reduce((a, b) => a + b, 0) /
-                result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.copd_uid_count / item.copd_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
       {
         diseaseName: "โรคมะเร็ง",
-        qtyOfPatient: result.map((item) => item.ca_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.ca_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.ca_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.ca_uid_count / item.ca_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.ca_uid_count / item.ca_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
       {
         diseaseName: "สุขภาพจิต",
-        qtyOfPatient: result.map((item) => item.psy_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.psy_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.psy_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.psy_uid_count / item.psy_cid_count).reduce((a, b) => a + b, 0) / result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.psy_uid_count / item.psy_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
       {
         diseaseName: "โรคหัวใจและหลอดเลือด",
-        qtyOfPatient: result.map((item) => item.hd_cvd_cid_count).reduce((a, b) => a + b, 0),
+        qtyOfPatient: result
+          .map((item) => item.hd_cvd_cid_count)
+          .reduce((a, b) => a + b, 0),
         avg: result.some((item) => item.hd_cvd_cid_count > 0)
           ? Number(
               (
-                result.map((item) => item.hd_cvd_uid_count / item.hd_cvd_cid_count).reduce((a, b) => a + b, 0) /
-                result.length
-              ).toFixed(2)
+                result
+                  .map((item) => item.hd_cvd_uid_count / item.hd_cvd_cid_count)
+                  .reduce((a, b) => a + b, 0) / result.length
+              ).toFixed(2),
             )
           : 0,
       },
@@ -137,8 +159,10 @@ async function chartPatientServiceV2(body) {
           countDmPatient.dm_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.dm_uid_count).reduce((a, b) => a + b, 0) / countDmPatient.dm_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.dm_uid_count)
+                    .reduce((a, b) => a + b, 0) / countDmPatient.dm_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -149,8 +173,10 @@ async function chartPatientServiceV2(body) {
           countHtPatient.ht_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.ht_uid_count).reduce((a, b) => a + b, 0) / countHtPatient.ht_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.ht_uid_count)
+                    .reduce((a, b) => a + b, 0) / countHtPatient.ht_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -161,8 +187,11 @@ async function chartPatientServiceV2(body) {
           countCopdPatient.copd_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.copd_uid_count).reduce((a, b) => a + b, 0) / countCopdPatient.copd_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.copd_uid_count)
+                    .reduce((a, b) => a + b, 0) /
+                  countCopdPatient.copd_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -173,8 +202,10 @@ async function chartPatientServiceV2(body) {
           countCaPatient.ca_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.ca_uid_count).reduce((a, b) => a + b, 0) / countCaPatient.ca_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.ca_uid_count)
+                    .reduce((a, b) => a + b, 0) / countCaPatient.ca_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -185,8 +216,10 @@ async function chartPatientServiceV2(body) {
           countPsyPatient.psy_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.psy_uid_count).reduce((a, b) => a + b, 0) / countPsyPatient.psy_cid_count
-                ).toFixed(2)
+                  result
+                    .map((item) => item.psy_uid_count)
+                    .reduce((a, b) => a + b, 0) / countPsyPatient.psy_cid_count
+                ).toFixed(2),
               )
             : 0,
       },
@@ -197,9 +230,11 @@ async function chartPatientServiceV2(body) {
           countHdCvdPatient.hd_cvd_cid_count > 0
             ? Number(
                 (
-                  result.map((item) => item.hd_cvd_uid_count).reduce((a, b) => a + b, 0) /
+                  result
+                    .map((item) => item.hd_cvd_uid_count)
+                    .reduce((a, b) => a + b, 0) /
                   countHdCvdPatient.hd_cvd_cid_count
-                ).toFixed(2)
+                ).toFixed(2),
               )
             : 0,
       },
@@ -220,4 +255,8 @@ async function tempChartPatientService() {
   }
 }
 
-module.exports = { chartPatientService, chartPatientServiceV2, tempChartPatientService };
+module.exports = {
+  chartPatientService,
+  chartPatientServiceV2,
+  tempChartPatientService,
+};

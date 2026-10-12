@@ -1,11 +1,21 @@
 const { env } = require("../../env");
 const { db } = require("../../lib/mongo");
 const { formatDateAsString } = require("../../lib/utils");
-const { initialize, destroy, sendMigrationUpdate } = require("../../lib/discord");
-const { createCollection, COLLECTION_NAME } = require("../../models/ncd-summary");
+const {
+  initialize,
+  destroy,
+  sendMigrationUpdate,
+} = require("../../lib/discord");
+const {
+  createCollection,
+  COLLECTION_NAME,
+} = require("../../models/ncd-summary");
 const { pipeline } = require("./pipeline");
 const { hashAllCidsInCollection } = require("./hash-cids");
-const { temporaryCollections, temporaryChartPatientCollection } = require("../migration-temp-table/temp-table.service");
+const {
+  temporaryCollections,
+  temporaryChartPatientCollection,
+} = require("../migration-temp-table/temp-table.service");
 
 const transactionCollection = db.collection("FDH_Transaction");
 
@@ -55,9 +65,13 @@ function getTransactionDatesByYear() {
     }
 
     const monthName = monthNames[currentProcessingDate.getMonth()];
-    transactionDatesByYear[year][monthName].push(new Date(currentProcessingDate));
+    transactionDatesByYear[year][monthName].push(
+      new Date(currentProcessingDate),
+    );
 
-    const nextDate = currentProcessingDate.setDate(currentProcessingDate.getDate() + 1);
+    const nextDate = currentProcessingDate.setDate(
+      currentProcessingDate.getDate() + 1,
+    );
     currentProcessingDate = new Date(nextDate);
   }
 

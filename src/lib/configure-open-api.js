@@ -15,6 +15,6 @@ module.exports = function configureOpenApi(app) {
       spec: {
         url: "/openapi.json",
       },
-    })
+    }),
   );
 };

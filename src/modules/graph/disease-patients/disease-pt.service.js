@@ -20,7 +20,9 @@ async function diseasePatientService(body) {
     });
 
     const filledResult = fullMonths.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         dm_cid_count: data ? data.dm_cid_count : 0,
         ht_cid_count: data ? data.ht_cid_count : 0,
@@ -84,7 +86,8 @@ async function diseasePatientServiceV2(body) {
     const isDistrictEmpty = body.district === "";
     const isHospitalCodeEmpty = body.hcode === "";
 
-    const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+    const shouldCallTempCollection =
+      isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
     if (shouldCallTempCollection) return getDataFromTempTable();
 
@@ -103,7 +106,14 @@ async function diseasePatientServiceV2(body) {
       months.unshift({ year, month }); // Add to the beginning to keep chronological order
     }
 
-    const [dmPatient, htPatient, copdPatient, caPatient, psyPatient, hdCvdPatient] = await Promise.all([
+    const [
+      dmPatient,
+      htPatient,
+      copdPatient,
+      caPatient,
+      psyPatient,
+      hdCvdPatient,
+    ] = await Promise.all([
       dmPatientCount({ ...body, months }),
       htPatientCount({ ...body, months }),
       copdPatientCount({ ...body, months }),
@@ -113,12 +123,26 @@ async function diseasePatientServiceV2(body) {
     ]);
 
     const filledResult = months.map(({ year, month }) => {
-      const dmData = dmPatient.find((item) => item.year === year && item.month === month) || {};
-      const htData = htPatient.find((item) => item.year === year && item.month === month) || {};
-      const copdData = copdPatient.find((item) => item.year === year && item.month === month) || {};
-      const caData = caPatient.find((item) => item.year === year && item.month === month) || {};
-      const psyData = psyPatient.find((item) => item.year === year && item.month === month) || {};
-      const hdCvdData = hdCvdPatient.find((item) => item.year === year && item.month === month) || {};
+      const dmData =
+        dmPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const htData =
+        htPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const copdData =
+        copdPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const caData =
+        caPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const psyData =
+        psyPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const hdCvdData =
+        hdCvdPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
 
       return {
         year,

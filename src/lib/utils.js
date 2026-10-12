@@ -7,7 +7,10 @@ function formatDateAsString(date) {
 
 function hashCid(cid) {
   if (!cid) return null;
-  return crypto.createHmac("sha256", env.CID_HASH_SECRET_KEY).update(cid.toString()).digest("hex");
+  return crypto
+    .createHmac("sha256", env.CID_HASH_SECRET_KEY)
+    .update(cid.toString())
+    .digest("hex");
 }
 
 module.exports = {

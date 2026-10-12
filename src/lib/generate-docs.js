@@ -29,4 +29,7 @@ const options = {
 };
 
 const openapiSpecification = swaggerJsdoc(options);
-fs.writeFileSync(path.join(publicDir, "openapi.json"), JSON.stringify(openapiSpecification, null, 2));
+fs.writeFileSync(
+  path.join(publicDir, "openapi.json"),
+  JSON.stringify(openapiSpecification, null, 2),
+);

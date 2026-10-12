@@ -19,7 +19,9 @@ async function dmPatientService(body) {
     });
 
     const filledResult = fullMonths.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         hg_cid_count: data ? data.hg_cid_count : 0,
         dm_ckd_cid_count: data ? data.dm_ckd_cid_count : 0,
@@ -51,7 +53,10 @@ async function dmPatientService(body) {
         data: filledResult.map((item) => {
           const difference =
             item.dm_cid_count -
-            (item.hg_cid_count + item.dm_ckd_cid_count + item.dm_acs_cid_count + item.dm_cva_cid_count);
+            (item.hg_cid_count +
+              item.dm_ckd_cid_count +
+              item.dm_acs_cid_count +
+              item.dm_cva_cid_count);
           return difference < 0 ? 0 : difference;
         }),
       },
@@ -70,7 +75,8 @@ async function dmPatientServiceV2(body) {
     const isDistrictEmpty = body.district === "";
     const isHospitalCodeEmpty = body.hcode === "";
 
-    const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+    const shouldCallTempCollection =
+      isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
     if (shouldCallTempCollection) return getDataFromTempTable();
 
@@ -89,20 +95,34 @@ async function dmPatientServiceV2(body) {
       months.unshift({ year, month }); // Add to the beginning to keep chronological order
     }
 
-    const [hgPatient, dmCkdPatient, dmAcsPatient, dmCvaPatient, dmPatient] = await Promise.all([
-      hgPatientCount({ ...body, months }),
-      dmCkdPatientCount({ ...body, months }),
-      dmAcsPatientCount({ ...body, months }),
-      dmCvaPatientCount({ ...body, months }),
-      dmPatientCount({ ...body, months }),
-    ]);
+    const [hgPatient, dmCkdPatient, dmAcsPatient, dmCvaPatient, dmPatient] =
+      await Promise.all([
+        hgPatientCount({ ...body, months }),
+        dmCkdPatientCount({ ...body, months }),
+        dmAcsPatientCount({ ...body, months }),
+        dmCvaPatientCount({ ...body, months }),
+        dmPatientCount({ ...body, months }),
+      ]);
 
     const filledResult = months.map(({ year, month }) => {
-      const hgData = hgPatient.find((item) => item.year === year && item.month === month) || {};
-      const dmCkdData = dmCkdPatient.find((item) => item.year === year && item.month === month) || {};
-      const dmAcsData = dmAcsPatient.find((item) => item.year === year && item.month === month) || {};
-      const dmCvaData = dmCvaPatient.find((item) => item.year === year && item.month === month) || {};
-      const dmData = dmPatient.find((item) => item.year === year && item.month === month) || {};
+      const hgData =
+        hgPatient.find((item) => item.year === year && item.month === month) ||
+        {};
+      const dmCkdData =
+        dmCkdPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const dmAcsData =
+        dmAcsPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const dmCvaData =
+        dmCvaPatient.find(
+          (item) => item.year === year && item.month === month,
+        ) || {};
+      const dmData =
+        dmPatient.find((item) => item.year === year && item.month === month) ||
+        {};
 
       return {
         year,
@@ -137,7 +157,10 @@ async function dmPatientServiceV2(body) {
         data: filledResult.map((item) => {
           const difference =
             item.dm_cid_count -
-            (item.hg_cid_count + item.dm_ckd_cid_count + item.dm_acs_cid_count + item.dm_cva_cid_count);
+            (item.hg_cid_count +
+              item.dm_ckd_cid_count +
+              item.dm_acs_cid_count +
+              item.dm_cva_cid_count);
           return difference < 0 ? 0 : difference;
         }),
       },

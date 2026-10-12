@@ -2,7 +2,13 @@ const { db } = require("../../../lib/mongo");
 const { COLLECTION_NAME } = require("../../../models/ncd-summary");
 const { COLLECTION_NAME_TEMP } = require("../../../models/temp-table");
 
-async function caPatientRepository({ area, province, district, hcode, months }) {
+async function caPatientRepository({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   try {
     const matchStage = {
@@ -234,7 +240,13 @@ async function lungCaPatientCount({ area, province, district, hcode, months }) {
   }
 }
 
-async function breastCaPatientCount({ area, province, district, hcode, months }) {
+async function breastCaPatientCount({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   try {
     const matchStage = {
@@ -317,7 +329,13 @@ async function breastCaPatientCount({ area, province, district, hcode, months })
   }
 }
 
-async function cervicalCaPatientCount({ area, province, district, hcode, months }) {
+async function cervicalCaPatientCount({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   try {
     const matchStage = {
@@ -400,7 +418,13 @@ async function cervicalCaPatientCount({ area, province, district, hcode, months 
   }
 }
 
-async function liverCaPatientCount({ area, province, district, hcode, months }) {
+async function liverCaPatientCount({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   try {
     const matchStage = {
@@ -483,7 +507,13 @@ async function liverCaPatientCount({ area, province, district, hcode, months }) 
   }
 }
 
-async function colorectalCaPatientCount({ area, province, district, hcode, months }) {
+async function colorectalCaPatientCount({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   try {
     const matchStage = {

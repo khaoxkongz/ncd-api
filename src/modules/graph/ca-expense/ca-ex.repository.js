@@ -2,7 +2,13 @@ const { db } = require("../../../lib/mongo");
 const { COLLECTION_NAME } = require("../../../models/ncd-summary");
 const { COLLECTION_NAME_TEMP } = require("../../../models/temp-table");
 
-async function caExpenseRepository({ area, province, district, hcode, months }) {
+async function caExpenseRepository({
+  area,
+  province,
+  district,
+  hcode,
+  months,
+}) {
   const collection = db.collection(COLLECTION_NAME);
 
   const match = {

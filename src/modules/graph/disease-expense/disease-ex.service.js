@@ -1,4 +1,7 @@
-const { diseaseExpenseRepository, getDataFromTempTable } = require("./disease-ex.repository");
+const {
+  diseaseExpenseRepository,
+  getDataFromTempTable,
+} = require("./disease-ex.repository");
 
 async function diseaseExpenseService(body) {
   try {
@@ -7,7 +10,8 @@ async function diseaseExpenseService(body) {
     const isDistrictEmpty = body.district === "";
     const isHospitalCodeEmpty = body.hcode === "";
 
-    const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+    const shouldCallTempCollection =
+      isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
     if (shouldCallTempCollection) return getDataFromTempTable();
 
@@ -29,7 +33,9 @@ async function diseaseExpenseService(body) {
     const result = await diseaseExpenseRepository({ ...body, months });
 
     const filledResult = months.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         dm_expense: data ? data.dm_expense : 0,
         ht_expense: data ? data.ht_expense : 0,

@@ -1,9 +1,18 @@
 const { db } = require("../../../lib/mongo");
 const { COLLECTION_NAME } = require("../../../models/ncd-summary");
 const { COLLECTION_NAME_TEMP } = require("../../../models/temp-table");
-const { COLLECTION_NAME_TEMP_CHART_PT } = require("../../../models/temp-table-chart-pt");
+const {
+  COLLECTION_NAME_TEMP_CHART_PT,
+} = require("../../../models/temp-table-chart-pt");
 
-async function chartPatientRepository({ startDate, endDate, area, province, district, hcode }) {
+async function chartPatientRepository({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -62,7 +71,14 @@ async function chartPatientRepository({ startDate, endDate, area, province, dist
   }
 }
 
-async function chartPatientRepositoryV2({ startDate, endDate, area, province, district, hcode }) {
+async function chartPatientRepositoryV2({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);

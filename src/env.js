@@ -22,7 +22,10 @@ const env = createEnv({
     CID_HASH_SECRET_KEY: z.string(),
   },
   onValidationError: (error) => {
-    console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
+    console.error(
+      "❌ Invalid environment variables:",
+      error.flatten().fieldErrors,
+    );
     process.exit(1);
   },
   emptyStringAsUndefined: true,

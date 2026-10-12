@@ -1,4 +1,9 @@
-const { cardRepository, cardRepositoryV2, countPatient, getDataFromTempTable } = require("./card.repository");
+const {
+  cardRepository,
+  cardRepositoryV2,
+  countPatient,
+  getDataFromTempTable,
+} = require("./card.repository");
 
 async function cardService(body) {
   try {
@@ -26,11 +31,24 @@ async function cardService(body) {
       const hd_cvd_expense = Number(item.hd_cvd_expense?.toFixed(2) || 0);
 
       const expense = Number(
-        (dm_expense + ht_expense + copd_expense + ca_expense + psy_expense + hd_cvd_expense).toFixed(2)
+        (
+          dm_expense +
+          ht_expense +
+          copd_expense +
+          ca_expense +
+          psy_expense +
+          hd_cvd_expense
+        ).toFixed(2),
       );
 
-      const avg_service = item.patient_count > 0 ? Number((item.service_count / item.patient_count).toFixed(2)) : 0;
-      const avg_expense = item.patient_count > 0 ? Number((expense / item.patient_count).toFixed(2)) : 0;
+      const avg_service =
+        item.patient_count > 0
+          ? Number((item.service_count / item.patient_count).toFixed(2))
+          : 0;
+      const avg_expense =
+        item.patient_count > 0
+          ? Number((expense / item.patient_count).toFixed(2))
+          : 0;
 
       return {
         service_count: item.service_count || 0,
@@ -64,7 +82,10 @@ async function cardServiceV2(body) {
       return result;
     }
 
-    const [result, patientCount] = await Promise.all([cardRepositoryV2(body), countPatient(body)]);
+    const [result, patientCount] = await Promise.all([
+      cardRepositoryV2(body),
+      countPatient(body),
+    ]);
 
     if (result.length === 0 && patientCount.length === 0) {
       return [
@@ -87,12 +108,23 @@ async function cardServiceV2(body) {
       const psy_expense = Number(item.psy_expense?.toFixed(2) || 0);
       const hd_cvd_expense = Number(item.hd_cvd_expense?.toFixed(2) || 0);
       const expense = Number(
-        (dm_expense + ht_expense + copd_expense + ca_expense + psy_expense + hd_cvd_expense).toFixed(2)
+        (
+          dm_expense +
+          ht_expense +
+          copd_expense +
+          ca_expense +
+          psy_expense +
+          hd_cvd_expense
+        ).toFixed(2),
       );
 
       const patient_count = patientCount[0].patient;
-      const avg_service = patient_count > 0 ? Number((item.service_count / patient_count).toFixed(2)) : 0;
-      const avg_expense = patient_count > 0 ? Number((expense / patient_count).toFixed(2)) : 0;
+      const avg_service =
+        patient_count > 0
+          ? Number((item.service_count / patient_count).toFixed(2))
+          : 0;
+      const avg_expense =
+        patient_count > 0 ? Number((expense / patient_count).toFixed(2)) : 0;
 
       return {
         service_count: item.service_count || 0,

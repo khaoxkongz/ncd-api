@@ -2,7 +2,14 @@ const { db } = require("../../../lib/mongo");
 const { COLLECTION_NAME } = require("../../../models/ncd-summary");
 const { COLLECTION_NAME_TEMP } = require("../../../models/temp-table");
 
-async function chartExpenseRepository({ startDate, endDate, area, province, district, hcode }) {
+async function chartExpenseRepository({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -62,7 +69,14 @@ async function chartExpenseRepository({ startDate, endDate, area, province, dist
   }
 }
 
-async function chartExpenseRepositoryV2({ startDate, endDate, area, province, district, hcode }) {
+async function chartExpenseRepositoryV2({
+  startDate,
+  endDate,
+  area,
+  province,
+  district,
+  hcode,
+}) {
   const collection = db.collection(COLLECTION_NAME);
   const dateStart = new Date(`${startDate}`);
   const dateEnd = new Date(`${endDate}`);
@@ -127,4 +141,8 @@ async function getDataFromTempTable() {
     console.error("Error executing aggregation:", error);
   }
 }
-module.exports = { chartExpenseRepository, chartExpenseRepositoryV2, getDataFromTempTable };
+module.exports = {
+  chartExpenseRepository,
+  chartExpenseRepositoryV2,
+  getDataFromTempTable,
+};

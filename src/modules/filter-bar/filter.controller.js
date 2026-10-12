@@ -10,7 +10,13 @@ const controllerFilterDropdown = {
     try {
       const { type, area, province, district, hospital_code } = req.body;
       // console.log("controll", type)
-      const result = await filterDropDownService(type, area, province, district, hospital_code);
+      const result = await filterDropDownService(
+        type,
+        area,
+        province,
+        district,
+        hospital_code,
+      );
       if (!result[0]) {
         throw {
           message: result[1],

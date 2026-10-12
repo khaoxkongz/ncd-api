@@ -77,7 +77,13 @@ function pipeline(startDate, endDate) {
     {
       $facet: {
         dm: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $regex: "^E1[0-4][0-9]?$" } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $regex: "^E1[0-4][0-9]?$" } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -106,7 +112,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         ht: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $regex: "^I1[0-5][0-9]?$" } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $regex: "^I1[0-5][0-9]?$" } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -135,7 +147,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         copd: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $regex: "^J4[0-7][0-9]?$" } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $regex: "^J4[0-7][0-9]?$" } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -164,7 +182,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         ca: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $regex: "^C(?:[0-9][0-6]|96)[0-9]?$" } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $regex: "^C(?:[0-9][0-6]|96)[0-9]?$" } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -196,7 +220,11 @@ function pipeline(startDate, endDate) {
           {
             $match: {
               $or: [
-                { diag_nosis: { $elemMatch: { diag: { $regex: "^F([0-9]{1,2}|10[0-9])$" } } } },
+                {
+                  diag_nosis: {
+                    $elemMatch: { diag: { $regex: "^F([0-9]{1,2}|10[0-9])$" } },
+                  },
+                },
                 { diag_nosis: { $elemMatch: { diag: "G47" } } },
               ],
             },
@@ -422,7 +450,15 @@ function pipeline(startDate, endDate) {
           },
         ],
         hg: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $in: ["E101", "E111", "E121", "E131", "E141"] } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: {
+                  diag: { $in: ["E101", "E111", "E121", "E131", "E141"] },
+                },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -605,7 +641,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         lung_ca: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $in: ["C34", "C340", "C341", "C349"] } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $in: ["C34", "C340", "C341", "C349"] } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -632,7 +674,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         breast_ca: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $in: ["C50", "C500", "C501", "C509"] } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $in: ["C50", "C500", "C501", "C509"] } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -659,7 +707,13 @@ function pipeline(startDate, endDate) {
           },
         ],
         cervical_ca: [
-          { $match: { diag_nosis: { $elemMatch: { diag: { $in: ["C53", "C530", "C539"] } } } } },
+          {
+            $match: {
+              diag_nosis: {
+                $elemMatch: { diag: { $in: ["C53", "C530", "C539"] } },
+              },
+            },
+          },
           {
             $group: {
               _id: { hcode: "$hcode", date: startDate },
@@ -809,7 +863,9 @@ function pipeline(startDate, endDate) {
         cervical_ca_expense: { $ifNull: ["$data.cervical_ca_expense", 0] },
         liver_ca_cid_count: { $ifNull: ["$data.liver_ca_cid_count", []] },
         liver_ca_expense: { $ifNull: ["$data.liver_ca_expense", 0] },
-        colorectal_ca_cid_count: { $ifNull: ["$data.colorectal_ca_cid_count", []] },
+        colorectal_ca_cid_count: {
+          $ifNull: ["$data.colorectal_ca_cid_count", []],
+        },
         colorectal_ca_expense: { $ifNull: ["$data.colorectal_ca_expense", 0] },
       },
     },

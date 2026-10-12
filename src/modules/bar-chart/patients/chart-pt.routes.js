@@ -2,7 +2,10 @@ const { Router } = require("express");
 
 const router = Router();
 
-const { chartPatientController, tempChartPatientController } = require("./chart-pt.controller");
+const {
+  chartPatientController,
+  tempChartPatientController,
+} = require("./chart-pt.controller");
 
 /**
  * @openapi

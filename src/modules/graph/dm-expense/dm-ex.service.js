@@ -1,4 +1,7 @@
-const { dmExpenseRepository, getDataFromTempTable } = require("./dm-ex.repository");
+const {
+  dmExpenseRepository,
+  getDataFromTempTable,
+} = require("./dm-ex.repository");
 
 async function dmExpenseService(body) {
   try {
@@ -7,7 +10,8 @@ async function dmExpenseService(body) {
     const isDistrictEmpty = body.district === "";
     const isHospitalCodeEmpty = body.hcode === "";
 
-    const shouldCallTempCollection = isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
+    const shouldCallTempCollection =
+      isAreaEmpty && isProvinceEmpty && isDistrictEmpty && isHospitalCodeEmpty;
 
     if (shouldCallTempCollection) return getDataFromTempTable();
 
@@ -29,7 +33,9 @@ async function dmExpenseService(body) {
     const result = await dmExpenseRepository({ ...body, months });
 
     const filledResult = months.map(({ year, month }) => {
-      const data = result.find((item) => item.year === year && item.month === month);
+      const data = result.find(
+        (item) => item.year === year && item.month === month,
+      );
       return {
         hg_expense: data ? data.hg_expense : 0,
         dm_ckd_expense: data ? data.dm_ckd_expense : 0,
@@ -60,8 +66,14 @@ async function dmExpenseService(body) {
         diseaseName: "เบาหวานชนิดอื่น ๆ",
         data: filledResult.map((item) => {
           const difference =
-            item.dm_expense - (item.hg_expense + item.dm_ckd_expense + item.dm_acs_expense + item.dm_cva_expense);
-          return difference < 0 ? 0 : Number.parseFloat(difference.toFixed(2), 10);
+            item.dm_expense -
+            (item.hg_expense +
+              item.dm_ckd_expense +
+              item.dm_acs_expense +
+              item.dm_cva_expense);
+          return difference < 0
+            ? 0
+            : Number.parseFloat(difference.toFixed(2), 10);
         }),
       },
     ];

@@ -33,7 +33,10 @@ const repository = {
   },
   getDistrict: async (filter) => {
     try {
-      const resDatafindDistrict = await collectionHospitalMoph.distinct("hcode", filter);
+      const resDatafindDistrict = await collectionHospitalMoph.distinct(
+        "hcode",
+        filter,
+      );
       return resDatafindDistrict;
     } catch (error) {
       console.error(error);
@@ -42,7 +45,10 @@ const repository = {
   },
   getDistrictInProvince: async (filter) => {
     try {
-      const resDatafindProvince = await collectionHospitalMoph.distinct("district", filter);
+      const resDatafindProvince = await collectionHospitalMoph.distinct(
+        "district",
+        filter,
+      );
       return resDatafindProvince;
     } catch (error) {
       console.error(error);
@@ -51,7 +57,10 @@ const repository = {
   },
   getProvinceInArea: async (filter) => {
     try {
-      const resDatafindProvinceInArea = await collectionHospitalMoph.distinct("province", filter);
+      const resDatafindProvinceInArea = await collectionHospitalMoph.distinct(
+        "province",
+        filter,
+      );
       return resDatafindProvinceInArea;
     } catch (error) {
       console.error(error);
@@ -60,7 +69,8 @@ const repository = {
   },
   getFiscalYearSummaryTable: async () => {
     try {
-      const resDatafindFiscalYear = await collectionNcdSummary.distinct("fiscal_year");
+      const resDatafindFiscalYear =
+        await collectionNcdSummary.distinct("fiscal_year");
       return resDatafindFiscalYear;
     } catch (error) {
       console.error(error);
@@ -79,7 +89,7 @@ const repository = {
             updated_at: 1,
             _id: 0,
           },
-        }
+        },
       );
 
       return resDataDate;
