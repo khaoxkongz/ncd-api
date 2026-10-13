@@ -1,0 +1,1033 @@
+{
+  "profileId": "patients-synthetic-v1-1000-shared-seed-20261013",
+  "summaryBsonBytes": 7989080,
+  "maxSummaryBsonBytes": 16134,
+  "profile": {
+    "version": "patients-synthetic-v1",
+    "id": "patients-synthetic-v1-1000-shared-seed-20261013",
+    "documentCount": 1000,
+    "pool": "shared",
+    "seed": 20261013,
+    "randomAlgorithm": "mulberry32",
+    "generatorRevision": null,
+    "generatorCodeSha256": "3cc4a4af1aa622cc30b625cd69038450356e3697407b55cce3a402752e27dc60"
+  },
+  "collections": ["NCD_SUMMARY", "NCD_Summary_Temp_Table"],
+  "counts": {
+    "fixedDocuments": 100,
+    "seededDocuments": 900,
+    "distinctObservedCids": 2000,
+    "memberships": 95147
+  },
+  "reuseCohort": {
+    "size": 500,
+    "minimumDistinctPerDimension": 2,
+    "verifiedMembersByDimension": {
+      "days": 500,
+      "months": 500,
+      "hospitals": 500,
+      "diseases": 500
+    }
+  },
+  "seededMainArrayHistograms": {
+    "dm_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "ht_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "copd_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "ca_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "psy_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "hd_cvd_cid_count": {
+      "0": 72,
+      "1": 72,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    }
+  },
+  "requestedSubtypeLengthHistograms": {
+    "hg_cid_count": {
+      "0": 223,
+      "1": 252,
+      "5": 192,
+      "10": 233
+    },
+    "dm_ckd_cid_count": {
+      "0": 224,
+      "1": 229,
+      "5": 217,
+      "10": 230
+    },
+    "dm_acs_cid_count": {
+      "0": 207,
+      "1": 208,
+      "5": 232,
+      "10": 253
+    },
+    "dm_cva_cid_count": {
+      "0": 231,
+      "1": 213,
+      "5": 213,
+      "10": 243
+    },
+    "lung_ca_cid_count": {
+      "0": 198,
+      "1": 228,
+      "5": 220,
+      "10": 254
+    },
+    "breast_ca_cid_count": {
+      "0": 245,
+      "1": 225,
+      "5": 220,
+      "10": 210
+    },
+    "cervical_ca_cid_count": {
+      "0": 197,
+      "1": 217,
+      "5": 246,
+      "10": 240
+    },
+    "liver_ca_cid_count": {
+      "0": 226,
+      "1": 222,
+      "5": 223,
+      "10": 229
+    },
+    "colorectal_ca_cid_count": {
+      "0": 233,
+      "1": 194,
+      "5": 259,
+      "10": 214
+    }
+  },
+  "allArrayHistograms": {
+    "dm_cid_count": {
+      "0": 86,
+      "1": 154,
+      "2": 2,
+      "4": 1,
+      "5": 73,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "ht_cid_count": {
+      "0": 93,
+      "1": 150,
+      "2": 1,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "copd_cid_count": {
+      "0": 165,
+      "1": 79,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "ca_cid_count": {
+      "0": 166,
+      "1": 74,
+      "2": 2,
+      "5": 73,
+      "6": 1,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "psy_cid_count": {
+      "0": 168,
+      "1": 76,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "hd_cvd_cid_count": {
+      "0": 171,
+      "1": 73,
+      "5": 72,
+      "10": 540,
+      "25": 72,
+      "50": 72
+    },
+    "hg_cid_count": {
+      "0": 377,
+      "1": 264,
+      "5": 182,
+      "10": 177
+    },
+    "dm_ckd_cid_count": {
+      "0": 379,
+      "1": 248,
+      "5": 193,
+      "10": 180
+    },
+    "dm_acs_cid_count": {
+      "0": 356,
+      "1": 231,
+      "5": 221,
+      "10": 192
+    },
+    "dm_cva_cid_count": {
+      "0": 377,
+      "1": 243,
+      "5": 199,
+      "10": 181
+    },
+    "lung_ca_cid_count": {
+      "0": 351,
+      "1": 236,
+      "5": 206,
+      "10": 207
+    },
+    "breast_ca_cid_count": {
+      "0": 393,
+      "1": 247,
+      "5": 192,
+      "10": 168
+    },
+    "cervical_ca_cid_count": {
+      "0": 349,
+      "1": 251,
+      "5": 223,
+      "10": 177
+    },
+    "liver_ca_cid_count": {
+      "0": 379,
+      "1": 248,
+      "5": 214,
+      "10": 159
+    },
+    "colorectal_ca_cid_count": {
+      "0": 380,
+      "1": 223,
+      "5": 234,
+      "10": 163
+    }
+  },
+  "arrayMemberships": {
+    "dm_cid_count": 11327,
+    "ht_cid_count": 11312,
+    "copd_cid_count": 11239,
+    "ca_cid_count": 11249,
+    "psy_cid_count": 11236,
+    "hd_cvd_cid_count": 11233,
+    "hg_cid_count": 2944,
+    "dm_ckd_cid_count": 3013,
+    "dm_acs_cid_count": 3256,
+    "dm_cva_cid_count": 3048,
+    "lung_ca_cid_count": 3336,
+    "breast_ca_cid_count": 2887,
+    "cervical_ca_cid_count": 3136,
+    "liver_ca_cid_count": 2908,
+    "colorectal_ca_cid_count": 3023
+  },
+  "dates": {
+    "start": "2024-01-01",
+    "end": "2026-10-13",
+    "excludedMonths": ["2026-02", "2026-05"],
+    "countsByMonth": {
+      "2024-01": 28,
+      "2024-02": 32,
+      "2024-03": 38,
+      "2024-04": 36,
+      "2024-05": 36,
+      "2024-06": 34,
+      "2024-07": 30,
+      "2024-08": 28,
+      "2024-09": 33,
+      "2024-10": 33,
+      "2024-11": 22,
+      "2024-12": 36,
+      "2025-01": 33,
+      "2025-02": 31,
+      "2025-03": 31,
+      "2025-04": 26,
+      "2025-05": 26,
+      "2025-06": 28,
+      "2025-07": 21,
+      "2025-08": 37,
+      "2025-09": 40,
+      "2025-10": 35,
+      "2025-11": 26,
+      "2025-12": 32,
+      "2026-01": 27,
+      "2026-03": 35,
+      "2026-04": 26,
+      "2026-06": 26,
+      "2026-07": 44,
+      "2026-08": 36,
+      "2026-09": 32,
+      "2026-10": 22
+    },
+    "uniqueHospitalDays": 1000,
+    "uniqueDateHospitalPairs": 1000,
+    "metadataTimezone": "UTC"
+  },
+  "geography": {
+    "areaCount": 3,
+    "provinceCount": 6,
+    "districtCount": 12,
+    "hospitalCount": 24,
+    "busyGroup": {
+      "hcodes": ["SYN-H01"],
+      "area": "SYN-A01",
+      "seededDocuments": 450,
+      "fraction": 0.5
+    },
+    "hospitals": [
+      {
+        "hcode": "SYN-H01",
+        "hname": "Synthetic Hospital 01",
+        "area": "SYN-A01",
+        "province": "SYN-P01",
+        "district": "SYN-D01",
+        "seededDocuments": 450,
+        "fixedDocuments": 5,
+        "totalDocuments": 455
+      },
+      {
+        "hcode": "SYN-H02",
+        "hname": "Synthetic Hospital 02",
+        "area": "SYN-A01",
+        "province": "SYN-P01",
+        "district": "SYN-D01",
+        "seededDocuments": 19,
+        "fixedDocuments": 5,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H03",
+        "hname": "Synthetic Hospital 03",
+        "area": "SYN-A01",
+        "province": "SYN-P01",
+        "district": "SYN-D02",
+        "seededDocuments": 19,
+        "fixedDocuments": 5,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H04",
+        "hname": "Synthetic Hospital 04",
+        "area": "SYN-A01",
+        "province": "SYN-P01",
+        "district": "SYN-D02",
+        "seededDocuments": 20,
+        "fixedDocuments": 5,
+        "totalDocuments": 25
+      },
+      {
+        "hcode": "SYN-H05",
+        "hname": "Synthetic Hospital 05",
+        "area": "SYN-A01",
+        "province": "SYN-P02",
+        "district": "SYN-D03",
+        "seededDocuments": 20,
+        "fixedDocuments": 5,
+        "totalDocuments": 25
+      },
+      {
+        "hcode": "SYN-H06",
+        "hname": "Synthetic Hospital 06",
+        "area": "SYN-A01",
+        "province": "SYN-P02",
+        "district": "SYN-D03",
+        "seededDocuments": 19,
+        "fixedDocuments": 5,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H07",
+        "hname": "Synthetic Hospital 07",
+        "area": "SYN-A01",
+        "province": "SYN-P02",
+        "district": "SYN-D04",
+        "seededDocuments": 20,
+        "fixedDocuments": 5,
+        "totalDocuments": 25
+      },
+      {
+        "hcode": "SYN-H08",
+        "hname": "Synthetic Hospital 08",
+        "area": "SYN-A01",
+        "province": "SYN-P02",
+        "district": "SYN-D04",
+        "seededDocuments": 19,
+        "fixedDocuments": 5,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H09",
+        "hname": "Synthetic Hospital 09",
+        "area": "SYN-A02",
+        "province": "SYN-P03",
+        "district": "SYN-D05",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H10",
+        "hname": "Synthetic Hospital 10",
+        "area": "SYN-A02",
+        "province": "SYN-P03",
+        "district": "SYN-D05",
+        "seededDocuments": 19,
+        "fixedDocuments": 4,
+        "totalDocuments": 23
+      },
+      {
+        "hcode": "SYN-H11",
+        "hname": "Synthetic Hospital 11",
+        "area": "SYN-A02",
+        "province": "SYN-P03",
+        "district": "SYN-D06",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H12",
+        "hname": "Synthetic Hospital 12",
+        "area": "SYN-A02",
+        "province": "SYN-P03",
+        "district": "SYN-D06",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H13",
+        "hname": "Synthetic Hospital 13",
+        "area": "SYN-A02",
+        "province": "SYN-P04",
+        "district": "SYN-D07",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H14",
+        "hname": "Synthetic Hospital 14",
+        "area": "SYN-A02",
+        "province": "SYN-P04",
+        "district": "SYN-D07",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H15",
+        "hname": "Synthetic Hospital 15",
+        "area": "SYN-A02",
+        "province": "SYN-P04",
+        "district": "SYN-D08",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H16",
+        "hname": "Synthetic Hospital 16",
+        "area": "SYN-A02",
+        "province": "SYN-P04",
+        "district": "SYN-D08",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H17",
+        "hname": "Synthetic Hospital 17",
+        "area": "SYN-A03",
+        "province": "SYN-P05",
+        "district": "SYN-D09",
+        "seededDocuments": 19,
+        "fixedDocuments": 3,
+        "totalDocuments": 22
+      },
+      {
+        "hcode": "SYN-H18",
+        "hname": "Synthetic Hospital 18",
+        "area": "SYN-A03",
+        "province": "SYN-P05",
+        "district": "SYN-D09",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      },
+      {
+        "hcode": "SYN-H19",
+        "hname": "Synthetic Hospital 19",
+        "area": "SYN-A03",
+        "province": "SYN-P05",
+        "district": "SYN-D10",
+        "seededDocuments": 19,
+        "fixedDocuments": 4,
+        "totalDocuments": 23
+      },
+      {
+        "hcode": "SYN-H20",
+        "hname": "Synthetic Hospital 20",
+        "area": "SYN-A03",
+        "province": "SYN-P05",
+        "district": "SYN-D10",
+        "seededDocuments": 19,
+        "fixedDocuments": 2,
+        "totalDocuments": 21
+      },
+      {
+        "hcode": "SYN-H21",
+        "hname": "Synthetic Hospital 21",
+        "area": "SYN-A03",
+        "province": "SYN-P06",
+        "district": "SYN-D11",
+        "seededDocuments": 19,
+        "fixedDocuments": 4,
+        "totalDocuments": 23
+      },
+      {
+        "hcode": "SYN-H22",
+        "hname": "Synthetic Hospital 22",
+        "area": "SYN-A03",
+        "province": "SYN-P06",
+        "district": "SYN-D11",
+        "seededDocuments": 19,
+        "fixedDocuments": 4,
+        "totalDocuments": 23
+      },
+      {
+        "hcode": "SYN-H23",
+        "hname": "Synthetic Hospital 23",
+        "area": "SYN-A03",
+        "province": "SYN-P06",
+        "district": "SYN-D12",
+        "seededDocuments": 20,
+        "fixedDocuments": 3,
+        "totalDocuments": 23
+      },
+      {
+        "hcode": "SYN-H24",
+        "hname": "Synthetic Hospital 24",
+        "area": "SYN-A03",
+        "province": "SYN-P06",
+        "district": "SYN-D12",
+        "seededDocuments": 20,
+        "fixedDocuments": 4,
+        "totalDocuments": 24
+      }
+    ]
+  },
+  "reservedScopes": [
+    {
+      "hcode": "SYN-H21",
+      "months": ["2024-02", "2024-03", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H22",
+      "months": ["2024-02", "2024-03", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H23",
+      "months": ["2024-02", "2024-03", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H24",
+      "months": ["2024-02", "2024-03", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H18",
+      "months": ["2024-01", "2025-12", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H19",
+      "months": ["2024-01", "2025-12", "2026-09", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H20",
+      "months": ["2024-02", "2026-10"]
+    },
+    {
+      "hcode": "SYN-H17",
+      "months": ["2024-11", "2025-11", "2026-10"]
+    }
+  ],
+  "bson": {
+    "summaryDocumentBytes": 7989080,
+    "maximumSummaryDocumentBytes": 16134,
+    "summaryDocumentLimitBytes": 131072,
+    "databaseLimitBytes": 104857600,
+    "indexesAndSnapshotsIncluded": false
+  },
+  "dataDigest": {
+    "algorithm": "sha256",
+    "encoding": "ordered BSON document bytes",
+    "value": "6c5ec41be2177efd56642594f92b3c592585b37a82eee55858bfc3f778bb21bb"
+  },
+  "calculation": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timezone": "Asia/Bangkok"
+  },
+  "fixedCases": [
+    {
+      "id": "arithmetic-overlap",
+      "description": "Repeated CIDs, visits and hospitals with disease expense rounding boundaries",
+      "body": {
+        "startDate": "2026-10-01",
+        "endDate": "2026-10-03",
+        "area": "",
+        "province": "SYN-P06",
+        "district": "",
+        "hcode": ""
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["4f2c3f4d5abddb0e8fb07629", "f1fea14e1204942ac12ea439", "abd87852de09df8875a7250c"],
+      "handCheck": {
+        "patientUnion": 4,
+        "hospitalCount": 2,
+        "serviceCount": 26
+      }
+    },
+    {
+      "id": "disease-sum-versus-union",
+      "description": "One CID in all six diseases: Card union 1 and Disease monthly Total 6",
+      "body": {
+        "startDate": "2026-09-15",
+        "endDate": "2026-09-15",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H24"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["36ae01d20e774b534c7dd332"],
+      "handCheck": {
+        "patientUnion": 1,
+        "diseaseCountSum": 6
+      }
+    },
+    {
+      "id": "dm-ca-other-positive",
+      "description": "DM and CA have positive Other after subtype subtraction",
+      "body": {
+        "startDate": "2026-09-15",
+        "endDate": "2026-09-15",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H21"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["eb5b72a8dc792e3b0c63b44a"],
+      "handCheck": {
+        "dmOther": 1,
+        "caOther": 1
+      }
+    },
+    {
+      "id": "dm-ca-other-zero",
+      "description": "DM and CA subtype counts equal their main counts",
+      "body": {
+        "startDate": "2026-09-15",
+        "endDate": "2026-09-15",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H22"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["125d2c6234985b58ebdae915"],
+      "handCheck": {
+        "dmOther": 0,
+        "caOther": 0
+      }
+    },
+    {
+      "id": "dm-ca-other-negative",
+      "description": "Overlapping subtypes produce negative subtraction, clamped to zero",
+      "body": {
+        "startDate": "2026-09-15",
+        "endDate": "2026-09-15",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H23"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["1306acbde2986ea0145d5c1a"],
+      "handCheck": {
+        "dmBeforeClamp": -2,
+        "caBeforeClamp": -3
+      }
+    },
+    {
+      "id": "empty-patients-positive-scalars",
+      "description": "Positive service and expense scalars with all patient arrays empty",
+      "body": {
+        "startDate": "2026-10-05",
+        "endDate": "2026-10-05",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H22"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["81fd36217bf017a465b8a2fe"],
+      "handCheck": {
+        "patientUnion": 0
+      },
+      "expectedError": ["card"]
+    },
+    {
+      "id": "inclusive-partial-day-bounds",
+      "description": "Records immediately before, at and after both inclusive timestamp bounds",
+      "body": {
+        "startDate": "2024-02-29T06:00:00.000Z",
+        "endDate": "2024-03-01T18:00:00.000Z",
+        "area": "",
+        "province": "SYN-P06",
+        "district": "",
+        "hcode": ""
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": [
+        "fb1fb4ab7b9d98edf84e4d80",
+        "d6ce421deb7af6755e24e049",
+        "bd8161fe0d133b0dc2aba835",
+        "d91d64242c496c9471cb445a",
+        "73778ba1d9bd64bc35cba68f",
+        "a1e3ed6deffcf93e8003aced"
+      ],
+      "handCheck": {
+        "matchingDocuments": 4
+      }
+    },
+    {
+      "id": "leap-day",
+      "description": "Leap day isolated from seeded records",
+      "body": {
+        "startDate": "2024-02-29",
+        "endDate": "2024-02-29",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H20"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["ab3e01215760c1988799c37f"],
+      "handCheck": {
+        "matchingDocuments": 1
+      }
+    },
+    {
+      "id": "range-bounds",
+      "description": "Oldest and current-day date bounds with millisecond records around the end",
+      "body": {
+        "startDate": "2024-01-01",
+        "endDate": "2026-10-13",
+        "area": "",
+        "province": "SYN-P05",
+        "district": "",
+        "hcode": ""
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": [
+        "72c513275e98a1f42dc74bc2",
+        "0c79456d7e0ef34632bac142",
+        "1eab6ac19fc1f6e808562503",
+        "8d16289e54ea5a6292f92c7e"
+      ],
+      "handCheck": {}
+    },
+    {
+      "id": "clock-boundaries",
+      "description": "UTC metadata around local month, local year and UTC midnight boundaries",
+      "body": {
+        "startDate": "2024-01-01",
+        "endDate": "2026-10-13",
+        "area": "",
+        "province": "SYN-P05",
+        "district": "",
+        "hcode": ""
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": [
+        "0484d60d9339a2cb88dfba88",
+        "410a29bde229fba81b628c8a",
+        "859f4c6cb635c19deda5c12a",
+        "2fd03222db7cd6dddb57c954",
+        "ae49be45de00fcac2b5777e8",
+        "8bb3c0e2d06d6dc97ecddb9d"
+      ],
+      "handCheck": {}
+    },
+    {
+      "id": "graph-position-anchors",
+      "description": "Prior-year, oldest included and current graph month anchors",
+      "body": {
+        "startDate": "2024-01-01",
+        "endDate": "2026-10-13",
+        "area": "",
+        "province": "",
+        "district": "",
+        "hcode": "SYN-H17"
+      },
+      "clock": "2026-10-13T05:00:00.000Z",
+      "timezone": "Asia/Bangkok",
+      "documentIds": ["cd005cb4bdaba745f48ef58a", "04d4abe6e909e3f4ed5271d6", "d7995acf6413d2046ae3d83a"],
+      "handCheck": {}
+    }
+  ],
+  "database": "ncds_perf_synthetic",
+  "storageGate": {
+    "projectedDataBytes": 9037656,
+    "indexAllowanceBytes": 3352576,
+    "projectedDatabaseBytes": 12390232,
+    "minimumSharedReserveBytes": 134217728
+  },
+  "source": {
+    "revision": "2deb5b2e05c77f685075d59c5d8fa61a3ebc42fe",
+    "branch": "codex/patients-atlas-baseline",
+    "sourceHashes": {
+      "src/app.js": "533c8b2f1be46f0384a1241a11856a55323d1a438604222e4b45c35a5e17d0a6",
+      "src/env.js": "b236cd2bf60c67f117edb364c301e9c5cd881d3f40421c644a2992ff56bc1af0",
+      "src/index.js": "781e92860b234d5617056566844f8e30776d9f44148b8ff446be1307383a2864",
+      "src/lib/configure-open-api.js": "8ad97bbe7d37a8d82b47daf74aee14205c9ef1dd07d2ba8ce7e46cc7d66c135e",
+      "src/lib/discord.js": "291f6d1ef563876e5041cf823bfd3b836d21d6375486e01ffe27f55085c93e83",
+      "src/lib/generate-docs.js": "7abbb61807490fcf9f574d6e81d1bace17204b3344de61c31b4f5d3462257be7",
+      "src/lib/mongo.js": "1222f519500c4c140e1706176895f37c44fd24eea8c7c021828159ca0aecf47a",
+      "src/lib/utils.js": "6e567f0b0bd72fc2c5bdb0f51c22bf4115853627ed3fde07ce18f5b9da936e32",
+      "src/middlewares.js": "8069d86b6fbcf4a2ad43a7c844bdfc163e316e727fe1930d2d80145bdd130596",
+      "src/models/ncd-summary.js": "bccffff160433934169626e341c22f531cfc28240924c78ce90ea5ba55ca230e",
+      "src/models/temp-table-chart-pt.js": "b95adab7ca4e81684d13128a35450fc068c12d4fc7b850194255a08551768348",
+      "src/models/temp-table.js": "8d2e80fed1246a894e37f2a2f4d95c2ca45dce2bda6a5813cdabc756bc848bbb",
+      "src/modules/bar-chart/expense/chart-ex.controller.js": "8b4ccd0c9c276f60b389d608dca1f4a351828963a826ea6296ea36430fc13e5d",
+      "src/modules/bar-chart/expense/chart-ex.repository.js": "cf17f6a717dfd8c2ce431fd95f61018472dbfb77f7aef236327318bc8e988e48",
+      "src/modules/bar-chart/expense/chart-ex.routes.js": "fd016094e1863a58e625578cfe6ec762e991b7cb178f6717ccf04d3c4db944e9",
+      "src/modules/bar-chart/expense/chart-ex.service.js": "f6a5714bd269bbab4fec568e551c269565a606bd072f98fdb454ff352ce3e962",
+      "src/modules/bar-chart/patients/chart-pt.controller.js": "4185d17d92b47d1cc58cefaed8fe17b50483d291f6d3964833b8231dce409dd9",
+      "src/modules/bar-chart/patients/chart-pt.repository.js": "92a08d78dd230cd518795b797bf964085bfd9493365d9146dca5abee2b4a6375",
+      "src/modules/bar-chart/patients/chart-pt.routes.js": "a8f465b5553fe8a5d466bf7d7062d6ec928a831415efbf4f0478eb89c2ed93be",
+      "src/modules/bar-chart/patients/chart-pt.service.js": "67a75eb5ddcd66f209952e3caec5438e3f4887e54a82a7a4f46a0fbd9c09c8f9",
+      "src/modules/card-summary/card.controller.js": "07442751a2012d3051aed946eedaea27dcffd13993bbc73c3a123af8e35aa8f8",
+      "src/modules/card-summary/card.repository.js": "efd049656657c09cfe7b9322269c2eab78c06bfaa3b2de569a0fd86ec3dbc885",
+      "src/modules/card-summary/card.routes.js": "8e76bc6416187e8eac987de5124fa92593365a4081d0d4629142f32a56bbe0df",
+      "src/modules/card-summary/card.service.js": "91fde4dd02afbef9e5895d1da55ab37b3fc48dbffff18944866edcc413bcb913",
+      "src/modules/filter-bar/filter.controller.js": "258761867a1f95d8b0541acb89235d8b2ee590b0ccb23e36edd7f1668dde9daa",
+      "src/modules/filter-bar/filter.repository.js": "b4e7784ef438b6c1498966fed20c55b594d0d8a77c6c2a299cfd07c0cc5ee8bc",
+      "src/modules/filter-bar/filter.routes.js": "f023bdeb3c34cf631cc54db1270945ffed1898a34e59ea32d9e281f4413d50a8",
+      "src/modules/filter-bar/filter.service.js": "fd1c03cbac91ef3ea0b394d1e5e9ef7c3b6c9f93cfbf1cacc6c00bd78b47c461",
+      "src/modules/graph/ca-expense/ca-ex.controller.js": "e430e91e5b8b2527d756ea3ac78c13573b786a95ebbbdea4e4d51e947b1686f0",
+      "src/modules/graph/ca-expense/ca-ex.repository.js": "30897d5ceca136fc42797c7aed49e5394a8cfaccc134aad0f7e0c14cfaa4408d",
+      "src/modules/graph/ca-expense/ca-ex.routes.js": "a3a1479af7d6bf901c400527cc5f7f00fe25ecb85d667112268e410e33f7a89b",
+      "src/modules/graph/ca-expense/ca-ex.service.js": "66f2e621c4af5070a35456026b97bb0052d4aedf8be5bc09add6c80524ece02e",
+      "src/modules/graph/ca-patients/ca-pt.controller.js": "d53db3bb54453ccf6fe57425a3a2b2c115fbf6e5d111e7d09ce60ee0fb1170b1",
+      "src/modules/graph/ca-patients/ca-pt.repository.js": "b85e2ce4cef6a4c54a1468d500e324d6fdf888169931775aa1037a3f838528e0",
+      "src/modules/graph/ca-patients/ca-pt.routes.js": "5e728a24e9c24521045efa533d0d678ec28124a61642983bb49f68df56f06214",
+      "src/modules/graph/ca-patients/ca-pt.service.js": "34ccc6fc78aaf1a162b54837f4c1628dcfa77246cd11efef93dcf54f97b8c691",
+      "src/modules/graph/disease-expense/disease-ex.controller.js": "14dee4f4c0640a88360f11c8c800f3c06b00645bea5a77c21678284503aaf338",
+      "src/modules/graph/disease-expense/disease-ex.repository.js": "7a060c13757fe073db7c7f9c48b62f0dd03c0bfec3da0ad26dcdb1f0115833e0",
+      "src/modules/graph/disease-expense/disease-ex.routes.js": "a3cf4ec41e11a4bb0ff947d613cd0dbbce6417b3e4012c0e97e079c427d68598",
+      "src/modules/graph/disease-expense/disease-ex.service.js": "7004199eb8d83968ddae5e6177106fe6016e094e9e9a0d74b25ede0d5de12523",
+      "src/modules/graph/disease-patients/disease-pt.controller.js": "7da2d6896db6b89a95d654dcbcc4f7924d5cf36bcbda2a2952fb8f61e26a6e98",
+      "src/modules/graph/disease-patients/disease-pt.repository.js": "e0622d527d5a66340eb1f49f654842dd7ee70c74b5177f58ce54a938c9f961d8",
+      "src/modules/graph/disease-patients/disease-pt.routes.js": "a15f2e6bb956ec05699459b7b19a282d85a43098308268c92186b2c0f35297c1",
+      "src/modules/graph/disease-patients/disease-pt.service.js": "e388ce05a7f83f6efa93ab41077a1bccb0e2be663093c2fec5f3032e2bcc7e95",
+      "src/modules/graph/dm-expense/dm-ex.controller.js": "32b88ea6ae00318db0c8e56df72089b7a5a6316731950ac8c2e5081afa2fd074",
+      "src/modules/graph/dm-expense/dm-ex.repository.js": "8fea8d50dd5ab79e98d6150f1895261149a47afbc6204e11ac95fe03e5713f24",
+      "src/modules/graph/dm-expense/dm-ex.routes.js": "56f7c4efbc27f2972a44592c2eb62858871031639a04707653960b4b4f0da91c",
+      "src/modules/graph/dm-expense/dm-ex.service.js": "c39b47a248ddfa61c33be473a1969c0aaae742a948b1fecc955e1d10931b9ca1",
+      "src/modules/graph/dm-patients/dm-pt.controller.js": "ca2678fc8d4fdcc8f53bc2aa24f436051078a8860d14081c5159f44caf669961",
+      "src/modules/graph/dm-patients/dm-pt.repository.js": "98baccdf9424a5f1f84dc657ec7ae21f7eb2504786f1643278681d0b2a41bf5d",
+      "src/modules/graph/dm-patients/dm-pt.routes.js": "17b7ccddaacc7a4fb52aed2853dac3dd97d0319e93c0e83fd7f9d140c5a43cc3",
+      "src/modules/graph/dm-patients/dm-pt.service.js": "04c0aa933bb4d920fa67dee9147a3d48452bf7bcd4f9b02b7293b165bbe7f054",
+      "src/modules/migration-temp-table/temp-table.controller.js": "403aa551a74164cd4f858db9fd95c9830aabcf8fe7f9823522b1e09b664c75a8",
+      "src/modules/migration-temp-table/temp-table.routes.js": "ee9fc897d1b9fe26c8119e8bc04419fc259b2df5c2504865efe7e278b10c2d08",
+      "src/modules/migration-temp-table/temp-table.service.js": "53d12960bf43719fe8584eb921aa6e6fd2b1946056b74f6e5146e382a8f305c2",
+      "src/modules/migration/hash-cids.js": "d28b0e97ff8ebb4591f0439a7328237cc4ed06dbaff1d3cff4bcc0b96e67bb48",
+      "src/modules/migration/migration.controller.js": "6840b94e76a318b699c823c2c8d55a2be70dfd519871065788e16b26b9f9d780",
+      "src/modules/migration/migration.routes.js": "cbd924079b315e715956cf2eda1915da789e68fed46e0a6649d8eb1d3b9dead7",
+      "src/modules/migration/migration.service.js": "4629989039fb89ad40ce8e6ea9b89350e6bacc9a9de8ff577964f4b2e1201d0f",
+      "src/modules/migration/pipeline.js": "8aa06f0bf06c8098af78632ba17853f3f660351666ce03c9bcff502f317650f1",
+      "src/modules/shared/count-cid.repository.js": "912522a97da10f340d423a557003c33b9f60173299ed85f0c687a8bc7e50b094",
+      "src/routes/index.js": "f038cfeb5f9ed312379abc5c7c013831f17b6c8ab422f8fb6d5491c48200de4d",
+      "src/utils/constant.js": "284fa3c22f4b3c0b125b430d784eb147422aacf77757523677cc743cf7ddccf0"
+    },
+    "toolHashes": {
+      "cases.cjs": "ed33b7fde73e9b8a9ba129d5fb06f1e10645356ac18909232f528ba818c9c41f",
+      "compare.cjs": "9d61bf650ed20e1100b404c4fd649bf64f79727b9f79f79a9e843b56b11dcf7b",
+      "connect.cjs": "e13a59f250a6fd6b2b562f493cee271cf5de28f74e92eb0813d8ca17e6e2f746",
+      "generate.cjs": "3cc4a4af1aa622cc30b625cd69038450356e3697407b55cce3a402752e27dc60",
+      "run.cjs": "4b173f3a453b160369df586416eb23ce1b4147961a67ce737460325f84aefa9b",
+      "server.cjs": "dd74d8d1246f8de74f3f227e6480dab4871211fc9237b9bcab8c539f72abee41"
+    }
+  },
+  "actual": {
+    "mongoVersion": "8.0.34",
+    "topology": "replica set",
+    "nodes": 3,
+    "database": "ncds_perf_synthetic",
+    "dataBytes": 7993318,
+    "indexBytes": 3203072,
+    "shared": {
+      "bytes": 19030447,
+      "method": "Sum of dbStats dataSize plus indexSize for all visible user databases",
+      "databaseCount": 4
+    },
+    "quotaBytes": 536870912,
+    "collections": ["NCD_Summary_Temp_Table", "NCD_SUMMARY"],
+    "collectionCounts": {
+      "NCD_Summary_Temp_Table": 1,
+      "NCD_SUMMARY": 1000
+    },
+    "indexes": {
+      "NCD_Summary_Temp_Table": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        }
+      ],
+      "NCD_SUMMARY": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1
+          },
+          "name": "date_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "hcode": 1
+          },
+          "name": "date_1_hcode_1",
+          "unique": true
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "district": 1
+          },
+          "name": "date_1_district_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "area": 1
+          },
+          "name": "date_1_area_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "province": 1
+          },
+          "name": "date_1_province_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "district": 1,
+            "area": 1
+          },
+          "name": "date_1_district_1_area_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "district": 1,
+            "area": 1,
+            "province": 1
+          },
+          "name": "date_1_district_1_area_1_province_1"
+        },
+        {
+          "v": 2,
+          "key": {
+            "date": 1,
+            "hcode": 1,
+            "district": 1,
+            "area": 1,
+            "province": 1
+          },
+          "name": "date_1_hcode_1_district_1_area_1_province_1"
+        }
+      ]
+    }
+  },
+  "storedBsonDigest": "eda993e6bb555ce0b1f5b4dfe1dad77134043cb3d279e17228f2f311e0c4ed45",
+  "state": "measured",
+  "finalSnapshot": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "updated_at": "2026-10-13T05:00:00.000Z",
+    "digest": "b4dbe8476659dfe1028fcc6a4e7d6b7236056cd9511a02a807558a19eb03d30c",
+    "bsonBytes": 4238,
+    "ageHoursAtCaseClock": 0
+  }
+}

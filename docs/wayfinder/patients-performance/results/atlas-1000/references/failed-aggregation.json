@@ -1,0 +1,1897 @@
+{
+  "case": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "variant": "normal",
+    "timing": false,
+    "id": "failed-aggregation",
+    "families": ["errors", "empty-and-sparse-data", "response-shape-and-order"],
+    "body": {
+      "startDate": "2024-01-01",
+      "endDate": "2026-10-13"
+    },
+    "fault": "aggregate",
+    "expectedError": true,
+    "expectedSources": {
+      "card": "live",
+      "bar": "live",
+      "disease": "live",
+      "dm": "live",
+      "ca": "live"
+    }
+  },
+  "snapshot": null,
+  "reference": {
+    "card": {
+      "status": 500,
+      "body": {
+        "status": false,
+        "message": "Internal server error"
+      },
+      "durationMs": 7.032458000001498,
+      "parsedCompletedAtMs": 114926.963917,
+      "trace": {
+        "requestId": "acb106e0-fd70-4454-8de1-972a9162f0a7",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 500,
+        "complete": true,
+        "processingMs": 1.9299170000012964,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "d0aeeae101b309f54c7f6f9da22e2eab0e681a0712d68e15ae8ea7485dd061b6",
+            "shapeFingerprint": "c1f8bc6f93e5c573933c143e89812479a24753d5c0bf8894a88f83d9a1666b0f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.2758750000066357,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "f918f3071e80dc762d00a252fc665737f755ae7522bdece6db85a93f60518f0d",
+            "shapeFingerprint": "0b31967eee316dcea8f05e49a330ddf338acb3938bf6eec61e118aff5ee56c5a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.08191700000315905,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d0aeeae101b309f54c7f6f9da22e2eab0e681a0712d68e15ae8ea7485dd061b6",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "f918f3071e80dc762d00a252fc665737f755ae7522bdece6db85a93f60518f0d",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 4,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "durationMs": 1.9881660000100965,
+      "parsedCompletedAtMs": 114929.0185,
+      "trace": {
+        "requestId": "22955bb1-2e49-4530-8b72-0d7dfb112794",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.9572079999925336,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "42bbc21312a95dc891d003c1b26ab7d534835241aeb9b8610e67f28f63d51cfb",
+            "shapeFingerprint": "56bb9a19143581f8e66a3eeb7c0a8e31827bd896abb1d33127b195b97b58fec2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.10012499999720603,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "954fa4560533ad4167d56434713e62ddfcd9ba245d4832661030423600b5ac99",
+            "shapeFingerprint": "d1712c261c089a824694c369a7aec0ab271e41807b3458ed6460cf4929a6f30c",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0534170000028098,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "cd1794650d1c052f6b85fd48027a8f2f47aea7003321b212d63be091570e828a",
+            "shapeFingerprint": "5964c318a80607c3a7c54b8fbb88f0b7dc76c12534313608441f84ba92d97db6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04595800000242889,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "b2a60130e204a57810b728a24e13d2bb933712b7ec149cd4639e8b40cb158dfd",
+            "shapeFingerprint": "f98d173df18506498f29481cd82f8081170bbef000b0154dd6089d511f0c092d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.05045799999788869,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "c8d499c07caaebc86ae809880885f7d6bda9d1af2684f3af47a43dd2f65dd82b",
+            "shapeFingerprint": "8734317973fa5e04d56fe2e68a8f7ff0c136d3fd2acccbf9a16cbabb90b945dd",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04641700000502169,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "78222c1a7968f277d07caa9e36a51969de5fe052b5d5f242590f14da1fbebd91",
+            "shapeFingerprint": "f112e50892e908d2a0ed760062e4aa9e778f4598cd2e92dd1193663f8f054d26",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04475000000093132,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "1639ae1718c271e95840a7d7b0c4474dca7000f658f87319911360bd98c44744",
+            "shapeFingerprint": "468e9a21b738c6bf9338946d6b616a09999b05118a50535a81aca16d34442c7d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04266700000152923,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "42bbc21312a95dc891d003c1b26ab7d534835241aeb9b8610e67f28f63d51cfb",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "954fa4560533ad4167d56434713e62ddfcd9ba245d4832661030423600b5ac99",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "cd1794650d1c052f6b85fd48027a8f2f47aea7003321b212d63be091570e828a",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "b2a60130e204a57810b728a24e13d2bb933712b7ec149cd4639e8b40cb158dfd",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "c8d499c07caaebc86ae809880885f7d6bda9d1af2684f3af47a43dd2f65dd82b",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "78222c1a7968f277d07caa9e36a51969de5fe052b5d5f242590f14da1fbebd91",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "1639ae1718c271e95840a7d7b0c4474dca7000f658f87319911360bd98c44744",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          }
+        ]
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 1.594333999993978,
+      "parsedCompletedAtMs": 114930.640334,
+      "trace": {
+        "requestId": "4e55cd01-0e92-4422-bc01-5d3ab927c66b",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 1.1630829999921843,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "shapeFingerprint": "9ed5a23c7e032fb29db7104106a9bf3a3bc29c6a759d94e418533a48504d2c0d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.12787500000558794,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "de13a1cf09ad4ae336738015fe0096bce0333868181bed9b7ff8e6f5d2e6e4a5",
+            "shapeFingerprint": "dbc49d3a6903eb04c1add7cf86234a619f1646b01af825dbddcb360a26a51792",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.08033300000533927,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "a2fe25e0e5319b9e2d2cf0a4013e4a6eb23e032fe4d6446bfe25852a344c30bd",
+            "shapeFingerprint": "2e1635a58db222e90d986dc5cfbc63378e295c7ca8fcc6b96106e30c14439e8d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07541700000001583,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "shapeFingerprint": "f8f1321376b5a54416d5ffda29d62218b2325dd503a900332aeb550b49e1318d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07924999999522697,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4d4252a4b7bb011572660dd68a17cd14e6af16fefedbf7db647fbbf854224653",
+            "shapeFingerprint": "7da06ea5219816c64b9afd9b68c2fff39d82400a1975165d02ac5bf5398e12fd",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07649999999557622,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "2c24503eb9c9b77608897d115466d968582a34a28b8452907026fe00eaa0bbd0",
+            "shapeFingerprint": "7f62254b9ef0c060f10bbd00131f6c5e7b30326957d2b40a4e47580a72f1a617",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07433300001139287,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "de13a1cf09ad4ae336738015fe0096bce0333868181bed9b7ff8e6f5d2e6e4a5",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "a2fe25e0e5319b9e2d2cf0a4013e4a6eb23e032fe4d6446bfe25852a344c30bd",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4d4252a4b7bb011572660dd68a17cd14e6af16fefedbf7db647fbbf854224653",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "2c24503eb9c9b77608897d115466d968582a34a28b8452907026fe00eaa0bbd0",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 1.2614170000015292,
+      "parsedCompletedAtMs": 114931.922667,
+      "trace": {
+        "requestId": "107bad32-088a-49c2-a1a0-4ba55eb7ea4e",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.890958000003593,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4bdebfde6ee4efddcc0c80473dc89d78a89437c798416d892949a5944c1c13c9",
+            "shapeFingerprint": "21836e382a648a5e57898e5f2baad99a873271802ce7deb048d691ce5709290b",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.08279099999344908,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "bbc1600f0786c25df6fcc664b7d908b5c11d39dfe3d8a9f415e1f06804ad0026",
+            "shapeFingerprint": "d524805338b443c4607ed23fae07572e9d258252eba22feb290f8c466dce31fe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.078125,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f90f31b9efcb2d79fbf660bbae7dd617b7975ba95452cd4442191715450c9f2c",
+            "shapeFingerprint": "ab5dbac71dd0b1d4340925abe8cd72af94eac922d72af9d9890288187be61851",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07445800000277814,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "da16cfb3ec922e82409833631b5f1bc637937d2a43411ea4b34e06d3095e4ac0",
+            "shapeFingerprint": "dc050d852da95cb5712aa56094b4654b90840c32b59951eab518577122db3a49",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07525000000896398,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "shapeFingerprint": "9ed5a23c7e032fb29db7104106a9bf3a3bc29c6a759d94e418533a48504d2c0d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.06970899998850655,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4bdebfde6ee4efddcc0c80473dc89d78a89437c798416d892949a5944c1c13c9",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "bbc1600f0786c25df6fcc664b7d908b5c11d39dfe3d8a9f415e1f06804ad0026",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "f90f31b9efcb2d79fbf660bbae7dd617b7975ba95452cd4442191715450c9f2c",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "da16cfb3ec922e82409833631b5f1bc637937d2a43411ea4b34e06d3095e4ac0",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 6,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 1.5969159999949625,
+      "parsedCompletedAtMs": 114933.529,
+      "trace": {
+        "requestId": "f06b0e63-d98a-4990-8c62-d2879562d3c8",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 1.2328330000018468,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "shapeFingerprint": "f8f1321376b5a54416d5ffda29d62218b2325dd503a900332aeb550b49e1318d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07387500000186265,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "6d4a3f5073200b050053d2376af309164862ce4f9ce9f664a37891e0893f641d",
+            "shapeFingerprint": "402195f4e00888673c8c2fb0013e0cf92e28e6519794eda22bd22479f4f146ae",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07495900000503752,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "cce61aefd69be4ce9e2e5528b21ba2301cfa02180ebe2c3bdb1c5378b149a9be",
+            "shapeFingerprint": "af7090b5d41094a33f8f57b55d0383e938bc67630acc865b7d5d031800cffe6c",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07816699999966659,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "589097af18b13592bf9ef4ba918ae6bafe4763187b79ba9e1dcc6fe5728cb7d7",
+            "shapeFingerprint": "66ba313b1a2c1e04b6c176eeeb2a1c58256c07ba72382b13e865aaf3a1398640",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07595800000126474,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "136132a058252a4280be86abe64b9c895f1d103d966a11881c7f7be81faa3f46",
+            "shapeFingerprint": "878a1755856d5b4bce86ca1dedec24b9cafe7aebf560779f1cce6f07e91eb28e",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.23699999999371357,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4156cc669aae0788dca78962a99a8b0f550b569b3bc271deab5b44fef25d8e84",
+            "shapeFingerprint": "cec54ba0208433087a83e0d47d1897a05b1df11b085d48b16e63f9080fe572b0",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.08849999999802094,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "6d4a3f5073200b050053d2376af309164862ce4f9ce9f664a37891e0893f641d",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "cce61aefd69be4ce9e2e5528b21ba2301cfa02180ebe2c3bdb1c5378b149a9be",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "589097af18b13592bf9ef4ba918ae6bafe4763187b79ba9e1dcc6fe5728cb7d7",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "136132a058252a4280be86abe64b9c895f1d103d966a11881c7f7be81faa3f46",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4156cc669aae0788dca78962a99a8b0f550b569b3bc271deab5b44fef25d8e84",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    }
+  },
+  "repeat": {
+    "card": {
+      "status": 500,
+      "body": {
+        "status": false,
+        "message": "Internal server error"
+      },
+      "durationMs": 1.0221670000028098,
+      "parsedCompletedAtMs": 114934.568459,
+      "trace": {
+        "requestId": "17d6c88c-0681-4ba9-81c4-cf8b6e648e7c",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 500,
+        "complete": true,
+        "processingMs": 0.5640419999981532,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "d0aeeae101b309f54c7f6f9da22e2eab0e681a0712d68e15ae8ea7485dd061b6",
+            "shapeFingerprint": "c1f8bc6f93e5c573933c143e89812479a24753d5c0bf8894a88f83d9a1666b0f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0752080000092974,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "f918f3071e80dc762d00a252fc665737f755ae7522bdece6db85a93f60518f0d",
+            "shapeFingerprint": "0b31967eee316dcea8f05e49a330ddf338acb3938bf6eec61e118aff5ee56c5a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.07191700000839774,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d0aeeae101b309f54c7f6f9da22e2eab0e681a0712d68e15ae8ea7485dd061b6",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "f918f3071e80dc762d00a252fc665737f755ae7522bdece6db85a93f60518f0d",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 4,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "durationMs": 1.1523750000051223,
+      "parsedCompletedAtMs": 114935.732417,
+      "trace": {
+        "requestId": "86269665-aa88-496b-aee9-62dbf7784d9f",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.7472079999861307,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "42bbc21312a95dc891d003c1b26ab7d534835241aeb9b8610e67f28f63d51cfb",
+            "shapeFingerprint": "56bb9a19143581f8e66a3eeb7c0a8e31827bd896abb1d33127b195b97b58fec2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0851669999974547,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "954fa4560533ad4167d56434713e62ddfcd9ba245d4832661030423600b5ac99",
+            "shapeFingerprint": "d1712c261c089a824694c369a7aec0ab271e41807b3458ed6460cf4929a6f30c",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.045000000012805685,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "cd1794650d1c052f6b85fd48027a8f2f47aea7003321b212d63be091570e828a",
+            "shapeFingerprint": "5964c318a80607c3a7c54b8fbb88f0b7dc76c12534313608441f84ba92d97db6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04104199999710545,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "b2a60130e204a57810b728a24e13d2bb933712b7ec149cd4639e8b40cb158dfd",
+            "shapeFingerprint": "f98d173df18506498f29481cd82f8081170bbef000b0154dd6089d511f0c092d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.03520800000114832,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "c8d499c07caaebc86ae809880885f7d6bda9d1af2684f3af47a43dd2f65dd82b",
+            "shapeFingerprint": "8734317973fa5e04d56fe2e68a8f7ff0c136d3fd2acccbf9a16cbabb90b945dd",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.03525000000081491,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "78222c1a7968f277d07caa9e36a51969de5fe052b5d5f242590f14da1fbebd91",
+            "shapeFingerprint": "f112e50892e908d2a0ed760062e4aa9e778f4598cd2e92dd1193663f8f054d26",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.04287499999918509,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "1639ae1718c271e95840a7d7b0c4474dca7000f658f87319911360bd98c44744",
+            "shapeFingerprint": "468e9a21b738c6bf9338946d6b616a09999b05118a50535a81aca16d34442c7d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.03333299999940209,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "42bbc21312a95dc891d003c1b26ab7d534835241aeb9b8610e67f28f63d51cfb",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "954fa4560533ad4167d56434713e62ddfcd9ba245d4832661030423600b5ac99",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "cd1794650d1c052f6b85fd48027a8f2f47aea7003321b212d63be091570e828a",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "b2a60130e204a57810b728a24e13d2bb933712b7ec149cd4639e8b40cb158dfd",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "c8d499c07caaebc86ae809880885f7d6bda9d1af2684f3af47a43dd2f65dd82b",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "78222c1a7968f277d07caa9e36a51969de5fe052b5d5f242590f14da1fbebd91",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "1639ae1718c271e95840a7d7b0c4474dca7000f658f87319911360bd98c44744",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          }
+        ]
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 1.191500000000815,
+      "parsedCompletedAtMs": 114936.932917,
+      "trace": {
+        "requestId": "d434d427-7cfa-4db4-b0f1-6cd67320801a",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.8598750000091968,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "shapeFingerprint": "9ed5a23c7e032fb29db7104106a9bf3a3bc29c6a759d94e418533a48504d2c0d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0882080000010319,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "de13a1cf09ad4ae336738015fe0096bce0333868181bed9b7ff8e6f5d2e6e4a5",
+            "shapeFingerprint": "dbc49d3a6903eb04c1add7cf86234a619f1646b01af825dbddcb360a26a51792",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0670830000017304,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "a2fe25e0e5319b9e2d2cf0a4013e4a6eb23e032fe4d6446bfe25852a344c30bd",
+            "shapeFingerprint": "2e1635a58db222e90d986dc5cfbc63378e295c7ca8fcc6b96106e30c14439e8d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0574579999956768,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "shapeFingerprint": "f8f1321376b5a54416d5ffda29d62218b2325dd503a900332aeb550b49e1318d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.08650000000488944,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4d4252a4b7bb011572660dd68a17cd14e6af16fefedbf7db647fbbf854224653",
+            "shapeFingerprint": "7da06ea5219816c64b9afd9b68c2fff39d82400a1975165d02ac5bf5398e12fd",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.061124999992898665,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "2c24503eb9c9b77608897d115466d968582a34a28b8452907026fe00eaa0bbd0",
+            "shapeFingerprint": "7f62254b9ef0c060f10bbd00131f6c5e7b30326957d2b40a4e47580a72f1a617",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0610000000015134,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "de13a1cf09ad4ae336738015fe0096bce0333868181bed9b7ff8e6f5d2e6e4a5",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "a2fe25e0e5319b9e2d2cf0a4013e4a6eb23e032fe4d6446bfe25852a344c30bd",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4d4252a4b7bb011572660dd68a17cd14e6af16fefedbf7db647fbbf854224653",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "2c24503eb9c9b77608897d115466d968582a34a28b8452907026fe00eaa0bbd0",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 0.9755839999997988,
+      "parsedCompletedAtMs": 114937.916584,
+      "trace": {
+        "requestId": "4e978132-e0d2-4051-99cb-cf81cf2b0518",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.597542000003159,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4bdebfde6ee4efddcc0c80473dc89d78a89437c798416d892949a5944c1c13c9",
+            "shapeFingerprint": "21836e382a648a5e57898e5f2baad99a873271802ce7deb048d691ce5709290b",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.06187499999941792,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "bbc1600f0786c25df6fcc664b7d908b5c11d39dfe3d8a9f415e1f06804ad0026",
+            "shapeFingerprint": "d524805338b443c4607ed23fae07572e9d258252eba22feb290f8c466dce31fe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.056582999997772276,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f90f31b9efcb2d79fbf660bbae7dd617b7975ba95452cd4442191715450c9f2c",
+            "shapeFingerprint": "ab5dbac71dd0b1d4340925abe8cd72af94eac922d72af9d9890288187be61851",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.056249999994179234,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "da16cfb3ec922e82409833631b5f1bc637937d2a43411ea4b34e06d3095e4ac0",
+            "shapeFingerprint": "dc050d852da95cb5712aa56094b4654b90840c32b59951eab518577122db3a49",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.05379200000606943,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "shapeFingerprint": "9ed5a23c7e032fb29db7104106a9bf3a3bc29c6a759d94e418533a48504d2c0d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.0549170000012964,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4bdebfde6ee4efddcc0c80473dc89d78a89437c798416d892949a5944c1c13c9",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "bbc1600f0786c25df6fcc664b7d908b5c11d39dfe3d8a9f415e1f06804ad0026",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "f90f31b9efcb2d79fbf660bbae7dd617b7975ba95452cd4442191715450c9f2c",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "da16cfb3ec922e82409833631b5f1bc637937d2a43411ea4b34e06d3095e4ac0",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "d2b05cc630de7b02b3110235d24cb66bcd46b59443ddd74ed9195f6020a2f4bc",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 6,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 1.1187910000007832,
+      "parsedCompletedAtMs": 114939.04425,
+      "trace": {
+        "requestId": "5e30ee5a-a243-4f6c-819c-56ac7102a878",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": "aggregate",
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 0.7848329999978887,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "shapeFingerprint": "f8f1321376b5a54416d5ffda29d62218b2325dd503a900332aeb550b49e1318d",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.11558300000615418,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "6d4a3f5073200b050053d2376af309164862ce4f9ce9f664a37891e0893f641d",
+            "shapeFingerprint": "402195f4e00888673c8c2fb0013e0cf92e28e6519794eda22bd22479f4f146ae",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.06124999999883585,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "cce61aefd69be4ce9e2e5528b21ba2301cfa02180ebe2c3bdb1c5378b149a9be",
+            "shapeFingerprint": "af7090b5d41094a33f8f57b55d0383e938bc67630acc865b7d5d031800cffe6c",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.05929199999081902,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "589097af18b13592bf9ef4ba918ae6bafe4763187b79ba9e1dcc6fe5728cb7d7",
+            "shapeFingerprint": "66ba313b1a2c1e04b6c176eeeb2a1c58256c07ba72382b13e865aaf3a1398640",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.05504199999268167,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "136132a058252a4280be86abe64b9c895f1d103d966a11881c7f7be81faa3f46",
+            "shapeFingerprint": "878a1755856d5b4bce86ca1dedec24b9cafe7aebf560779f1cce6f07e91eb28e",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.055082999999285676,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "4156cc669aae0788dca78962a99a8b0f550b569b3bc271deab5b44fef25d8e84",
+            "shapeFingerprint": "cec54ba0208433087a83e0d47d1897a05b1df11b085d48b16e63f9080fe572b0",
+            "maxTimeMS": 120000,
+            "elapsedMs": 0.05391600000439212,
+            "success": false,
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "queryErrors": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "0effe1df5aa48e5adf1c9321a80b2869f6d3aefd97c702fed0c88cec5c30da77",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "6d4a3f5073200b050053d2376af309164862ce4f9ce9f664a37891e0893f641d",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "cce61aefd69be4ce9e2e5528b21ba2301cfa02180ebe2c3bdb1c5378b149a9be",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "589097af18b13592bf9ef4ba918ae6bafe4763187b79ba9e1dcc6fe5728cb7d7",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "136132a058252a4280be86abe64b9c895f1d103d966a11881c7f7be81faa3f46",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "pipelineFingerprint": "4156cc669aae0788dca78962a99a8b0f550b569b3bc271deab5b44fef25d8e84",
+            "error": {
+              "name": "Error",
+              "code": "PERF_INJECTED_AGGREGATE"
+            }
+          }
+        ],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 7,
+        "consoleErrors": [
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "Error",
+            "code": "PERF_INJECTED_AGGREGATE"
+          },
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    }
+  },
+  "differences": {
+    "card": {
+      "equal": true,
+      "differences": []
+    },
+    "bar": {
+      "equal": true,
+      "differences": []
+    },
+    "disease": {
+      "equal": true,
+      "differences": []
+    },
+    "dm": {
+      "equal": true,
+      "differences": []
+    },
+    "ca": {
+      "equal": true,
+      "differences": []
+    }
+  },
+  "stable": true,
+  "evidenceVerified": true,
+  "queryFailureCount": 52,
+  "unexpectedQueryFailure": false,
+  "normalResponsesValid": true,
+  "sourceMatches": true,
+  "passed": true
+}
