@@ -1,0 +1,1148 @@
+{
+  "case": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "variant": "snapshot-valid",
+    "timing": false,
+    "id": "snapshot-bypass-area-whitespace",
+    "families": ["stored-snapshots", "filter-presence-and-types", "response-shape-and-order"],
+    "body": {
+      "startDate": "2024-01-07",
+      "endDate": "2026-10-13",
+      "area": " ",
+      "province": "",
+      "district": "",
+      "hcode": ""
+    },
+    "expectedSources": {
+      "card": "live",
+      "bar": "live",
+      "disease": "live",
+      "dm": "live",
+      "ca": "live"
+    }
+  },
+  "snapshot": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "updated_at": "2026-10-13T05:00:00.000Z",
+    "digest": "b4dbe8476659dfe1028fcc6a4e7d6b7236056cd9511a02a807558a19eb03d30c",
+    "bsonBytes": 4238,
+    "ageHoursAtCaseClock": 0
+  },
+  "reference": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 0,
+            "patient_count": 0,
+            "expense": 0,
+            "hcode_count": 0,
+            "avg_service": 0,
+            "avg_expense": 0
+          }
+        ]
+      },
+      "durationMs": 49.4476250000007,
+      "parsedCompletedAtMs": 132446.413875,
+      "trace": {
+        "requestId": "d0d8dcd4-34fe-4d75-9a96-6813fb0eb53e",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 47.18679099998553,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "73997af677ec410b9324e9756a161230dddf622d8b4001962d263d2bdf1f9421",
+            "shapeFingerprint": "6465fc29f999a897a4c95d5efe05b650d2359dba1a7fcb2ae74ff7b430d249b3",
+            "maxTimeMS": 120000,
+            "elapsedMs": 45.90379100001883,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "f132ab4cc036c8446a014ba623012be5e4e0952ff861440e04c25db19d3cb182",
+            "shapeFingerprint": "d1f67ed832563eaee8a69ec2d189fa71fbf73441a3cddd2f535525d9b9cd7ee2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 45.08520800000406,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "durationMs": 57.09408300000359,
+      "parsedCompletedAtMs": 132503.544667,
+      "trace": {
+        "requestId": "1e554e62-a4e3-448d-982e-3de3fb28d216",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 55.34395899999072,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "1213269a4e6ffab3f792152ff4ec41420542a9dc1be090c1733b43a81d364c83",
+            "shapeFingerprint": "aa29cba81b3590781fa9753e593749cee5dc9f9b1ad11b34794759cced95ea0a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 52.190666000009514,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "c514d9ae0a76207e7230fecef9a3fef010d0e40e08d9de3cf3ffdd2e856eb5cd",
+            "shapeFingerprint": "fdb91486951b5023b0184c0463aef41edb8700ac4a92c1ee02d9ab937477a1a2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 54.04070899999351,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "5743a35c0751b9f864c2c5120c0b1d7d450b3aaf1ef4287581ea1916b14f0813",
+            "shapeFingerprint": "f437dfacef6d26474923d49fe24eb8a298572261f9d55f6e526d2e4d4ea8c9ea",
+            "maxTimeMS": 120000,
+            "elapsedMs": 51.61708299999009,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "7d9539ac27e6e744aabdb2ff1427ed6f0e6236d711531306605bde381fee9474",
+            "shapeFingerprint": "17d0ebf9973c9ab81ff2bbfc2bc9d1854576de55f14ccbaa1c153b641c27bf27",
+            "maxTimeMS": 120000,
+            "elapsedMs": 46.64366699999664,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "8374cee9ff1b004891670b2aeb73b87f76f8d669fee2e5719e6ad162c9589149",
+            "shapeFingerprint": "0871068e1ff90c8f80b7caf0c5ce7083ccb180c67ef7c4bc17b622a72144dc1f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.60283299998264,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "ec8b77bfb771edb3953d5d1e21ab155508c097191e90a3ca75d2b58a482719bc",
+            "shapeFingerprint": "b7ff400a425b9cd49958f9471972a3a26d5bfd18b34e6968cf97b54bd6929ae4",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.31016699998872,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "0e4016382dc0e3db77c8367f4df5ccc5ed23f3046c2750ed3fe3b5285d2720dc",
+            "shapeFingerprint": "47a4fc808c3862bf9e4d8b4dfcc7a639325f794dbc4c0c17848874f7546a25e1",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.03737499998533,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "ทั้งหมด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 64.0698750000156,
+      "parsedCompletedAtMs": 132567.66075,
+      "trace": {
+        "requestId": "5b11f009-dc35-485d-9e69-49f6ee5eeb86",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 62.061249999998836,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f4149875fd9318b0251ad6b32aae87e4966a2205c2007d7204da849489720c8f",
+            "shapeFingerprint": "151dd5a1117070104d23ccdde0796d504e6ac393b28d3cc5fea8044ed20cc695",
+            "maxTimeMS": 120000,
+            "elapsedMs": 49.63420799997402,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "3677c698676427b7d03d61b5b6c29168d8dba1a8a41ba81ca98ffbe0046077c8",
+            "shapeFingerprint": "f13e6df631a55740c8ac6fd27c9668622efc6ee37d87d2766b98a112977ba5c1",
+            "maxTimeMS": 120000,
+            "elapsedMs": 51.547042000020156,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "ea64bf88fdcbea17b8758ba3ccf7087f3f4233a6724b6af80334c7342a946d4e",
+            "shapeFingerprint": "56f44f44e41dfc99679c69686e85cc521cb4d5b204673942fd6b51bacb6b2f23",
+            "maxTimeMS": 120000,
+            "elapsedMs": 60.248958000011044,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "01cd84850f3c00404e336024b70bd67fe88325e1d080aa460670717870d18d83",
+            "shapeFingerprint": "24a56c867eca193c50b7ea744917534c639237a4dd7362bd47a604480a9208c6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 59.97250000000349,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f35aa546e73f8068d80a59db748b41fca776e2f306aabc5101effe348d2f5473",
+            "shapeFingerprint": "58ed5bdd9d38027e213ba06c6cab2d0f6c0f56ab8d499d048534a767a5cd7543",
+            "maxTimeMS": 120000,
+            "elapsedMs": 53.25641699999687,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "2cbb0d3984aee178bd602c05e42d9df2d5418c52fa92b1f8a7b84c2f5ff7ba49",
+            "shapeFingerprint": "2f33a38e5d158f8e86dfbb64a41b0b90591a0853ce180bbcb92f3e030362667f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 53.35070800001267,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 60.33608300000196,
+      "parsedCompletedAtMs": 132628.034875,
+      "trace": {
+        "requestId": "1a925170-62a1-4374-93a4-48f63c17217e",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 58.460250000003725,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "e5aded8ccfc390674317943827af311c7a2ba36d90c4802f4725933ba82137f1",
+            "shapeFingerprint": "cb7443d5631ee50616354e9267a1c8aea8b16ba9f776fc9142589ad3df80ae1b",
+            "maxTimeMS": 120000,
+            "elapsedMs": 57.15583400000469,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "b6ebebf3ffb51af289f7dd1b709a98a8212cf5f10a4948c3822282ec5c440401",
+            "shapeFingerprint": "d09318ad780b235a828790bb2c9e3fc635911349b371b895609f90f28f6f754f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 54.2996250000142,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "acfe12b0bfeb671c43a3fb4922dc9b558611900d661bda6afa96d34992e72cf3",
+            "shapeFingerprint": "e0e7d97873568fdfad0c47b3d23097e31128bb4b3b74c158d75c5153c4732454",
+            "maxTimeMS": 120000,
+            "elapsedMs": 56.4258330000157,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "ad077c2ddf79c7149a4ca735b1a572e04c259c1143b72e2f77822375ae2cfab6",
+            "shapeFingerprint": "eeac8decdf2a710080cf893a4dca31573dac3c74c5158a70f70a7cda87345213",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.07508399998187,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f4149875fd9318b0251ad6b32aae87e4966a2205c2007d7204da849489720c8f",
+            "shapeFingerprint": "151dd5a1117070104d23ccdde0796d504e6ac393b28d3cc5fea8044ed20cc695",
+            "maxTimeMS": 120000,
+            "elapsedMs": 49.995916999992914,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคมะเร็งปอด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งเต้านม",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งปากมดลูก",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งตับ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 60.68820800000685,
+      "parsedCompletedAtMs": 132688.751167,
+      "trace": {
+        "requestId": "27ceea7f-3710-4ed8-8bbc-06cb5a82bb9c",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 59.07908300001873,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "01cd84850f3c00404e336024b70bd67fe88325e1d080aa460670717870d18d83",
+            "shapeFingerprint": "24a56c867eca193c50b7ea744917534c639237a4dd7362bd47a604480a9208c6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 57.82933400000911,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "a15f7ee4354681fe766992283c0fb986c4162927e1613b174d154a264c323bdf",
+            "shapeFingerprint": "b42ff8b11552dc54628ec86d6e85ee76c12d20e6e41af383b5273ebaf5dfc8d4",
+            "maxTimeMS": 120000,
+            "elapsedMs": 54.37858399999095,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "add2d7432b2d81176dfa41474accebcb3911cffa89d28d348c18ef21150483f3",
+            "shapeFingerprint": "1e1b34e3be66c787a01ae5b1f53b4dec4090705656727ab1525b9536d212c66a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.87912500000675,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "6c4848dfab9f22dee5cc721a3befa37b17eea284700bfe7680a62ada8400ec67",
+            "shapeFingerprint": "f15aac600f600e6fbcfd4fc9922a262954031aac465bc064d4c25edfc19a6c45",
+            "maxTimeMS": 120000,
+            "elapsedMs": 54.16295899997931,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "3dc0fcbd5f24fb3e2d721f93808b396c17d0efdde5f0f0fc59ba63e4ee3d52b0",
+            "shapeFingerprint": "db2384d9586ebbf510e3422f074ba8f316570dcfb62db162e452befc88c7fb1a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.791542000020854,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f116c6eb663d39091e5c00c20493515627d7bb23d42f62659a491e7fce92ea78",
+            "shapeFingerprint": "d719644b666c5e33775091d25193ebd995a63a2cf3d55279468ba72211065704",
+            "maxTimeMS": 120000,
+            "elapsedMs": 57.11083300001337,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    }
+  },
+  "repeat": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 0,
+            "patient_count": 0,
+            "expense": 0,
+            "hcode_count": 0,
+            "avg_service": 0,
+            "avg_expense": 0
+          }
+        ]
+      },
+      "durationMs": 50.450582999998005,
+      "parsedCompletedAtMs": 132739.242042,
+      "trace": {
+        "requestId": "97ce6ed5-73e5-400f-85ae-2b3bbad9ebb6",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 48.675499999983,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "73997af677ec410b9324e9756a161230dddf622d8b4001962d263d2bdf1f9421",
+            "shapeFingerprint": "6465fc29f999a897a4c95d5efe05b650d2359dba1a7fcb2ae74ff7b430d249b3",
+            "maxTimeMS": 120000,
+            "elapsedMs": 47.06808299999102,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "f132ab4cc036c8446a014ba623012be5e4e0952ff861440e04c25db19d3cb182",
+            "shapeFingerprint": "d1f67ed832563eaee8a69ec2d189fa71fbf73441a3cddd2f535525d9b9cd7ee2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 47.03220899999724,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "durationMs": 62.49062500000582,
+      "parsedCompletedAtMs": 132801.771375,
+      "trace": {
+        "requestId": "0575f4d3-5d9f-4727-ba54-fc9381c03df9",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 60.82920899998862,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$group", "$project"],
+            "pipelineFingerprint": "1213269a4e6ffab3f792152ff4ec41420542a9dc1be090c1733b43a81d364c83",
+            "shapeFingerprint": "aa29cba81b3590781fa9753e593749cee5dc9f9b1ad11b34794759cced95ea0a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 49.85999999998603,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "c514d9ae0a76207e7230fecef9a3fef010d0e40e08d9de3cf3ffdd2e856eb5cd",
+            "shapeFingerprint": "fdb91486951b5023b0184c0463aef41edb8700ac4a92c1ee02d9ab937477a1a2",
+            "maxTimeMS": 120000,
+            "elapsedMs": 59.24191599999904,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "5743a35c0751b9f864c2c5120c0b1d7d450b3aaf1ef4287581ea1916b14f0813",
+            "shapeFingerprint": "f437dfacef6d26474923d49fe24eb8a298572261f9d55f6e526d2e4d4ea8c9ea",
+            "maxTimeMS": 120000,
+            "elapsedMs": 52.78441700001713,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "7d9539ac27e6e744aabdb2ff1427ed6f0e6236d711531306605bde381fee9474",
+            "shapeFingerprint": "17d0ebf9973c9ab81ff2bbfc2bc9d1854576de55f14ccbaa1c153b641c27bf27",
+            "maxTimeMS": 120000,
+            "elapsedMs": 58.70024999999441,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "8374cee9ff1b004891670b2aeb73b87f76f8d669fee2e5719e6ad162c9589149",
+            "shapeFingerprint": "0871068e1ff90c8f80b7caf0c5ce7083ccb180c67ef7c4bc17b622a72144dc1f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 55.27570800000103,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "ec8b77bfb771edb3953d5d1e21ab155508c097191e90a3ca75d2b58a482719bc",
+            "shapeFingerprint": "b7ff400a425b9cd49958f9471972a3a26d5bfd18b34e6968cf97b54bd6929ae4",
+            "maxTimeMS": 120000,
+            "elapsedMs": 52.81554199999664,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$count"],
+            "pipelineFingerprint": "0e4016382dc0e3db77c8367f4df5ccc5ed23f3046c2750ed3fe3b5285d2720dc",
+            "shapeFingerprint": "47a4fc808c3862bf9e4d8b4dfcc7a639325f794dbc4c0c17848874f7546a25e1",
+            "maxTimeMS": 120000,
+            "elapsedMs": 54.99587499999325,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "ทั้งหมด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 63.613916000002064,
+      "parsedCompletedAtMs": 132865.4475,
+      "trace": {
+        "requestId": "448cd946-4dc6-4451-a919-e77204859282",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 61.722083000000566,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f4149875fd9318b0251ad6b32aae87e4966a2205c2007d7204da849489720c8f",
+            "shapeFingerprint": "151dd5a1117070104d23ccdde0796d504e6ac393b28d3cc5fea8044ed20cc695",
+            "maxTimeMS": 120000,
+            "elapsedMs": 58.04845800000476,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "3677c698676427b7d03d61b5b6c29168d8dba1a8a41ba81ca98ffbe0046077c8",
+            "shapeFingerprint": "f13e6df631a55740c8ac6fd27c9668622efc6ee37d87d2766b98a112977ba5c1",
+            "maxTimeMS": 120000,
+            "elapsedMs": 59.77887499998906,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "ea64bf88fdcbea17b8758ba3ccf7087f3f4233a6724b6af80334c7342a946d4e",
+            "shapeFingerprint": "56f44f44e41dfc99679c69686e85cc521cb4d5b204673942fd6b51bacb6b2f23",
+            "maxTimeMS": 120000,
+            "elapsedMs": 57.418040999997174,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "01cd84850f3c00404e336024b70bd67fe88325e1d080aa460670717870d18d83",
+            "shapeFingerprint": "24a56c867eca193c50b7ea744917534c639237a4dd7362bd47a604480a9208c6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 49.93412499999977,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f35aa546e73f8068d80a59db748b41fca776e2f306aabc5101effe348d2f5473",
+            "shapeFingerprint": "58ed5bdd9d38027e213ba06c6cab2d0f6c0f56ab8d499d048534a767a5cd7543",
+            "maxTimeMS": 120000,
+            "elapsedMs": 50.90491699997801,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "2cbb0d3984aee178bd602c05e42d9df2d5418c52fa92b1f8a7b84c2f5ff7ba49",
+            "shapeFingerprint": "2f33a38e5d158f8e86dfbb64a41b0b90591a0853ce180bbcb92f3e030362667f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 57.58612500000163,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 79.99108400000841,
+      "parsedCompletedAtMs": 132945.481709,
+      "trace": {
+        "requestId": "c1328d20-8ff5-4835-a493-2fe26b6a49e7",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 77.71229099997436,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "e5aded8ccfc390674317943827af311c7a2ba36d90c4802f4725933ba82137f1",
+            "shapeFingerprint": "cb7443d5631ee50616354e9267a1c8aea8b16ba9f776fc9142589ad3df80ae1b",
+            "maxTimeMS": 120000,
+            "elapsedMs": 75.92933300000732,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "b6ebebf3ffb51af289f7dd1b709a98a8212cf5f10a4948c3822282ec5c440401",
+            "shapeFingerprint": "d09318ad780b235a828790bb2c9e3fc635911349b371b895609f90f28f6f754f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 70.84295899997232,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "acfe12b0bfeb671c43a3fb4922dc9b558611900d661bda6afa96d34992e72cf3",
+            "shapeFingerprint": "e0e7d97873568fdfad0c47b3d23097e31128bb4b3b74c158d75c5153c4732454",
+            "maxTimeMS": 120000,
+            "elapsedMs": 75.25174999999581,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "ad077c2ddf79c7149a4ca735b1a572e04c259c1143b72e2f77822375ae2cfab6",
+            "shapeFingerprint": "eeac8decdf2a710080cf893a4dca31573dac3c74c5158a70f70a7cda87345213",
+            "maxTimeMS": 120000,
+            "elapsedMs": 62.31241700000828,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f4149875fd9318b0251ad6b32aae87e4966a2205c2007d7204da849489720c8f",
+            "shapeFingerprint": "151dd5a1117070104d23ccdde0796d504e6ac393b28d3cc5fea8044ed20cc695",
+            "maxTimeMS": 120000,
+            "elapsedMs": 75.48191700002644,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคมะเร็งปอด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งเต้านม",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งปากมดลูก",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งตับ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 68.44062500001746,
+      "parsedCompletedAtMs": 133013.969542,
+      "trace": {
+        "requestId": "058d08b0-bf25-470c-9fb8-bde0bf82aa4c",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 66.25945899999351,
+        "aggregations": [
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "01cd84850f3c00404e336024b70bd67fe88325e1d080aa460670717870d18d83",
+            "shapeFingerprint": "24a56c867eca193c50b7ea744917534c639237a4dd7362bd47a604480a9208c6",
+            "maxTimeMS": 120000,
+            "elapsedMs": 64.87283300000126,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "a15f7ee4354681fe766992283c0fb986c4162927e1613b174d154a264c323bdf",
+            "shapeFingerprint": "b42ff8b11552dc54628ec86d6e85ee76c12d20e6e41af383b5273ebaf5dfc8d4",
+            "maxTimeMS": 120000,
+            "elapsedMs": 61.17379199998686,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "add2d7432b2d81176dfa41474accebcb3911cffa89d28d348c18ef21150483f3",
+            "shapeFingerprint": "1e1b34e3be66c787a01ae5b1f53b4dec4090705656727ab1525b9536d212c66a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 56.56424999999581,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "6c4848dfab9f22dee5cc721a3befa37b17eea284700bfe7680a62ada8400ec67",
+            "shapeFingerprint": "f15aac600f600e6fbcfd4fc9922a262954031aac465bc064d4c25edfc19a6c45",
+            "maxTimeMS": 120000,
+            "elapsedMs": 60.69045799999731,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "3dc0fcbd5f24fb3e2d721f93808b396c17d0efdde5f0f0fc59ba63e4ee3d52b0",
+            "shapeFingerprint": "db2384d9586ebbf510e3422f074ba8f316570dcfb62db162e452befc88c7fb1a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 58.41266699999687,
+            "success": true
+          },
+          {
+            "collection": "NCD_SUMMARY",
+            "namespace": "ncds_perf_synthetic.NCD_SUMMARY",
+            "source": "live",
+            "stages": ["$match", "$project", "$unwind", "$group", "$group", "$project", "$sort"],
+            "pipelineFingerprint": "f116c6eb663d39091e5c00c20493515627d7bb23d42f62659a491e7fce92ea78",
+            "shapeFingerprint": "d719644b666c5e33775091d25193ebd995a63a2cf3d55279468ba72211065704",
+            "maxTimeMS": 120000,
+            "elapsedMs": 56.8425419999985,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    }
+  },
+  "differences": {
+    "card": {
+      "equal": true,
+      "differences": []
+    },
+    "bar": {
+      "equal": true,
+      "differences": []
+    },
+    "disease": {
+      "equal": true,
+      "differences": []
+    },
+    "dm": {
+      "equal": true,
+      "differences": []
+    },
+    "ca": {
+      "equal": true,
+      "differences": []
+    }
+  },
+  "stable": true,
+  "evidenceVerified": true,
+  "queryFailureCount": 0,
+  "unexpectedQueryFailure": false,
+  "normalResponsesValid": true,
+  "sourceMatches": true,
+  "passed": true
+}

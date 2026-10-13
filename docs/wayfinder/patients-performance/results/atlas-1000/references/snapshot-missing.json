@@ -1,0 +1,480 @@
+{
+  "case": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "variant": "snapshot-missing",
+    "timing": false,
+    "id": "snapshot-missing",
+    "families": ["stored-snapshots", "errors", "response-shape-and-order"],
+    "body": {
+      "startDate": "2024-01-07",
+      "endDate": "2026-10-13",
+      "area": "",
+      "province": "",
+      "district": "",
+      "hcode": ""
+    },
+    "expectedError": true,
+    "expectedSources": {
+      "card": "snapshot",
+      "bar": "snapshot",
+      "disease": "snapshot",
+      "dm": "snapshot",
+      "ca": "snapshot"
+    }
+  },
+  "snapshot": null,
+  "reference": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 45.33129200000258,
+      "parsedCompletedAtMs": 118532.034084,
+      "trace": {
+        "requestId": "8e7a9dae-71c6-4213-9c27-7a4663ec6b5f",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 43.27887500000361,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "8dcd7d2f441852b47734861eeb43e8f8427c8bb36724950528abba5425654eba",
+            "shapeFingerprint": "6137b757d84ee4d3520e0fdb5683730453dbbd0a54f29d24e61ef8bcb11a8d3a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 41.71916599999531,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 43.696458000005805,
+      "parsedCompletedAtMs": 118575.769375,
+      "trace": {
+        "requestId": "2cf02f33-dce7-4e26-a4c9-d9e3e45f7f0e",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 42.10541699999885,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d0f82c616b93887d6db63e0a7c85b78b704d22bf5226e2f93a7e96c55fc89c14",
+            "shapeFingerprint": "236a00bc56b7a397e3f7ea5bedf52cd049e4014d12c0a3ec40ef3154a763b468",
+            "maxTimeMS": 120000,
+            "elapsedMs": 40.740540999991936,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 45.15516700000444,
+      "parsedCompletedAtMs": 118620.954584,
+      "trace": {
+        "requestId": "ef2b56c6-8af7-48dd-9238-6d2834c7b5dc",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 43.57799999999406,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d08c31948ea546fbd06e0dec484e9fcc473f9abcfcd1e96bbab8133e854108fa",
+            "shapeFingerprint": "ef2ae2fd00c93754dc32ae5104d6c0c8a1a19b69ea9e6691316f7e79c730b419",
+            "maxTimeMS": 120000,
+            "elapsedMs": 42.21762500000477,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 47.34283300000243,
+      "parsedCompletedAtMs": 118668.344667,
+      "trace": {
+        "requestId": "e8226693-7a5b-483e-9be4-3b17e5640002",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 46.086292000007234,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "bd21f280493eb1257b3e8c4b1aeb1a297233bf3c99ba50c1733e675c97478f6d",
+            "shapeFingerprint": "26e93f74814bbf0daeffabf4e5c867ac12ec7d55a82b5e58e72fe101f7e5cffe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 45.229458000001614,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 40.20404199999757,
+      "parsedCompletedAtMs": 118708.564792,
+      "trace": {
+        "requestId": "7d20f12a-aa43-4502-afda-499e12c25855",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 39.4380000000092,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "f044469c9344e947e8350ba463323cd1f6fa2691f3677a87703d19762f8d2617",
+            "shapeFingerprint": "8c285549436ce238e845547f80f36e2a3e28b5a6fe96ba009f71a743e331666f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 38.767290999996476,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    }
+  },
+  "repeat": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 44.84320800000569,
+      "parsedCompletedAtMs": 118753.423167,
+      "trace": {
+        "requestId": "5583c32e-5c2b-4068-b4a8-6b665801b885",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 43.92008299998997,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "8dcd7d2f441852b47734861eeb43e8f8427c8bb36724950528abba5425654eba",
+            "shapeFingerprint": "6137b757d84ee4d3520e0fdb5683730453dbbd0a54f29d24e61ef8bcb11a8d3a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 43.1318750000064,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 43.240958000009414,
+      "parsedCompletedAtMs": 118796.691292,
+      "trace": {
+        "requestId": "0f7e343a-49b7-4fc1-b5af-7b0b97e30a4a",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 41.974874999999884,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d0f82c616b93887d6db63e0a7c85b78b704d22bf5226e2f93a7e96c55fc89c14",
+            "shapeFingerprint": "236a00bc56b7a397e3f7ea5bedf52cd049e4014d12c0a3ec40ef3154a763b468",
+            "maxTimeMS": 120000,
+            "elapsedMs": 40.86854199999652,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 40.888165999989724,
+      "parsedCompletedAtMs": 118837.609,
+      "trace": {
+        "requestId": "32f406e7-63fe-4af8-8c1f-c835657d0c1e",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 39.60725000000093,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d08c31948ea546fbd06e0dec484e9fcc473f9abcfcd1e96bbab8133e854108fa",
+            "shapeFingerprint": "ef2ae2fd00c93754dc32ae5104d6c0c8a1a19b69ea9e6691316f7e79c730b419",
+            "maxTimeMS": 120000,
+            "elapsedMs": 38.58550000000105,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 41.91487500000221,
+      "parsedCompletedAtMs": 118879.550459,
+      "trace": {
+        "requestId": "02b60dfc-377c-4786-b0df-8254479d6544",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 40.63774999999441,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "bd21f280493eb1257b3e8c4b1aeb1a297233bf3c99ba50c1733e675c97478f6d",
+            "shapeFingerprint": "26e93f74814bbf0daeffabf4e5c867ac12ec7d55a82b5e58e72fe101f7e5cffe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 39.54674999999406,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success"
+      },
+      "durationMs": 41.716666000007535,
+      "parsedCompletedAtMs": 118921.295125,
+      "trace": {
+        "requestId": "38b4c83b-29a3-4943-98df-381dfcffe448",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 40.31899999998859,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "f044469c9344e947e8350ba463323cd1f6fa2691f3677a87703d19762f8d2617",
+            "shapeFingerprint": "8c285549436ce238e845547f80f36e2a3e28b5a6fe96ba009f71a743e331666f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 39.17816700000549,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 1,
+        "consoleErrors": [
+          {
+            "name": "TypeError"
+          }
+        ]
+      }
+    }
+  },
+  "differences": {
+    "card": {
+      "equal": true,
+      "differences": []
+    },
+    "bar": {
+      "equal": true,
+      "differences": []
+    },
+    "disease": {
+      "equal": true,
+      "differences": []
+    },
+    "dm": {
+      "equal": true,
+      "differences": []
+    },
+    "ca": {
+      "equal": true,
+      "differences": []
+    }
+  },
+  "stable": true,
+  "evidenceVerified": true,
+  "queryFailureCount": 0,
+  "unexpectedQueryFailure": false,
+  "normalResponsesValid": true,
+  "sourceMatches": true,
+  "passed": true
+}

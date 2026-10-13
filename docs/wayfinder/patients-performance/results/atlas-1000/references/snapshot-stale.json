@@ -1,0 +1,686 @@
+{
+  "case": {
+    "clock": "2026-10-13T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "variant": "snapshot-stale",
+    "timing": false,
+    "id": "snapshot-stale",
+    "families": ["stored-snapshots", "response-shape-and-order"],
+    "body": {
+      "startDate": "2024-01-07",
+      "endDate": "2026-10-13",
+      "area": "",
+      "province": "",
+      "district": "",
+      "hcode": ""
+    },
+    "expectedSources": {
+      "card": "snapshot",
+      "bar": "snapshot",
+      "disease": "snapshot",
+      "dm": "snapshot",
+      "ca": "snapshot"
+    }
+  },
+  "snapshot": {
+    "clock": "2026-10-11T05:00:00.000Z",
+    "timeZone": "Asia/Bangkok",
+    "updated_at": "2026-10-11T05:00:00.000Z",
+    "digest": "99170fb22b280e3fab674b0abf636761e95c395d38bd821bbc061a9c41194917",
+    "bsonBytes": 4238,
+    "ageHoursAtCaseClock": 48
+  },
+  "reference": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 100292,
+            "patient_count": 2000,
+            "expense": 3395824.01,
+            "hcode_count": 24,
+            "avg_service": 50.15,
+            "avg_expense": 1697.91
+          }
+        ]
+      },
+      "durationMs": 43.63458300000639,
+      "parsedCompletedAtMs": 117960.92925,
+      "trace": {
+        "requestId": "5221a748-3437-4d0d-b3ab-172c33d465e6",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 42.138000000006286,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "8dcd7d2f441852b47734861eeb43e8f8427c8bb36724950528abba5425654eba",
+            "shapeFingerprint": "6137b757d84ee4d3520e0fdb5683730453dbbd0a54f29d24e61ef8bcb11a8d3a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 41.2010830000072,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 1997,
+            "avg": 8.52
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 2000,
+            "avg": 8.41
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 2000,
+            "avg": 8.26
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 1984,
+            "avg": 8.39
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 1994,
+            "avg": 8.34
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 1991,
+            "avg": 8.38
+          }
+        ]
+      },
+      "durationMs": 44.92820799999754,
+      "parsedCompletedAtMs": 118005.870917,
+      "trace": {
+        "requestId": "3d04b164-6053-4b3a-a09d-de1b5b9d0d44",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 43.821707999988575,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d0f82c616b93887d6db63e0a7c85b78b704d22bf5226e2f93a7e96c55fc89c14",
+            "shapeFingerprint": "236a00bc56b7a397e3f7ea5bedf52cd049e4014d12c0a3ec40ef3154a763b468",
+            "maxTimeMS": 120000,
+            "elapsedMs": 43.15016599999217,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "ทั้งหมด",
+            "data": [1722, 1971, 1675, 0, 2106, 1598, 0, 1902, 2759, 2248, 1839, 772]
+          },
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "data": [319, 453, 273, 0, 446, 252, 0, 276, 363, 397, 307, 124]
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "data": [191, 293, 310, 0, 287, 394, 0, 363, 574, 428, 328, 148]
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "data": [304, 305, 240, 0, 371, 194, 0, 231, 542, 347, 329, 172]
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "data": [243, 328, 271, 0, 326, 253, 0, 376, 339, 386, 257, 90]
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "data": [366, 307, 217, 0, 392, 195, 0, 311, 453, 334, 371, 125]
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "data": [299, 285, 364, 0, 284, 310, 0, 345, 488, 356, 247, 113]
+          }
+        ]
+      },
+      "durationMs": 47.19487500000105,
+      "parsedCompletedAtMs": 118053.100584,
+      "trace": {
+        "requestId": "f1908da7-a21b-4072-b0ff-f2bd2e792c41",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 45.55504199999268,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d08c31948ea546fbd06e0dec484e9fcc473f9abcfcd1e96bbab8133e854108fa",
+            "shapeFingerprint": "ef2ae2fd00c93754dc32ae5104d6c0c8a1a19b69ea9e6691316f7e79c730b419",
+            "maxTimeMS": 120000,
+            "elapsedMs": 44.48887499999546,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+            "data": [97, 111, 82, 0, 93, 63, 0, 59, 113, 144, 86, 32]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+            "data": [91, 104, 51, 0, 131, 57, 0, 83, 95, 104, 95, 26]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+            "data": [108, 130, 52, 0, 154, 87, 0, 101, 121, 73, 82, 47]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+            "data": [69, 88, 80, 0, 110, 56, 0, 84, 136, 103, 70, 34]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดอื่น ๆ",
+            "data": [0, 20, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 45.450792000003275,
+      "parsedCompletedAtMs": 118098.680334,
+      "trace": {
+        "requestId": "66969b74-8b74-4fe5-aa2e-8de205354f79",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 44.17879200000607,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "bd21f280493eb1257b3e8c4b1aeb1a297233bf3c99ba50c1733e675c97478f6d",
+            "shapeFingerprint": "26e93f74814bbf0daeffabf4e5c867ac12ec7d55a82b5e58e72fe101f7e5cffe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 43.42816700000549,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคมะเร็งปอด",
+            "data": [55, 87, 78, 0, 148, 49, 0, 86, 135, 89, 101, 35]
+          },
+          {
+            "diseaseName": "โรคมะเร็งเต้านม",
+            "data": [70, 92, 82, 0, 88, 68, 0, 50, 109, 97, 88, 23]
+          },
+          {
+            "diseaseName": "โรคมะเร็งปากมดลูก",
+            "data": [53, 75, 74, 0, 112, 92, 0, 82, 148, 107, 75, 32]
+          },
+          {
+            "diseaseName": "โรคมะเร็งตับ",
+            "data": [70, 103, 79, 0, 131, 65, 0, 75, 107, 111, 96, 17]
+          },
+          {
+            "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+            "data": [86, 99, 104, 0, 113, 74, 0, 105, 98, 102, 68, 44]
+          },
+          {
+            "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 50.421291999999085,
+      "parsedCompletedAtMs": 118149.117959,
+      "trace": {
+        "requestId": "6b9b27c8-a1e7-4e94-add2-064d90389449",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 48.7711249999993,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "f044469c9344e947e8350ba463323cd1f6fa2691f3677a87703d19762f8d2617",
+            "shapeFingerprint": "8c285549436ce238e845547f80f36e2a3e28b5a6fe96ba009f71a743e331666f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 48.028040999997756,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    }
+  },
+  "repeat": {
+    "card": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 100292,
+            "patient_count": 2000,
+            "expense": 3395824.01,
+            "hcode_count": 24,
+            "avg_service": 50.15,
+            "avg_expense": 1697.91
+          }
+        ]
+      },
+      "durationMs": 44.77612500000396,
+      "parsedCompletedAtMs": 118193.93175,
+      "trace": {
+        "requestId": "5a26e2fd-2131-42c7-81e1-8c1b5b4af5f4",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/card",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 42.935708000004524,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "8dcd7d2f441852b47734861eeb43e8f8427c8bb36724950528abba5425654eba",
+            "shapeFingerprint": "6137b757d84ee4d3520e0fdb5683730453dbbd0a54f29d24e61ef8bcb11a8d3a",
+            "maxTimeMS": 120000,
+            "elapsedMs": 41.89841599999636,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "bar": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 1997,
+            "avg": 8.52
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 2000,
+            "avg": 8.41
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 2000,
+            "avg": 8.26
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 1984,
+            "avg": 8.39
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 1994,
+            "avg": 8.34
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 1991,
+            "avg": 8.38
+          }
+        ]
+      },
+      "durationMs": 44.599125000007916,
+      "parsedCompletedAtMs": 118238.570917,
+      "trace": {
+        "requestId": "25afd583-bf7b-4f13-b128-7ed63e6e0df6",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 42.70829199999571,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d0f82c616b93887d6db63e0a7c85b78b704d22bf5226e2f93a7e96c55fc89c14",
+            "shapeFingerprint": "236a00bc56b7a397e3f7ea5bedf52cd049e4014d12c0a3ec40ef3154a763b468",
+            "maxTimeMS": 120000,
+            "elapsedMs": 41.60083299998951,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "disease": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "ทั้งหมด",
+            "data": [1722, 1971, 1675, 0, 2106, 1598, 0, 1902, 2759, 2248, 1839, 772]
+          },
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "data": [319, 453, 273, 0, 446, 252, 0, 276, 363, 397, 307, 124]
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "data": [191, 293, 310, 0, 287, 394, 0, 363, 574, 428, 328, 148]
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "data": [304, 305, 240, 0, 371, 194, 0, 231, 542, 347, 329, 172]
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "data": [243, 328, 271, 0, 326, 253, 0, 376, 339, 386, 257, 90]
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "data": [366, 307, 217, 0, 392, 195, 0, 311, 453, 334, 371, 125]
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "data": [299, 285, 364, 0, 284, 310, 0, 345, 488, 356, 247, 113]
+          }
+        ]
+      },
+      "durationMs": 44.65529100000276,
+      "parsedCompletedAtMs": 118283.26325,
+      "trace": {
+        "requestId": "f2c8aa2b-4f99-4bf3-9881-47e01d8f96d3",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 42.072999999989406,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "d08c31948ea546fbd06e0dec484e9fcc473f9abcfcd1e96bbab8133e854108fa",
+            "shapeFingerprint": "ef2ae2fd00c93754dc32ae5104d6c0c8a1a19b69ea9e6691316f7e79c730b419",
+            "maxTimeMS": 120000,
+            "elapsedMs": 40.92845799999486,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "dm": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+            "data": [97, 111, 82, 0, 93, 63, 0, 59, 113, 144, 86, 32]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+            "data": [91, 104, 51, 0, 131, 57, 0, 83, 95, 104, 95, 26]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+            "data": [108, 130, 52, 0, 154, 87, 0, 101, 121, 73, 82, 47]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+            "data": [69, 88, 80, 0, 110, 56, 0, 84, 136, 103, 70, 34]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดอื่น ๆ",
+            "data": [0, 20, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 46.062458999993396,
+      "parsedCompletedAtMs": 118329.356084,
+      "trace": {
+        "requestId": "5528903a-ac5a-4062-9ecf-39e836399ead",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 43.87704200000735,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "bd21f280493eb1257b3e8c4b1aeb1a297233bf3c99ba50c1733e675c97478f6d",
+            "shapeFingerprint": "26e93f74814bbf0daeffabf4e5c867ac12ec7d55a82b5e58e72fe101f7e5cffe",
+            "maxTimeMS": 120000,
+            "elapsedMs": 42.58712500000547,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    },
+    "ca": {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคมะเร็งปอด",
+            "data": [55, 87, 78, 0, 148, 49, 0, 86, 135, 89, 101, 35]
+          },
+          {
+            "diseaseName": "โรคมะเร็งเต้านม",
+            "data": [70, 92, 82, 0, 88, 68, 0, 50, 109, 97, 88, 23]
+          },
+          {
+            "diseaseName": "โรคมะเร็งปากมดลูก",
+            "data": [53, 75, 74, 0, 112, 92, 0, 82, 148, 107, 75, 32]
+          },
+          {
+            "diseaseName": "โรคมะเร็งตับ",
+            "data": [70, 103, 79, 0, 131, 65, 0, 75, 107, 111, 96, 17]
+          },
+          {
+            "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+            "data": [86, 99, 104, 0, 113, 74, 0, 105, 98, 102, 68, 44]
+          },
+          {
+            "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "durationMs": 49.16941699999734,
+      "parsedCompletedAtMs": 118378.559459,
+      "trace": {
+        "requestId": "d9663028-1c91-45de-96c9-c73edd567abf",
+        "method": "POST",
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "clock": "2026-10-13T05:00:00.000Z",
+        "requestedTimeZone": "Asia/Bangkok",
+        "effectiveTimeZone": "Asia/Bangkok",
+        "fault": null,
+        "statusCode": 200,
+        "complete": true,
+        "processingMs": 47.675957999992534,
+        "aggregations": [
+          {
+            "collection": "NCD_Summary_Temp_Table",
+            "namespace": "ncds_perf_synthetic.NCD_Summary_Temp_Table",
+            "source": "snapshot",
+            "stages": ["$project"],
+            "pipelineFingerprint": "f044469c9344e947e8350ba463323cd1f6fa2691f3677a87703d19762f8d2617",
+            "shapeFingerprint": "8c285549436ce238e845547f80f36e2a3e28b5a6fe96ba009f71a743e331666f",
+            "maxTimeMS": 120000,
+            "elapsedMs": 46.72566700000607,
+            "success": true
+          }
+        ],
+        "queryErrors": [],
+        "errorEvidenceVerified": true,
+        "suppressedConsoleErrors": 0,
+        "consoleErrors": []
+      }
+    }
+  },
+  "differences": {
+    "card": {
+      "equal": true,
+      "differences": []
+    },
+    "bar": {
+      "equal": true,
+      "differences": []
+    },
+    "disease": {
+      "equal": true,
+      "differences": []
+    },
+    "dm": {
+      "equal": true,
+      "differences": []
+    },
+    "ca": {
+      "equal": true,
+      "differences": []
+    }
+  },
+  "stable": true,
+  "evidenceVerified": true,
+  "queryFailureCount": 0,
+  "unexpectedQueryFailure": false,
+  "normalResponsesValid": true,
+  "sourceMatches": true,
+  "passed": true
+}
