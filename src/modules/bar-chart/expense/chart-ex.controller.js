@@ -4,15 +4,19 @@ const { chartExpenseServiceV2 } = require("./chart-ex.service");
 async function chartExpenseController(req, res) {
   const { startDate, endDate, area, province, district, hcode } = req.body;
   try {
-    selectPatientsBackend();
-    const result = await chartExpenseServiceV2({
+    const backend = selectPatientsBackend("expense-bar");
+    const body = {
       startDate,
       endDate,
       area,
       province,
       district,
       hcode,
-    });
+    };
+    const result =
+      backend.mode === "candidate-validation"
+        ? await require("../../patients/read-model/expense-bar").readExpenseBar(backend.reader, body)
+        : await chartExpenseServiceV2(body);
     return res.status(200).json({
       status: true,
       message: "success",

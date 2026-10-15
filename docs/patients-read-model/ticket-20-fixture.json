@@ -1,0 +1,227 @@
+{
+  "schema": "ticket20-fixture-report-v1",
+  "fixtureRevision": "full-finite-raw-v1",
+  "evidence": "isolated-local-only",
+  "sourceBytes": 2434,
+  "sourceRecords": 10,
+  "sourceDigest": "1f372edaa0d75fae3b1ecb39daef87e16c445d19e7c223136ca55994e42f448d",
+  "sourceCutAt": "2024-01-03T00:00:00.000Z",
+  "history": {
+    "start": "2024-01-01T00:00:00.000Z",
+    "end": "2024-01-02T23:59:59.999Z"
+  },
+  "rows": 4,
+  "versions": {
+    "schema": "patients-daily-v1",
+    "dictionary": "mongo-equivalence-v1",
+    "codec": "roaring-2.7.0-portable",
+    "arithmetic": "expense-v1",
+    "serviceArithmetic": "baseline-services-v1"
+  },
+  "counts": [2, 1, 1, 1, 1, 1],
+  "services": [4, 1, 1, 1, 1, 1],
+  "exactExpenseTotals": [
+    {
+      "coefficient": "100",
+      "scale": 0
+    },
+    {
+      "coefficient": "10",
+      "scale": 0
+    },
+    {
+      "coefficient": "50",
+      "scale": 0
+    },
+    {
+      "coefficient": "60",
+      "scale": 0
+    },
+    {
+      "coefficient": "70",
+      "scale": 0
+    },
+    {
+      "coefficient": "80",
+      "scale": 0
+    }
+  ],
+  "expenseInventory": {
+    "policy": "expense-v1",
+    "runtime": "v24.22.0",
+    "bsonKinds": {
+      "double": 8,
+      "int": 16
+    }
+  },
+  "validation": {
+    "patientsBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "categories": 6,
+      "counts": [2, 1, 1, 1, 1, 1]
+    },
+    "expenseBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "policy": "expense-v1",
+      "totals": [
+        {
+          "coefficient": "100",
+          "scale": 0
+        },
+        {
+          "coefficient": "10",
+          "scale": 0
+        },
+        {
+          "coefficient": "50",
+          "scale": 0
+        },
+        {
+          "coefficient": "60",
+          "scale": 0
+        },
+        {
+          "coefficient": "70",
+          "scale": 0
+        },
+        {
+          "coefficient": "80",
+          "scale": 0
+        }
+      ]
+    }
+  },
+  "http": [
+    {
+      "route": "/ncds_api/api/v1/bar-chart-pt",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-02"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 2,
+            "avg": 2
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 1,
+            "avg": 1
+          }
+        ]
+      },
+      "parsedBodyElapsedMS": 63.806249999999864
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-ex",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-02"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 100,
+            "avg": 50
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 10,
+            "avg": 10
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 50,
+            "avg": 50
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 60,
+            "avg": 60
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 70,
+            "avg": 70
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 80,
+            "avg": 80
+          }
+        ]
+      },
+      "parsedBodyElapsedMS": 11.497083999999859
+    }
+  ],
+  "resources": {
+    "elapsedMS": 585.808125,
+    "peakRssBytes": 106692608,
+    "peakAdditionalRssBytes": 22134784,
+    "peakSerializedBytes": 95556,
+    "storageBytes": 215426,
+    "peakNativeBytes": 1344,
+    "peakStorageBytes": 272770,
+    "declared": {
+      "maxTimeMS": 30000,
+      "maxSourceBytes": 8388608,
+      "maxStorageBytes": 33554432,
+      "maxAdditionalRssBytes": 134217728,
+      "maxSerializedBytes": 8388608,
+      "maxChunkBytes": 1048576,
+      "maxPayloadBytes": 983040,
+      "maxHeavyOperations": 1
+    },
+    "productionHeadroom": "unverified",
+    "databaseMemory": "unverified"
+  },
+  "buildElapsedMS": 588.640417,
+  "build": {
+    "runtime": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "clock": "2026-10-15T03:28:37.642Z",
+    "timeZone": "Asia/Bangkok"
+  },
+  "mongo": "7.0.9",
+  "limits": {
+    "activation": "blocked",
+    "frontendEvidence": "deferred",
+    "databaseMemory": "unverified",
+    "productionHeadroom": "unverified",
+    "spending": 0
+  }
+}

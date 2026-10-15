@@ -29,7 +29,8 @@ const VERSIONS = Object.freeze({
   schema: "patients-daily-v1",
   dictionary: "mongo-equivalence-v1",
   codec: "roaring-2.7.0-portable",
-  arithmetic: "baseline-services-v1",
+  arithmetic: "expense-v1",
+  serviceArithmetic: "baseline-services-v1",
 });
 const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
