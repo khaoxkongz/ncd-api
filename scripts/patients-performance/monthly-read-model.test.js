@@ -250,6 +250,7 @@ it("keeps local clock windows and graph snapshot routing independent of request 
   try {
     await local.db.collection("NCD_SUMMARY").insertMany(rows);
     const candidate = await createBuilder({ db: local.db }).build(cut.sourceCut, FIXTURE_BUDGET, cut.comparisonContext);
+    await local.db.collection("patients_snapshots").deleteMany({ generationId: candidate.generationId });
     for (const [clock, timeZone] of [
       ["2026-10-31T16:59:59.999Z", "Asia/Bangkok"],
       ["2026-10-31T17:00:00.000Z", "Asia/Bangkok"],
@@ -358,11 +359,14 @@ it("fails changed monthly inventories and chunks as 503, removes settled work, a
       expect((await graphs(app)).every(({ status }) => status === 200)).toBe(true);
     }
     expect((await graphs(app, { area: { $unsupported: 1 } })).every(({ status }) => status === 503)).toBe(true);
+    await local.db
+      .collection("patients_generations")
+      .updateOne({ _id: candidate.generationId }, { $set: { "components.snapshots.complete": false } });
     await expect(
       reader.read({ ...context, route: "patients-graphs/snapshot/disease" }, ({ snapshot }) =>
         snapshot("disease-patients")
       )
-    ).rejects.toThrow("incomplete");
+    ).rejects.toThrow(/incomplete/i);
   } finally {
     await app?.close();
     cut.close();

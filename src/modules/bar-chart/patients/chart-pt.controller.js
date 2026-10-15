@@ -1,9 +1,11 @@
+const { responseMetadata, responseResult } = require("../../patients/read-model/metadata");
 const { selectPatientsBackend, ReadModelUnavailableError } = require("../../patients/backend");
 const { chartPatientServiceV2, tempChartPatientService } = require("./chart-pt.service");
 
 async function chartPatientController(req, res) {
   const { startDate, endDate, area, province, district, hcode } = req.body;
   try {
+    responseMetadata(res);
     const backend = selectPatientsBackend("patients-bar");
     const body = {
       startDate,
@@ -13,10 +15,11 @@ async function chartPatientController(req, res) {
       district,
       hcode,
     };
-    const result =
+    const response =
       backend.mode === "candidate-validation"
         ? await require("../../patients/read-model/patients-bar").readPatientsBar(backend.reader, body)
         : await chartPatientServiceV2(body);
+    const result = backend.mode === "candidate-validation" ? responseResult(res, response) : response;
     return res.status(200).json({
       status: true,
       message: "success",
@@ -24,6 +27,7 @@ async function chartPatientController(req, res) {
     });
   } catch (error) {
     if (error instanceof ReadModelUnavailableError) {
+      responseMetadata(res);
       return res.status(503).json({ status: false, message: "Read model unavailable" });
     }
     console.error(error);

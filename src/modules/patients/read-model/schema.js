@@ -33,6 +33,8 @@ const VERSIONS = Object.freeze({
   serviceArithmetic: "baseline-services-v1",
   preparedStored: "stored-scopes-v1",
   card: "daily-card-v1",
+  dateUtc: "date-utc-months-v1",
+  preparedDateUtc: "date-utc-scopes-v1",
 });
 const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
@@ -41,8 +43,11 @@ const COLLECTIONS = Object.freeze({
   months: "patients_month_atoms",
   scopes: "patients_scopes",
   monthScopes: "patients_month_scopes",
+  dateMonths: "patients_date_month_atoms",
+  dateMonthScopes: "patients_date_month_scopes",
   chunks: "patients_bitmap_chunks",
   directory: "patients_bitmap_directory",
+  snapshots: "patients_snapshots",
 });
 const BSON_OPTIONS = Object.freeze({
   promoteValues: false,

@@ -1,0 +1,1336 @@
+{
+  "schema": "ticket24-fixture-report-v1",
+  "fixtureRevision": "date-range-finite-summary-v1",
+  "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+  "candidateRevision": "e1cdb132f60f70490a17cc1b09bd2fbb4e3ce031",
+  "evidence": "single-isolated-local-summary-fixture-only",
+  "sourceRecords": 13,
+  "sourceBytes": 6114,
+  "sourceDigest": "2e200f3a8b2e989967c840fbedae956c37a1fdbbaea0975bbcf93dcbfd130f08",
+  "sourceCutAt": "2025-04-01T00:00:00.000Z",
+  "history": {
+    "start": "2023-12-01T00:00:00.000Z",
+    "end": "2025-03-31T23:59:59.999Z"
+  },
+  "versions": {
+    "schema": "patients-daily-and-stored-months-v1",
+    "dictionary": "mongo-equivalence-v1",
+    "codec": "roaring-2.7.0-portable",
+    "arithmetic": "expense-v1",
+    "serviceArithmetic": "baseline-services-v1",
+    "preparedStored": "stored-scopes-v1",
+    "card": "daily-card-v1",
+    "dateUtc": "date-utc-months-v1",
+    "preparedDateUtc": "date-utc-scopes-v1"
+  },
+  "inventories": {
+    "rows": 13,
+    "dateUtc": {
+      "version": "date-utc-months-v1",
+      "atoms": 11,
+      "dailyOnlyRows": 0,
+      "scopes": 11,
+      "scopeMonths": 45
+    },
+    "storedAtoms": 6,
+    "scopes": 11,
+    "storedScopePeriods": 11,
+    "identities": 9,
+    "chunks": 226,
+    "directories": 226
+  },
+  "validation": {
+    "patientsBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "categories": 6,
+      "counts": [6, 1, 0, 0, 0, 0]
+    },
+    "expenseBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "policy": "expense-v1",
+      "totals": [
+        {
+          "coefficient": "150",
+          "scale": 0
+        },
+        {
+          "coefficient": "0",
+          "scale": 0
+        },
+        {
+          "coefficient": "0",
+          "scale": 0
+        },
+        {
+          "coefficient": "0",
+          "scale": 0
+        },
+        {
+          "coefficient": "0",
+          "scale": 0
+        },
+        {
+          "coefficient": "0",
+          "scale": 0
+        }
+      ]
+    },
+    "card": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "patientCount": 6,
+      "hospitalCount": 3,
+      "baselineError": false,
+      "policy": "expense-v1"
+    },
+    "monthlyStored": {
+      "equal": true,
+      "categories": 15,
+      "windows": 2,
+      "scope": "all-supported-stored-periods"
+    },
+    "preparedStored": {
+      "equal": true,
+      "setsEqual": true,
+      "categories": 15,
+      "scopes": 11,
+      "cells": 1980,
+      "setBlocks": 15,
+      "windows": 11,
+      "scope": "all-observed-single-field-equalities-and-national"
+    },
+    "monthlyDateUtc": {
+      "equal": true,
+      "setsEqual": true,
+      "categories": 8,
+      "scopes": 11,
+      "setBlocks": 137,
+      "scope": "all-observed-scopes-and-UTC-date-months"
+    },
+    "preparedDateUtc": {
+      "equal": true,
+      "setsEqual": true,
+      "categories": 8,
+      "scopes": 11,
+      "setBlocks": 137,
+      "scope": "all-observed-scopes-and-UTC-date-months"
+    },
+    "snapshots": {
+      "documents": 1,
+      "endpoints": 6,
+      "version": "endpoint-snapshots-v1",
+      "clock": "2026-10-15T06:56:06.697Z",
+      "timeZone": "Asia/Bangkok",
+      "periods": [
+        {
+          "year": 2025,
+          "month": 11
+        },
+        {
+          "year": 2025,
+          "month": 12
+        },
+        {
+          "year": 2026,
+          "month": 1
+        },
+        {
+          "year": 2026,
+          "month": 2
+        },
+        {
+          "year": 2026,
+          "month": 3
+        },
+        {
+          "year": 2026,
+          "month": 4
+        },
+        {
+          "year": 2026,
+          "month": 5
+        },
+        {
+          "year": 2026,
+          "month": 6
+        },
+        {
+          "year": 2026,
+          "month": 7
+        },
+        {
+          "year": 2026,
+          "month": 8
+        },
+        {
+          "year": 2026,
+          "month": 9
+        },
+        {
+          "year": 2026,
+          "month": 10
+        }
+      ],
+      "selection": {
+        "date": {
+          "$gte": "2024-01-07T00:00:00.000Z",
+          "$lte": "2026-10-15T06:56:06.000Z"
+        }
+      },
+      "source": {
+        "sourceCutAt": "2025-04-01T00:00:00.000Z",
+        "coverageVerified": false
+      }
+    }
+  },
+  "indexes": [
+    {
+      "collection": "patients_generations",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_identity",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_identity",
+      "name": "generationId_1_kind_1_ordinal_1",
+      "keys": {
+        "generationId": 1,
+        "kind": 1,
+        "ordinal": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_identity",
+      "name": "patients_identity_value_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "kind": 1,
+        "originalBsonValue": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_date_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_area_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "area": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_province_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "province": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_district_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "district": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_hcode_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "hcode": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_date_month_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "dateMonthEligible": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "generationId_1_periodKind_1_periodKey_1_partitionId_1",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "periodKey": 1,
+        "partitionId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_period_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_hcode_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "hcode": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_area_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "area": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_province_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "province": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_district_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "district": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_scopes",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_scopes",
+      "name": "generationId_1_scopeId_1",
+      "keys": {
+        "generationId": 1,
+        "scopeId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_scopes",
+      "name": "patients_scope_value_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "scopeKind": 1,
+        "value": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_scopes",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_scopes",
+      "name": "generationId_1_periodKind_1_periodKey_1_scopeId_1",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "periodKey": 1,
+        "scopeId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_scopes",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_scopes",
+      "name": "patients_scope_period_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "scopeId": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "generationId_1_monthStart_1_partitionId_1",
+      "keys": {
+        "generationId": 1,
+        "monthStart": 1,
+        "partitionId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "patients_date_month_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "patients_date_month_hcode_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "hcode": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "patients_date_month_area_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "area": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "patients_date_month_province_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "province": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_atoms",
+      "name": "patients_date_month_district_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "district": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_scopes",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_date_month_scopes",
+      "name": "generationId_1_scopeId_1_monthStart_1",
+      "keys": {
+        "generationId": 1,
+        "scopeId": 1,
+        "monthStart": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_date_month_scopes",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_date_month_scopes",
+      "name": "patients_date_scope_period_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "scopeId": 1,
+        "monthStart": 1,
+        "monthEnd": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_bitmap_chunks",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_bitmap_chunks",
+      "name": "patients_chunks_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "setId": 1,
+        "category": 1,
+        "block": 1,
+        "chunkNo": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_bitmap_directory",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_bitmap_directory",
+      "name": "patients_directory_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "setId": 1,
+        "category": 1,
+        "block": 1,
+        "chunkNo": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_snapshots",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_snapshots",
+      "name": "generationId_1",
+      "keys": {
+        "generationId": 1
+      },
+      "unique": false
+    }
+  ],
+  "queryEvidence": [
+    {
+      "purpose": "UTC-date historical metadata, one independent field",
+      "collection": "patients_date_month_atoms",
+      "stages": ["FETCH", "IXSCAN"],
+      "indexes": ["patients_date_month_hcode_2beb5d2b9ac62d82"],
+      "returned": 5,
+      "examinedDocuments": 5,
+      "examinedKeys": 7,
+      "executionTimeMS": 1
+    },
+    {
+      "purpose": "UTC-date prepared national metadata",
+      "collection": "patients_date_month_scopes",
+      "stages": ["FETCH", "IXSCAN"],
+      "indexes": ["patients_date_scope_period_2beb5d2b9ac62d82"],
+      "returned": 6,
+      "examinedDocuments": 6,
+      "examinedKeys": 8,
+      "executionTimeMS": 0
+    },
+    {
+      "purpose": "Original daily service accumulator selection",
+      "collection": "patients_daily",
+      "stages": ["FETCH", "IXSCAN"],
+      "indexes": ["patients_daily_area_2beb5d2b9ac62d82"],
+      "returned": 4,
+      "examinedDocuments": 4,
+      "examinedKeys": 4,
+      "executionTimeMS": 0
+    },
+    {
+      "purpose": "Selected portable chunks",
+      "collection": "patients_bitmap_chunks",
+      "stages": ["FETCH", "IXSCAN"],
+      "indexes": ["patients_chunks_2beb5d2b9ac62d82"],
+      "returned": 1,
+      "examinedDocuments": 1,
+      "examinedKeys": 1,
+      "executionTimeMS": 0
+    },
+    {
+      "purpose": "Selected independent directory",
+      "collection": "patients_bitmap_directory",
+      "stages": ["FETCH", "IXSCAN"],
+      "indexes": ["patients_directory_2beb5d2b9ac62d82"],
+      "returned": 1,
+      "examinedDocuments": 1,
+      "examinedKeys": 1,
+      "executionTimeMS": 0
+    }
+  ],
+  "readerPlanEvidence": [
+    {
+      "collection": "patients_date_month_scopes",
+      "roots": [
+        {
+          "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
+          "indexes": ["patients_date_scope_period_2beb5d2b9ac62d82"],
+          "returned": 6,
+          "examinedDocuments": 6,
+          "examinedKeys": 8,
+          "executionTimeMS": 2
+        },
+        {
+          "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
+          "indexes": ["patients_daily_date_2beb5d2b9ac62d82"],
+          "returned": 1,
+          "examinedDocuments": 11,
+          "examinedKeys": 11,
+          "executionTimeMS": 2
+        }
+      ],
+      "lookups": [
+        {
+          "from": "patients_bitmap_directory",
+          "indexes": ["patients_directory_2beb5d2b9ac62d82"],
+          "collectionScans": 0,
+          "examinedDocuments": 19,
+          "examinedKeys": 25,
+          "returned": 19
+        },
+        {
+          "from": "patients_bitmap_directory",
+          "indexes": ["patients_directory_2beb5d2b9ac62d82"],
+          "collectionScans": 0,
+          "examinedDocuments": 3,
+          "examinedKeys": 6,
+          "returned": 2
+        }
+      ]
+    },
+    {
+      "collection": "patients_date_month_scopes",
+      "roots": [
+        {
+          "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
+          "indexes": ["patients_date_scope_period_2beb5d2b9ac62d82"],
+          "returned": 6,
+          "examinedDocuments": 6,
+          "examinedKeys": 8,
+          "executionTimeMS": 3
+        },
+        {
+          "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
+          "indexes": ["patients_daily_date_2beb5d2b9ac62d82"],
+          "returned": 1,
+          "examinedDocuments": 11,
+          "examinedKeys": 11,
+          "executionTimeMS": 4
+        }
+      ],
+      "lookups": [
+        {
+          "from": "patients_bitmap_chunks",
+          "indexes": ["patients_chunks_2beb5d2b9ac62d82"],
+          "collectionScans": 0,
+          "examinedDocuments": 19,
+          "examinedKeys": 25,
+          "returned": 19
+        },
+        {
+          "from": "patients_bitmap_chunks",
+          "indexes": ["patients_chunks_2beb5d2b9ac62d82"],
+          "collectionScans": 0,
+          "examinedDocuments": 3,
+          "examinedKeys": 6,
+          "returned": 2
+        },
+        {
+          "from": "patients_bitmap_directory",
+          "indexes": ["patients_directory_2beb5d2b9ac62d82"],
+          "collectionScans": 0,
+          "examinedDocuments": 20,
+          "examinedKeys": 20,
+          "returned": 20
+        }
+      ]
+    }
+  ],
+  "http": [
+    {
+      "route": "/ncds_api/api/v1/card",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 20,
+            "patient_count": 5,
+            "expense": 130,
+            "hcode_count": 3,
+            "avg_service": 4,
+            "avg_expense": 26
+          }
+        ]
+      },
+      "responseBytes": 148,
+      "parsedBodyElapsedMS": 288.49954199999956
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-pt",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 5,
+            "avg": 3.6
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 1,
+            "avg": 2
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 573,
+      "parsedBodyElapsedMS": 201.1567500000001
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-ex",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 130,
+            "avg": 26
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 574,
+      "parsedBodyElapsedMS": 326.2784589999992
+    },
+    {
+      "route": "/ncds_api/api/v1/card",
+      "request": {
+        "startDate": "2024-01-15T12:00:00.001Z",
+        "endDate": "2025-02-15T12:30:00.000Z"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 11,
+            "patient_count": 5,
+            "expense": 90,
+            "hcode_count": 2,
+            "avg_service": 2.2,
+            "avg_expense": 18
+          }
+        ]
+      },
+      "responseBytes": 149,
+      "parsedBodyElapsedMS": 190.4422909999994
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-pt",
+      "request": {
+        "startDate": "2024-01-15T12:00:00.001Z",
+        "endDate": "2025-02-15T12:30:00.000Z"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 5,
+            "avg": 1.8
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 1,
+            "avg": 2
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 573,
+      "parsedBodyElapsedMS": 197.44433299999946
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-ex",
+      "request": {
+        "startDate": "2024-01-15T12:00:00.001Z",
+        "endDate": "2025-02-15T12:30:00.000Z"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 90,
+            "avg": 18
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 573,
+      "parsedBodyElapsedMS": 121.00529099999949
+    },
+    {
+      "route": "/ncds_api/api/v1/card",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01",
+        "area": "new",
+        "hcode": "H1"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 4,
+            "patient_count": 2,
+            "expense": 40,
+            "hcode_count": 1,
+            "avg_service": 2,
+            "avg_expense": 20
+          }
+        ]
+      },
+      "responseBytes": 146,
+      "parsedBodyElapsedMS": 67.19362499999988
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-pt",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01",
+        "area": "new",
+        "hcode": "H1"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 2,
+            "avg": 2
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 571,
+      "parsedBodyElapsedMS": 41.03062500000124
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-ex",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2025-03-01",
+        "area": "new",
+        "hcode": "H1"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 40,
+            "avg": 20
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "responseBytes": 573,
+      "parsedBodyElapsedMS": 56.518417000001136
+    }
+  ],
+  "resources": {
+    "elapsedMS": 11625.791792,
+    "peakRssBytes": 104923136,
+    "peakAdditionalRssBytes": 14172160,
+    "peakSerializedBytes": 128504,
+    "storageBytes": 964578,
+    "peakNativeBytes": 36576,
+    "peakStorageBytes": 1071074,
+    "declared": {
+      "maxTimeMS": 30000,
+      "maxSourceBytes": 8388608,
+      "maxStorageBytes": 33554432,
+      "maxAdditionalRssBytes": 134217728,
+      "maxSerializedBytes": 8388608,
+      "maxChunkBytes": 1048576,
+      "maxPayloadBytes": 983040,
+      "maxHeavyOperations": 1
+    },
+    "productionHeadroom": "unverified",
+    "databaseMemory": "unverified"
+  },
+  "buildElapsedMS": 11659.634208,
+  "stages": [
+    {
+      "name": "source-staging",
+      "complete": true,
+      "elapsedMS": 145.69020799999998
+    },
+    {
+      "name": "source-type-inventory",
+      "complete": true,
+      "elapsedMS": 21.074999999999932
+    },
+    {
+      "name": "baseline-hospital-day-etl",
+      "complete": true,
+      "elapsedMS": 130.18879200000003
+    },
+    {
+      "name": "baseline-identity-finalization",
+      "complete": true,
+      "elapsedMS": 14.001958000000059
+    },
+    {
+      "name": "daily-facts-and-original-members",
+      "complete": true,
+      "elapsedMS": 282.30320900000004
+    },
+    {
+      "name": "expense-v1-daily-operands",
+      "complete": true,
+      "elapsedMS": 41.45462499999985
+    },
+    {
+      "name": "baseline-daily-card-facts",
+      "complete": true,
+      "elapsedMS": 326.60466599999995
+    },
+    {
+      "name": "mongo-equivalence-dictionary",
+      "complete": true,
+      "elapsedMS": 282.0368749999999
+    },
+    {
+      "name": "portable-daily-bitmaps",
+      "complete": true,
+      "elapsedMS": 2170.921375
+    },
+    {
+      "name": "stored-month-atoms",
+      "complete": true,
+      "elapsedMS": 1796.4310839999998
+    },
+    {
+      "name": "prepared-stored-month-scopes",
+      "complete": true,
+      "elapsedMS": 1214.0791250000002
+    },
+    {
+      "name": "date-utc-month-atoms",
+      "complete": true,
+      "elapsedMS": 3149.229625000001
+    },
+    {
+      "name": "patients-bar-differential-validation",
+      "complete": true,
+      "elapsedMS": 252.72620800000004
+    },
+    {
+      "name": "stored-month-differential-validation",
+      "complete": true,
+      "elapsedMS": 230.87695800000074
+    },
+    {
+      "name": "prepared-stored-month-differential-validation",
+      "complete": true,
+      "elapsedMS": 991.4755839999998
+    },
+    {
+      "name": "date-utc-month-differential-validation",
+      "complete": true,
+      "elapsedMS": 287.18841600000087
+    },
+    {
+      "name": "compatible-endpoint-snapshots",
+      "complete": true,
+      "elapsedMS": 117.42691699999887
+    }
+  ],
+  "build": {
+    "runtime": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "clock": "2026-10-15T06:56:16.353Z",
+    "timeZone": "Asia/Bangkok"
+  },
+  "mongo": "7.0.9",
+  "candidate": {
+    "state": "candidate-partial",
+    "complete": false,
+    "components": {
+      "patientsBar": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "daily": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "dictionary": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "patientDictionary": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "hospitalDictionary": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "monthlyStored": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "monthlyDateUtc": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "preparedDateUtc": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "preparedScopes": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "preparedStored": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "card": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "expenseBar": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "snapshots": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
+      },
+      "control": {
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": false
+      }
+    }
+  },
+  "limits": {
+    "spending": 0,
+    "activation": "blocked",
+    "frontendEvidence": "deferred",
+    "targetHost": "unverified",
+    "sourceHistoryAndCapacity": "unverified",
+    "databaseMemoryAndCpuIo": "unverified",
+    "servicePath": "original daily Mongo accumulators; monthly membership and expense facts"
+  }
+}

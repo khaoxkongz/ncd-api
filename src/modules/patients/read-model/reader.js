@@ -5,6 +5,9 @@ const { codec, directoryToken, decodeChunk } = require("./bitmap");
 const { calculateMonths } = require("./stored-months");
 const expense = require("./expense");
 const card = require("./daily-card");
+const { calculateDateRange, validateServiceFacts } = require("./date-months");
+const { generationProvenance, sourceState } = require("./metadata");
+const { readSnapshot } = require("./snapshots");
 
 function compatible(versions) {
   return (
@@ -61,6 +64,8 @@ function createReader({ db, generationId, validationOnly = false }) {
       const collation = generation.collation;
       const options = (budget, extra = {}) => budget.options({ collation, ...extra });
       async function calculateRange(selection, budget) {
+        const monthly = await calculateDateRange({ db, generation, selection, budget });
+        if (monthly) return monthly;
         const match = { ...selection, generationId };
         const rangeSets = [...CATEGORIES.slice(0, 6).map(({ id }) => id), ...card.SETS];
         const chunkCount = await chunks.countDocuments({ generationId }, options(budget));
@@ -207,13 +212,23 @@ function createReader({ db, generationId, validationOnly = false }) {
           match,
           options(budget, {
             ...BSON_OPTIONS,
-            projection: { _id: 0, rowId: 1, expenses: 1, expenseVersion: 1, expenseSha256: 1, card: 1 },
+            projection: {
+              _id: 0,
+              rowId: 1,
+              expenses: 1,
+              expenseVersion: 1,
+              expenseSha256: 1,
+              card: 1,
+              dailyServiceSha256: 1,
+              ...Object.fromEntries(CATEGORIES.slice(0, 6).map(({ service }) => [service, 1])),
+            },
           })
         );
         let expenseRows = 0;
         try {
           for await (const row of expenseCursor) {
             budget.serialized(BSON.serialize(row).length * 4 + 65536);
+            validateServiceFacts(row);
             // Read the Card scalar under the same original BSON types used to
             // seal it. Aggregation above retains baseline driver promotion.
             if (
@@ -308,14 +323,7 @@ function createReader({ db, generationId, validationOnly = false }) {
         // freshness belongs to each caller's captured clock and source state.
         return Object.freeze({
           ...result,
-          source: {
-            sourceCutAt: generation.source.sourceCutAt,
-            state: generation.source.rawComplete
-              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
-                ? "fresh"
-                : "stale"
-              : "unknown",
-          },
+          source: sourceState(generationProvenance(generation), requestContext.clock),
         });
       }
       async function monthFacts(scope, periods) {
@@ -360,20 +368,12 @@ function createReader({ db, generationId, validationOnly = false }) {
         requestBudget.check();
         return Object.freeze({
           ...result,
-          source: Object.freeze({
-            sourceCutAt: generation.source.sourceCutAt,
-            state: generation.source.rawComplete
-              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
-                ? "fresh"
-                : "stale"
-              : "unknown",
-          }),
+          source: sourceState(generationProvenance(generation), requestContext.clock),
         });
       }
-      const unavailable = async () => {
-        throw new Error("Read-model component is incomplete");
-      };
-      const result = await callback(Object.freeze({ rangeFacts, monthFacts, snapshot: unavailable }));
+      const snapshot = (endpoint) =>
+        readSnapshot({ db, generation, endpoint, clock: requestContext.clock, budget: requestBudget });
+      const result = await callback(Object.freeze({ rangeFacts, monthFacts, snapshot }));
       requestBudget.check();
       return result;
     },

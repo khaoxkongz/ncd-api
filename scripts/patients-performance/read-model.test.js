@@ -104,6 +104,7 @@ it("keeps a full empty cut valid and rejects unsupported baseline operands and f
     await expect(
       createReader({ db: local.db, generationId: report.generationId }).read({}, () => null)
     ).rejects.toThrow("unavailable");
+    await local.db.collection("patients_snapshots").deleteMany({ generationId: report.generationId });
     const snapshot = await fetch(`${app.url}/ncds_api/api/v1/bar-chart-pt`, {
       method: "POST",
       headers: { "content-type": "application/json" },
