@@ -149,7 +149,9 @@ export default defineConfig({
       "require-yield": "error",
       "use-isnan": "error",
       "valid-typeof": "error",
-      "prettier/prettier": "error",
+      // vp check already runs the configured Oxfmt formatter. The redundant
+      // Prettier rule used different defaults and rejected Oxfmt output.
+      "prettier/prettier": "off",
       "vite-plus/prefer-vite-plus-imports": "error",
     },
     options: {
