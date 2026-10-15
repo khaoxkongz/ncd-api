@@ -207,7 +207,9 @@ it("matches daily-only complete route responses for non-month-equivalent source 
       dm_uid_count: null,
       area: "special",
     }),
-    rangeRow("service-error", "2024-06-01", { ht_uid_count: "unsupported-add", area: "service-error" }),
+    // Keep this live-path data error before the existing snapshot start; a
+    // required snapshot error must reject the candidate under ticket #25.
+    rangeRow("service-error", "2024-01-05", { ht_uid_count: "unsupported-add", area: "service-error" }),
   ];
   const direct = sealRange(rows);
   const daily = sealRange(rows.map((row) => ({ ...row, date: [row.date] })));
