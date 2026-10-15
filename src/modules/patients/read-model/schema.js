@@ -26,7 +26,7 @@ const CATEGORIES = Object.freeze(
   )
 );
 const VERSIONS = Object.freeze({
-  schema: "patients-daily-v1",
+  schema: "patients-daily-and-stored-months-v1",
   dictionary: "mongo-equivalence-v1",
   codec: "roaring-2.7.0-portable",
   arithmetic: "baseline-services-v1",
@@ -35,6 +35,7 @@ const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
   identity: "patients_identity",
   daily: "patients_daily",
+  months: "patients_month_atoms",
   chunks: "patients_bitmap_chunks",
   directory: "patients_bitmap_directory",
 });
