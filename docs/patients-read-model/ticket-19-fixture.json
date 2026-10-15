@@ -1,0 +1,154 @@
+{
+  "schema": "ticket19-fixture-report-v1",
+  "fixtureRevision": "full-finite-raw-v1",
+  "evidence": "isolated-local-only",
+  "sourceBytes": 2434,
+  "sourceRecords": 10,
+  "sourceDigest": "1f372edaa0d75fae3b1ecb39daef87e16c445d19e7c223136ca55994e42f448d",
+  "sourceCutAt": "2024-01-03T00:00:00.000Z",
+  "history": {
+    "start": "2024-01-01T00:00:00.000Z",
+    "end": "2024-01-02T23:59:59.999Z"
+  },
+  "rows": 4,
+  "identities": 6,
+  "chunks": 9,
+  "directories": 9,
+  "stages": [
+    {
+      "name": "source-staging",
+      "complete": true,
+      "elapsedMS": 38.53108299999997
+    },
+    {
+      "name": "source-type-inventory",
+      "complete": true,
+      "elapsedMS": 7.701584000000025
+    },
+    {
+      "name": "baseline-hospital-day-etl",
+      "complete": true,
+      "elapsedMS": 37.57245799999998
+    },
+    {
+      "name": "baseline-identity-finalization",
+      "complete": true,
+      "elapsedMS": 9.466499999999996
+    },
+    {
+      "name": "daily-facts-and-original-members",
+      "complete": true,
+      "elapsedMS": 47.497208
+    },
+    {
+      "name": "mongo-equivalence-dictionary",
+      "complete": true,
+      "elapsedMS": 71.48754200000002
+    },
+    {
+      "name": "portable-daily-bitmaps",
+      "complete": true,
+      "elapsedMS": 300.199958
+    },
+    {
+      "name": "patients-bar-differential-validation",
+      "complete": true,
+      "elapsedMS": 34.38408300000003
+    }
+  ],
+  "counts": [2, 1, 1, 1, 1, 1],
+  "services": [4, 1, 1, 1, 1, 1],
+  "matchedRows": 4,
+  "http": {
+    "route": "/ncds_api/api/v1/bar-chart-pt",
+    "request": {
+      "startDate": "2024-01-01",
+      "endDate": "2024-01-02"
+    },
+    "status": 200,
+    "body": {
+      "status": true,
+      "message": "success",
+      "result": [
+        {
+          "diseaseName": "โรคเบาหวาน",
+          "qtyOfPatient": 2,
+          "avg": 2
+        },
+        {
+          "diseaseName": "โรคความดันโลหิตสูง",
+          "qtyOfPatient": 1,
+          "avg": 1
+        },
+        {
+          "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+          "qtyOfPatient": 1,
+          "avg": 1
+        },
+        {
+          "diseaseName": "โรคมะเร็ง",
+          "qtyOfPatient": 1,
+          "avg": 1
+        },
+        {
+          "diseaseName": "สุขภาพจิต",
+          "qtyOfPatient": 1,
+          "avg": 1
+        },
+        {
+          "diseaseName": "โรคหัวใจและหลอดเลือด",
+          "qtyOfPatient": 1,
+          "avg": 1
+        }
+      ]
+    },
+    "parsedBodyElapsedMS": 65.37975000000006
+  },
+  "validation": {
+    "patientsBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "categories": 6,
+      "counts": [2, 1, 1, 1, 1, 1]
+    }
+  },
+  "resources": {
+    "elapsedMS": 626.4517500000001,
+    "peakRssBytes": 105660416,
+    "peakAdditionalRssBytes": 20824064,
+    "peakSerializedBytes": 93420,
+    "storageBytes": 215426,
+    "peakNativeBytes": 1344,
+    "peakStorageBytes": 272770,
+    "declared": {
+      "maxTimeMS": 30000,
+      "maxSourceBytes": 8388608,
+      "maxStorageBytes": 33554432,
+      "maxAdditionalRssBytes": 134217728,
+      "maxSerializedBytes": 8388608,
+      "maxChunkBytes": 1048576,
+      "maxPayloadBytes": 983040,
+      "maxHeavyOperations": 1
+    },
+    "productionHeadroom": "unverified",
+    "databaseMemory": "unverified"
+  },
+  "buildElapsedMS": 628.982084,
+  "build": {
+    "runtime": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "clock": "2026-10-15T03:06:57.021Z",
+    "timeZone": "Asia/Bangkok"
+  },
+  "mongo": "7.0.9",
+  "limits": {
+    "activation": "blocked",
+    "frontendEvidence": "deferred",
+    "databaseMemory": "unverified",
+    "productionHeadroom": "unverified",
+    "spending": 0
+  }
+}

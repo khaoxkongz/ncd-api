@@ -28,11 +28,17 @@
     "globals": "^15.14.0",
     "vite-plus": "1.1.0"
   },
+  "optionalDependencies": {
+    "roaring": "2.7.0"
+  },
   "packageManager": "npm@12.2.0",
   "engines": {
     "node": ">=22"
   },
   "overrides": {
     "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0"
+  },
+  "allowScripts": {
+    "roaring@2.7.0": true
   }
 }
