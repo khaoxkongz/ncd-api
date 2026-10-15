@@ -152,9 +152,16 @@ function createControl({ db, now = () => Date.now() }) {
       } catch (error) {
         // A failed transport can follow a successful atomic write. Read back the
         // same logical transition; never create a second pin/publication blindly.
-        const observed = await read(budget);
+        error.controlOutcome = "unknown";
+        let observed;
+        try {
+          observed = await read(budget);
+        } catch {
+          throw error;
+        }
         const recorded = observed.transitions.find((item) => item.id === id);
         if (recorded) return recorded.result;
+        error.controlOutcome = "not-recorded";
         throw error;
       }
     }
