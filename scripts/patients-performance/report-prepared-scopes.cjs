@@ -1,4 +1,6 @@
 const { performance: timer } = require("node:perf_hooks");
+const { execFileSync } = require("node:child_process");
+const path = require("node:path");
 const { BSON, Binary, Int32, Long, Double, Decimal128 } = require("mongodb");
 const { openFixture, archiveBaseline } = require("./contract.cjs");
 const { sealFixture, FIXTURE_BUDGET } = require("./raw-fixture.cjs");
@@ -322,6 +324,10 @@ async function main() {
       evidence: "isolated-local-three-graph-exploration",
       fixtureRevision: "typed-collated-geography-v1",
       baselineRevision: "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+      candidateRevision: execFileSync("git", ["rev-parse", "HEAD"], {
+        cwd: path.resolve(__dirname, "../.."),
+        encoding: "utf8",
+      }).trim(),
       calculationClock: CLOCK,
       serverTimeZone: "UTC",
       collation: COLLATION,
