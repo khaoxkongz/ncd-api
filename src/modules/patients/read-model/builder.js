@@ -15,6 +15,7 @@ const { buildSnapshots } = require("./snapshots");
 const { createControl, HEARTBEAT_MS, buildContext } = require("./control");
 const generationsSeal = require("./generation");
 const { scope: lifetime, trackedDb, rawDb: unwrapDb } = require("./lifetime");
+const { runRefresh, RUNS, refreshContext } = require("./refresh");
 
 function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
@@ -23,7 +24,14 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
   db = trackedDb(rawDb);
   const owner = randomUUID();
   const control = createControl({ db: rawDb });
-  const coordinationBudget = () => createBudget({ maxTimeMS: 60000 }, { request: true });
+  const coordinationBudget = ({ settlement = false } = {}) =>
+    createBudget(
+      { maxTimeMS: 60000 },
+      {
+        request: true,
+        remaining: refreshContext.getStore()?.[settlement ? "settlementRemaining" : "remaining"],
+      }
+    );
   async function cleanup(generationId) {
     const budget = coordinationBudget();
     if (!(await control.exists(budget))) return { removed: [] };
@@ -56,12 +64,17 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
     return { removed };
   }
   return Object.freeze({
+    async refresh(request, declaredBudget, comparisonContext = {}) {
+      return runRefresh({ builder: this, db: rawDb, clock, request, declaredBudget, comparisonContext });
+    },
     async build(sourceCut, declaredBudget, comparisonContext = {}) {
       return buildContext.run({ claim: null }, async () => {
         if (busy) throw new Error("A build is already running");
-        const budget = createBudget(declaredBudget);
+        const budget = createBudget(declaredBudget, { remaining: refreshContext.getStore()?.remaining });
         busy = true;
         const generationId = randomUUID();
+        const refresh = refreshContext.getStore();
+        if (refresh) refresh.generationId = generationId;
         const prefix = `patients_stage_${generationId.replaceAll("-", "")}`;
         const raw = db.collection(`${prefix}_raw`),
           summaries = db.collection(`${prefix}_summary`),
@@ -78,10 +91,12 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
         const stages = [];
         const buildScope = lifetime({ db: rawDb, budget, pin: { id: `build:${generationId}`, generationId } });
         async function measureStorage() {
-          let storage = source?.manifest.bytes ?? 0;
+          // Reserve the maximum in-flight run record as well as the persisted
+          // ledgers, so final publication bookkeeping cannot evade storage caps.
+          let storage = (source?.manifest.bytes ?? 0) + (refresh ? 65536 : 0);
           const names = await db.listCollections({}, { nameOnly: true }).toArray();
           for (const { name } of names) {
-            if (Object.values(COLLECTIONS).includes(name) || name.startsWith(prefix)) {
+            if (Object.values(COLLECTIONS).includes(name) || name === RUNS || name.startsWith(prefix)) {
               const stats = await db.command({ collStats: name });
               storage += stats.storageSize + stats.totalIndexSize;
             }
@@ -96,6 +111,11 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
           budget.check();
           await measureStorage();
           stages.push({ name, complete: true, elapsedMS: budget.metrics.elapsedMS - started });
+          await generations.updateOne(
+            { _id: generationId },
+            { $set: { "inventory.generationId": generationId, "inventory.stages": stages } }
+          );
+          if (refresh) refresh.completedStages = stages;
         }
         return buildScope.run(async () => {
           try {
@@ -682,6 +702,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             return report;
           } catch (error) {
             const proof = await buildScope.drain();
+            const settlement = coordinationBudget({ settlement: true });
             await rawDb.collection(COLLECTIONS.generations).updateOne(
               { _id: generationId },
               {
@@ -693,9 +714,9 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                   termination: proof,
                 },
               },
-              coordinationBudget().options()
+              settlement.options()
             );
-            if (claim) await control.finishBuild(claim, "failed", null, proof.safe, coordinationBudget());
+            if (claim) await control.finishBuild(claim, "failed", null, proof.safe, settlement);
             throw error;
           } finally {
             clearInterval(heartbeat);
@@ -710,7 +731,26 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
         throw new Error("Cannot publish incomplete six-endpoint candidate");
       const budget = coordinationBudget();
       await generationsSeal.verify(db, candidate, budget, { contents: true });
-      return control.publish(candidate, expectedActive, owner, budget);
+      try {
+        return await control.publish(candidate, expectedActive, owner, budget);
+      } catch (error) {
+        if (refreshContext.getStore() && error.controlOutcome) {
+          error.publicationOutcome = "unknown";
+          // A reply can be lost after the pointer commits and after the build
+          // window expires. Use only the original run's remaining settlement
+          // reserve to observe the same idempotent publication, never reissue it.
+          try {
+            const observed = await control.read(coordinationBudget({ settlement: true }));
+            const committed = observed.slots.find(
+              (slot) => slot.publication?.id === `publish:${candidate.generationId}:${candidate.control?.run}`
+            );
+            if (committed) return committed.publication.result;
+          } catch {
+            /* An unobservable result stays uncertain and protected. */
+          }
+        }
+        throw error;
+      }
     },
     cleanup,
     async rollback(generationId, expectedActive) {

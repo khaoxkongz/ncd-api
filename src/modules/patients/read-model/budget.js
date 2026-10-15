@@ -1,6 +1,6 @@
 const { performance: monotonicClock } = require("node:perf_hooks");
 
-function createBudget(input, { request = false, signal } = {}) {
+function createBudget(input, { request = false, signal, remaining } = {}) {
   const ceilings = {
     maxTimeMS: request ? 60000 : 6 * 60 * 60 * 1000,
     maxSerializedBytes: 8 * 1048576,
@@ -43,7 +43,9 @@ function createBudget(input, { request = false, signal } = {}) {
       metrics.peakAdditionalRssBytes > limits.maxAdditionalRssBytes
     )
       throw new Error("Read-model deadline, cancellation, or memory budget exceeded");
-    return Math.max(1, Math.floor(limits.maxTimeMS - metrics.elapsedMS));
+    const sharedRemaining = remaining ? remaining() : Infinity;
+    if (sharedRemaining <= 0) throw new Error("Shared refresh deadline exceeded");
+    return Math.max(1, Math.floor(Math.min(limits.maxTimeMS - metrics.elapsedMS, sharedRemaining)));
   }
   return {
     limits,

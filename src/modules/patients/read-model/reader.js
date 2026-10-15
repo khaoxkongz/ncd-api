@@ -423,6 +423,20 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
         }
         async function shared(entry, calculate) {
           let workPin, heartbeat;
+          let finished;
+          entry.finish = () => {
+            if (!entry.settled || entry.consumers) return;
+            return (finished ??= (async () => {
+              try {
+                if (workPin) {
+                  if (entry.proof.safe) await control.release(workPin, coordinationBudget());
+                  else await control.suspect(workPin, coordinationBudget());
+                }
+              } finally {
+                clearInterval(heartbeat);
+              }
+            })());
+          };
           const budget = createBudget({ maxTimeMS: requestBudget.check() }, { request: true });
           try {
             workPin = await entry.workPin;
@@ -436,16 +450,14 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
             }
             return await entry.scope.task(() => calculate(budget));
           } finally {
-            if (entry.scope) {
-              const proof = await entry.scope.drain();
-              if (workPin) {
-                if (proof.safe) await control.release(workPin, coordinationBudget());
-                else await control.suspect(workPin, coordinationBudget());
-              }
-            }
-            clearInterval(heartbeat);
+            entry.proof = entry.scope ? await entry.scope.drain() : { safe: true };
+            entry.settled = true;
             const index = inFlight.indexOf(entry);
             if (index >= 0) inFlight.splice(index, 1);
+            // A fast calculation can finish while another registered consumer
+            // is still linking its reader pin. Keep the shared pin until every
+            // consumer has completed that guarded handoff and consumption.
+            await entry.finish();
           }
         }
         async function consume(entry) {
@@ -459,6 +471,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
             if (entry.consumers === 0) {
               entry.cancelled = true;
               entry.scope?.stop();
+              await entry.finish();
             }
           }
         }

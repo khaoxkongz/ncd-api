@@ -55,7 +55,7 @@ async function openTransport() {
             held = false;
             for (const bytes of buffered.splice(0)) downstream.write(bytes);
           };
-          reached({ commandName: Object.keys(command)[0] });
+          reached({ commandName: Object.keys(command)[0], release });
         }
         upstream.write(message);
       }
