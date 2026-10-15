@@ -16,7 +16,7 @@ class ReadModelUnavailableError extends Error {
 function selectPatientsBackend(route) {
   const validation = candidateValidation.getStore();
   if (validation) {
-    if (!["patients-bar", "expense-bar"].includes(route)) throw new ReadModelUnavailableError();
+    if (!["patients-bar", "expense-bar", "card"].includes(route)) throw new ReadModelUnavailableError();
     return validation;
   }
   const mode = process.env.NCD_PATIENTS_BACKEND ?? "legacy";
