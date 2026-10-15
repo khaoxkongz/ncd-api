@@ -10,6 +10,7 @@ const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
 const { buildPreparedScopes, validatePreparedScopes } = require("./prepared-scopes");
 const expense = require("./expense");
 const { buildDailyCard, validateDailyCard } = require("./daily-card");
+const { buildDateMonths, validateDateMonths } = require("./date-months");
 const { buildSnapshots } = require("./snapshots");
 
 function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone }) {
@@ -390,6 +391,20 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             measureStorage,
           });
         });
+        let dateUtc;
+        await stage("date-utc-month-atoms", async () => {
+          dateUtc = await buildDateMonths({
+            db,
+            daily,
+            edges,
+            generationId,
+            prefix,
+            budget,
+            collation,
+            indexSuffix,
+            measureStorage,
+          });
+        });
         const rowCount = await daily.countDocuments({ generationId }, options());
         const chunkCount = await chunks.countDocuments({ generationId }, options());
         await db.collection(COLLECTIONS.snapshots).createIndex({ generationId: 1 });
@@ -420,8 +435,9 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             patientDictionary: component(true),
             hospitalDictionary: component(true),
             monthlyStored: component(true),
-            monthlyDateUtc: component(),
-            preparedScopes: component(),
+            monthlyDateUtc: component(true),
+            preparedDateUtc: component(true),
+            preparedScopes: component(true),
             preparedStored: component(true),
             card: component(true),
             expenseBar: component(true),
@@ -433,6 +449,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             rows: rowCount,
             storedAtoms,
             ...preparedInventory,
+            dateUtc,
             identities: identityCount,
             chunks: chunkCount,
             directories: chunkCount,
@@ -554,6 +571,10 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             collation,
             clock: new Date(manifest.sourceCutAt),
           });
+        });
+        await stage("date-utc-month-differential-validation", async () => {
+          report.validation.monthlyDateUtc = await validateDateMonths({ db, generationId, budget, collation });
+          report.validation.preparedDateUtc = report.validation.monthlyDateUtc;
         });
         await stage("compatible-endpoint-snapshots", async () => {
           const snapshotReport = await buildSnapshots({
