@@ -10,6 +10,7 @@ const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
 const { buildPreparedScopes, validatePreparedScopes } = require("./prepared-scopes");
 const expense = require("./expense");
 const { buildDailyCard, validateDailyCard } = require("./daily-card");
+const { buildDateMonths, validateDateMonths } = require("./date-months");
 
 function createBuilder({ db }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
@@ -382,6 +383,20 @@ function createBuilder({ db }) {
             measureStorage,
           });
         });
+        let dateUtc;
+        await stage("date-utc-month-atoms", async () => {
+          dateUtc = await buildDateMonths({
+            db,
+            daily,
+            edges,
+            generationId,
+            prefix,
+            budget,
+            collation,
+            indexSuffix,
+            measureStorage,
+          });
+        });
         const rowCount = await daily.countDocuments({ generationId }, options());
         const chunkCount = await chunks.countDocuments({ generationId }, options());
         const indexes = [];
@@ -411,8 +426,9 @@ function createBuilder({ db }) {
             patientDictionary: component(true),
             hospitalDictionary: component(true),
             monthlyStored: component(true),
-            monthlyDateUtc: component(),
-            preparedScopes: component(),
+            monthlyDateUtc: component(true),
+            preparedDateUtc: component(true),
+            preparedScopes: component(true),
             preparedStored: component(true),
             card: component(true),
             expenseBar: component(true),
@@ -424,6 +440,7 @@ function createBuilder({ db }) {
             rows: rowCount,
             storedAtoms,
             ...preparedInventory,
+            dateUtc,
             identities: identityCount,
             chunks: chunkCount,
             directories: chunkCount,
@@ -545,6 +562,10 @@ function createBuilder({ db }) {
             collation,
             clock: new Date(manifest.sourceCutAt),
           });
+        });
+        await stage("date-utc-month-differential-validation", async () => {
+          report.validation.monthlyDateUtc = await validateDateMonths({ db, generationId, budget, collation });
+          report.validation.preparedDateUtc = report.validation.monthlyDateUtc;
         });
         for (const collection of [raw, summaries, values, edges]) await collection.drop();
         await measureStorage();
