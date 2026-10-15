@@ -54,11 +54,11 @@ async function readCard(reader, body) {
   }
   if (snapshot) return facts;
   try {
-    return present(facts);
+    return { result: present(facts), source: facts.source };
   } catch (error) {
     if (error.message === "Baseline Card presentation failed") throw error;
     throw new ReadModelUnavailableError();
   }
 }
 
-module.exports = { readCard };
+module.exports = { readCard, present };

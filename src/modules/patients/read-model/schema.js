@@ -47,6 +47,7 @@ const COLLECTIONS = Object.freeze({
   dateMonthScopes: "patients_date_month_scopes",
   chunks: "patients_bitmap_chunks",
   directory: "patients_bitmap_directory",
+  snapshots: "patients_snapshots",
 });
 const BSON_OPTIONS = Object.freeze({
   promoteValues: false,

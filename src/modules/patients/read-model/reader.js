@@ -6,6 +6,8 @@ const { calculateMonths } = require("./stored-months");
 const expense = require("./expense");
 const card = require("./daily-card");
 const { calculateDateRange, validateServiceFacts } = require("./date-months");
+const { generationProvenance, sourceState } = require("./metadata");
+const { readSnapshot } = require("./snapshots");
 
 function compatible(versions) {
   return (
@@ -321,14 +323,7 @@ function createReader({ db, generationId, validationOnly = false }) {
         // freshness belongs to each caller's captured clock and source state.
         return Object.freeze({
           ...result,
-          source: {
-            sourceCutAt: generation.source.sourceCutAt,
-            state: generation.source.rawComplete
-              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
-                ? "fresh"
-                : "stale"
-              : "unknown",
-          },
+          source: sourceState(generationProvenance(generation), requestContext.clock),
         });
       }
       async function monthFacts(scope, periods) {
@@ -373,20 +368,12 @@ function createReader({ db, generationId, validationOnly = false }) {
         requestBudget.check();
         return Object.freeze({
           ...result,
-          source: Object.freeze({
-            sourceCutAt: generation.source.sourceCutAt,
-            state: generation.source.rawComplete
-              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
-                ? "fresh"
-                : "stale"
-              : "unknown",
-          }),
+          source: sourceState(generationProvenance(generation), requestContext.clock),
         });
       }
-      const unavailable = async () => {
-        throw new Error("Read-model component is incomplete");
-      };
-      const result = await callback(Object.freeze({ rangeFacts, monthFacts, snapshot: unavailable }));
+      const snapshot = (endpoint) =>
+        readSnapshot({ db, generation, endpoint, clock: requestContext.clock, budget: requestBudget });
+      const result = await callback(Object.freeze({ rangeFacts, monthFacts, snapshot }));
       requestBudget.check();
       return result;
     },

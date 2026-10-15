@@ -11,8 +11,9 @@ const { buildPreparedScopes, validatePreparedScopes } = require("./prepared-scop
 const expense = require("./expense");
 const { buildDailyCard, validateDailyCard } = require("./daily-card");
 const { buildDateMonths, validateDateMonths } = require("./date-months");
+const { buildSnapshots } = require("./snapshots");
 
-function createBuilder({ db }) {
+function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
   let busy = false;
   return Object.freeze({
@@ -53,6 +54,13 @@ function createBuilder({ db }) {
         stages.push({ name, complete: true, elapsedMS: budget.metrics.elapsedMS - started });
       }
       try {
+        const snapshotClock = clock();
+        if (
+          !(snapshotClock instanceof Date) ||
+          !Number.isFinite(snapshotClock.getTime()) ||
+          typeof timeZone !== "string"
+        )
+          throw new Error("A captured Builder clock and timezone are required");
         codec();
         source = await openSource(sourceCut, budget, comparisonContext);
         const manifest = source.manifest;
@@ -399,6 +407,7 @@ function createBuilder({ db }) {
         });
         const rowCount = await daily.countDocuments({ generationId }, options());
         const chunkCount = await chunks.countDocuments({ generationId }, options());
+        await db.collection(COLLECTIONS.snapshots).createIndex({ generationId: 1 });
         const indexes = [];
         for (const name of Object.values(COLLECTIONS)) {
           for await (const index of db.collection(name).listIndexes())
@@ -566,6 +575,18 @@ function createBuilder({ db }) {
         await stage("date-utc-month-differential-validation", async () => {
           report.validation.monthlyDateUtc = await validateDateMonths({ db, generationId, budget, collation });
           report.validation.preparedDateUtc = report.validation.monthlyDateUtc;
+        });
+        await stage("compatible-endpoint-snapshots", async () => {
+          const snapshotReport = await buildSnapshots({
+            db,
+            generation: report,
+            clock: snapshotClock,
+            timeZone,
+            budget,
+          });
+          report.components.snapshots = component(true);
+          report.inventory.snapshotDocuments = snapshotReport.documents;
+          report.validation.snapshots = snapshotReport;
         });
         for (const collection of [raw, summaries, values, edges]) await collection.drop();
         await measureStorage();
