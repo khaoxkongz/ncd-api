@@ -2,6 +2,7 @@ const { BSON } = require("mongodb");
 const { createBudget } = require("./budget");
 const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, directoryToken, decodeChunk } = require("./bitmap");
+const { calculateMonths } = require("./stored-months");
 const expense = require("./expense");
 const card = require("./daily-card");
 
@@ -317,10 +318,62 @@ function createReader({ db, generationId, validationOnly = false }) {
           },
         });
       }
+      async function monthFacts(scope, periods) {
+        requestBudget.check();
+        if (
+          !scope ||
+          !Array.isArray(periods) ||
+          periods.length !== 12 ||
+          periods.some(
+            ({ year, month }, index) =>
+              !Number.isSafeInteger(year) ||
+              !Number.isSafeInteger(month) ||
+              month < 1 ||
+              month > 12 ||
+              (index > 0 && year * 12 + month !== periods[index - 1].year * 12 + periods[index - 1].month + 1)
+          )
+        )
+          throw new Error("Twelve ordered numeric stored periods are required");
+        const key = BSON.serialize({
+          generationId,
+          versions: VERSIONS,
+          route: requestContext.route,
+          backendMode: requestContext.backendMode,
+          timeoutMS: requestContext.timeoutMS ?? 60000,
+          timeZone: requestContext.timeZone,
+          scope,
+          periods,
+        });
+        requestBudget.serialized(key.length);
+        let entry = inFlight.find((item) => item.key.equals(key));
+        if (!entry) {
+          if (inFlight.length >= 64) throw new Error("Monthly work coordination limit exceeded");
+          const budget = createBudget({ maxTimeMS: requestContext.timeoutMS ?? 60000 }, { request: true });
+          entry = { key };
+          entry.promise = calculateMonths({ db, generation, scope, periods, budget }).finally(() => {
+            const index = inFlight.indexOf(entry);
+            if (index >= 0) inFlight.splice(index, 1);
+          });
+          inFlight.push(entry);
+        }
+        const result = await entry.promise;
+        requestBudget.check();
+        return Object.freeze({
+          ...result,
+          source: Object.freeze({
+            sourceCutAt: generation.source.sourceCutAt,
+            state: generation.source.rawComplete
+              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
+                ? "fresh"
+                : "stale"
+              : "unknown",
+          }),
+        });
+      }
       const unavailable = async () => {
         throw new Error("Read-model component is incomplete");
       };
-      const result = await callback(Object.freeze({ rangeFacts, monthFacts: unavailable, snapshot: unavailable }));
+      const result = await callback(Object.freeze({ rangeFacts, monthFacts, snapshot: unavailable }));
       requestBudget.check();
       return result;
     },

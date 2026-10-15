@@ -7,6 +7,7 @@ async function startApplication({
   generationId,
   sourceRoot = path.resolve(__dirname, "../../src"),
   clock = "2024-01-03T00:00:00.000Z",
+  timeZone = "UTC",
 }) {
   sourceRoot = require("node:fs").realpathSync(sourceRoot);
   const uri = new URL(process.env.PATIENTS_TEST_MONGO_URI);
@@ -19,7 +20,7 @@ async function startApplication({
       PATH: process.env.PATH,
       NODE_PATH: path.resolve(__dirname, "../../node_modules"),
       NODE_ENV: "production",
-      TZ: "UTC",
+      TZ: timeZone,
       NCD_PATIENTS_BACKEND: "legacy",
       MONGO_URI: uri.toString(),
       DISCORD_BOT_TOKEN: "unused-fixture",
