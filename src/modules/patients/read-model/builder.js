@@ -9,6 +9,7 @@ const { codec, ordinalParts, writeChunks } = require("./bitmap");
 const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
 const { buildPreparedScopes, validatePreparedScopes } = require("./prepared-scopes");
 const expense = require("./expense");
+const { buildDailyCard, validateDailyCard } = require("./daily-card");
 
 function createBuilder({ db }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
@@ -250,6 +251,9 @@ function createBuilder({ db }) {
             await cursor.close();
           }
         });
+        await stage("baseline-daily-card-facts", () =>
+          buildDailyCard({ summaries, daily, values, generationId, options, budget })
+        );
         let identityCount = 0,
           indexedLookups = 0,
           exactLookups = 0;
@@ -262,7 +266,10 @@ function createBuilder({ db }) {
           // $group is the authority for BSON numeric, embedded-value and
           // collation equivalence. The normal field avoids _id restrictions.
           const cursor = values.aggregate(
-            [{ $group: { _id: "$originalBsonValue" } }, { $project: { _id: 0, originalBsonValue: "$_id" } }],
+            [
+              { $group: { _id: { kind: "$kind", value: "$originalBsonValue" } } },
+              { $project: { _id: 0, kind: "$_id.kind", originalBsonValue: "$_id.value" } },
+            ],
             options({ ...BSON_OPTIONS })
           );
           let ordinal = 0n;
@@ -272,7 +279,7 @@ function createBuilder({ db }) {
               budget.serialized(BSON.serialize(value).length * 8 + 65536);
               await identity.insertOne({
                 generationId,
-                kind: "patient",
+                kind: value.kind,
                 ordinal: Long.fromBigInt(ordinal++),
                 originalBsonValue: value.originalBsonValue,
               });
@@ -285,7 +292,7 @@ function createBuilder({ db }) {
           try {
             for await (const member of members) {
               budget.check();
-              const scope = { generationId, kind: "patient" };
+              const scope = { generationId, kind: member.kind };
               const exact = await identity
                 .find(
                   { ...scope, $expr: { $eq: ["$originalBsonValue", { $literal: member.originalBsonValue }] } },
@@ -400,14 +407,14 @@ function createBuilder({ db }) {
           components: {
             patientsBar: component(true),
             daily: component(true),
-            dictionary: component(),
+            dictionary: component(true),
             patientDictionary: component(true),
-            hospitalDictionary: component(),
+            hospitalDictionary: component(true),
             monthlyStored: component(true),
             monthlyDateUtc: component(),
             preparedScopes: component(),
             preparedStored: component(true),
-            card: component(),
+            card: component(true),
             expenseBar: component(true),
             snapshots: component(),
             control: component(),
@@ -517,6 +524,7 @@ function createBuilder({ db }) {
             policy: expense.VERSION,
             totals: expenseReference,
           };
+          report.validation.card = await validateDailyCard({ summaries, selection, facts, options });
         });
         await stage("stored-month-differential-validation", async () => {
           report.validation.monthlyStored = await validateStoredMonths({

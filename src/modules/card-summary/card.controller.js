@@ -4,15 +4,19 @@ const { cardServiceV2 } = require("./card.service");
 async function cardController(req, res) {
   const { startDate, endDate, area, province, district, hcode } = req.body;
   try {
-    selectPatientsBackend();
-    const result = await cardServiceV2({
+    const backend = selectPatientsBackend("card");
+    const body = {
       startDate,
       endDate,
       area,
       province,
       district,
       hcode,
-    });
+    };
+    const result =
+      backend.mode === "candidate-validation"
+        ? await require("../patients/read-model/card").readCard(backend.reader, body)
+        : await cardServiceV2(body);
     return res.status(200).json({
       status: true,
       message: "success",

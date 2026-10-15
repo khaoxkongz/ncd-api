@@ -32,6 +32,7 @@ const VERSIONS = Object.freeze({
   arithmetic: "expense-v1",
   serviceArithmetic: "baseline-services-v1",
   preparedStored: "stored-scopes-v1",
+  card: "daily-card-v1",
 });
 const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
