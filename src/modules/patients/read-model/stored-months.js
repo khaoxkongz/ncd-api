@@ -82,35 +82,6 @@ async function buildStoredMonths({
     } finally {
       await cursor.close();
     }
-    // Mongo can merge equal numeric period kinds while retaining an unstable
-    // representative for the JS presenter. A mixed visible/nonvisible numeric
-    // class has no stable baseline reference and must fail the whole candidate.
-    const numeric = ["int", "long", "double", "decimal"];
-    const ambiguous = await atoms
-      .aggregate(
-        [
-          {
-            $match: {
-              generationId,
-              $expr: {
-                $and: [{ $in: [{ $type: "$storedYear" }, numeric] }, { $in: [{ $type: "$storedMonth" }, numeric] }],
-              },
-            },
-          },
-          {
-            $group: {
-              _id: { year: "$storedYear", month: "$storedMonth" },
-              visible: { $min: "$graphVisible" },
-              other: { $max: "$graphVisible" },
-            },
-          },
-          { $match: { $expr: { $ne: ["$visible", "$other"] } } },
-          { $limit: 1 },
-        ],
-        options()
-      )
-      .toArray();
-    if (ambiguous.length) throw new Error("Unstable baseline BSON stored-period presentation");
     await rows.createIndex({ rowId: 1 }, { unique: true });
     const members = edges.aggregate(
       [
@@ -138,6 +109,58 @@ async function buildStoredMonths({
       generationId,
       budget,
     });
+    // Only present memberships can participate in a graph's numeric group.
+    // Mixed BSON kinds in different categories (or empty rows) are stable.
+    // A visible/nonvisible mixture within one category and numeric period has
+    // an unstable group representative, so fail the entire candidate.
+    const numeric = ["int", "long", "double", "decimal"];
+    const ambiguous = await atoms
+      .aggregate(
+        [
+          {
+            $match: {
+              generationId,
+              $expr: {
+                $and: [{ $in: [{ $type: "$storedYear" }, numeric] }, { $in: [{ $type: "$storedMonth" }, numeric] }],
+              },
+            },
+          },
+          {
+            $project: {
+              storedYear: 1,
+              storedMonth: 1,
+              graphVisible: 1,
+              categories: CATEGORIES.map(({ id }) => ({ id, cardinality: `$members.${id}.cardinality` })),
+            },
+          },
+          { $unwind: "$categories" },
+          { $match: { "categories.cardinality": { $gt: 0 } } },
+          {
+            $group: {
+              _id: { year: "$storedYear", month: "$storedMonth", category: "$categories.id" },
+              visible: { $min: "$graphVisible" },
+              other: { $max: "$graphVisible" },
+            },
+          },
+          { $match: { $expr: { $ne: ["$visible", "$other"] } } },
+          {
+            $match: {
+              "_id.month": { $gte: 1, $lte: 12 },
+              "_id.year": { $gte: Number.MIN_SAFE_INTEGER, $lte: Number.MAX_SAFE_INTEGER },
+              $expr: {
+                $and: [
+                  { $eq: ["$_id.year", { $trunc: "$_id.year" }] },
+                  { $eq: ["$_id.month", { $trunc: "$_id.month" }] },
+                ],
+              },
+            },
+          },
+          { $limit: 1 },
+        ],
+        options()
+      )
+      .toArray();
+    if (ambiguous.length) throw new Error("Unstable baseline BSON stored-period presentation");
     await atoms.createIndex(
       { generationId: 1, periodKind: 1, storedYear: 1, storedMonth: 1 },
       { collation, partialFilterExpression: { graphVisible: true }, name: `patients_month_period_${indexSuffix}` }
@@ -326,6 +349,7 @@ async function validateStoredMonths({ db, summaries, generationId, budget, colla
             { $unwind: "$value" },
             { $group: { _id: { year: "$year", month: "$month", value: "$value" } } },
             { $group: { _id: { year: "$_id.year", month: "$_id.month" }, count: { $sum: 1 } } },
+            { $sort: { "_id.year": 1, "_id.month": 1 } },
           ],
           options()
         )
@@ -352,7 +376,23 @@ async function validateStoredMonths({ db, summaries, generationId, budget, colla
   // Cover all original supported stored periods, including ones that disagree
   // with summary dates or the source-cut clock. No full period inventory in JS.
   const cursor = summaries.aggregate(
-    [{ $group: { _id: { year: "$year", month: "$month" } } }, { $sort: { "_id.year": -1, "_id.month": -1 } }],
+    [
+      { $project: { year: 1, month: 1 } },
+      { $unwind: "$year" },
+      { $unwind: "$month" },
+      {
+        $match: {
+          $expr: {
+            $and: [
+              { $in: [{ $type: "$year" }, ["int", "long", "double", "decimal"]] },
+              { $in: [{ $type: "$month" }, ["int", "long", "double", "decimal"]] },
+            ],
+          },
+        },
+      },
+      { $group: { _id: { year: "$year", month: "$month" } } },
+      { $sort: { "_id.year": -1, "_id.month": -1 } },
+    ],
     options()
   );
   let coveredFrom = Infinity;

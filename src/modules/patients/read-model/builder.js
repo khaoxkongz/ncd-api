@@ -158,7 +158,13 @@ function createBuilder({ db }) {
                   chunks: 0,
                   cardinality: 0,
                   directorySha256: createHash("sha256").digest("hex"),
-                  operandState: !Object.hasOwn(summary, field) ? "missing" : summary[field] === null ? "null" : "array",
+                  operandState: !Object.hasOwn(summary, field)
+                    ? "missing"
+                    : summary[field] === null
+                      ? "null"
+                      : Array.isArray(summary[field])
+                        ? "array"
+                        : "scalar",
                 };
                 delete facts[field];
               }
@@ -173,7 +179,14 @@ function createBuilder({ db }) {
           for (const category of CATEGORIES) {
             const cursor = summaries.aggregate(
               [
-                { $project: { _id: 0, rowId: "$modelRowId", value: { $setUnion: [`$${category.field}`] } } },
+                {
+                  $project: {
+                    _id: 0,
+                    rowId: "$modelRowId",
+                    value:
+                      CATEGORIES.indexOf(category) < 6 ? { $setUnion: [`$${category.field}`] } : `$${category.field}`,
+                  },
+                },
                 { $unwind: "$value" },
               ],
               options({ ...BSON_OPTIONS })

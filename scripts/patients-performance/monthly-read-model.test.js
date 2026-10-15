@@ -369,6 +369,120 @@ it("fails changed monthly inventories and chunks as 503, removes settled work, a
   }
 }, 60000);
 
+it("keeps direct graph unwind semantics for scalar subtype operands without changing Bar membership validation", async () => {
+  const local = await openFixture();
+  const baseline = archiveBaseline();
+  const rows = [0, 1].map((index) => ({
+    ...empty,
+    _id: `scalar-subtypes-${index}`,
+    date: new Date(`2024-01-0${index + 1}`),
+    year: 2026,
+    month: 10,
+    area: "A",
+    hcode: "H",
+    dm_cid_count: ["p"],
+    ca_cid_count: ["p"],
+    hg_cid_count: "$patient",
+    dm_ckd_cid_count: false,
+    dm_acs_cid_count: 0,
+    dm_cva_cid_count: { a: 1, b: 2 },
+    lung_ca_cid_count: index === 0 ? Long.fromInt(7) : Decimal128.fromString("7.00"),
+    breast_ca_cid_count: new Binary(Buffer.from([1, 2])),
+    cervical_ca_cid_count: new Date("2024-01-01"),
+    liver_ca_cid_count: "patient",
+    colorectal_ca_cid_count: [null],
+  }));
+  const cut = sealFixture(rows, { dataset: "summary-fixture" });
+  let legacy, optimized;
+  try {
+    await local.db.collection("NCD_SUMMARY").insertMany(rows);
+    const candidate = await createBuilder({ db: local.db }).build(cut.sourceCut, FIXTURE_BUDGET, cut.comparisonContext);
+    legacy = await startApplication({ db: local.db, sourceRoot: baseline.sourceRoot, clock });
+    optimized = await startApplication({ db: local.db, generationId: candidate.generationId, clock });
+    const reference = await graphs(legacy);
+    expect(await graphs(legacy)).toEqual(reference);
+    expect(await graphs(optimized)).toEqual(reference);
+    expect(reference[1].body.result.map(({ data }) => data[11])).toEqual([1, 1, 1, 1, 0]);
+    expect(reference[2].body.result.map(({ data }) => data[11])).toEqual([1, 1, 1, 1, 1, 0]);
+  } finally {
+    await legacy?.close();
+    await optimized?.close();
+    cut.close();
+    baseline.close();
+    await local.close();
+  }
+}, 60000);
+
+it("accepts stable mixed BSON periods when their present memberships belong to separate categories", async () => {
+  const local = await openFixture();
+  const baseline = archiveBaseline();
+  const rows = [
+    {
+      ...empty,
+      _id: "number",
+      date: new Date("2024-01-01"),
+      year: new Int32(2026),
+      month: 10,
+      hcode: "H1",
+      dm_cid_count: ["p"],
+    },
+    {
+      ...empty,
+      _id: "decimal",
+      date: new Date("2024-01-02"),
+      year: Decimal128.fromString("2026"),
+      month: 10,
+      hcode: "H2",
+      ht_cid_count: ["p"],
+    },
+    {
+      ...empty,
+      _id: "empty-decimal",
+      date: new Date("2024-01-02"),
+      year: Decimal128.fromString("2026"),
+      month: 10,
+      hcode: "H3",
+    },
+    {
+      ...empty,
+      _id: "outside-window-number",
+      date: new Date("2024-01-02"),
+      year: new Int32(2026),
+      month: 13,
+      hcode: "H4",
+      dm_cid_count: ["p"],
+    },
+    {
+      ...empty,
+      _id: "outside-window-decimal",
+      date: new Date("2024-01-02"),
+      year: Decimal128.fromString("2026"),
+      month: 13,
+      hcode: "H5",
+      dm_cid_count: ["p"],
+    },
+  ];
+  const cut = sealFixture(rows, { dataset: "summary-fixture" });
+  let legacy, optimized;
+  try {
+    await local.db.collection("NCD_SUMMARY").insertMany(rows);
+    const candidate = await createBuilder({ db: local.db }).build(cut.sourceCut, FIXTURE_BUDGET, cut.comparisonContext);
+    legacy = await startApplication({ db: local.db, sourceRoot: baseline.sourceRoot, clock });
+    optimized = await startApplication({ db: local.db, generationId: candidate.generationId, clock });
+    const reference = await graphs(legacy);
+    expect(await graphs(legacy)).toEqual(reference);
+    expect(await graphs(optimized)).toEqual(reference);
+    expect(reference[0].body.result[1].data[11]).toBe(1);
+    expect(reference[0].body.result[2].data[11]).toBe(0);
+  } finally {
+    await legacy?.close();
+    await optimized?.close();
+    cut.close();
+    baseline.close();
+    await local.close();
+  }
+}, 60000);
+
 it("rejects unstable mixed numeric period presentation rather than normalizing the baseline", async () => {
   const local = await openFixture();
   const rows = [new Int32(2026), Decimal128.fromString("2026")].map((year, index) => ({
