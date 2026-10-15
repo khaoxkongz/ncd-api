@@ -14,16 +14,24 @@ const { buildDateMonths, validateDateMonths } = require("./date-months");
 const { buildSnapshots } = require("./snapshots");
 const { createControl, HEARTBEAT_MS, buildContext } = require("./control");
 const generationsSeal = require("./generation");
-const { scope: lifetime, trackedDb, rawDb: unwrapDb } = require("./lifetime");
+const { scope: lifetime, trackedDb, rawDb: unwrapDb, WORKER } = require("./lifetime");
+const { createSupervision, pauseCheckpoint } = require("./supervision");
 const { runRefresh, RUNS, refreshContext } = require("./refresh");
+const recoveryStore = require("./recovery");
 
-function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone }) {
+function createBuilder({
+  db,
+  clock = () => new Date(),
+  timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone,
+  workers,
+}) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
   let busy = false;
   const rawDb = unwrapDb(db);
   db = trackedDb(rawDb);
   const owner = randomUUID();
-  const control = createControl({ db: rawDb });
+  const control = createControl({ db: rawDb, worker: WORKER });
+  const reconcileWorkers = createSupervision(workers);
   const coordinationBudget = ({ settlement = false } = {}) =>
     createBudget(
       { maxTimeMS: 60000 },
@@ -34,6 +42,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
     );
   async function cleanup(generationId) {
     const budget = coordinationBudget();
+    await reconcileWorkers(rawDb, control, budget);
     if (!(await control.exists(budget))) return { removed: [] };
     await control.detectSuspects(budget);
     const current = await control.read(budget);
@@ -53,6 +62,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
         if (await db.collection(name).countDocuments(match, budget.options()))
           throw new Error("Generation cleanup is incomplete");
       }
+      await db.collection(recoveryStore.JOURNAL).deleteOne({ _id: slot.generationId }, budget.options());
       const prefix = `patients_stage_${slot.generationId.replaceAll("-", "")}`;
       for await (const collection of db.listCollections({}, budget.options({ nameOnly: true })))
         if (collection.name.startsWith(`${prefix}_`)) await db.collection(collection.name).drop(budget.options());
@@ -65,14 +75,30 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
   }
   return Object.freeze({
     async refresh(request, declaredBudget, comparisonContext = {}) {
+      await reconcileWorkers(rawDb, control, coordinationBudget());
       return runRefresh({ builder: this, db: rawDb, clock, request, declaredBudget, comparisonContext });
     },
     async build(sourceCut, declaredBudget, comparisonContext = {}) {
       return buildContext.run({ claim: null }, async () => {
         if (busy) throw new Error("A build is already running");
-        const budget = createBudget(declaredBudget, { remaining: refreshContext.getStore()?.remaining });
+        let recovery;
+        const refreshRemaining = refreshContext.getStore()?.remaining;
+        const startedAt = Date.now();
+        const budget = createBudget(declaredBudget, {
+          remaining: () => Math.min(refreshRemaining?.() ?? Infinity, recovery?.remaining() ?? Infinity),
+        });
         busy = true;
-        const generationId = randomUUID();
+        const comparisonOnly = comparisonContext.comparisonOnly === true;
+        let sourceIdentity, previous;
+        try {
+          sourceIdentity = comparisonOnly ? null : recoveryStore.identity(sourceCut, comparisonContext, declaredBudget);
+          if (!comparisonOnly) await reconcileWorkers(rawDb, control, budget);
+          previous = comparisonOnly ? null : await recoveryStore.find(rawDb, control, sourceIdentity, budget);
+        } catch (error) {
+          busy = false;
+          throw error;
+        }
+        const generationId = previous?._id ?? randomUUID();
         const refresh = refreshContext.getStore();
         if (refresh) refresh.generationId = generationId;
         const prefix = `patients_stage_${generationId.replaceAll("-", "")}`;
@@ -96,7 +122,11 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
           let storage = (source?.manifest.bytes ?? 0) + (refresh ? 65536 : 0);
           const names = await db.listCollections({}, { nameOnly: true }).toArray();
           for (const { name } of names) {
-            if (Object.values(COLLECTIONS).includes(name) || name === RUNS || name.startsWith(prefix)) {
+            if (
+              Object.values(COLLECTIONS).includes(name) ||
+              [RUNS, recoveryStore.JOURNAL].includes(name) ||
+              name.startsWith(prefix)
+            ) {
               const stats = await db.command({ collStats: name });
               storage += stats.storageSize + stats.totalIndexSize;
             }
@@ -104,8 +134,30 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
           budget.storage(storage);
           budget.metrics.peakStorageBytes = Math.max(budget.metrics.peakStorageBytes ?? 0, storage);
         }
+        const groupFor = (name) =>
+          ["source-staging", "source-type-inventory"].includes(name)
+            ? "A"
+            : ["baseline-hospital-day-etl", "baseline-identity-finalization"].includes(name)
+              ? "B"
+              : name.includes("validation") || name === "compatible-endpoint-snapshots"
+                ? "D"
+                : "C";
+        let typeInventory = [],
+          expenseTypes = new Map(),
+          expenseReference = Array(6).fill(expense.ZERO);
+        let identityCount = 0,
+          indexedLookups = 0,
+          exactLookups = 0,
+          storedAtoms,
+          preparedInventory,
+          dateUtc,
+          report;
         async function stage(name, operation) {
           if (claim) await control.guardBuild(claim, budget);
+          if (recovery?.completed(groupFor(name))) {
+            stages.push(recovery.stage(name));
+            return;
+          }
           const started = budget.metrics.elapsedMS;
           await operation();
           budget.check();
@@ -116,27 +168,87 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             { $set: { "inventory.generationId": generationId, "inventory.stages": stages } }
           );
           if (refresh) refresh.completedStages = stages;
+          const group = {
+            "source-type-inventory": "A",
+            "baseline-identity-finalization": "B",
+            "date-utc-month-atoms": "C",
+            "compatible-endpoint-snapshots": "D",
+          }[name];
+          if (recovery && group) {
+            const metadata =
+              group === "A"
+                ? { typeInventory }
+                : group === "B"
+                  ? {}
+                  : group === "C"
+                    ? {
+                        expenseTypes: [...expenseTypes],
+                        expenseReference,
+                        identityCount,
+                        indexedLookups,
+                        exactLookups,
+                        storedAtoms,
+                        preparedInventory,
+                        dateUtc,
+                      }
+                    : { validation: report.validation, snapshotDocuments: report.inventory.snapshotDocuments };
+            await recovery.checkpoint(group, metadata, stages);
+            await measureStorage();
+            clearInterval(heartbeat);
+            await pauseCheckpoint(buildScope, group);
+            if (claim) heartbeat = builderHeartbeat();
+          }
+        }
+        function builderHeartbeat() {
+          const timer = setInterval(() => {
+            void buildScope.operation(() => control.heartbeatBuilder(claim, coordinationBudget())).catch(() => {});
+          }, HEARTBEAT_MS);
+          timer.unref();
+          return timer;
         }
         return buildScope.run(async () => {
           try {
-            const snapshotClock = clock();
+            const snapshotClock = previous ? new Date(previous.capturedClock) : clock();
+            const snapshotTimeZone = previous?.timeZone ?? timeZone;
             if (
               !(snapshotClock instanceof Date) ||
               !Number.isFinite(snapshotClock.getTime()) ||
               typeof timeZone !== "string"
             )
               throw new Error("A captured Builder clock and timezone are required");
-            const comparisonOnly = comparisonContext.comparisonOnly === true;
             if (comparisonOnly) {
               if (await control.exists(budget))
                 throw new Error("Comparison-only input cannot bypass managed generation control");
             } else {
-              claim = await control.claim(generationId, owner, budget);
+              claim = previous
+                ? await control.resume(generationId, owner, buildScope.worker, budget)
+                : await control.claim(generationId, owner, budget, buildScope.worker);
+              buildScope.tag.run = claim.run;
               buildContext.getStore().claim = claim;
-              heartbeat = setInterval(() => {
-                void control.heartbeatBuilder(claim, coordinationBudget()).catch(() => {});
-              }, HEARTBEAT_MS);
-              heartbeat.unref();
+              if (refresh?.bindGeneration) {
+                const cut = await refresh.bindGeneration(generationId, claim);
+                await control.change(budget, (document) => {
+                  if (document.builder?.run !== claim.run || document.fence.toString() !== claim.fence)
+                    throw new Error("Refresh Builder ownership changed");
+                  document.slots.find((slot) => slot.generationId === generationId).refresh = cut;
+                  return true;
+                });
+              }
+              heartbeat = builderHeartbeat();
+            }
+            if (claim && sourceIdentity) {
+              recovery = recoveryStore.createRecovery({
+                db,
+                generationId,
+                identity: sourceIdentity,
+                claim,
+                previous,
+                clock: snapshotClock,
+                timeZone: snapshotTimeZone,
+                budget,
+                startedAt,
+              });
+              await recovery.initialize();
             }
             // Transport verification scans the complete source. Own the global
             // Builder fence before that I/O, not only before database staging.
@@ -146,25 +258,37 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
               throw new Error("Managed generations require full raw input");
             const manifest = source.manifest;
             const collation = manifest.collation;
+            if (recovery) {
+              await recovery.prepare();
+              await measureStorage();
+              typeInventory = recovery.get("A")?.typeInventory ?? [];
+              const restored = recovery.get("C");
+              if (restored) {
+                expenseTypes = new Map(restored.expenseTypes);
+                expenseReference = restored.expenseReference;
+                ({ identityCount, indexedLookups, exactLookups, storedAtoms, preparedInventory, dateUtc } = restored);
+              }
+            }
             // This digest names a collation-specific index, never an identity.
             const indexSuffix = createHash("sha256").update(BSON.serialize(collation)).digest("hex").slice(0, 16);
             const options = (extra = {}) => budget.options({ collation, ...extra });
-            await generations.insertOne({
-              _id: generationId,
-              generationId,
-              state: "building",
-              complete: false,
-              versions: VERSIONS,
-              source: manifest,
-              budget: declaredBudget,
-            });
+            await generations.replaceOne(
+              { _id: generationId },
+              {
+                _id: generationId,
+                generationId,
+                state: "building",
+                complete: false,
+                versions: VERSIONS,
+                source: manifest,
+                budget: declaredBudget,
+              },
+              { upsert: true }
+            );
             await stage("source-staging", async () => {
               await db.createCollection(raw.collectionName, { collation });
               for await (const document of source.documents()) await raw.insertOne(document);
             });
-            const typeInventory = [];
-            const expenseTypes = new Map();
-            const expenseReference = Array(6).fill(expense.ZERO);
             await stage("source-type-inventory", async () => {
               const cursor = raw.aggregate(
                 [
@@ -217,33 +341,38 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
               } finally {
                 await sizes.close();
               }
-              if (manifest.dataset !== "raw") return;
-              // Match the legacy all-fifteen-present filter and map operation; do
-              // not hash a previously finalized summary fixture a second time.
-              const filter = Object.fromEntries(CATEGORIES.map(({ field }) => [field, { $exists: true, $ne: null }]));
-              const cursor = summaries.find(filter, options());
-              try {
-                for await (const document of cursor) {
-                  const fields = Object.fromEntries(
-                    CATEGORIES.map(({ field }) => [
-                      field,
-                      document[field].map((value) => finalizeCid(value, comparisonContext.identitySecret)),
-                    ])
-                  );
-                  await summaries.updateOne({ _id: document._id }, { $set: fields });
+              if (manifest.dataset === "raw") {
+                // Match the legacy all-fifteen-present filter and map operation; do
+                // not hash a previously finalized summary fixture a second time.
+                const filter = Object.fromEntries(CATEGORIES.map(({ field }) => [field, { $exists: true, $ne: null }]));
+                const cursor = summaries.find(filter, options());
+                try {
+                  for await (const document of cursor) {
+                    const fields = Object.fromEntries(
+                      CATEGORIES.map(({ field }) => [
+                        field,
+                        document[field].map((value) => finalizeCid(value, comparisonContext.identitySecret)),
+                      ])
+                    );
+                    await summaries.updateOne({ _id: document._id }, { $set: fields });
+                  }
+                } finally {
+                  await cursor.close();
                 }
-              } finally {
-                await cursor.close();
               }
+              let rowNo = 0;
+              for await (const row of summaries.find({}, options({ projection: { _id: 1 } })))
+                await summaries.updateOne({ _id: row._id }, { $set: { modelRowId: String(rowNo++) } });
+              await summaries.createIndex({ modelRowId: 1 }, { unique: true });
             });
             await stage("daily-facts-and-original-members", async () => {
               const cursor = summaries.find({}, options({ ...BSON_OPTIONS }));
-              let rowNo = 0;
               try {
                 for await (const summary of cursor) {
-                  const rowId = String(rowNo++);
+                  const rowId = summary.modelRowId;
                   const facts = { ...summary };
                   delete facts._id;
+                  delete facts.modelRowId;
                   const members = {};
                   for (const { id, field } of CATEGORIES) {
                     members[id] = {
@@ -263,7 +392,6 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                   const document = { ...facts, generationId, rowId, members, present: true };
                   budget.serialized(BSON.serialize(document).length * 4 + 65536);
                   await daily.insertOne(document);
-                  await summaries.updateOne({ _id: summary._id }, { $set: { modelRowId: rowId } });
                 }
               } finally {
                 await cursor.close();
@@ -346,9 +474,6 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
             await stage("baseline-daily-card-facts", () =>
               buildDailyCard({ summaries, daily, values, generationId, options, budget })
             );
-            let identityCount = 0,
-              indexedLookups = 0,
-              exactLookups = 0;
             await stage("mongo-equivalence-dictionary", async () => {
               await identity.createIndex({ generationId: 1, kind: 1, ordinal: 1 }, { unique: true });
               await identity.createIndex(
@@ -446,7 +571,6 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 { unique: true, collation, name: `patients_directory_${indexSuffix}` }
               );
             });
-            let storedAtoms;
             await stage("stored-month-atoms", async () => {
               storedAtoms = await buildStoredMonths({
                 db,
@@ -460,7 +584,6 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 measureStorage,
               });
             });
-            let preparedInventory;
             await stage("prepared-stored-month-scopes", async () => {
               preparedInventory = await buildPreparedScopes({
                 db,
@@ -474,7 +597,6 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 measureStorage,
               });
             });
-            let dateUtc;
             await stage("date-utc-month-atoms", async () => {
               dateUtc = await buildDateMonths({
                 db,
@@ -504,7 +626,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 });
             }
             const component = (complete = false) => ({ generationId, complete });
-            const report = {
+            report = {
               generationId,
               complete: false,
               state: "candidate-partial",
@@ -563,7 +685,13 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 clock: new Date(),
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
               },
+              ...(recovery ? { recovery: recovery.report() } : {}),
             };
+            if (recovery?.completed("D")) {
+              report.validation = recovery.get("D").validation;
+              report.inventory.snapshotDocuments = recovery.get("D").snapshotDocuments;
+              report.components.snapshots = component(true);
+            }
             budget.serialized(BSON.serialize(report).length * 4 + 65536);
             await generations.replaceOne({ _id: generationId }, { _id: generationId, ...report, collation });
             await stage("patients-bar-differential-validation", async () => {
@@ -671,14 +799,20 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
                 db,
                 generation: report,
                 clock: snapshotClock,
-                timeZone,
+                timeZone: snapshotTimeZone,
                 budget,
               });
               report.components.snapshots = component(true);
               report.inventory.snapshotDocuments = snapshotReport.documents;
               report.validation.snapshots = snapshotReport;
             });
-            for (const collection of [raw, summaries, values, edges]) await collection.drop();
+            for (const collection of [raw, summaries, values, edges]) {
+              try {
+                await collection.drop();
+              } catch (error) {
+                if (error.code !== 26) throw error;
+              }
+            }
             await measureStorage();
             report.resources = { ...report.resources, ...budget.metrics };
             budget.serialized(BSON.serialize(report).length * 4 + 65536);
@@ -717,6 +851,7 @@ function createBuilder({ db, clock = () => new Date(), timeZone = Intl.DateTimeF
               settlement.options()
             );
             if (claim) await control.finishBuild(claim, "failed", null, proof.safe, settlement);
+            error.generationId = generationId;
             throw error;
           } finally {
             clearInterval(heartbeat);

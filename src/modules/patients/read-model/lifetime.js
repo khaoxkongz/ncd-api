@@ -1,10 +1,11 @@
 const { AsyncLocalStorage } = require("node:async_hooks");
 const { randomUUID } = require("node:crypto");
-const { MongoServerError } = require("mongodb");
+const { workerData } = require("node:worker_threads");
+const { MongoServerError, MongoWriteConcernError } = require("mongodb");
 
 const current = new AsyncLocalStorage();
 const RAW = Symbol("patients-raw-db");
-const WORKER = randomUUID();
+const WORKER = workerData?.patientsWorker ?? randomUUID();
 const OPTION_AT = {
   find: 1,
   aggregate: 1,
@@ -29,7 +30,76 @@ const OPTION_AT = {
 const CURSORS = new Set(["find", "aggregate", "listIndexes"]);
 // A server error is a real command response. Driver/runtime errors (including
 // client-close or parse errors) do not prove that the remote command ended.
-const unknown = (error) => !(error instanceof MongoServerError);
+const uncertainCodes = new Set([6, 7, 50, 64, 89, 91, 189, 262, 9001, 10107, 11600, 11602, 13435, 13436]);
+const mutations = new Set([
+  "insertOne",
+  "insertMany",
+  "updateOne",
+  "updateMany",
+  "replaceOne",
+  "deleteOne",
+  "deleteMany",
+  "createIndex",
+  "createIndexes",
+  "drop",
+  "createCollection",
+  "command",
+  "findOneAndUpdate",
+  "findOneAndReplace",
+  "findOneAndDelete",
+]);
+const unknown = (error, kind) =>
+  mutations.has(kind) ||
+  !(error instanceof MongoServerError) ||
+  error instanceof MongoWriteConcernError ||
+  !!error.writeConcernError ||
+  uncertainCodes.has(Number(error.code)) ||
+  ["RetryableWriteError", "UnknownTransactionCommitResult", "TransientTransactionError"].some((label) =>
+    error.hasErrorLabel(label)
+  );
+
+async function observeDatabase(db, tag) {
+  try {
+    const hello = await db.admin().command({ hello: 1 });
+    const settings = await db.admin().command({ getCmdLineOpts: 1 });
+    if (
+      hello.setName ||
+      hello.msg === "isdbgrid" ||
+      settings.parsed?.security?.authorization === "enabled" ||
+      settings.parsed?.security?.keyFile
+    )
+      return { safe: false, proof: "topology-or-visibility-unverified" };
+    const match = (prefix) =>
+      Object.fromEntries(
+        Object.entries(tag)
+          .filter(([key]) => ["worker", "pin", "run"].includes(key))
+          .map(([key, value]) => [`${prefix}.${key}`, value])
+      );
+    const operations = await db.client
+      .db("admin")
+      .aggregate(
+        [
+          { $currentOp: { allUsers: true, idleCursors: true, localOps: true } },
+          {
+            $match: {
+              $or: [
+                match("command.comment"),
+                match("cursor.originatingCommand.comment"),
+                match("originatingCommand.comment"),
+              ],
+            },
+          },
+        ],
+        { maxTimeMS: 3000 }
+      )
+      .toArray();
+    return operations.length
+      ? { safe: false, proof: "tagged-database-work-remains" }
+      : { safe: true, proof: "application-quiescent-and-standalone-all-user-currentOp-empty" };
+  } catch {
+    return { safe: false, proof: "database-termination-unverified" };
+  }
+}
 
 // Every model command is tagged before dispatch, including getMore through the
 // driver's inherited cursor comment. A closing response does not close this
@@ -40,8 +110,10 @@ function scope({ db, budget, pin, worker = WORKER }) {
     cursors = new Set();
   const tag = { patientsModel: 1, worker, pin: pin?.id ?? randomUUID(), generation: pin?.generationId ?? "builder" };
   let uncertain = false,
+    missingReply = false,
+    uncertainIndex = false,
     stopped = false;
-  function operation(fn, { cleanup = false } = {}) {
+  function operation(fn, { cleanup = false, kind } = {}) {
     if (!cleanup) {
       if (stopped) return Promise.reject(new Error("Read-model work is cancelled"));
       budget.check();
@@ -57,7 +129,9 @@ function scope({ db, budget, pin, worker = WORKER }) {
       () => pending.delete(result),
       (error) => {
         pending.delete(result);
-        if (unknown(error)) uncertain = true;
+        if (unknown(error, kind)) uncertain = true;
+        if (!(error instanceof MongoServerError)) missingReply = true;
+        if (["createIndex", "createIndexes"].includes(kind)) uncertainIndex = true;
       }
     );
     return result;
@@ -78,6 +152,9 @@ function scope({ db, budget, pin, worker = WORKER }) {
     },
     stop() {
       stopped = true;
+    },
+    resume() {
+      stopped = false;
     },
     options(existing = {}) {
       if (stopped) throw new Error("Read-model work is cancelled");
@@ -152,46 +229,12 @@ function scope({ db, budget, pin, worker = WORKER }) {
         }
         if (!cursor.started || cursor.exhausted) cursors.delete(cursor);
       }
+      if (missingReply) return { safe: false, proof: "command-dispatch-outcome-unverified" };
+      if (uncertainIndex) return { safe: false, proof: "index-completion-and-tag-association-unverified" };
       if (!uncertain && !cursors.size) return { safe: true, proof: "all-commands-settled-and-cursors-exhausted" };
       // Application work is quiescent here. Driver close/kill acknowledgments
       // alone are insufficient; independently inspect executing and idle work.
-      try {
-        const hello = await db.admin().command({ hello: 1 });
-        const settings = await db.admin().command({ getCmdLineOpts: 1 });
-        if (
-          hello.setName ||
-          hello.msg === "isdbgrid" ||
-          settings.parsed?.security?.authorization === "enabled" ||
-          settings.parsed?.security?.keyFile
-        )
-          return { safe: false, proof: "topology-or-visibility-unverified" };
-        const operations = await db.client
-          .db("admin")
-          .aggregate(
-            [
-              { $currentOp: { allUsers: true, idleCursors: true, localOps: true } },
-              {
-                $match: {
-                  $or: [
-                    { "command.comment.worker": worker, "command.comment.pin": tag.pin },
-                    {
-                      "cursor.originatingCommand.comment.worker": worker,
-                      "cursor.originatingCommand.comment.pin": tag.pin,
-                    },
-                    { "originatingCommand.comment.worker": worker, "originatingCommand.comment.pin": tag.pin },
-                  ],
-                },
-              },
-            ],
-            { maxTimeMS: 3000 }
-          )
-          .toArray();
-        return operations.length
-          ? { safe: false, proof: "tagged-database-work-remains" }
-          : { safe: true, proof: "application-quiescent-and-standalone-all-user-currentOp-empty" };
-      } catch {
-        return { safe: false, proof: "database-termination-unverified" };
-      }
+      return observeDatabase(db, tag);
     },
   };
   return api;
@@ -217,7 +260,7 @@ function trackedDb(db) {
                 const index = OPTION_AT[method];
                 args[index] = owner.options(args[index]);
                 if (CURSORS.has(method)) return owner.cursor(value.apply(selected, args));
-                return owner.operation(() => value.apply(selected, args));
+                return owner.operation(() => value.apply(selected, args), { kind: method });
               };
             },
           });
@@ -232,7 +275,7 @@ function trackedDb(db) {
           args[1] = owner.options(args[1]);
           if (name === "command") args[0] = { ...args[0], comment: owner.tag, maxTimeMS: args[1].maxTimeMS };
           if (name === "listCollections") return owner.cursor(value.apply(target, args));
-          return owner.operation(() => value.apply(target, args));
+          return owner.operation(() => value.apply(target, args), { kind: name });
         };
       return typeof value === "function" ? value.bind(target) : value;
     },
@@ -256,4 +299,4 @@ async function within(promise, budget, signal) {
   }
 }
 
-module.exports = { scope, trackedDb, WORKER, within, rawDb: (db) => db[RAW] ?? db };
+module.exports = { scope, trackedDb, WORKER, within, observeDatabase, rawDb: (db) => db[RAW] ?? db };

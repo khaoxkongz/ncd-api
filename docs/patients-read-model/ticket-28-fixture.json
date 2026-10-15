@@ -1,0 +1,3872 @@
+{
+  "schema": "ticket28-recovery-report-v1",
+  "executionStartedAt": "2026-10-15T13:05:25.598Z",
+  "executionEndedAt": "2026-10-15T13:05:49.938Z",
+  "elapsedMS": 24338.813375,
+  "boundary": "isolated-real-Mongo-public-Builder-and-six-HTTP",
+  "reference": {
+    "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+    "priorCorrectionEvidence": "ticket-27-fixture.json",
+    "sameFiniteProducerAndCases": true
+  },
+  "runtime": {
+    "node": "v24.22.0",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "mongo": "7.0.9"
+  },
+  "limits": {
+    "maxTimeMS": 30000,
+    "maxSourceBytes": 8388608,
+    "maxStorageBytes": 33554432,
+    "maxAdditionalRssBytes": 134217728,
+    "maxSerializedBytes": 8388608,
+    "maxChunkBytes": 1048576,
+    "maxPayloadBytes": 983040,
+    "maxHeavyOperations": 1
+  },
+  "failed": {
+    "phase": "stored-month-output",
+    "error": "MongoServerError",
+    "code": 121,
+    "generationId": "6dd2ef82-c839-4918-8bea-db6695b3ff4f",
+    "oldSixUnchanged": true,
+    "oldResponsesSha256": "6b569d78873a644fbd3d56783ec419e48bcf3a146396181773ef1840b788bc4a",
+    "termination": {
+      "safe": true,
+      "proof": "application-quiescent-and-standalone-all-user-currentOp-empty"
+    }
+  },
+  "retainedBeforeRecovery": {
+    "oldSourceCutAt": "2025-01-09T04:00:00.000Z",
+    "duringReadySha256": "6b569d78873a644fbd3d56783ec419e48bcf3a146396181773ef1840b788bc4a",
+    "allSixRemainWhole": true
+  },
+  "recovery": {
+    "verifiedGroups": ["A"],
+    "capturedClock": "2025-01-10T05:00:00.000Z",
+    "timeZone": "UTC"
+  },
+  "peakHeavyOperations": 1,
+  "idempotentCleanup": true,
+  "finalControl": {
+    "revision": "1469",
+    "fence": "3",
+    "publicationVersion": "2",
+    "occupiedSlots": 1,
+    "pins": 0,
+    "bsonBytes": 3118
+  },
+  "evidence": [
+    {
+      "sourceCutAt": "2025-01-09T04:00:00.000Z",
+      "sourceVersion": "full-correction-1",
+      "referenceSource": {
+        "records": 15,
+        "days": 2,
+        "transportSha256": "ec8cb31a2aa010b99b82c5167e50025f8c930f7b019d1dccf3e52a880911f1bf"
+      },
+      "generationId": "22b541b6-1484-46f9-9c6a-d6dd02e968f4",
+      "capturedClock": "2025-01-10T05:00:00.000Z",
+      "timeZone": "UTC",
+      "stages": [
+        {
+          "name": "source-staging",
+          "complete": true,
+          "elapsedMS": 55.44133399999987
+        },
+        {
+          "name": "source-type-inventory",
+          "complete": true,
+          "elapsedMS": 22.796375000000126
+        },
+        {
+          "name": "baseline-hospital-day-etl",
+          "complete": true,
+          "elapsedMS": 2774.8823340000004
+        },
+        {
+          "name": "baseline-identity-finalization",
+          "complete": true,
+          "elapsedMS": 83.50108300000011
+        },
+        {
+          "name": "daily-facts-and-original-members",
+          "complete": true,
+          "elapsedMS": 80.52079199999935
+        },
+        {
+          "name": "expense-v1-daily-operands",
+          "complete": true,
+          "elapsedMS": 29.172082999999475
+        },
+        {
+          "name": "baseline-daily-card-facts",
+          "complete": true,
+          "elapsedMS": 58.287500000000364
+        },
+        {
+          "name": "mongo-equivalence-dictionary",
+          "complete": true,
+          "elapsedMS": 131.43974999999955
+        },
+        {
+          "name": "portable-daily-bitmaps",
+          "complete": true,
+          "elapsedMS": 369.2030829999994
+        },
+        {
+          "name": "stored-month-atoms",
+          "complete": true,
+          "elapsedMS": 745.1173750000003
+        },
+        {
+          "name": "prepared-stored-month-scopes",
+          "complete": true,
+          "elapsedMS": 566.4654580000006
+        },
+        {
+          "name": "date-utc-month-atoms",
+          "complete": true,
+          "elapsedMS": 702.3901249999999
+        },
+        {
+          "name": "patients-bar-differential-validation",
+          "complete": true,
+          "elapsedMS": 107.65695799999958
+        },
+        {
+          "name": "stored-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 100.3200420000012
+        },
+        {
+          "name": "prepared-stored-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 2072.123125
+        },
+        {
+          "name": "date-utc-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 237.80724999999984
+        },
+        {
+          "name": "compatible-endpoint-snapshots",
+          "complete": true,
+          "elapsedMS": 102.41629199999988
+        }
+      ],
+      "collections": {
+        "patients_identity": {
+          "count": 29,
+          "sha256": "14353aa6a8ad83d0df1939b1401f3e0899dd0d0880a6d206cc97038ea34f4c98"
+        },
+        "patients_daily": {
+          "count": 15,
+          "sha256": "53ff6892bd68c8b5dbc3492109869cdd447cf78badf38d7f82f98c26dba0fdd6"
+        },
+        "patients_month_atoms": {
+          "count": 15,
+          "sha256": "6be85ff35bd1aed217c41c9a3495a094969093f0e282aa80b5ec3cc71f8e29d0"
+        },
+        "patients_scopes": {
+          "count": 34,
+          "sha256": "e1946a310d02a1ad77634915244cafe1159cd15c36c34709aef0354651ea94aa"
+        },
+        "patients_month_scopes": {
+          "count": 37,
+          "sha256": "b1f22bdda0e8da702d1ce164def4872aaa6d1a11dc33429a96b619aff92e11c1"
+        },
+        "patients_date_month_atoms": {
+          "count": 15,
+          "sha256": "6910fbbfb347f4d01e161d4bee3a766e1239e0e194b272f5a1d70fb575ded4be"
+        },
+        "patients_date_month_scopes": {
+          "count": 37,
+          "sha256": "3db26c110662572476b7bda96651c9d02536e6e60236d8f7c7113029509b1cfd"
+        },
+        "patients_bitmap_chunks": {
+          "count": 377,
+          "sha256": "5f4073310c05ae983bbb0bcde47b570b20a611aa1d0ba212dd2ee5ea167a97f5"
+        },
+        "patients_bitmap_directory": {
+          "count": 377,
+          "sha256": "59a5ef1505a38d72976b7b68c01dff24a7e9a9230db6daca54535064e6a71eb4"
+        },
+        "patients_snapshots": {
+          "count": 1,
+          "sha256": "5f166bfe82177e1e2e9347d040f660b20b83898e70573d860a591100d2993ba4"
+        }
+      },
+      "validation": {
+        "patientsBar": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "categories": 6,
+          "counts": [7, 4, 1, 2, 1, 2]
+        },
+        "expenseBar": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "policy": "expense-v1",
+          "totals": [
+            {
+              "coefficient": "405",
+              "scale": 0
+            },
+            {
+              "coefficient": "147",
+              "scale": 0
+            },
+            {
+              "coefficient": "80",
+              "scale": 0
+            },
+            {
+              "coefficient": "150",
+              "scale": 0
+            },
+            {
+              "coefficient": "150",
+              "scale": 0
+            },
+            {
+              "coefficient": "220",
+              "scale": 0
+            }
+          ]
+        },
+        "card": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "patientCount": 14,
+          "hospitalCount": 15,
+          "baselineError": false,
+          "policy": "expense-v1"
+        },
+        "monthlyStored": {
+          "equal": true,
+          "categories": 15,
+          "windows": 2,
+          "scope": "all-supported-stored-periods"
+        },
+        "preparedStored": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 15,
+          "scopes": 34,
+          "cells": 6660,
+          "setBlocks": 108,
+          "windows": 37,
+          "scope": "all-observed-single-field-equalities-and-national"
+        },
+        "monthlyDateUtc": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 8,
+          "scopes": 34,
+          "setBlocks": 135,
+          "scope": "all-observed-scopes-and-UTC-date-months"
+        },
+        "preparedDateUtc": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 8,
+          "scopes": 34,
+          "setBlocks": 135,
+          "scope": "all-observed-scopes-and-UTC-date-months"
+        },
+        "snapshots": {
+          "documents": 1,
+          "endpoints": 6,
+          "version": "endpoint-snapshots-v1",
+          "clock": "2025-01-10T05:00:00.000Z",
+          "timeZone": "UTC",
+          "periods": [
+            {
+              "year": 2024,
+              "month": 2
+            },
+            {
+              "year": 2024,
+              "month": 3
+            },
+            {
+              "year": 2024,
+              "month": 4
+            },
+            {
+              "year": 2024,
+              "month": 5
+            },
+            {
+              "year": 2024,
+              "month": 6
+            },
+            {
+              "year": 2024,
+              "month": 7
+            },
+            {
+              "year": 2024,
+              "month": 8
+            },
+            {
+              "year": 2024,
+              "month": 9
+            },
+            {
+              "year": 2024,
+              "month": 10
+            },
+            {
+              "year": 2024,
+              "month": 11
+            },
+            {
+              "year": 2024,
+              "month": 12
+            },
+            {
+              "year": 2025,
+              "month": 1
+            }
+          ],
+          "selection": {
+            "date": {
+              "$gte": "2024-01-07T00:00:00.000Z",
+              "$lte": "2025-01-10T05:00:00.000Z"
+            }
+          },
+          "source": {
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "coverageVerified": true
+          }
+        }
+      },
+      "resources": {
+        "elapsedMS": 8931.841250000001,
+        "peakRssBytes": 177258496,
+        "peakAdditionalRssBytes": 48513024,
+        "peakSerializedBytes": 150072,
+        "storageBytes": 663739,
+        "peakNativeBytes": 44208,
+        "peakStorageBytes": 778427,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      },
+      "cases": [
+        {
+          "name": "full-supported-history",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 146.74179100000038,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "084a467394ecee91c7e1f64d7bd59422d251034e5f756a78b7c43668539e11cf",
+              "actualSha256": "084a467394ecee91c7e1f64d7bd59422d251034e5f756a78b7c43668539e11cf",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 146.73662499999955
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "bdc6e7841acbef333917260a88fbb5b0fe9414dc3fe7f48354d961d466934047",
+              "actualSha256": "bdc6e7841acbef333917260a88fbb5b0fe9414dc3fe7f48354d961d466934047",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 140.57204199999978
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "64681e78ba1b26568fa7f0de9f4c131d963a908d34b90fb7a8c58ecf396a368d",
+              "actualSha256": "64681e78ba1b26568fa7f0de9f4c131d963a908d34b90fb7a8c58ecf396a368d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 143.4021670000002
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "actualSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 98.57850000000144
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "actualSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 85.98720899999898
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "actualSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 84.86016600000039
+            }
+          ],
+          "bodies": [
+            {
+              "route": "card",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "service_count": 18,
+                    "patient_count": 14,
+                    "expense": 1152,
+                    "hcode_count": 15,
+                    "avg_service": 1.29,
+                    "avg_expense": 82.29
+                  }
+                ]
+              }
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "qtyOfPatient": 7,
+                    "avg": 1.14
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "qtyOfPatient": 4,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "qtyOfPatient": 1,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "qtyOfPatient": 1,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  }
+                ]
+              }
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "qtyOfExpense": 405,
+                    "avg": 57.86
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "qtyOfExpense": 147,
+                    "avg": 36.75
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "qtyOfExpense": 80,
+                    "avg": 80
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "qtyOfExpense": 150,
+                    "avg": 75
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "qtyOfExpense": 150,
+                    "avg": 150
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "qtyOfExpense": 220,
+                    "avg": 110
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "ทั้งหมด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                  },
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคมะเร็งปอด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งเต้านม",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งปากมดลูก",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งตับ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "older-than-migration-and-current-graphs",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2023-12-31T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 60.98587499999849,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "d9e6ddb1323ee2faaeaeaff76e3f09c44d13c012f624f11779bd68095b89ffdc",
+              "actualSha256": "d9e6ddb1323ee2faaeaeaff76e3f09c44d13c012f624f11779bd68095b89ffdc",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 55.076209000000745
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "e2c9078bb1d4bad8b1dce5c6aa77e67f3691e9a598f4de309e4bf796543d8665",
+              "actualSha256": "e2c9078bb1d4bad8b1dce5c6aa77e67f3691e9a598f4de309e4bf796543d8665",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 60.83683300000121
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "7f6065f1ab13febc0016fb031097aa7b0f6cdbd2e6265d12be0bb33943b3cd7a",
+              "actualSha256": "7f6065f1ab13febc0016fb031097aa7b0f6cdbd2e6265d12be0bb33943b3cd7a",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 52.08350000000064
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "actualSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 48.716708999998446
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "actualSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 39.93266699999913
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "actualSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 45.80183299999953
+            }
+          ]
+        },
+        {
+          "name": "hospital-H0",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H0"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 63.45058400000016,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "58a800971750ead10e64e2bb2803b687218c499d8d224dfa4149a0c8592a4efd",
+              "actualSha256": "58a800971750ead10e64e2bb2803b687218c499d8d224dfa4149a0c8592a4efd",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 36.440834000000905
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 35.2908750000006
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "c12cb5a315e81e9c3753f195168a2d27882f92524b88ecf8dc776adcb3a424de",
+              "actualSha256": "c12cb5a315e81e9c3753f195168a2d27882f92524b88ecf8dc776adcb3a424de",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 63.237083999998504
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 26.726290999999037
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 50.21045800000138
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 60.144875000001775
+            }
+          ]
+        },
+        {
+          "name": "hospital-H3",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H3"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 49.12858299999971,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "c627c1e4c0ebd7fedb58bf76432567cad7f33388eb97c1fdddf4a4ac32e9d702",
+              "actualSha256": "c627c1e4c0ebd7fedb58bf76432567cad7f33388eb97c1fdddf4a4ac32e9d702",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 33.126249999999345
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 29.23291699999936
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a1e6c03597430b4860af6228e2c76bc92936bb89719f1c12eeeedc8d309be299",
+              "actualSha256": "a1e6c03597430b4860af6228e2c76bc92936bb89719f1c12eeeedc8d309be299",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 36.89650000000074
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 42.92691600000035
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 37.59662500000013
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 48.77812500000073
+            }
+          ]
+        },
+        {
+          "name": "hospital-H4",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H4"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 60.46875,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "847334dd13e9ecf5bee0b3d2205414d3b4b5ff0c207e929325b6ea6aa45f7713",
+              "actualSha256": "847334dd13e9ecf5bee0b3d2205414d3b4b5ff0c207e929325b6ea6aa45f7713",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 29.66429099999914
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "3253a1bb20815440b68fcebf7a67b5cc71325496ef1b9914153a52e9f7cc90b3",
+              "actualSha256": "3253a1bb20815440b68fcebf7a67b5cc71325496ef1b9914153a52e9f7cc90b3",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 60.37095799999952
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "2dc1855dc63c22a8f015ff13537fddda6ea75e9f3cf5827210420d184ac37c02",
+              "actualSha256": "2dc1855dc63c22a8f015ff13537fddda6ea75e9f3cf5827210420d184ac37c02",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 47.478000000000975
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "d5a463d949529cd7f991e017a6bc0c60a13392f7148fe5011d694b67dd92f7f5",
+              "actualSha256": "d5a463d949529cd7f991e017a6bc0c60a13392f7148fe5011d694b67dd92f7f5",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 52.37604199999987
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 29.302999999999884
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 50.123084000000745
+            }
+          ]
+        },
+        {
+          "name": "hospital-H5",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H5"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 57.80799999999908,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "actualSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 44.72383400000035
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "bc44101e5ad0d75857c1ee9ab13d88530da90d53c57105b2d60648f710a11940",
+              "actualSha256": "bc44101e5ad0d75857c1ee9ab13d88530da90d53c57105b2d60648f710a11940",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 38.88158300000032
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "0d021cb8ee405e86da04724d2421214f4e6d66d527fc15af3c71be9f3f0c173d",
+              "actualSha256": "0d021cb8ee405e86da04724d2421214f4e6d66d527fc15af3c71be9f3f0c173d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 30.852042000000438
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "fd04aea93a2276c9df1c021a65502def526aebc108fb99da8ea505af0ea8b619",
+              "actualSha256": "fd04aea93a2276c9df1c021a65502def526aebc108fb99da8ea505af0ea8b619",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 27.676625000000058
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 57.55529099999876
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "2d596bdfe5d6eaf8d216d747b867863d8fbfc992895d8083ff87b22f7051b3c1",
+              "actualSha256": "2d596bdfe5d6eaf8d216d747b867863d8fbfc992895d8083ff87b22f7051b3c1",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 41.394500000000335
+            }
+          ]
+        },
+        {
+          "name": "hospital-H6",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H6"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 56.7637909999994,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 53.80370799999946
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 50.39033299999937
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 43.19054200000028
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 25.850791999999274
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 42.96979099999953
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 56.39550000000054
+            }
+          ]
+        },
+        {
+          "name": "hospital-H7",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H7"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 55.72600000000057,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "55731308b0fd41ce64cd7fcd3abb508a37f2303594bc29492720f79d61dfc912",
+              "actualSha256": "55731308b0fd41ce64cd7fcd3abb508a37f2303594bc29492720f79d61dfc912",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 21.85962499999914
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 37.66612499999974
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "5349d382c12fb0a502efb19e5989ede90a3e8e3e5010d9e911d16a9238f30113",
+              "actualSha256": "5349d382c12fb0a502efb19e5989ede90a3e8e3e5010d9e911d16a9238f30113",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 55.58708299999853
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 53.28783400000066
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 23.559917000000496
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 51.59962500000074
+            }
+          ]
+        },
+        {
+          "name": "hospital-H8",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H8"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 64.14520900000025,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "c0f478fcca028bf8110bb3a3d9d44f2ab0be68453ae4f4a382bf88fe57fce1e8",
+              "actualSha256": "c0f478fcca028bf8110bb3a3d9d44f2ab0be68453ae4f4a382bf88fe57fce1e8",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 25.776083000000654
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "actualSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 61.02629200000047
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "1c3351ed0afb8db297f81007711fb631172b97dce8fd3643db33e13a492db8a2",
+              "actualSha256": "1c3351ed0afb8db297f81007711fb631172b97dce8fd3643db33e13a492db8a2",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 42.89495800000077
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "actualSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 53.383458999998766
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 39.96183299999939
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 63.87933399999929
+            }
+          ]
+        },
+        {
+          "name": "hospital-H9",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H9"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 64.95374999999876,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "2f0f471dedf3af073acce3e74cb78157bcb1ec6837d4a42df9df4bbf44b7154e",
+              "actualSha256": "2f0f471dedf3af073acce3e74cb78157bcb1ec6837d4a42df9df4bbf44b7154e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 64.95129100000122
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "3253a1bb20815440b68fcebf7a67b5cc71325496ef1b9914153a52e9f7cc90b3",
+              "actualSha256": "3253a1bb20815440b68fcebf7a67b5cc71325496ef1b9914153a52e9f7cc90b3",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 43.34379199999967
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "8babf8e11594f8c7265c2edce7e7a27f8fa52da04e30a8b037e6ffcc9d746bbd",
+              "actualSha256": "8babf8e11594f8c7265c2edce7e7a27f8fa52da04e30a8b037e6ffcc9d746bbd",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 61.27387499999895
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 48.100750000001426
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 42.653832999998485
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 55.02241700000013
+            }
+          ]
+        },
+        {
+          "name": "hospital-H13",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H13"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 69.55512500000077,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "df0e102c91306810a5a9a7b37c35872254dabba3f510f0b0432baf1677d18a56",
+              "actualSha256": "df0e102c91306810a5a9a7b37c35872254dabba3f510f0b0432baf1677d18a56",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 24.982458000000406
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 45.5737079999999
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "c55f03e8fc33cf4c17a13ae7940d1c920210d96c4a3c1932d69667609b842591",
+              "actualSha256": "c55f03e8fc33cf4c17a13ae7940d1c920210d96c4a3c1932d69667609b842591",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 66.59283300000061
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 27.510957999998936
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 69.35841699999946
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 43.474333000000115
+            }
+          ]
+        },
+        {
+          "name": "hospital-H14",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H14"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 57.587250000000495,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "actualSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 48.45329200000015
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "actualSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 43.556125000000975
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "actualSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 29.595750000000407
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "actualSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 51.41599999999926
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 32.65174999999908
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 57.36558399999922
+            }
+          ]
+        },
+        {
+          "name": "hospital-H15",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H15"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 62.59962499999892,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 22.752832999998645
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 34.46641699999964
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 62.47700000000077
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 37.48120899999958
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 44.46574999999939
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 56.404749999999694
+            }
+          ]
+        },
+        {
+          "name": "old-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "area": "OLD"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 72.78083399999923,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 38.96370900000147
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 44.63774999999987
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 49.64533299999857
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 41.62750000000051
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 63.61133300000074
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 72.45499999999993
+            }
+          ]
+        },
+        {
+          "name": "new-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "area": "NEW"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 96.72458299999926,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 35.87708300000122
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 49.68883399999868
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 44.58245799999895
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 63.602084000000104
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 42.84350000000086
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 96.47537499999999
+            }
+          ]
+        },
+        {
+          "name": "independent-province",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "province": "Q"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 72.72754199999872,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 29.189249999999447
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 63.59795800000029
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 51.68562500000007
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 60.75545899999997
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 68.8272909999996
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 72.42950000000019
+            }
+          ]
+        },
+        {
+          "name": "combined-corrected-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "district": "NEW-D",
+            "hcode": "H6"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 59.170749999999316,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 24.65154099999927
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 50.13316699999996
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 30.116792000000714
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 46.19358300000022
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 58.9703329999993
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 53.09112499999901
+            }
+          ]
+        },
+        {
+          "name": "old-day-after-move",
+          "request": {
+            "startDate": "2025-01-07",
+            "endDate": "2025-01-07T23:59:59.999Z",
+            "hcode": "H14"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 58.315332999998645,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "actualSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 58.31291600000077
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "actualSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 54.3521669999991
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "actualSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 51.320707999999286
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "actualSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 44.67095799999879
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 34.33854199999951
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 35.738124999999854
+            }
+          ]
+        },
+        {
+          "name": "new-day-after-move",
+          "request": {
+            "startDate": "2025-01-08",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H15"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 72.60795899999903,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 55.16558299999997
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 72.53220800000054
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 59.167083000000275
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 51.543917000000874
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 57.442165999998906
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 62.232999999998356
+            }
+          ]
+        },
+        {
+          "name": "late-clinical-day",
+          "request": {
+            "startDate": "2025-01-06",
+            "endDate": "2025-01-06T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 58.364832999999635,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 55.29816699999901
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 41.12037500000042
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 50.001374999999825
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "actualSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 23.34625000000051
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "actualSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 58.126500000000306
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "actualSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 37.28974999999991
+            }
+          ]
+        },
+        {
+          "name": "snapshot",
+          "request": {
+            "startDate": "2024-01-07",
+            "endDate": "2025-01-10",
+            "area": "",
+            "province": "",
+            "district": "",
+            "hcode": ""
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 33.748875000001135,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "f5bb267211ff81f7153c669d65d05eb78e5082173a8bbf4eb8addcb8a1b2d3f8",
+              "actualSha256": "f5bb267211ff81f7153c669d65d05eb78e5082173a8bbf4eb8addcb8a1b2d3f8",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 23.78137500000048
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "2aecfdf51886e445d787b74c06f139d738dbea94688e14a36541bff0ff25d614",
+              "actualSha256": "2aecfdf51886e445d787b74c06f139d738dbea94688e14a36541bff0ff25d614",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 20.953583000000435
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "f189f1bc74a402d03cd717a4ecc6f9e646f72e2e6324d5a6d7582744b100237d",
+              "actualSha256": "f189f1bc74a402d03cd717a4ecc6f9e646f72e2e6324d5a6d7582744b100237d",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 20.22912499999984
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "actualSha256": "8901a7ece17d3b73dcf95af4e93801c7b60dd1009e1a175edc41f1c4dab3a080",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 19.74695900000006
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "actualSha256": "0cbdc1bdf653fd556c10a0a8162ab992eccac31aad7e2de77e0dcc73088957b4",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 33.481166000001394
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "actualSha256": "53443ec569869116b634febd5f40a92682a2c120de502d17deceec67bfad2dd2",
+              "sourceCutAt": "2025-01-09T04:00:00.000Z",
+              "state": "stale",
+              "parsedBodyMS": 26.53375000000051
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sourceCutAt": "2025-01-09T16:00:00.000Z",
+      "sourceVersion": "full-correction-2",
+      "referenceSource": {
+        "records": 14,
+        "days": 4,
+        "transportSha256": "5b3190b1f555c0281ca7c40418f663d940b83e51ca78fa483c06a49297d5c665"
+      },
+      "generationId": "6dd2ef82-c839-4918-8bea-db6695b3ff4f",
+      "capturedClock": "2025-01-10T05:00:00.000Z",
+      "timeZone": "UTC",
+      "stages": [
+        {
+          "name": "source-staging",
+          "complete": true,
+          "elapsedMS": 68.39445799999885
+        },
+        {
+          "name": "source-type-inventory",
+          "complete": true,
+          "elapsedMS": 54.32195800000045
+        },
+        {
+          "name": "baseline-hospital-day-etl",
+          "complete": true,
+          "elapsedMS": 2582.04975
+        },
+        {
+          "name": "baseline-identity-finalization",
+          "complete": true,
+          "elapsedMS": 135.3952500000014
+        },
+        {
+          "name": "daily-facts-and-original-members",
+          "complete": true,
+          "elapsedMS": 125.31812499999796
+        },
+        {
+          "name": "expense-v1-daily-operands",
+          "complete": true,
+          "elapsedMS": 90.49204199999804
+        },
+        {
+          "name": "baseline-daily-card-facts",
+          "complete": true,
+          "elapsedMS": 101.41433300000062
+        },
+        {
+          "name": "mongo-equivalence-dictionary",
+          "complete": true,
+          "elapsedMS": 102.47841600000174
+        },
+        {
+          "name": "portable-daily-bitmaps",
+          "complete": true,
+          "elapsedMS": 88.93525000000227
+        },
+        {
+          "name": "stored-month-atoms",
+          "complete": true,
+          "elapsedMS": 207.11112500000309
+        },
+        {
+          "name": "prepared-stored-month-scopes",
+          "complete": true,
+          "elapsedMS": 285.0637080000015
+        },
+        {
+          "name": "date-utc-month-atoms",
+          "complete": true,
+          "elapsedMS": 475.51012499999706
+        },
+        {
+          "name": "patients-bar-differential-validation",
+          "complete": true,
+          "elapsedMS": 84.01983300000211
+        },
+        {
+          "name": "stored-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 91.58779100000174
+        },
+        {
+          "name": "prepared-stored-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 1452.0135410000003
+        },
+        {
+          "name": "date-utc-month-differential-validation",
+          "complete": true,
+          "elapsedMS": 152.12062499999956
+        },
+        {
+          "name": "compatible-endpoint-snapshots",
+          "complete": true,
+          "elapsedMS": 91.52958399999989
+        }
+      ],
+      "collections": {
+        "patients_identity": {
+          "count": 24,
+          "sha256": "f464a50b9cba10eddccae6ce887a26debbab62119241f11b00c74bdc5cab1e9f"
+        },
+        "patients_daily": {
+          "count": 13,
+          "sha256": "23f48580faad5749738c24cd7fce9faade4e4cf0c2fc88c0d532e5bd53c3c91c"
+        },
+        "patients_month_atoms": {
+          "count": 13,
+          "sha256": "cdf69b504f922b22fc81abd896653336d02ff763561709d82617f6a6fcb8b166"
+        },
+        "patients_scopes": {
+          "count": 31,
+          "sha256": "44e75a31cdf47ef24d8dbd1a9cee5baec64bf83eb77ed25f0c58a2b3707c9a3b"
+        },
+        "patients_month_scopes": {
+          "count": 34,
+          "sha256": "b67a8541c735354da6c8219e6d00ebfaa6097514a456f6c37b1fe0d39282774b"
+        },
+        "patients_date_month_atoms": {
+          "count": 13,
+          "sha256": "4a686745e7e45f0626d31544515fca562ebe4a810cd8033c478789ff0d33b7cd"
+        },
+        "patients_date_month_scopes": {
+          "count": 34,
+          "sha256": "e1e4adc5fa7ceccdbbc8bd44baf78be560e55b51a154bf431ea540821891c50f"
+        },
+        "patients_bitmap_chunks": {
+          "count": 341,
+          "sha256": "fe3d2ed6a6f0b95435c2f19f001ca5a2e9284069e3298f3a3ea61f3953ffebfc"
+        },
+        "patients_bitmap_directory": {
+          "count": 341,
+          "sha256": "115d32fca0408033a63651928901edd865efe6121e93e916504378d01f052006"
+        },
+        "patients_snapshots": {
+          "count": 1,
+          "sha256": "53d24928fa15ccdf153babbeb727f02cd7c8991cb2c423c9649460b6c4f652c8"
+        }
+      },
+      "validation": {
+        "patientsBar": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "categories": 6,
+          "counts": [5, 2, 2, 1, 2, 2]
+        },
+        "expenseBar": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "policy": "expense-v1",
+          "totals": [
+            {
+              "coefficient": "480",
+              "scale": 0
+            },
+            {
+              "coefficient": "100",
+              "scale": 0
+            },
+            {
+              "coefficient": "1200",
+              "scale": 0
+            },
+            {
+              "coefficient": "100",
+              "scale": 0
+            },
+            {
+              "coefficient": "225",
+              "scale": 0
+            },
+            {
+              "coefficient": "220",
+              "scale": 0
+            }
+          ]
+        },
+        "card": {
+          "equal": true,
+          "scope": "full-supported-history",
+          "patientCount": 11,
+          "hospitalCount": 13,
+          "baselineError": false,
+          "policy": "expense-v1"
+        },
+        "monthlyStored": {
+          "equal": true,
+          "categories": 15,
+          "windows": 2,
+          "scope": "all-supported-stored-periods"
+        },
+        "preparedStored": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 15,
+          "scopes": 31,
+          "cells": 6120,
+          "setBlocks": 100,
+          "windows": 34,
+          "scope": "all-observed-single-field-equalities-and-national"
+        },
+        "monthlyDateUtc": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 8,
+          "scopes": 31,
+          "setBlocks": 123,
+          "scope": "all-observed-scopes-and-UTC-date-months"
+        },
+        "preparedDateUtc": {
+          "equal": true,
+          "setsEqual": true,
+          "categories": 8,
+          "scopes": 31,
+          "setBlocks": 123,
+          "scope": "all-observed-scopes-and-UTC-date-months"
+        },
+        "snapshots": {
+          "documents": 1,
+          "endpoints": 6,
+          "version": "endpoint-snapshots-v1",
+          "clock": "2025-01-10T05:00:00.000Z",
+          "timeZone": "UTC",
+          "periods": [
+            {
+              "year": 2024,
+              "month": 2
+            },
+            {
+              "year": 2024,
+              "month": 3
+            },
+            {
+              "year": 2024,
+              "month": 4
+            },
+            {
+              "year": 2024,
+              "month": 5
+            },
+            {
+              "year": 2024,
+              "month": 6
+            },
+            {
+              "year": 2024,
+              "month": 7
+            },
+            {
+              "year": 2024,
+              "month": 8
+            },
+            {
+              "year": 2024,
+              "month": 9
+            },
+            {
+              "year": 2024,
+              "month": 10
+            },
+            {
+              "year": 2024,
+              "month": 11
+            },
+            {
+              "year": 2024,
+              "month": 12
+            },
+            {
+              "year": 2025,
+              "month": 1
+            }
+          ],
+          "selection": {
+            "date": {
+              "$gte": "2024-01-07T00:00:00.000Z",
+              "$lte": "2025-01-10T05:00:00.000Z"
+            }
+          },
+          "source": {
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "coverageVerified": true
+          }
+        }
+      },
+      "resources": {
+        "elapsedMS": 6667.371375000001,
+        "peakRssBytes": 196329472,
+        "peakAdditionalRssBytes": 38223872,
+        "peakSerializedBytes": 150088,
+        "storageBytes": 1617831,
+        "peakNativeBytes": 83984,
+        "peakStorageBytes": 1806247,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      },
+      "cases": [
+        {
+          "name": "full-supported-history",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 52.942417000002024,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "c5a50251b348da8750145554f6edf4b6dfabbaac28e045b0fd4c61348f9add9a",
+              "actualSha256": "c5a50251b348da8750145554f6edf4b6dfabbaac28e045b0fd4c61348f9add9a",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 52.94087500000023
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "12fb95cb8d8f25b0b90f0a87e89369fbe4dafa2baf140d4d729df2bf5e7a8ee5",
+              "actualSha256": "12fb95cb8d8f25b0b90f0a87e89369fbe4dafa2baf140d4d729df2bf5e7a8ee5",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 46.32854100000259
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "d113968654bce0bf5dbbce5a230f276123c029e1af7b34bb878d22216e575cb3",
+              "actualSha256": "d113968654bce0bf5dbbce5a230f276123c029e1af7b34bb878d22216e575cb3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 49.75487500000236
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "actualSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 40.738084000000526
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "actualSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 25.901458000000275
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "actualSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 34.00262500000099
+            }
+          ],
+          "bodies": [
+            {
+              "route": "card",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "service_count": 16,
+                    "patient_count": 11,
+                    "expense": 2325,
+                    "hcode_count": 13,
+                    "avg_service": 1.45,
+                    "avg_expense": 211.36
+                  }
+                ]
+              }
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "qtyOfPatient": 5,
+                    "avg": 1.4
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "qtyOfPatient": 1,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "qtyOfPatient": 2,
+                    "avg": 1
+                  }
+                ]
+              }
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "qtyOfExpense": 480,
+                    "avg": 96
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "qtyOfExpense": 100,
+                    "avg": 50
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "qtyOfExpense": 1200,
+                    "avg": 600
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "qtyOfExpense": 100,
+                    "avg": 100
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "qtyOfExpense": 225,
+                    "avg": 112.5
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "qtyOfExpense": 220,
+                    "avg": 110
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "ทั้งหมด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                  },
+                  {
+                    "diseaseName": "โรคเบาหวาน",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                  },
+                  {
+                    "diseaseName": "โรคความดันโลหิตสูง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  },
+                  {
+                    "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็ง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "สุขภาพจิต",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  },
+                  {
+                    "diseaseName": "โรคหัวใจและหลอดเลือด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                  }
+                ]
+              }
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "body": {
+                "status": true,
+                "message": "success",
+                "result": [
+                  {
+                    "diseaseName": "โรคมะเร็งปอด",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งเต้านม",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งปากมดลูก",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งตับ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                  },
+                  {
+                    "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                    "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "older-than-migration-and-current-graphs",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2023-12-31T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 53.263208999997005,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "actualSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 43.31658299999981
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 46.25712500000009
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "f5bf7d6fd66f63d0f3cd037eb755835fa9871aaabf4f71536e954904650f6098",
+              "actualSha256": "f5bf7d6fd66f63d0f3cd037eb755835fa9871aaabf4f71536e954904650f6098",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 41.267791000002035
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "actualSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 26.94183300000077
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "actualSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.07841600000029
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "actualSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 38.33499999999913
+            }
+          ]
+        },
+        {
+          "name": "hospital-H0",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H0"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 49.23637500000041,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "actualSha256": "8deca0de2787e57e1ae4bc872c678fdaf77652b6cf994daa5956bf8d1ffc6772",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 20.947500000002037
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 40.04712500000096
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "f5bf7d6fd66f63d0f3cd037eb755835fa9871aaabf4f71536e954904650f6098",
+              "actualSha256": "f5bf7d6fd66f63d0f3cd037eb755835fa9871aaabf4f71536e954904650f6098",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 49.10883299999841
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 47.107749999999214
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 21.294208999999682
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 32.17895800000042
+            }
+          ]
+        },
+        {
+          "name": "hospital-H3",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H3"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 48.601166000000376,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 32.213959000000614
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 44.57441699999981
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 29.554707999999664
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 48.47683299999699
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 25.531834000001254
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 45.92841599999883
+            }
+          ]
+        },
+        {
+          "name": "hospital-H4",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H4"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 62.435833999999886,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "b151e5ff92a2eefa83c7f2621d27d9f3f993145587678580ededa5d95941ef8a",
+              "actualSha256": "b151e5ff92a2eefa83c7f2621d27d9f3f993145587678580ededa5d95941ef8a",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 36.304791999999
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "actualSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 37.186416999997164
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "cc8d7f15ed29a2842f2291b97b95f1252188a123753e8c786b6ec21ea0e88b45",
+              "actualSha256": "cc8d7f15ed29a2842f2291b97b95f1252188a123753e8c786b6ec21ea0e88b45",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 31.34337500000038
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "actualSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 51.1985829999976
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 40.12279200000194
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.20366700000159
+            }
+          ]
+        },
+        {
+          "name": "hospital-H5",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H5"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 57.478917000000365,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 33.88829199999964
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 57.23620799999844
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 38.01945799999885
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 33.72308300000077
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 46.96962500000154
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 47.73033299999952
+            }
+          ]
+        },
+        {
+          "name": "hospital-H6",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H6"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 70.72000000000116,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 70.71791600000142
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 37.72320799999943
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 27.83062499999869
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 64.53366599999936
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 30.160083999999188
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 56.539457999999286
+            }
+          ]
+        },
+        {
+          "name": "hospital-H7",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H7"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 58.30816699999923,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "68ccf4031ea9b79eb9b05b8320d41dca7c6f32022758fcf75d96cf4a1b5483d7",
+              "actualSha256": "68ccf4031ea9b79eb9b05b8320d41dca7c6f32022758fcf75d96cf4a1b5483d7",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 21.693959000000177
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "985961863d381f05877570837599ed10b1df52b4d0eb46445c54bc84a4674a89",
+              "actualSha256": "985961863d381f05877570837599ed10b1df52b4d0eb46445c54bc84a4674a89",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 32.18491600000198
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "c929107328c4c1dd4d604b96091a438bb036073bfc2780fc063d81fe07cc0714",
+              "actualSha256": "c929107328c4c1dd4d604b96091a438bb036073bfc2780fc063d81fe07cc0714",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 58.2232499999991
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "10d0f948af274d0f1b6af307c81a63925f671c976837792ef221c2739c383a01",
+              "actualSha256": "10d0f948af274d0f1b6af307c81a63925f671c976837792ef221c2739c383a01",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 44.13691699999981
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 49.18800000000192
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 48.16566700000112
+            }
+          ]
+        },
+        {
+          "name": "hospital-H8",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H8"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 62.46979199999987,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "03c4a9000963bd0b0e93dd6f1828de89a728c38724b9ea849e027333d54e477e",
+              "actualSha256": "03c4a9000963bd0b0e93dd6f1828de89a728c38724b9ea849e027333d54e477e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 25.629832999999053
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "actualSha256": "004254cc66e2817bc3df1efceae52623576d9d0d51c9f50a3ea45b5cb6251cdc",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 51.53324999999677
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "4c99e24e194f2dde99b0e022e1b453aceff86af6fb187e5b11fa1516100a12cd",
+              "actualSha256": "4c99e24e194f2dde99b0e022e1b453aceff86af6fb187e5b11fa1516100a12cd",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 48.26825000000099
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "actualSha256": "a2ba38c35a77af321d378fbe307057b150426f96b3c974237f52a150d66eed40",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 42.39537500000006
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.28987500000221
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 52.61658299999908
+            }
+          ]
+        },
+        {
+          "name": "hospital-H9",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H9"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 60.15925000000061,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 20.188999999998487
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 39.24741699999868
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 60.057999999997264
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 20.52045899999939
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 50.97820900000079
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 57.13324999999895
+            }
+          ]
+        },
+        {
+          "name": "hospital-H13",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H13"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 90.59700000000157,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "df0e102c91306810a5a9a7b37c35872254dabba3f510f0b0432baf1677d18a56",
+              "actualSha256": "df0e102c91306810a5a9a7b37c35872254dabba3f510f0b0432baf1677d18a56",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 47.44725000000108
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.31920799999716
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "c55f03e8fc33cf4c17a13ae7940d1c920210d96c4a3c1932d69667609b842591",
+              "actualSha256": "c55f03e8fc33cf4c17a13ae7940d1c920210d96c4a3c1932d69667609b842591",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 55.98191600000064
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.44879199999923
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 76.03250000000116
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 90.38704199999847
+            }
+          ]
+        },
+        {
+          "name": "hospital-H14",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H14"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 68.37458300000071,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 37.253333000000566
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.04070800000045
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 64.1259579999969
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 68.23862499999814
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 43.498916999997164
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 50.019875000001775
+            }
+          ]
+        },
+        {
+          "name": "hospital-H15",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H15"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 79.25337500000023,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "actualSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 70.18125000000146
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "actualSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 76.1150830000006
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "actualSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 42.17595799999981
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "actualSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 59.08087499999965
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 79.0793330000015
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 29.240249999998923
+            }
+          ]
+        },
+        {
+          "name": "old-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "area": "OLD"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 74.15754200000083,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 29.402666999998473
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 74.06654200000048
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 49.924166000000696
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.63195800000176
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 31.87670799999978
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.929583000001
+            }
+          ]
+        },
+        {
+          "name": "new-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "area": "NEW"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 69.49945800000205,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 31.598541999999725
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 69.41533300000083
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 43.32920899999954
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 63.18216599999869
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 56.25
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 49.189125000000786
+            }
+          ]
+        },
+        {
+          "name": "independent-province",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "province": "Q"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 77.08566599999904,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 33.424332999999024
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 36.021749999999884
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 56.07883299999958
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 38.96370899999965
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 45.97466699999859
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 76.89408399999957
+            }
+          ]
+        },
+        {
+          "name": "combined-corrected-geography",
+          "request": {
+            "startDate": "2023-12-31",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "district": "NEW-D",
+            "hcode": "H6"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 76.01833299999998,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "actualSha256": "092991fb051b9f79a6c2566c3b0dda186854388cdf6166777e82c2aa70353d4c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 51.54216699999961
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 75.94737499999974
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "actualSha256": "38e1e9734ad8725c2619fcb9981847e7df2a6ba80bd4333e8a7b2a0134651b6c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 57.92158399999971
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "actualSha256": "b44b6ee8abc4ad5df8db8bb78be78ddb610aa9870f1d02110b34a9e19b98ff60",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 68.86750000000029
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "actualSha256": "9f41eb0f1e0c63e95b439e581ff1f1eeee3aeb1fd9c292d19e81dba21cbc157c",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.95600000000195
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 60.85166599999866
+            }
+          ]
+        },
+        {
+          "name": "old-day-after-move",
+          "request": {
+            "startDate": "2025-01-07",
+            "endDate": "2025-01-07T23:59:59.999Z",
+            "hcode": "H14"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 74.35766700000022,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "actualSha256": "9241ee8b46a99923af3468f76d461709dfa1ba22887487e74aadf3207ba87998",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 54.32012499999837
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "actualSha256": "d872fb161552b6bd96e6781a07a9b173e14211a024d60b35fc3e211e0ebf67c4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 74.28883399999904
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "actualSha256": "a43d9a0ebfd672da34a08f0dbd0c658d4d322fdac881bc7d29b0e3605118a14e",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 48.60441600000195
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "actualSha256": "5f1cc50e38ad1ef32ce33590adf7c2b7823048e98eee2cba8c0a673844a71170",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 48.449916999998095
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 66.65412500000093
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.587415999998484
+            }
+          ]
+        },
+        {
+          "name": "new-day-after-move",
+          "request": {
+            "startDate": "2025-01-08",
+            "endDate": "2025-01-08T23:59:59.999Z",
+            "hcode": "H15"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 62.066249999999854,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "actualSha256": "f010d48b4a063986c4fd6a78a58e89cd54d38629e796ed9a480c6ceb6524f58b",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 50.08020899999974
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "actualSha256": "95eceda65f37c05e66e6b7de0fee89826a53e26fdba90216cebff0976b378d92",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 61.97049999999945
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "actualSha256": "9556196899e7ea97238bb54cc4098290193e9cc87a984d5fe026770da6d9147a",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 47.24595899999986
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "actualSha256": "823655c04614ed7f6e6400de5154488bcc7c9ad40b71ec39776da8cc4337d3b7",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 31.065209000000323
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "actualSha256": "47efac6e0466d49560829809e26ed9167d3ffe68e65c19b6064a37e629d9209d",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 43.765625
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "actualSha256": "8e99c19c9b8601e75498997f94fb52c67389d5ee1ae52bbbcb85dd5622e06bae",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 33.759125000000495
+            }
+          ]
+        },
+        {
+          "name": "late-clinical-day",
+          "request": {
+            "startDate": "2025-01-06",
+            "endDate": "2025-01-06T23:59:59.999Z"
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 72.8167919999978,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "4716bc0db081d24745257b3b4a1d46f22425e2e92a9ac0a087121cf559c9a3e5",
+              "actualSha256": "4716bc0db081d24745257b3b4a1d46f22425e2e92a9ac0a087121cf559c9a3e5",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 53.87195900000006
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "actualSha256": "d20f386c6c2e587b5f1450b5c8f2543574f0a9724a89fd37c25847f09b40dd0f",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 72.71679199999926
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "97a87c274e6536c05491a1187ebd7459ca7b00698153cf59139f0b2cb1bb02f3",
+              "actualSha256": "97a87c274e6536c05491a1187ebd7459ca7b00698153cf59139f0b2cb1bb02f3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 59.77404200000092
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "actualSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 45.25870800000121
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "actualSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 62.69958300000144
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "actualSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 47.64912499999991
+            }
+          ]
+        },
+        {
+          "name": "snapshot",
+          "request": {
+            "startDate": "2024-01-07",
+            "endDate": "2025-01-10",
+            "area": "",
+            "province": "",
+            "district": "",
+            "hcode": ""
+          },
+          "exactStatusAndBody": true,
+          "combinedParsedBodiesMS": 32.04729199999929,
+          "responses": [
+            {
+              "route": "card",
+              "status": 200,
+              "referenceSha256": "2613391367ce4089c1da9048bd691809311aaccd8fd2298bfcbffe2635338d99",
+              "actualSha256": "2613391367ce4089c1da9048bd691809311aaccd8fd2298bfcbffe2635338d99",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 12.344499999999243
+            },
+            {
+              "route": "bar-chart-pt",
+              "status": 200,
+              "referenceSha256": "d43ddf41e835660cbbe1ec92d9009e2af40fc0dabccb9d1980a84cf2a5a8af10",
+              "actualSha256": "d43ddf41e835660cbbe1ec92d9009e2af40fc0dabccb9d1980a84cf2a5a8af10",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 31.968958999997994
+            },
+            {
+              "route": "bar-chart-ex",
+              "status": 200,
+              "referenceSha256": "654d5d0567379975e0d72db2d34984ae123944adf3692e6be85e1c67465ce637",
+              "actualSha256": "654d5d0567379975e0d72db2d34984ae123944adf3692e6be85e1c67465ce637",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 26.99487500000032
+            },
+            {
+              "route": "graph-disease-pt",
+              "status": 200,
+              "referenceSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "actualSha256": "d2c94f087d8b3d8a534e838e75360da5c870d4bba30dc3eb650f8bd01ee41ea3",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 18.036334000000352
+            },
+            {
+              "route": "graph-dm-pt",
+              "status": 200,
+              "referenceSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "actualSha256": "2d836b44ac61a364e3df5fe9eddb550ada30e2ab24f91ccbebff4449d2740bf4",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 23.898166999999376
+            },
+            {
+              "route": "graph-ca-pt",
+              "status": 200,
+              "referenceSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "actualSha256": "d70f403de184ae332ecdda34bfbb281cd7d7867d8f4e1d85b88f4b0456df1b78",
+              "sourceCutAt": "2025-01-09T16:00:00.000Z",
+              "state": "fresh",
+              "parsedBodyMS": 23.799166000000696
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "releaseGates": {
+    "productionSourceHistoryIngestion": "unverified",
+    "representativeCapacity": "unverified",
+    "targetNativePlatform": "unverified",
+    "targetAuthReplicaFailover": "unverified",
+    "arbitraryMidCommandWorkerReclaim": "retained-unsupported",
+    "lostSupervisorProof": "retained-unsupported",
+    "dashboardRenderingAndPage24Hour": "deferred-32-unverified",
+    "activation": "blocked-legacy-default"
+  }
+}
