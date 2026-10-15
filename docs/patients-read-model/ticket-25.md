@@ -1,6 +1,6 @@
 # Ticket #25: backend snapshots, errors and freshness
 
-Implements the backend portion of [#25](https://github.com/khaoxkongz/ncd-api/issues/25) under the accepted [#17 specification](https://github.com/khaoxkongz/ncd-api/issues/17). Work resumed from the existing uncommitted ticket worktree based on integration `327d0b44a83d2d20dc8d6e80ee94eb5e140ef121`. The user deferred frontend implementation. [#32](https://github.com/khaoxkongz/ncd-api/issues/32) carries the actual dashboard consumer, rapid-filter rendering, visible freshness/error completion and page-acceptance work. These frontend clauses have not passed, and remain release gates.
+Implements the backend portion of [#25](https://github.com/khaoxkongz/ncd-api/issues/25) under the accepted [#17 specification](https://github.com/khaoxkongz/ncd-api/issues/17). Work resumed from the existing uncommitted ticket worktree based on integration `327d0b44a83d2d20dc8d6e80ee94eb5e140ef121`. Integration `cfa3a5a8515febe55cbfe5aa22a6901b1b020506` was merged in `75d9e70`, retaining the prepared stored-month component, helpers and source-collated indexes. Prepared-scope differential validation precedes snapshot building. The user deferred frontend implementation. [#32](https://github.com/khaoxkongz/ncd-api/issues/32) carries the actual dashboard consumer, rapid-filter rendering, visible freshness/error completion and page-acceptance work. These frontend clauses have not passed, and remain release gates.
 
 ## Backend behavior
 
@@ -40,7 +40,7 @@ vp run lint
 git diff --check
 ```
 
-Before integration of parallel work, all 45 tests in eight files passed. Checks on the changed source, complete contract harness and report passed: 47 formatted files and 44 files without lint/type warnings or errors. Full `vp check` retains 35 pre-existing untouched formatting failures. `vp run lint` retains the ESLint 9.18.0 missing-flat-config failure. `vp install` succeeded with the pinned optional `roaring@2.7.0` and its existing exact script approval; only the incidental root package-name lockfile rewrite was restored.
+Before integration of parallel work, all 45 tests in eight files passed. After merging prepared scopes, all 48 tests in nine files passed in 90.07 seconds. Checks on the changed source, complete contract harness and report passed: 51 formatted files and 47 files without lint/type warnings or errors. Full `vp check` retains 35 pre-existing untouched formatting failures. `vp run lint` retains the ESLint 9.18.0 missing-flat-config failure. `vp install` succeeded with the pinned optional `roaring@2.7.0` and its existing exact script approval; only the incidental root package-name lockfile rewrite was restored.
 
 ## Evidence and limits
 

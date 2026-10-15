@@ -17,6 +17,7 @@
     "codec": "roaring-2.7.0-portable",
     "arithmetic": "expense-v1",
     "serviceArithmetic": "baseline-services-v1",
+    "preparedStored": "stored-scopes-v1",
     "card": "daily-card-v1"
   },
   "candidate": {
@@ -24,51 +25,55 @@
     "state": "candidate-partial",
     "components": {
       "patientsBar": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "daily": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "dictionary": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "patientDictionary": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "hospitalDictionary": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "monthlyStored": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "monthlyDateUtc": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": false
       },
       "preparedScopes": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": false
       },
+      "preparedStored": {
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
+        "complete": true
+      },
       "card": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "expenseBar": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "snapshots": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": true
       },
       "control": {
-        "generationId": "eb6ab50a-e334-4384-b644-bbbe03c0f7d6",
+        "generationId": "4760add2-20a1-4af5-a088-cde492233674",
         "complete": false
       }
     }
@@ -76,7 +81,7 @@
   "inventory": {
     "rows": 4,
     "storedAtoms": 2,
-    "chunks": 25,
+    "chunks": 63,
     "snapshotDocuments": 1
   },
   "snapshotValidation": {
@@ -180,7 +185,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 124.24079099999835
+        "parsedBodyElapsedMS": 57.41295799999989
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -228,7 +233,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 97.67470800000046
+        "parsedBodyElapsedMS": 43.746083
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -276,7 +281,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 80.68291599999975
+        "parsedBodyElapsedMS": 44.991250000000036
       },
       {
         "route": "/ncds_api/api/v1/graph-disease-pt",
@@ -322,7 +327,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 81.65233399999852
+        "parsedBodyElapsedMS": 45.83387500000026
       },
       {
         "route": "/ncds_api/api/v1/graph-dm-pt",
@@ -360,7 +365,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 79.06991599999856
+        "parsedBodyElapsedMS": 46.31370799999968
       },
       {
         "route": "/ncds_api/api/v1/graph-ca-pt",
@@ -402,10 +407,10 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 80.80658399999993
+        "parsedBodyElapsedMS": 43.71050000000014
       }
     ],
-    "combinedParsedBodiesMS": 126.70341600000029
+    "combinedParsedBodiesMS": 57.43920900000012
   },
   "live": {
     "request": {
@@ -437,7 +442,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 56.270667000000685
+        "parsedBodyElapsedMS": 32.80558299999984
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -485,7 +490,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 56.20479200000045
+        "parsedBodyElapsedMS": 32.75562500000024
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -533,7 +538,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 56.17258299999958
+        "parsedBodyElapsedMS": 32.724874999999884
       },
       {
         "route": "/ncds_api/api/v1/graph-disease-pt",
@@ -579,7 +584,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 47.5384580000009
+        "parsedBodyElapsedMS": 22.62183300000015
       },
       {
         "route": "/ncds_api/api/v1/graph-dm-pt",
@@ -617,7 +622,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 47.462916000000405
+        "parsedBodyElapsedMS": 22.658500000000004
       },
       {
         "route": "/ncds_api/api/v1/graph-ca-pt",
@@ -659,10 +664,10 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 47.609582999999475
+        "parsedBodyElapsedMS": 22.76383399999986
       }
     ],
-    "combinedParsedBodiesMS": 56.593417000000045
+    "combinedParsedBodiesMS": 33.084416999999576
   },
   "stale": {
     "request": {
@@ -698,7 +703,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 62.91133400000035
+        "parsedBodyElapsedMS": 35.87754099999984
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -746,7 +751,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 52.885291999999026
+        "parsedBodyElapsedMS": 38.30524999999989
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -794,7 +799,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 65.4496250000011
+        "parsedBodyElapsedMS": 39.5109580000003
       },
       {
         "route": "/ncds_api/api/v1/graph-disease-pt",
@@ -840,7 +845,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 63.48875000000044
+        "parsedBodyElapsedMS": 40.25737499999968
       },
       {
         "route": "/ncds_api/api/v1/graph-dm-pt",
@@ -878,7 +883,7 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 57.508083000000624
+        "parsedBodyElapsedMS": 41.173375000000306
       },
       {
         "route": "/ncds_api/api/v1/graph-ca-pt",
@@ -920,10 +925,10 @@
             }
           ]
         },
-        "parsedBodyElapsedMS": 64.76554199999919
+        "parsedBodyElapsedMS": 41.708042000000205
       }
     ],
-    "combinedParsedBodiesMS": 66.10675000000083
+    "combinedParsedBodiesMS": 42.309291999999914
   },
   "missing": {
     "request": {
@@ -949,7 +954,7 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 10.343916000001627
+        "parsedBodyElapsedMS": 6.226541999999881
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -965,7 +970,7 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 10.934917000000496
+        "parsedBodyElapsedMS": 6.052999999999884
       },
       {
         "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -981,7 +986,7 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 8.42583299999933
+        "parsedBodyElapsedMS": 6.05408400000033
       },
       {
         "route": "/ncds_api/api/v1/graph-disease-pt",
@@ -997,7 +1002,7 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 9.49133299999994
+        "parsedBodyElapsedMS": 6.092834000000039
       },
       {
         "route": "/ncds_api/api/v1/graph-dm-pt",
@@ -1013,7 +1018,7 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 9.613166000001002
+        "parsedBodyElapsedMS": 6.842916999999943
       },
       {
         "route": "/ncds_api/api/v1/graph-ca-pt",
@@ -1029,19 +1034,19 @@
           "status": false,
           "message": "Read model unavailable"
         },
-        "parsedBodyElapsedMS": 11.102790999999343
+        "parsedBodyElapsedMS": 6.878540999999586
       }
     ],
-    "combinedParsedBodiesMS": 11.523833999999624
+    "combinedParsedBodiesMS": 7.714832999999999
   },
   "resources": {
-    "elapsedMS": 8411.635917,
-    "peakRssBytes": 105152512,
-    "peakAdditionalRssBytes": 26689536,
-    "peakSerializedBytes": 113000,
-    "storageBytes": 416130,
-    "peakNativeBytes": 2624,
-    "peakStorageBytes": 604546,
+    "elapsedMS": 1522.0607499999999,
+    "peakRssBytes": 112066560,
+    "peakAdditionalRssBytes": 27475968,
+    "peakSerializedBytes": 113548,
+    "storageBytes": 399746,
+    "peakNativeBytes": 9376,
+    "peakStorageBytes": 522626,
     "declared": {
       "maxTimeMS": 30000,
       "maxSourceBytes": 8388608,
@@ -1055,14 +1060,14 @@
     "productionHeadroom": "unverified",
     "databaseMemory": "unverified"
   },
-  "buildElapsedMS": 8435.351666999999,
+  "buildElapsedMS": 1524.4481250000001,
   "build": {
     "runtime": "v24.22.0",
     "platform": "darwin",
     "arch": "arm64",
     "driver": "6.10.0",
     "codec": "2.7.0",
-    "clock": "2026-10-15T06:44:40.828Z",
+    "clock": "2026-10-15T06:51:28.254Z",
     "timeZone": "Asia/Bangkok"
   },
   "mongo": "7.0.9",
