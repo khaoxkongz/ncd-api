@@ -2,7 +2,7 @@
   "schema": "ticket24-fixture-report-v1",
   "fixtureRevision": "date-range-finite-summary-v1",
   "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
-  "candidateRevision": "8497b249cf51b145201839f1bd83c6338a541e2f",
+  "candidateRevision": "e1cdb132f60f70490a17cc1b09bd2fbb4e3ce031",
   "evidence": "single-isolated-local-summary-fixture-only",
   "sourceRecords": 13,
   "sourceBytes": 6114,
@@ -116,6 +116,73 @@
       "scopes": 11,
       "setBlocks": 137,
       "scope": "all-observed-scopes-and-UTC-date-months"
+    },
+    "snapshots": {
+      "documents": 1,
+      "endpoints": 6,
+      "version": "endpoint-snapshots-v1",
+      "clock": "2026-10-15T06:56:06.697Z",
+      "timeZone": "Asia/Bangkok",
+      "periods": [
+        {
+          "year": 2025,
+          "month": 11
+        },
+        {
+          "year": 2025,
+          "month": 12
+        },
+        {
+          "year": 2026,
+          "month": 1
+        },
+        {
+          "year": 2026,
+          "month": 2
+        },
+        {
+          "year": 2026,
+          "month": 3
+        },
+        {
+          "year": 2026,
+          "month": 4
+        },
+        {
+          "year": 2026,
+          "month": 5
+        },
+        {
+          "year": 2026,
+          "month": 6
+        },
+        {
+          "year": 2026,
+          "month": 7
+        },
+        {
+          "year": 2026,
+          "month": 8
+        },
+        {
+          "year": 2026,
+          "month": 9
+        },
+        {
+          "year": 2026,
+          "month": 10
+        }
+      ],
+      "selection": {
+        "date": {
+          "$gte": "2024-01-07T00:00:00.000Z",
+          "$lte": "2026-10-15T06:56:06.000Z"
+        }
+      },
+      "source": {
+        "sourceCutAt": "2025-04-01T00:00:00.000Z",
+        "coverageVerified": false
+      }
     }
   },
   "indexes": [
@@ -562,6 +629,22 @@
         "chunkNo": 1
       },
       "unique": true
+    },
+    {
+      "collection": "patients_snapshots",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_snapshots",
+      "name": "generationId_1",
+      "keys": {
+        "generationId": 1
+      },
+      "unique": false
     }
   ],
   "queryEvidence": [
@@ -573,7 +656,7 @@
       "returned": 5,
       "examinedDocuments": 5,
       "examinedKeys": 7,
-      "executionTimeMS": 0
+      "executionTimeMS": 1
     },
     {
       "purpose": "UTC-date prepared national metadata",
@@ -626,7 +709,7 @@
           "returned": 6,
           "examinedDocuments": 6,
           "examinedKeys": 8,
-          "executionTimeMS": 1
+          "executionTimeMS": 2
         },
         {
           "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
@@ -634,7 +717,7 @@
           "returned": 1,
           "examinedDocuments": 11,
           "examinedKeys": 11,
-          "executionTimeMS": 1
+          "executionTimeMS": 2
         }
       ],
       "lookups": [
@@ -665,7 +748,7 @@
           "returned": 6,
           "examinedDocuments": 6,
           "examinedKeys": 8,
-          "executionTimeMS": 2
+          "executionTimeMS": 3
         },
         {
           "stages": ["PROJECTION_SIMPLE", "FETCH", "IXSCAN"],
@@ -673,7 +756,7 @@
           "returned": 1,
           "examinedDocuments": 11,
           "examinedKeys": 11,
-          "executionTimeMS": 3
+          "executionTimeMS": 4
         }
       ],
       "lookups": [
@@ -727,7 +810,7 @@
         ]
       },
       "responseBytes": 148,
-      "parsedBodyElapsedMS": 86.57458300000008
+      "parsedBodyElapsedMS": 288.49954199999956
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -773,7 +856,7 @@
         ]
       },
       "responseBytes": 573,
-      "parsedBodyElapsedMS": 25.684749999999894
+      "parsedBodyElapsedMS": 201.1567500000001
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -819,7 +902,7 @@
         ]
       },
       "responseBytes": 574,
-      "parsedBodyElapsedMS": 22.382832999999664
+      "parsedBodyElapsedMS": 326.2784589999992
     },
     {
       "route": "/ncds_api/api/v1/card",
@@ -843,7 +926,7 @@
         ]
       },
       "responseBytes": 149,
-      "parsedBodyElapsedMS": 22.957499999999982
+      "parsedBodyElapsedMS": 190.4422909999994
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -889,7 +972,7 @@
         ]
       },
       "responseBytes": 573,
-      "parsedBodyElapsedMS": 23.460625000000164
+      "parsedBodyElapsedMS": 197.44433299999946
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -935,7 +1018,7 @@
         ]
       },
       "responseBytes": 573,
-      "parsedBodyElapsedMS": 20.666249999999764
+      "parsedBodyElapsedMS": 121.00529099999949
     },
     {
       "route": "/ncds_api/api/v1/card",
@@ -961,7 +1044,7 @@
         ]
       },
       "responseBytes": 146,
-      "parsedBodyElapsedMS": 14.85858300000018
+      "parsedBodyElapsedMS": 67.19362499999988
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-pt",
@@ -1009,7 +1092,7 @@
         ]
       },
       "responseBytes": 571,
-      "parsedBodyElapsedMS": 15.251208000000133
+      "parsedBodyElapsedMS": 41.03062500000124
     },
     {
       "route": "/ncds_api/api/v1/bar-chart-ex",
@@ -1057,17 +1140,17 @@
         ]
       },
       "responseBytes": 573,
-      "parsedBodyElapsedMS": 12.918875000000298
+      "parsedBodyElapsedMS": 56.518417000001136
     }
   ],
   "resources": {
-    "elapsedMS": 2281.6997499999998,
-    "peakRssBytes": 117506048,
-    "peakAdditionalRssBytes": 32653312,
-    "peakSerializedBytes": 124852,
-    "storageBytes": 567266,
-    "peakNativeBytes": 36528,
-    "peakStorageBytes": 702434,
+    "elapsedMS": 11625.791792,
+    "peakRssBytes": 104923136,
+    "peakAdditionalRssBytes": 14172160,
+    "peakSerializedBytes": 128504,
+    "storageBytes": 964578,
+    "peakNativeBytes": 36576,
+    "peakStorageBytes": 1071074,
     "declared": {
       "maxTimeMS": 30000,
       "maxSourceBytes": 8388608,
@@ -1081,87 +1164,92 @@
     "productionHeadroom": "unverified",
     "databaseMemory": "unverified"
   },
-  "buildElapsedMS": 2283.948125,
+  "buildElapsedMS": 11659.634208,
   "stages": [
     {
       "name": "source-staging",
       "complete": true,
-      "elapsedMS": 36.06820800000003
+      "elapsedMS": 145.69020799999998
     },
     {
       "name": "source-type-inventory",
       "complete": true,
-      "elapsedMS": 11.289625000000001
+      "elapsedMS": 21.074999999999932
     },
     {
       "name": "baseline-hospital-day-etl",
       "complete": true,
-      "elapsedMS": 26.357500000000016
+      "elapsedMS": 130.18879200000003
     },
     {
       "name": "baseline-identity-finalization",
       "complete": true,
-      "elapsedMS": 7.668916999999965
+      "elapsedMS": 14.001958000000059
     },
     {
       "name": "daily-facts-and-original-members",
       "complete": true,
-      "elapsedMS": 48.260167000000024
+      "elapsedMS": 282.30320900000004
     },
     {
       "name": "expense-v1-daily-operands",
       "complete": true,
-      "elapsedMS": 12.434415999999999
+      "elapsedMS": 41.45462499999985
     },
     {
       "name": "baseline-daily-card-facts",
       "complete": true,
-      "elapsedMS": 82.39637499999998
+      "elapsedMS": 326.60466599999995
     },
     {
       "name": "mongo-equivalence-dictionary",
       "complete": true,
-      "elapsedMS": 84.53529200000003
+      "elapsedMS": 282.0368749999999
     },
     {
       "name": "portable-daily-bitmaps",
       "complete": true,
-      "elapsedMS": 271.073917
+      "elapsedMS": 2170.921375
     },
     {
       "name": "stored-month-atoms",
       "complete": true,
-      "elapsedMS": 290.2699580000001
+      "elapsedMS": 1796.4310839999998
     },
     {
       "name": "prepared-stored-month-scopes",
       "complete": true,
-      "elapsedMS": 311.5480419999999
+      "elapsedMS": 1214.0791250000002
     },
     {
       "name": "date-utc-month-atoms",
       "complete": true,
-      "elapsedMS": 643.141625
+      "elapsedMS": 3149.229625000001
     },
     {
       "name": "patients-bar-differential-validation",
       "complete": true,
-      "elapsedMS": 57.13616600000023
+      "elapsedMS": 252.72620800000004
     },
     {
       "name": "stored-month-differential-validation",
       "complete": true,
-      "elapsedMS": 56.49862499999972
+      "elapsedMS": 230.87695800000074
     },
     {
       "name": "prepared-stored-month-differential-validation",
       "complete": true,
-      "elapsedMS": 127.73874999999975
+      "elapsedMS": 991.4755839999998
     },
     {
       "name": "date-utc-month-differential-validation",
       "complete": true,
-      "elapsedMS": 117.11875000000009
+      "elapsedMS": 287.18841600000087
+    },
+    {
+      "name": "compatible-endpoint-snapshots",
+      "complete": true,
+      "elapsedMS": 117.42691699999887
     }
   ],
   "build": {
@@ -1170,7 +1258,7 @@
     "arch": "arm64",
     "driver": "6.10.0",
     "codec": "2.7.0",
-    "clock": "2026-10-15T06:51:24.908Z",
+    "clock": "2026-10-15T06:56:16.353Z",
     "timeZone": "Asia/Bangkok"
   },
   "mongo": "7.0.9",
@@ -1179,59 +1267,59 @@
     "complete": false,
     "components": {
       "patientsBar": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "daily": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "dictionary": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "patientDictionary": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "hospitalDictionary": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "monthlyStored": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "monthlyDateUtc": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "preparedDateUtc": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "preparedScopes": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "preparedStored": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "card": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "expenseBar": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": true
       },
       "snapshots": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
-        "complete": false
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
+        "complete": true
       },
       "control": {
-        "generationId": "57e261d4-8326-4128-9548-2e3375562229",
+        "generationId": "af4d6180-d963-42e0-96f3-c9bd3a1c31ca",
         "complete": false
       }
     }
