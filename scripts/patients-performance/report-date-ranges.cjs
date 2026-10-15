@@ -5,6 +5,7 @@ const { sealRange } = require("./date-range-fixture.cjs");
 const { FIXTURE_BUDGET } = require("./raw-fixture.cjs");
 const { BASELINE_REVISION } = require("./contract-fixture.cjs");
 const { createBuilder } = require("../../src/modules/patients/read-model/builder");
+const { createReader } = require("../../src/modules/patients/read-model/reader");
 const { startApplication } = require("./application.cjs");
 
 function summarizePlan(explanation) {
@@ -25,6 +26,27 @@ function summarizePlan(explanation) {
     examinedKeys: explanation.executionStats?.totalKeysExamined,
     executionTimeMS: explanation.executionStats?.executionTimeMillis,
   };
+}
+
+function summarizeAggregate(explanation) {
+  const roots = [],
+    lookups = [];
+  function visit(value) {
+    if (!value || typeof value !== "object") return;
+    if (value.$cursor) roots.push(summarizePlan(value.$cursor));
+    if (value.$lookup && value.indexesUsed)
+      lookups.push({
+        from: value.$lookup.from,
+        indexes: value.indexesUsed,
+        collectionScans: Number(value.collectionScans),
+        examinedDocuments: Number(value.totalDocsExamined),
+        examinedKeys: Number(value.totalKeysExamined),
+        returned: Number(value.nReturned),
+      });
+    for (const child of Object.values(value)) visit(child);
+  }
+  visit(explanation);
+  return { roots, lookups };
 }
 
 async function main() {
@@ -75,6 +97,40 @@ async function main() {
         .find(match, { collation: cut.comparisonContext.collation ?? { locale: "simple" } })
         .explain("executionStats");
       queryEvidence.push({ purpose, collection, ...summarizePlan(explanation) });
+    }
+    const observed = [];
+    const monitoredDb = {
+      collection(name) {
+        const collection = connection.db.collection(name);
+        return new Proxy(collection, {
+          get(target, property) {
+            if (property === "aggregate")
+              return (pipeline, options) => {
+                if (pipeline.some((stage) => stage.$unionWith)) observed.push({ name, pipeline, options });
+                return target.aggregate(pipeline, options);
+              };
+            const value = target[property];
+            return typeof value === "function" ? value.bind(target) : value;
+          },
+        });
+      },
+    };
+    await createReader({ db: monitoredDb, generationId, validationOnly: true }).read(
+      {
+        route: "card/report-plans",
+        backendMode: "candidate-validation",
+        clock: new Date("2025-04-01"),
+        timeZone: "UTC",
+      },
+      ({ rangeFacts }) => rangeFacts({ date: { $gte: new Date("2024-01-01"), $lte: new Date("2025-03-01") } })
+    );
+    const readerPlanEvidence = [];
+    for (const operation of observed) {
+      const explanation = await connection.db
+        .collection(operation.name)
+        .aggregate(operation.pipeline, operation.options)
+        .explain("executionStats");
+      readerPlanEvidence.push({ collection: operation.name, ...summarizeAggregate(explanation) });
     }
     app = await startApplication({ db: connection.db, generationId });
     const http = [];
@@ -127,6 +183,7 @@ async function main() {
           validation: report.validation,
           indexes: report.inventory.indexes,
           queryEvidence,
+          readerPlanEvidence,
           http,
           resources: report.resources,
           buildElapsedMS,

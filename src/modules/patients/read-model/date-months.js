@@ -403,20 +403,20 @@ function planRange(selection) {
   return { full, scope };
 }
 
-function chunkSelection(collection, match) {
+function chunkSelection(match) {
   return [
-    { $match: { generationId: match.generationId, category: { $in: SETS } } },
+    { $match: match },
     {
       $lookup: {
-        from: collection,
-        localField: "setId",
-        foreignField: "rowId",
-        pipeline: [{ $match: match }, { $project: { _id: 1 } }],
-        as: "eligible",
+        from: COLLECTIONS.chunks,
+        localField: "rowId",
+        foreignField: "setId",
+        pipeline: [{ $match: { generationId: match.generationId, category: { $in: SETS } } }],
+        as: "parts",
       },
     },
-    { $match: { "eligible.0": { $exists: true } } },
-    { $project: { eligible: 0 } },
+    { $unwind: "$parts" },
+    { $replaceWith: "$parts" },
   ];
 }
 
@@ -563,25 +563,26 @@ async function calculateDateRange({ db, generation, selection, budget }) {
     )
     .toArray();
   if (matchedRows !== (scalars?.matchedRows ?? 0)) throw new Error("Date-month row coverage changed");
-  function selectedDirectory(collection, match) {
+  function selectedDirectory(match) {
     return [
-      { $match: { generationId, category: { $in: SETS } } },
+      { $match: match },
       {
         $lookup: {
-          from: collection,
-          localField: "setId",
-          foreignField: "rowId",
-          pipeline: [{ $match: match }, { $project: { members: 1 } }],
-          as: "eligible",
+          from: COLLECTIONS.directory,
+          localField: "rowId",
+          foreignField: "setId",
+          pipeline: [{ $match: { generationId, category: { $in: SETS } } }],
+          as: "parts",
         },
       },
-      { $unwind: "$eligible" },
+      { $unwind: "$parts" },
+      { $replaceWith: { $mergeObjects: ["$parts", { eligible: { members: "$members" } }] } },
     ];
   }
-  const directoryCursor = directory.aggregate(
+  const directoryCursor = monthlyCollection.aggregate(
     [
-      ...selectedDirectory(monthlyCollection.collectionName, monthlyMatch),
-      { $unionWith: { coll: COLLECTIONS.directory, pipeline: selectedDirectory(COLLECTIONS.daily, dailyMatch) } },
+      ...selectedDirectory(monthlyMatch),
+      { $unionWith: { coll: COLLECTIONS.daily, pipeline: selectedDirectory(dailyMatch) } },
       { $sort: { setId: 1, category: 1, block: 1, chunkNo: 1 } },
     ],
     options({ promoteLongs: false, allowDiskUse: false })
@@ -618,10 +619,10 @@ async function calculateDateRange({ db, generation, selection, budget }) {
   } finally {
     await directoryCursor.close();
   }
-  const cursor = chunks.aggregate(
+  const cursor = monthlyCollection.aggregate(
     [
-      ...chunkSelection(monthlyCollection.collectionName, monthlyMatch),
-      { $unionWith: { coll: COLLECTIONS.chunks, pipeline: chunkSelection(COLLECTIONS.daily, dailyMatch) } },
+      ...chunkSelection(monthlyMatch),
+      { $unionWith: { coll: COLLECTIONS.daily, pipeline: chunkSelection(dailyMatch) } },
       {
         $lookup: {
           from: COLLECTIONS.directory,
