@@ -1,6 +1,5 @@
-const { COLLECTION_NAME } = require("../../models/ncd-summary");
-
-function pipeline(startDate, endDate) {
+// Keep pipeline construction independent of deployment database initialization.
+function pipeline(startDate, endDate, collectionName = "NCD_SUMMARY") {
   return [
     {
       $match: {
@@ -1154,7 +1153,7 @@ function pipeline(startDate, endDate) {
     },
     {
       $merge: {
-        into: COLLECTION_NAME,
+        into: collectionName,
         on: ["hcode", "date"],
         whenMatched: "replace",
         whenNotMatched: "insert",

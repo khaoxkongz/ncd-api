@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+const { finalizeCid } = require("./hash-cid");
 const { env } = require("../env");
 
 function formatDateAsString(date) {
@@ -6,11 +6,7 @@ function formatDateAsString(date) {
 }
 
 function hashCid(cid) {
-  if (!cid) return null;
-  return crypto
-    .createHmac("sha256", env.CID_HASH_SECRET_KEY)
-    .update(cid.toString())
-    .digest("hex");
+  return finalizeCid(cid, env.CID_HASH_SECRET_KEY);
 }
 
 module.exports = {
