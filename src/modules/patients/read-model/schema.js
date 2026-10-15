@@ -31,12 +31,15 @@ const VERSIONS = Object.freeze({
   codec: "roaring-2.7.0-portable",
   arithmetic: "expense-v1",
   serviceArithmetic: "baseline-services-v1",
+  preparedStored: "stored-scopes-v1",
 });
 const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
   identity: "patients_identity",
   daily: "patients_daily",
   months: "patients_month_atoms",
+  scopes: "patients_scopes",
+  monthScopes: "patients_month_scopes",
   chunks: "patients_bitmap_chunks",
   directory: "patients_bitmap_directory",
 });

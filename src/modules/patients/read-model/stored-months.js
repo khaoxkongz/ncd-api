@@ -2,6 +2,7 @@ const { createHash, randomUUID } = require("node:crypto");
 const { BSON, Binary } = require("mongodb");
 const { CATEGORIES, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, writeChunks, directoryToken, decodeChunk } = require("./bitmap");
+const { calculatePreparedMonths } = require("./prepared-scopes");
 
 const GEOGRAPHY = ["hcode", "area", "province", "district"];
 
@@ -191,6 +192,8 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
     (await directory.countDocuments({ generationId }, options())) !== generation.inventory.directories
   )
     throw new Error("Stored-month generation inventory changed");
+  const prepared = await calculatePreparedMonths({ db, generation, scope, periods, budget });
+  if (prepared) return prepared;
   const match = {
     ...scope,
     generationId,
@@ -233,19 +236,24 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
   const counts = periods.map(() => CATEGORIES.map(() => 0));
   const readChunks = periods.map(() => CATEGORIES.map(() => 0)),
     readMembers = periods.map(() => CATEGORIES.map(() => 0));
-  const cursor = chunks.aggregate(
+  const cursor = atoms.aggregate(
     [
-      { $match: { generationId } },
+      { $match: match },
       {
         $lookup: {
-          from: COLLECTIONS.months,
-          localField: "setId",
-          foreignField: "rowId",
-          pipeline: [{ $match: match }, { $project: { storedYear: 1, storedMonth: 1 } }],
-          as: "eligible",
+          from: COLLECTIONS.chunks,
+          localField: "rowId",
+          foreignField: "setId",
+          pipeline: [{ $match: { generationId, category: { $in: CATEGORIES.map(({ id }) => id) } } }],
+          as: "parts",
         },
       },
-      { $unwind: "$eligible" },
+      { $unwind: "$parts" },
+      {
+        $replaceWith: {
+          $mergeObjects: ["$parts", { eligible: { storedYear: "$storedYear", storedMonth: "$storedMonth" } }],
+        },
+      },
       {
         $lookup: {
           from: COLLECTIONS.directory,
@@ -412,4 +420,4 @@ async function validateStoredMonths({ db, summaries, generationId, budget, colla
   return { equal: true, categories: 15, windows, scope: "all-supported-stored-periods" };
 }
 
-module.exports = { storedPeriods, buildStoredMonths, calculateMonths, validateStoredMonths };
+module.exports = { storedPeriods, periodWindow, buildStoredMonths, calculateMonths, validateStoredMonths };
