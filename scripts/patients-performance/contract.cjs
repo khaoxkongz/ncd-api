@@ -28,7 +28,7 @@ async function openFixture(uri = process.env.PATIENTS_TEST_MONGO_URI) {
   if (typeof uri !== "string" || !/^mongodb:\/\/127\.0\.0\.1:\d+\/\?directConnection=true$/.test(uri)) {
     throw new Error("Set PATIENTS_TEST_MONGO_URI to mongodb://127.0.0.1:<port>/?directConnection=true");
   }
-  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 3000 });
+  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 3000, monitorCommands: true });
   try {
     await client.connect();
   } catch (error) {

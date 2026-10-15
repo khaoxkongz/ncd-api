@@ -6,7 +6,7 @@ async function caPatientController(req, res) {
   const { area, province, district, hcode } = req.body;
   try {
     responseMetadata(res);
-    const backend = selectPatientsBackend("patients-graphs");
+    const backend = selectPatientsBackend("patients-graphs", req, res);
     const body = {
       area,
       province,

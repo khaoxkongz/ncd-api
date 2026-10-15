@@ -6,7 +6,7 @@ async function chartPatientController(req, res) {
   const { startDate, endDate, area, province, district, hcode } = req.body;
   try {
     responseMetadata(res);
-    const backend = selectPatientsBackend("patients-bar");
+    const backend = selectPatientsBackend("patients-bar", req, res);
     const body = {
       startDate,
       endDate,

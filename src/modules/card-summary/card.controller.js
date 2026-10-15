@@ -6,7 +6,7 @@ async function cardController(req, res) {
   const { startDate, endDate, area, province, district, hcode } = req.body;
   try {
     responseMetadata(res);
-    const backend = selectPatientsBackend("card");
+    const backend = selectPatientsBackend("card", req, res);
     const body = {
       startDate,
       endDate,

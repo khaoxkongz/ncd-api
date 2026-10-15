@@ -5,13 +5,15 @@ const path = require("node:path");
 async function startApplication({
   db,
   generationId,
+  activeGeneration = false,
   sourceRoot = path.resolve(__dirname, "../../src"),
   clock = "2024-01-03T00:00:00.000Z",
   timeZone = "UTC",
   responseHeaders = {},
+  transportUri,
 }) {
   sourceRoot = require("node:fs").realpathSync(sourceRoot);
-  const uri = new URL(process.env.PATIENTS_TEST_MONGO_URI);
+  const uri = new URL(transportUri ?? process.env.PATIENTS_TEST_MONGO_URI);
   if (uri.hostname !== "127.0.0.1" || uri.username || uri.password || !db.databaseName.startsWith("patients_contract_"))
     throw new Error("Only isolated loopback fixture apps are allowed");
   uri.pathname = `/${db.databaseName}`;
@@ -33,6 +35,7 @@ async function startApplication({
       PATIENTS_APPLICATION_CLOCK: clock,
       PATIENTS_APPLICATION_RESPONSE_HEADERS: JSON.stringify(responseHeaders),
       ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
+      ...(activeGeneration ? { PATIENTS_ACTIVE_GENERATION: "1" } : {}),
     },
   });
   const timer = setTimeout(() => child.kill(), 20000);

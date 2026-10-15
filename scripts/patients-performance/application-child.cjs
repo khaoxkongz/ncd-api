@@ -20,7 +20,7 @@ void (async () => {
   require.cache[mongoPath] = { id: mongoPath, filename: mongoPath, loaded: true, exports: { db: client.db() } };
   const app = require(path.join(root, "app.js"));
   let reader;
-  if (process.env.PATIENTS_CANDIDATE_GENERATION)
+  if (process.env.PATIENTS_CANDIDATE_GENERATION || process.env.PATIENTS_ACTIVE_GENERATION)
     reader = require(path.join(root, "modules/patients/read-model/reader.js")).createReader({
       db: client.db(),
       generationId: process.env.PATIENTS_CANDIDATE_GENERATION,
