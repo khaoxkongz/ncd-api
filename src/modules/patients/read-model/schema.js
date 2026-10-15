@@ -40,6 +40,7 @@ const COLLECTIONS = Object.freeze({
   months: "patients_month_atoms",
   chunks: "patients_bitmap_chunks",
   directory: "patients_bitmap_directory",
+  snapshots: "patients_snapshots",
 });
 const BSON_OPTIONS = Object.freeze({
   promoteValues: false,

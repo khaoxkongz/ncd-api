@@ -204,6 +204,7 @@ it("keeps empty input distinct from matched empty patients and rejects changed C
         result: [{ service_count: 0, patient_count: 0, expense: 0, hcode_count: 0, avg_service: 0, avg_expense: 0 }],
       },
     });
+    await connection.db.collection("patients_snapshots").deleteMany({ generationId: emptyReport.generationId });
     expect(
       await post(emptyApp, "card", {
         startDate: "2024-01-07",

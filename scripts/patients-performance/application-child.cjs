@@ -28,6 +28,8 @@ void (async () => {
     });
   const backend = reader ? require(path.join(root, "modules/patients/backend.js")) : null;
   server = require("node:http").createServer((req, res) => {
+    for (const [name, value] of Object.entries(JSON.parse(process.env.PATIENTS_APPLICATION_RESPONSE_HEADERS ?? "{}")))
+      res.setHeader(name, value);
     if (reader) backend.withCandidateValidation(reader, () => app(req, res));
     else app(req, res);
   });
