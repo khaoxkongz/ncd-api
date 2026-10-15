@@ -11,6 +11,7 @@ async function startApplication({
   timeZone = "UTC",
   responseHeaders = {},
   transportUri,
+  capacityFactory,
 }) {
   sourceRoot = require("node:fs").realpathSync(sourceRoot);
   const uri = new URL(transportUri ?? process.env.PATIENTS_TEST_MONGO_URI);
@@ -19,6 +20,7 @@ async function startApplication({
   uri.pathname = `/${db.databaseName}`;
   const child = fork(path.join(__dirname, "application-child.cjs"), [], {
     stdio: ["ignore", "ignore", "pipe", "ipc"],
+    serialization: "advanced",
     env: {
       PATH: process.env.PATH,
       NODE_PATH: path.resolve(__dirname, "../../node_modules"),
@@ -36,16 +38,43 @@ async function startApplication({
       PATIENTS_APPLICATION_RESPONSE_HEADERS: JSON.stringify(responseHeaders),
       ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
       ...(activeGeneration ? { PATIENTS_ACTIVE_GENERATION: "1" } : {}),
+      ...(capacityFactory ? { PATIENTS_APPLICATION_CAPACITY: "1" } : {}),
     },
   });
   const timer = setTimeout(() => child.kill(), 20000);
-  child.stderr.resume();
+  const diagnostics = [];
+  let diagnosticBytes = 0;
+  child.stderr.on("data", (chunk) => {
+    if (diagnosticBytes >= 8192) return;
+    const retained = chunk.subarray(0, 8192 - diagnosticBytes);
+    diagnosticBytes += retained.length;
+    diagnostics.push(retained.toString());
+  });
   try {
-    const [message] = await once(child, "message");
+    let message;
+    for (;;) {
+      [message] = await once(child, "message");
+      if (!message.capacityActor) break;
+      const config = await capacityFactory(message.capacityActor);
+      const trustedOperators = Object.fromEntries(
+        Object.entries(config.trustedOperators).map(([id, entry]) => [
+          id,
+          {
+            ...entry,
+            publicKey:
+              typeof entry.publicKey === "string"
+                ? entry.publicKey
+                : entry.publicKey.export({ type: "spki", format: "pem" }),
+          },
+        ])
+      );
+      child.send({ capacity: { ...config, trustedOperators } });
+    }
     if (message.error) throw new Error(`Fixture app failed: ${message.error}`);
     clearTimeout(timer);
     return {
       url: message.url,
+      diagnostics: () => diagnostics.join(""),
       async close() {
         if (child.exitCode !== null || child.signalCode !== null) return;
         if (child.connected) child.send("close");

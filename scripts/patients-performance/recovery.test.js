@@ -163,7 +163,9 @@ it("rejects a real corrupted comparison and replaces its derived output before r
       clock: () => new Date(SNAPSHOT_CLOCK),
       timeZone: "UTC",
     });
-    const reached = transport.arm((command) => command.find === "patients_generations");
+    // Hold the actual Reader descriptor selection. Capacity's earlier projected
+    // source-storage inventory is independent of the comparison under fault.
+    const reached = transport.arm((command) => command.find === "patients_generations" && !command.projection);
     pending = builder.build(cut.sourceCut, FIXTURE_BUDGET, managed(cut));
     void pending.catch(() => {});
     await reached;

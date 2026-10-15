@@ -281,7 +281,7 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
     options({ promoteLongs: false, allowDiskUse: false })
   );
   const native = codec();
-  const bitmap = new native.RoaringBitmap32();
+  const bitmap = budget.bitmap(() => new native.RoaringBitmap32());
   let current;
   function finish() {
     if (!current) return;

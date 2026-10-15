@@ -20,6 +20,8 @@ function selectPatientsBackend(route, req, res) {
       throw new ReadModelUnavailableError();
     if (!req || !res) return validation;
     const cancellation = new AbortController();
+    const { HTTP_CAPACITY, responseCapacity } = require("./read-model/capacity");
+    const responseOwner = responseCapacity(res);
     const abort = () => {
       if (!res.writableFinished) cancellation.abort();
     };
@@ -35,7 +37,10 @@ function selectPatientsBackend(route, req, res) {
       ...validation,
       reader: {
         read: (context, callback) =>
-          validation.reader.read({ ...context, signal: context.signal ?? cancellation.signal }, callback),
+          validation.reader.read(
+            { ...context, signal: context.signal ?? cancellation.signal, [HTTP_CAPACITY]: responseOwner },
+            callback
+          ),
       },
     };
   }

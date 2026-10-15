@@ -1,0 +1,5602 @@
+{
+  "schema": "ticket33-capacity-fixture-v1",
+  "evidence": "isolated-loopback-real-six-controllers-mongodb-and-trusted-fixture-composition",
+  "startedAt": "2026-10-15T18:45:57.727Z",
+  "finishedAt": "2026-10-15T18:46:26.316Z",
+  "elapsedMS": 28588.52675,
+  "runtime": {
+    "node": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "mongo": "7.0.9",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "bufferPoolBytes": 65536
+  },
+  "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+  "integrationBase": "06d8b118ec9d5c368d2bbd69464e76d350f96714",
+  "declaration": "Synthetic operator headroom and guard inputs verify code mechanics. They are not measured host/DB headroom, representative peaks, full target source or page acceptance.",
+  "measurementLimits": [
+    "process RSS/CPU/FS counters include all roles and Worker threads; diagnostics are not added as independent physical totals",
+    "decoded/native workspace reservations are estimates; retained known buffers charge complete unique physical backing",
+    "cursor/encoding reservations precede dispatch/allocation; ownership survives real detached work and socket encoding",
+    "collection/index samples include shared layouts, control, journals, all staging prefixes and known retained source files once",
+    "per-generation BSON is logical and is not added to shared physical collection allocation",
+    "DB transient/volume/scratch/log peaks and representative CPU/controlling IO remain unavailable",
+    "injected historical calculation clocks and original cut ledgers are distinct from observed execution time; this is not a 24-hour/page experiment"
+  ],
+  "cycles": [
+    {
+      "cutAt": "2025-01-09T04:00:00.000Z",
+      "generationId": "7b1e09be-2dec-47e6-a33c-a859b7257204",
+      "resources": {
+        "elapsedMS": 15191.923874999999,
+        "peakRssBytes": 204193792,
+        "peakAdditionalRssBytes": 120963072,
+        "peakSerializedBytes": 181460,
+        "storageBytes": 1212416,
+        "peakNativeBytes": 165264,
+        "observation": {
+          "actor": {
+            "pid": 21560,
+            "startedAt": 1792089957634,
+            "host": "isolated-fixture-host"
+          },
+          "attempt": "1e3279ed-e532-4874-9d19-f4d2a18aa7c2",
+          "baseline": {
+            "at": 1792089957721,
+            "rssBytes": 83230720,
+            "method": "capacity-module-entry-process-sample"
+          },
+          "coverage": "sampled-not-complete-peak",
+          "attribution": "whole-process-includes-workers-and-all-roles",
+          "peakRssBytes": 204193792,
+          "peakAdditionalRssBytes": 120963072,
+          "samples": 56838,
+          "lastAt": 1792089973818,
+          "diagnostics": {
+            "heapUsed": 38555808,
+            "external": 27019139,
+            "arrayBuffers": 22940588
+          }
+        },
+        "capacity": {
+          "policyKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+          "scope": "isolated-fixture",
+          "fixedLimits": [
+            {
+              "id": "fixture-host",
+              "kind": "host",
+              "apiBytes": 268435456,
+              "builderBytes": 536870912,
+              "databaseBytes": 1073741824,
+              "combinedBytes": 3221225472,
+              "diskBytes": 858993459,
+              "cpu": 4,
+              "io": {
+                "write": 500000
+              }
+            }
+          ],
+          "acceptance": "failed",
+          "targetAcceptance": "blocked",
+          "reasons": [
+            "metric-unavailable:fixture-host:cpu",
+            "metric-unavailable:fixture-host:disk",
+            "metric-unavailable:fixture-host:io:write",
+            "metric-unavailable:fixture-host:ram",
+            "metric-unavailable:fixture-host:response"
+          ],
+          "ownershipPeaks": {
+            "apiBytes": 0,
+            "builderBytes": 8388608,
+            "serializedBytes": 1245184,
+            "retainedSerializedBytes": 262144,
+            "decodedBytes": 75600,
+            "nativeHandles": 4
+          },
+          "observed": {},
+          "limitations": [
+            "workspace-and-serialized-windows-are-reservations",
+            "retained-backing-samples-are-local-and-deduplicated",
+            "native-and-heap-overlap-process-rss",
+            "sampling-is-not-peak-proof"
+          ]
+        },
+        "ledger": {
+          "transport": {
+            "backing": "fc710f2ba1e7e4472f4d789bc268bdaa9675e2b6c917bed30834b13b8f7c5348",
+            "logicalBytes": 4283,
+            "allocatedBytes": 8192,
+            "bytes": 8192,
+            "coverage": "allocated-file-blocks-not-volume-peaks"
+          },
+          "raw": {
+            "records": 15,
+            "maxBsonBytes": 530,
+            "firstDate": "2023-12-31T12:00:00.000Z",
+            "lastDate": "2025-01-07T12:00:00.000Z",
+            "distinctPatientValues": 14,
+            "distinctHospitalValues": 15,
+            "identityEquality": "mongo-group-original-bson"
+          },
+          "summary": {
+            "hospitalDays": 15,
+            "maxBsonBytes": 1886,
+            "typedGeographyPartitions": 15,
+            "memberships": {
+              "DM": {
+                "expanded": 8,
+                "deduplicated": 8,
+                "nonArrayRows": 0
+              },
+              "HT": {
+                "expanded": 4,
+                "deduplicated": 4,
+                "nonArrayRows": 0
+              },
+              "COPD": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "PSY": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "HD_CVD": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "DM_HG": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_CKD": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_ACS": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_CVA": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_LUNG": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "CA_BREAST": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_CERVICAL": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_LIVER": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_COLORECTAL": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              }
+            }
+          },
+          "output": {
+            "dictionary": {
+              "patient": 14,
+              "hospital": 15
+            },
+            "memberships": {
+              "DM": 8,
+              "HT": 4,
+              "COPD": 1,
+              "CA": 2,
+              "PSY": 1,
+              "HD_CVD": 2,
+              "DM_HG": 1,
+              "DM_CKD": 1,
+              "DM_ACS": 1,
+              "DM_CVA": 1,
+              "CA_LUNG": 2,
+              "CA_BREAST": 1,
+              "CA_CERVICAL": 1,
+              "CA_LIVER": 1,
+              "CA_COLORECTAL": 1,
+              "CARD": 15,
+              "HOSPITAL": 15
+            },
+            "partitions": {
+              "daily": 15,
+              "months": 15,
+              "scopes": 34,
+              "monthScopes": 37,
+              "dateMonths": 15,
+              "dateMonthScopes": 37,
+              "snapshots": 1
+            },
+            "bitmap": {
+              "_id": null,
+              "chunks": 377,
+              "serializedPayloadBytes": 7042,
+              "storedMemberships": 505,
+              "largestPayloadBytes": 42
+            }
+          }
+        },
+        "peakStorageBytes": 1486848,
+        "storage": {
+          "coverage": "retained-collection-samples-not-volume-peaks",
+          "retainedCollectionBytes": 1138688,
+          "retainedSourceBytes": 8192,
+          "sources": [
+            {
+              "backing": "fc710f2ba1e7e4472f4d789bc268bdaa9675e2b6c917bed30834b13b8f7c5348",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            }
+          ],
+          "sourceRetention": "producer-owned-retained-until-independent-deletion-proof",
+          "inFlightRunReservation": 65536,
+          "collections": [
+            {
+              "name": "patients_date_month_atoms",
+              "documents": 15,
+              "dataBytes": 12288,
+              "indexBytes": 126976,
+              "logicalBsonBytes": 27423,
+              "indexes": 8
+            },
+            {
+              "name": "patients_date_month_scopes",
+              "documents": 37,
+              "dataBytes": 8192,
+              "indexBytes": 40960,
+              "logicalBsonBytes": 68935,
+              "indexes": 4
+            },
+            {
+              "name": "patients_scopes",
+              "documents": 34,
+              "dataBytes": 12288,
+              "indexBytes": 24576,
+              "logicalBsonBytes": 11034,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_directory",
+              "documents": 377,
+              "dataBytes": 49152,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 244993,
+              "indexes": 2
+            },
+            {
+              "name": "patients_refresh_runs",
+              "documents": 1,
+              "dataBytes": 20480,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 2829,
+              "indexes": 1
+            },
+            {
+              "name": "patients_recovery_journal",
+              "documents": 1,
+              "dataBytes": 24576,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 28981,
+              "indexes": 1
+            },
+            {
+              "name": "patients_daily",
+              "documents": 15,
+              "dataBytes": 57344,
+              "indexBytes": 163840,
+              "logicalBsonBytes": 59362,
+              "indexes": 8
+            },
+            {
+              "name": "patients_model_control",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 3684,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_scopes",
+              "documents": 37,
+              "dataBytes": 45056,
+              "indexBytes": 57344,
+              "logicalBsonBytes": 95534,
+              "indexes": 4
+            },
+            {
+              "name": "patients_identity",
+              "documents": 29,
+              "dataBytes": 12288,
+              "indexBytes": 36864,
+              "logicalBsonBytes": 4821,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_chunks",
+              "documents": 377,
+              "dataBytes": 45056,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 257313,
+              "indexes": 2
+            },
+            {
+              "name": "patients_snapshots",
+              "documents": 1,
+              "dataBytes": 4096,
+              "indexBytes": 8192,
+              "logicalBsonBytes": 6068,
+              "indexes": 2
+            },
+            {
+              "name": "patients_generations",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 19678,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_atoms",
+              "documents": 15,
+              "dataBytes": 16384,
+              "indexBytes": 126976,
+              "logicalBsonBytes": 35141,
+              "indexes": 8
+            }
+          ],
+          "generations": [
+            {
+              "generationId": "7b1e09be-2dec-47e6-a33c-a859b7257204",
+              "logicalBsonBytes": 830302,
+              "collections": {
+                "patients_generations": {
+                  "documents": 1,
+                  "logicalBsonBytes": 19678,
+                  "maxBsonBytes": 19678
+                },
+                "patients_identity": {
+                  "documents": 29,
+                  "logicalBsonBytes": 4821,
+                  "maxBsonBytes": 200
+                },
+                "patients_daily": {
+                  "documents": 15,
+                  "logicalBsonBytes": 59362,
+                  "maxBsonBytes": 4004
+                },
+                "patients_month_atoms": {
+                  "documents": 15,
+                  "logicalBsonBytes": 35141,
+                  "maxBsonBytes": 2347
+                },
+                "patients_scopes": {
+                  "documents": 34,
+                  "logicalBsonBytes": 11034,
+                  "maxBsonBytes": 332
+                },
+                "patients_month_scopes": {
+                  "documents": 37,
+                  "logicalBsonBytes": 95534,
+                  "maxBsonBytes": 2582
+                },
+                "patients_date_month_atoms": {
+                  "documents": 15,
+                  "logicalBsonBytes": 27423,
+                  "maxBsonBytes": 1835
+                },
+                "patients_date_month_scopes": {
+                  "documents": 37,
+                  "logicalBsonBytes": 68935,
+                  "maxBsonBytes": 1872
+                },
+                "patients_bitmap_chunks": {
+                  "documents": 377,
+                  "logicalBsonBytes": 257313,
+                  "maxBsonBytes": 726
+                },
+                "patients_bitmap_directory": {
+                  "documents": 377,
+                  "logicalBsonBytes": 244993,
+                  "maxBsonBytes": 694
+                },
+                "patients_snapshots": {
+                  "documents": 1,
+                  "logicalBsonBytes": 6068,
+                  "maxBsonBytes": 6068
+                }
+              }
+            }
+          ],
+          "unavailable": [
+            "database-transient-memory",
+            "aggregation-index-spill-scratch",
+            "journal-log-temp-volume-peaks"
+          ],
+          "attribution": "shared-physical-collection-allocation-once; per-generation-BSON-is-logical-and-not-added-again"
+        },
+        "peakNativeReservationBytes": 10856,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      },
+      "inventory": {
+        "generationId": "7b1e09be-2dec-47e6-a33c-a859b7257204",
+        "rows": 15,
+        "storedAtoms": 15,
+        "scopes": 34,
+        "storedScopePeriods": 37,
+        "dateUtc": {
+          "version": "date-utc-months-v1",
+          "atoms": 15,
+          "dailyOnlyRows": 0,
+          "scopes": 34,
+          "scopeMonths": 37
+        },
+        "identities": 29,
+        "chunks": 377,
+        "directories": 377,
+        "indexedLookups": 58,
+        "exactLookups": 0,
+        "typeInventory": [
+          {
+            "_id": {
+              "field": "_id",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "area",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "cid",
+              "type": "null"
+            },
+            "count": 1
+          },
+          {
+            "_id": {
+              "field": "cid",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "claim_date",
+              "type": "date"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "diag_nosis",
+              "type": "array"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "district",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "hcode",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "hname",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "province",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "status",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "total",
+              "type": "string"
+            },
+            "count": 15
+          },
+          {
+            "_id": {
+              "field": "transaction_uid",
+              "type": "string"
+            },
+            "count": 15
+          }
+        ],
+        "expense": {
+          "policy": "expense-v1",
+          "runtime": "v24.22.0",
+          "bsonKinds": {
+            "double": 18,
+            "int": 72
+          }
+        },
+        "indexes": [
+          {
+            "collection": "patients_generations",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_identity",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_identity",
+            "name": "generationId_1_kind_1_ordinal_1",
+            "keys": {
+              "generationId": 1,
+              "kind": 1,
+              "ordinal": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_identity",
+            "name": "patients_identity_value_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "kind": 1,
+              "originalBsonValue": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_date_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "area": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "province": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "district": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "hcode": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_date_month_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "dateMonthEligible": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "generationId_1_periodKind_1_periodKey_1_partitionId_1",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "periodKey": 1,
+              "partitionId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "hcode": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "area": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "province": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "district": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "generationId_1_scopeId_1",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "patients_scope_value_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "scopeKind": 1,
+              "value": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "generationId_1_periodKind_1_periodKey_1_scopeId_1",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "periodKey": 1,
+              "scopeId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "patients_scope_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "scopeId": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "generationId_1_monthStart_1_partitionId_1",
+            "keys": {
+              "generationId": 1,
+              "monthStart": 1,
+              "partitionId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "hcode": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "area": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "province": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "district": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "generationId_1_scopeId_1_monthStart_1",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1,
+              "monthStart": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "patients_date_scope_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_chunks",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_chunks",
+            "name": "patients_chunks_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "setId": 1,
+              "category": 1,
+              "block": 1,
+              "chunkNo": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_bitmap_directory",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_directory",
+            "name": "patients_directory_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "setId": 1,
+              "category": 1,
+              "block": 1,
+              "chunkNo": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_snapshots",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_snapshots",
+            "name": "generationId_1",
+            "keys": {
+              "generationId": 1
+            },
+            "unique": false
+          }
+        ],
+        "stages": [
+          {
+            "name": "source-staging",
+            "complete": true,
+            "elapsedMS": 164.0284999999999
+          },
+          {
+            "name": "source-type-inventory",
+            "complete": true,
+            "elapsedMS": 37.011375000000044
+          },
+          {
+            "name": "baseline-hospital-day-etl",
+            "complete": true,
+            "elapsedMS": 3035.4920420000003
+          },
+          {
+            "name": "baseline-identity-finalization",
+            "complete": true,
+            "elapsedMS": 97.25512499999968
+          },
+          {
+            "name": "daily-facts-and-original-members",
+            "complete": true,
+            "elapsedMS": 102.42225000000053
+          },
+          {
+            "name": "expense-v1-daily-operands",
+            "complete": true,
+            "elapsedMS": 41.565458999999464
+          },
+          {
+            "name": "baseline-daily-card-facts",
+            "complete": true,
+            "elapsedMS": 71.6344169999993
+          },
+          {
+            "name": "mongo-equivalence-dictionary",
+            "complete": true,
+            "elapsedMS": 171.97316599999976
+          },
+          {
+            "name": "portable-daily-bitmaps",
+            "complete": true,
+            "elapsedMS": 878.610666000001
+          },
+          {
+            "name": "stored-month-atoms",
+            "complete": true,
+            "elapsedMS": 1117.1517920000006
+          },
+          {
+            "name": "prepared-stored-month-scopes",
+            "complete": true,
+            "elapsedMS": 1126.942
+          },
+          {
+            "name": "date-utc-month-atoms",
+            "complete": true,
+            "elapsedMS": 1883.6631249999991
+          },
+          {
+            "name": "patients-bar-differential-validation",
+            "complete": true,
+            "elapsedMS": 155.17058400000133
+          },
+          {
+            "name": "stored-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 253.48183400000016
+          },
+          {
+            "name": "prepared-stored-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 4442.732916999999
+          },
+          {
+            "name": "date-utc-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 344.27429200000006
+          },
+          {
+            "name": "compatible-endpoint-snapshots",
+            "complete": true,
+            "elapsedMS": 269.03091700000004
+          }
+        ],
+        "snapshotDocuments": 1,
+        "collections": {
+          "patients_identity": {
+            "count": 29,
+            "sha256": "aec5e6933a176f9244a0e77945a7d78b672d93a739cc3327255fc08105b655ad"
+          },
+          "patients_daily": {
+            "count": 15,
+            "sha256": "ad3eae00dc467d7616c380981f7ae6e9e713e3a9ff3f8d84a93fb34a97bb70e4"
+          },
+          "patients_month_atoms": {
+            "count": 15,
+            "sha256": "380aa69ab451d29c577113d5cee8110f436ddb2f82728477c25bafe28b0acc33"
+          },
+          "patients_scopes": {
+            "count": 34,
+            "sha256": "1e3cebad1632efe3de7dd98048408d56ad5bc9176a0e6e7b95597cebffabd516"
+          },
+          "patients_month_scopes": {
+            "count": 37,
+            "sha256": "e52a085a8f96be507f7eb45c6f4c2b4280b24d2287d371658034ad26a9527df5"
+          },
+          "patients_date_month_atoms": {
+            "count": 15,
+            "sha256": "16e9aa5de0dd46db3b742dcd62b26dd2ff6f02448cc8134e7449bf52d67cadbe"
+          },
+          "patients_date_month_scopes": {
+            "count": 37,
+            "sha256": "39ae70a21f6060fb7ea56b1deb0dcf92e5a3de81876ce6b6a78a4a740d7a67ec"
+          },
+          "patients_bitmap_chunks": {
+            "count": 377,
+            "sha256": "f0a7991d8a3d92af7775dd92ae41335b9fb37dc7d4433b183d8961dafa33e4bb"
+          },
+          "patients_bitmap_directory": {
+            "count": 377,
+            "sha256": "db5b8dca3c6a2157cb2b2ce201c46e8d664eb9612eb9c62da705419896fb3d5c"
+          },
+          "patients_snapshots": {
+            "count": 1,
+            "sha256": "c385e4b7156e4274457807574bc2f465fb796c12586c9175fc766394699c5b02"
+          }
+        }
+      },
+      "complete": true,
+      "capacityKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+      "ledger": {
+        "cutAt": "2025-01-09T04:00:00.000Z",
+        "deadlineAt": "2025-01-09T16:00:00.000Z",
+        "acquisitionLimitMS": 7200000,
+        "buildLimitMS": 21600000,
+        "reserveLimitMS": 14400000,
+        "queueMS": 60000,
+        "acquisitionMS": 0.5416250000000673,
+        "buildMS": 15314.348875,
+        "cleanupMS": 0.8516660000000229,
+        "reserveSpentMS": 60030.057416
+      },
+      "cases": [
+        {
+          "name": "full-supported-history",
+          "reference": {
+            "body": {
+              "startDate": "2023-12-31",
+              "endDate": "2025-01-08T23:59:59.999Z"
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 18,
+                      "patient_count": 14,
+                      "expense": 1152,
+                      "hcode_count": 15,
+                      "avg_service": 1.29,
+                      "avg_expense": 82.29
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 13.121375000000626
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 7,
+                      "avg": 1.14
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 4,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 11.37370799999917
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 405,
+                      "avg": 57.86
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 147,
+                      "avg": 36.75
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 80,
+                      "avg": 80
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 150,
+                      "avg": 75
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 150,
+                      "avg": 150
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 14.757666999999856
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 11.523874999998952
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 12.838958000000275
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 14.648084000000381
+              }
+            ],
+            "combinedParsedBodiesMS": 17.56541599999946
+          },
+          "actual": {
+            "body": {
+              "startDate": "2023-12-31",
+              "endDate": "2025-01-08T23:59:59.999Z"
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 18,
+                      "patient_count": 14,
+                      "expense": 1152,
+                      "hcode_count": 15,
+                      "avg_service": 1.29,
+                      "avg_expense": 82.29
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 343.02070900000217
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 7,
+                      "avg": 1.14
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 4,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 333.006542000001
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 405,
+                      "avg": 57.86
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 147,
+                      "avg": 36.75
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 80,
+                      "avg": 80
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 150,
+                      "avg": 75
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 150,
+                      "avg": 150
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 312.8373329999995
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 263.8549579999999
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 179.10783300000003
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 247.69779200000085
+              }
+            ],
+            "combinedParsedBodiesMS": 343.02708299999904
+          },
+          "equalEntireBodiesAndStatus": true
+        },
+        {
+          "name": "snapshot",
+          "reference": {
+            "body": {
+              "startDate": "2024-01-07",
+              "endDate": "2025-01-10",
+              "area": "",
+              "province": "",
+              "district": "",
+              "hcode": ""
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 16,
+                      "patient_count": 12,
+                      "expense": 1140,
+                      "hcode_count": 13,
+                      "avg_service": 1.33,
+                      "avg_expense": 95
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.362874999998894
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 6,
+                      "avg": 1.17
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 3,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.3313749999979336
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 400,
+                      "avg": 66.67
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 140,
+                      "avg": 46.67
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 80,
+                      "avg": 80
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 150,
+                      "avg": 75
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 150,
+                      "avg": 150
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.410082999998849
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.5117500000014843
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.5999589999992168
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 3.7752909999981057
+              }
+            ],
+            "combinedParsedBodiesMS": 4.180082999999286
+          },
+          "actual": {
+            "body": {
+              "startDate": "2024-01-07",
+              "endDate": "2025-01-10",
+              "area": "",
+              "province": "",
+              "district": "",
+              "hcode": ""
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 16,
+                      "patient_count": 12,
+                      "expense": 1140,
+                      "hcode_count": 13,
+                      "avg_service": 1.33,
+                      "avg_expense": 95
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 57.64562499999738
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 6,
+                      "avg": 1.17
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 3,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 61.76079200000095
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 400,
+                      "avg": 66.67
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 140,
+                      "avg": 46.67
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 80,
+                      "avg": 80
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 150,
+                      "avg": 75
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 150,
+                      "avg": 150
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 69.29754099999991
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 81.23212500000227
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 41.953125
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T04:00:00.000Z",
+                "state": "stale",
+                "parsedBodyMS": 94.96179199999824
+              }
+            ],
+            "combinedParsedBodiesMS": 95.30495800000062
+          },
+          "equalEntireBodiesAndStatus": true
+        }
+      ]
+    },
+    {
+      "cutAt": "2025-01-09T16:00:00.000Z",
+      "generationId": "d392abf8-f6ce-4639-85e8-b3062761e934",
+      "resources": {
+        "elapsedMS": 10612.433874999999,
+        "peakRssBytes": 246939648,
+        "peakAdditionalRssBytes": 163708928,
+        "peakSerializedBytes": 182364,
+        "storageBytes": 1282048,
+        "peakNativeBytes": 146064,
+        "observation": {
+          "actor": {
+            "pid": 21560,
+            "startedAt": 1792089957634,
+            "host": "isolated-fixture-host"
+          },
+          "attempt": "807f2dac-ce7a-4c46-a6ca-9108f9e6651f",
+          "baseline": {
+            "at": 1792089957721,
+            "rssBytes": 83230720,
+            "method": "capacity-module-entry-process-sample"
+          },
+          "coverage": "sampled-not-complete-peak",
+          "attribution": "whole-process-includes-workers-and-all-roles",
+          "peakRssBytes": 246939648,
+          "peakAdditionalRssBytes": 163708928,
+          "samples": 53062,
+          "lastAt": 1792089985104,
+          "diagnostics": {
+            "heapUsed": 36020664,
+            "external": 25390613,
+            "arrayBuffers": 21280590
+          }
+        },
+        "capacity": {
+          "policyKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+          "scope": "isolated-fixture",
+          "fixedLimits": [
+            {
+              "id": "fixture-host",
+              "kind": "host",
+              "apiBytes": 268435456,
+              "builderBytes": 536870912,
+              "databaseBytes": 1073741824,
+              "combinedBytes": 3221225472,
+              "diskBytes": 858993459,
+              "cpu": 4,
+              "io": {
+                "write": 500000
+              }
+            }
+          ],
+          "acceptance": "failed",
+          "targetAcceptance": "blocked",
+          "reasons": [
+            "metric-unavailable:fixture-host:cpu",
+            "metric-unavailable:fixture-host:disk",
+            "metric-unavailable:fixture-host:io:write",
+            "metric-unavailable:fixture-host:ram",
+            "metric-unavailable:fixture-host:response"
+          ],
+          "ownershipPeaks": {
+            "apiBytes": 25165824,
+            "builderBytes": 8388608,
+            "serializedBytes": 1245184,
+            "retainedSerializedBytes": 262144,
+            "decodedBytes": 78428,
+            "nativeHandles": 4
+          },
+          "observed": {},
+          "limitations": [
+            "workspace-and-serialized-windows-are-reservations",
+            "retained-backing-samples-are-local-and-deduplicated",
+            "native-and-heap-overlap-process-rss",
+            "sampling-is-not-peak-proof"
+          ]
+        },
+        "ledger": {
+          "transport": {
+            "backing": "67db9c1b672e3cf4c82f18674540965107301e9e1e065e8b34358108cfb4dcf7",
+            "logicalBytes": 4007,
+            "allocatedBytes": 4096,
+            "bytes": 4096,
+            "coverage": "allocated-file-blocks-not-volume-peaks"
+          },
+          "raw": {
+            "records": 14,
+            "maxBsonBytes": 530,
+            "firstDate": "2023-12-31T12:00:00.000Z",
+            "lastDate": "2025-01-08T12:00:00.000Z",
+            "distinctPatientValues": 12,
+            "distinctHospitalValues": 14,
+            "identityEquality": "mongo-group-original-bson"
+          },
+          "summary": {
+            "hospitalDays": 13,
+            "maxBsonBytes": 1886,
+            "typedGeographyPartitions": 13,
+            "memberships": {
+              "DM": {
+                "expanded": 7,
+                "deduplicated": 7,
+                "nonArrayRows": 0
+              },
+              "HT": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "COPD": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "CA": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "PSY": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "HD_CVD": {
+                "expanded": 2,
+                "deduplicated": 2,
+                "nonArrayRows": 0
+              },
+              "DM_HG": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_CKD": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_ACS": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "DM_CVA": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_LUNG": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_BREAST": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_CERVICAL": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_LIVER": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              },
+              "CA_COLORECTAL": {
+                "expanded": 1,
+                "deduplicated": 1,
+                "nonArrayRows": 0
+              }
+            }
+          },
+          "output": {
+            "dictionary": {
+              "hospital": 13,
+              "patient": 11
+            },
+            "memberships": {
+              "DM": 7,
+              "HT": 2,
+              "COPD": 2,
+              "CA": 1,
+              "PSY": 2,
+              "HD_CVD": 2,
+              "DM_HG": 1,
+              "DM_CKD": 1,
+              "DM_ACS": 1,
+              "DM_CVA": 1,
+              "CA_LUNG": 1,
+              "CA_BREAST": 1,
+              "CA_CERVICAL": 1,
+              "CA_LIVER": 1,
+              "CA_COLORECTAL": 1,
+              "CARD": 13,
+              "HOSPITAL": 13
+            },
+            "partitions": {
+              "daily": 13,
+              "months": 13,
+              "scopes": 31,
+              "monthScopes": 34,
+              "dateMonths": 13,
+              "dateMonthScopes": 34,
+              "snapshots": 1
+            },
+            "bitmap": {
+              "_id": null,
+              "chunks": 341,
+              "serializedPayloadBytes": 6326,
+              "storedMemberships": 435,
+              "largestPayloadBytes": 40
+            }
+          }
+        },
+        "peakStorageBytes": 1441792,
+        "storage": {
+          "coverage": "retained-collection-samples-not-volume-peaks",
+          "retainedCollectionBytes": 1204224,
+          "retainedSourceBytes": 12288,
+          "sources": [
+            {
+              "backing": "fc710f2ba1e7e4472f4d789bc268bdaa9675e2b6c917bed30834b13b8f7c5348",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            },
+            {
+              "backing": "67db9c1b672e3cf4c82f18674540965107301e9e1e065e8b34358108cfb4dcf7",
+              "logicalBytes": 4007,
+              "allocatedBytes": 4096,
+              "bytes": 4096,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            }
+          ],
+          "sourceRetention": "producer-owned-retained-until-independent-deletion-proof",
+          "inFlightRunReservation": 65536,
+          "collections": [
+            {
+              "name": "patients_date_month_atoms",
+              "documents": 28,
+              "dataBytes": 28672,
+              "indexBytes": 139264,
+              "logicalBsonBytes": 51203,
+              "indexes": 8
+            },
+            {
+              "name": "patients_date_month_scopes",
+              "documents": 71,
+              "dataBytes": 8192,
+              "indexBytes": 40960,
+              "logicalBsonBytes": 132303,
+              "indexes": 4
+            },
+            {
+              "name": "patients_scopes",
+              "documents": 65,
+              "dataBytes": 12288,
+              "indexBytes": 24576,
+              "logicalBsonBytes": 21096,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_directory",
+              "documents": 718,
+              "dataBytes": 49152,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 466799,
+              "indexes": 2
+            },
+            {
+              "name": "patients_refresh_runs",
+              "documents": 2,
+              "dataBytes": 20480,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 29381,
+              "indexes": 1
+            },
+            {
+              "name": "patients_recovery_journal",
+              "documents": 2,
+              "dataBytes": 24576,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 58188,
+              "indexes": 1
+            },
+            {
+              "name": "patients_daily",
+              "documents": 28,
+              "dataBytes": 57344,
+              "indexBytes": 163840,
+              "logicalBsonBytes": 110822,
+              "indexes": 8
+            },
+            {
+              "name": "patients_model_control",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 4641,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_scopes",
+              "documents": 71,
+              "dataBytes": 45056,
+              "indexBytes": 61440,
+              "logicalBsonBytes": 183322,
+              "indexes": 4
+            },
+            {
+              "name": "patients_identity",
+              "documents": 53,
+              "dataBytes": 12288,
+              "indexBytes": 36864,
+              "logicalBsonBytes": 8765,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_chunks",
+              "documents": 718,
+              "dataBytes": 45056,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 490219,
+              "indexes": 2
+            },
+            {
+              "name": "patients_snapshots",
+              "documents": 2,
+              "dataBytes": 8192,
+              "indexBytes": 16384,
+              "logicalBsonBytes": 12140,
+              "indexes": 2
+            },
+            {
+              "name": "patients_generations",
+              "documents": 2,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 43423,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_atoms",
+              "documents": 28,
+              "dataBytes": 16384,
+              "indexBytes": 147456,
+              "logicalBsonBytes": 65604,
+              "indexes": 8
+            }
+          ],
+          "generations": [
+            {
+              "generationId": "7b1e09be-2dec-47e6-a33c-a859b7257204",
+              "logicalBsonBytes": 834028,
+              "collections": {
+                "patients_generations": {
+                  "documents": 1,
+                  "logicalBsonBytes": 23404,
+                  "maxBsonBytes": 23404
+                },
+                "patients_identity": {
+                  "documents": 29,
+                  "logicalBsonBytes": 4821,
+                  "maxBsonBytes": 200
+                },
+                "patients_daily": {
+                  "documents": 15,
+                  "logicalBsonBytes": 59362,
+                  "maxBsonBytes": 4004
+                },
+                "patients_month_atoms": {
+                  "documents": 15,
+                  "logicalBsonBytes": 35141,
+                  "maxBsonBytes": 2347
+                },
+                "patients_scopes": {
+                  "documents": 34,
+                  "logicalBsonBytes": 11034,
+                  "maxBsonBytes": 332
+                },
+                "patients_month_scopes": {
+                  "documents": 37,
+                  "logicalBsonBytes": 95534,
+                  "maxBsonBytes": 2582
+                },
+                "patients_date_month_atoms": {
+                  "documents": 15,
+                  "logicalBsonBytes": 27423,
+                  "maxBsonBytes": 1835
+                },
+                "patients_date_month_scopes": {
+                  "documents": 37,
+                  "logicalBsonBytes": 68935,
+                  "maxBsonBytes": 1872
+                },
+                "patients_bitmap_chunks": {
+                  "documents": 377,
+                  "logicalBsonBytes": 257313,
+                  "maxBsonBytes": 726
+                },
+                "patients_bitmap_directory": {
+                  "documents": 377,
+                  "logicalBsonBytes": 244993,
+                  "maxBsonBytes": 694
+                },
+                "patients_snapshots": {
+                  "documents": 1,
+                  "logicalBsonBytes": 6068,
+                  "maxBsonBytes": 6068
+                }
+              }
+            },
+            {
+              "generationId": "d392abf8-f6ce-4639-85e8-b3062761e934",
+              "logicalBsonBytes": 751668,
+              "collections": {
+                "patients_generations": {
+                  "documents": 1,
+                  "logicalBsonBytes": 20019,
+                  "maxBsonBytes": 20019
+                },
+                "patients_identity": {
+                  "documents": 24,
+                  "logicalBsonBytes": 3944,
+                  "maxBsonBytes": 200
+                },
+                "patients_daily": {
+                  "documents": 13,
+                  "logicalBsonBytes": 51460,
+                  "maxBsonBytes": 4004
+                },
+                "patients_month_atoms": {
+                  "documents": 13,
+                  "logicalBsonBytes": 30463,
+                  "maxBsonBytes": 2347
+                },
+                "patients_scopes": {
+                  "documents": 31,
+                  "logicalBsonBytes": 10062,
+                  "maxBsonBytes": 332
+                },
+                "patients_month_scopes": {
+                  "documents": 34,
+                  "logicalBsonBytes": 87788,
+                  "maxBsonBytes": 2582
+                },
+                "patients_date_month_atoms": {
+                  "documents": 13,
+                  "logicalBsonBytes": 23780,
+                  "maxBsonBytes": 1835
+                },
+                "patients_date_month_scopes": {
+                  "documents": 34,
+                  "logicalBsonBytes": 63368,
+                  "maxBsonBytes": 1874
+                },
+                "patients_bitmap_chunks": {
+                  "documents": 341,
+                  "logicalBsonBytes": 232906,
+                  "maxBsonBytes": 726
+                },
+                "patients_bitmap_directory": {
+                  "documents": 341,
+                  "logicalBsonBytes": 221806,
+                  "maxBsonBytes": 694
+                },
+                "patients_snapshots": {
+                  "documents": 1,
+                  "logicalBsonBytes": 6072,
+                  "maxBsonBytes": 6072
+                }
+              }
+            }
+          ],
+          "unavailable": [
+            "database-transient-memory",
+            "aggregation-index-spill-scratch",
+            "journal-log-temp-volume-peaks"
+          ],
+          "attribution": "shared-physical-collection-allocation-once; per-generation-BSON-is-logical-and-not-added-again"
+        },
+        "peakNativeReservationBytes": 10336,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      },
+      "inventory": {
+        "generationId": "d392abf8-f6ce-4639-85e8-b3062761e934",
+        "rows": 13,
+        "storedAtoms": 13,
+        "scopes": 31,
+        "storedScopePeriods": 34,
+        "dateUtc": {
+          "version": "date-utc-months-v1",
+          "atoms": 13,
+          "dailyOnlyRows": 0,
+          "scopes": 31,
+          "scopeMonths": 34
+        },
+        "identities": 24,
+        "chunks": 341,
+        "directories": 341,
+        "indexedLookups": 51,
+        "exactLookups": 0,
+        "typeInventory": [
+          {
+            "_id": {
+              "field": "_id",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "area",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "cid",
+              "type": "null"
+            },
+            "count": 1
+          },
+          {
+            "_id": {
+              "field": "cid",
+              "type": "string"
+            },
+            "count": 13
+          },
+          {
+            "_id": {
+              "field": "claim_date",
+              "type": "date"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "diag_nosis",
+              "type": "array"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "district",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "hcode",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "hname",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "province",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "status",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "total",
+              "type": "string"
+            },
+            "count": 14
+          },
+          {
+            "_id": {
+              "field": "transaction_uid",
+              "type": "string"
+            },
+            "count": 14
+          }
+        ],
+        "expense": {
+          "policy": "expense-v1",
+          "runtime": "v24.22.0",
+          "bsonKinds": {
+            "double": 16,
+            "int": 62
+          }
+        },
+        "indexes": [
+          {
+            "collection": "patients_generations",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_identity",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_identity",
+            "name": "generationId_1_kind_1_ordinal_1",
+            "keys": {
+              "generationId": 1,
+              "kind": 1,
+              "ordinal": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_identity",
+            "name": "patients_identity_value_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "kind": 1,
+              "originalBsonValue": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_date_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "area": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "province": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "district": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "hcode": 1,
+              "date": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_daily",
+            "name": "patients_daily_date_month_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "dateMonthEligible": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "generationId_1_periodKind_1_periodKey_1_partitionId_1",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "periodKey": 1,
+              "partitionId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "hcode": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "area": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "province": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_month_atoms",
+            "name": "patients_month_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "district": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "generationId_1_scopeId_1",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_scopes",
+            "name": "patients_scope_value_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "scopeKind": 1,
+              "value": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "generationId_1_periodKind_1_periodKey_1_scopeId_1",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "periodKey": 1,
+              "scopeId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_month_scopes",
+            "name": "patients_scope_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "periodKind": 1,
+              "scopeId": 1,
+              "storedYear": 1,
+              "storedMonth": 1
+            },
+            "unique": false,
+            "partialFilterExpression": {
+              "graphVisible": true
+            }
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "generationId_1_monthStart_1_partitionId_1",
+            "keys": {
+              "generationId": 1,
+              "monthStart": 1,
+              "partitionId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_hcode_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "hcode": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_area_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "area": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_province_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "province": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_atoms",
+            "name": "patients_date_month_district_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "district": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "generationId_1_scopeId_1_monthStart_1",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1,
+              "monthStart": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "generationId_1_rowId_1",
+            "keys": {
+              "generationId": 1,
+              "rowId": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_date_month_scopes",
+            "name": "patients_date_scope_period_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "scopeId": 1,
+              "monthStart": 1,
+              "monthEnd": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_chunks",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_chunks",
+            "name": "patients_chunks_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "setId": 1,
+              "category": 1,
+              "block": 1,
+              "chunkNo": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_bitmap_directory",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_bitmap_directory",
+            "name": "patients_directory_2beb5d2b9ac62d82",
+            "keys": {
+              "generationId": 1,
+              "setId": 1,
+              "category": 1,
+              "block": 1,
+              "chunkNo": 1
+            },
+            "unique": true
+          },
+          {
+            "collection": "patients_snapshots",
+            "name": "_id_",
+            "keys": {
+              "_id": 1
+            },
+            "unique": false
+          },
+          {
+            "collection": "patients_snapshots",
+            "name": "generationId_1",
+            "keys": {
+              "generationId": 1
+            },
+            "unique": false
+          }
+        ],
+        "stages": [
+          {
+            "name": "source-staging",
+            "complete": true,
+            "elapsedMS": 100.64145800000188
+          },
+          {
+            "name": "source-type-inventory",
+            "complete": true,
+            "elapsedMS": 68.81262499999866
+          },
+          {
+            "name": "baseline-hospital-day-etl",
+            "complete": true,
+            "elapsedMS": 2450.3094999999994
+          },
+          {
+            "name": "baseline-identity-finalization",
+            "complete": true,
+            "elapsedMS": 181.51470899999913
+          },
+          {
+            "name": "daily-facts-and-original-members",
+            "complete": true,
+            "elapsedMS": 94.91904199999772
+          },
+          {
+            "name": "expense-v1-daily-operands",
+            "complete": true,
+            "elapsedMS": 60.15783400000146
+          },
+          {
+            "name": "baseline-daily-card-facts",
+            "complete": true,
+            "elapsedMS": 84.94549999999799
+          },
+          {
+            "name": "mongo-equivalence-dictionary",
+            "complete": true,
+            "elapsedMS": 128.09787499999948
+          },
+          {
+            "name": "portable-daily-bitmaps",
+            "complete": true,
+            "elapsedMS": 121.30525000000125
+          },
+          {
+            "name": "stored-month-atoms",
+            "complete": true,
+            "elapsedMS": 285.7227920000005
+          },
+          {
+            "name": "prepared-stored-month-scopes",
+            "complete": true,
+            "elapsedMS": 435.1319169999988
+          },
+          {
+            "name": "date-utc-month-atoms",
+            "complete": true,
+            "elapsedMS": 730.3501660000002
+          },
+          {
+            "name": "patients-bar-differential-validation",
+            "complete": true,
+            "elapsedMS": 126.41729200000191
+          },
+          {
+            "name": "stored-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 153.5254160000004
+          },
+          {
+            "name": "prepared-stored-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 3899.761457999997
+          },
+          {
+            "name": "date-utc-month-differential-validation",
+            "complete": true,
+            "elapsedMS": 378.68616699999984
+          },
+          {
+            "name": "compatible-endpoint-snapshots",
+            "complete": true,
+            "elapsedMS": 282.87024999999994
+          }
+        ],
+        "snapshotDocuments": 1,
+        "collections": {
+          "patients_identity": {
+            "count": 24,
+            "sha256": "697a027bbe22ac7dc491ee9356d8ea4320adb843fe8e1ae50d7f10bda85f4326"
+          },
+          "patients_daily": {
+            "count": 13,
+            "sha256": "cc20506578c3317cdd5659d8fc89885d2ef7a957ce3140122fbbf0be815a5014"
+          },
+          "patients_month_atoms": {
+            "count": 13,
+            "sha256": "7f7fb7cbb993a8343fa2d220889f8f9ae11620b7937f9f0ec0c20e12544fdab8"
+          },
+          "patients_scopes": {
+            "count": 31,
+            "sha256": "8773acaf9c1ef83cffa1dd805309e1384cc18ece26339292a7d8c2bf905a7893"
+          },
+          "patients_month_scopes": {
+            "count": 34,
+            "sha256": "09781a68eaadc0115e44b929daec00c571ec7da9609dbbd09b0448556dd5777f"
+          },
+          "patients_date_month_atoms": {
+            "count": 13,
+            "sha256": "20604b5fe20cb45d57393f8b13b16e4630b940ee21251bc16e9cd0fa294f6201"
+          },
+          "patients_date_month_scopes": {
+            "count": 34,
+            "sha256": "67f4e21252af8bf9f1e159c160d42c9ef40ffea464575ec726b3d580b0507e40"
+          },
+          "patients_bitmap_chunks": {
+            "count": 341,
+            "sha256": "a288b29e8a41fb70859641a3257e280a7a3494746ecc1d536570db20f02794a7"
+          },
+          "patients_bitmap_directory": {
+            "count": 341,
+            "sha256": "e1b4ae3dc6b7dae21b3e8455ec6571567a8ec136219720b75fc82319c04b810a"
+          },
+          "patients_snapshots": {
+            "count": 1,
+            "sha256": "4857c03d8971cc366076452a06f053b538c1823da0a04f8e530b6734e56f1aa9"
+          }
+        }
+      },
+      "complete": true,
+      "capacityKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+      "ledger": {
+        "cutAt": "2025-01-09T16:00:00.000Z",
+        "deadlineAt": "2025-01-10T04:00:00.000Z",
+        "acquisitionLimitMS": 7200000,
+        "buildLimitMS": 21600000,
+        "reserveLimitMS": 14400000,
+        "queueMS": 60000,
+        "acquisitionMS": 1.1396669999994629,
+        "buildMS": 10715.993708000002,
+        "cleanupMS": 6.461208999997325,
+        "reserveSpentMS": 60019.392085
+      },
+      "cases": [
+        {
+          "name": "full-supported-history",
+          "reference": {
+            "body": {
+              "startDate": "2023-12-31",
+              "endDate": "2025-01-08T23:59:59.999Z"
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 16,
+                      "patient_count": 11,
+                      "expense": 2325,
+                      "hcode_count": 13,
+                      "avg_service": 1.45,
+                      "avg_expense": 211.36
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 8.256124999999884
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 5,
+                      "avg": 1.4
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 8.167124999999942
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 480,
+                      "avg": 96
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 100,
+                      "avg": 50
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 1200,
+                      "avg": 600
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 100,
+                      "avg": 100
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 225,
+                      "avg": 112.5
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 9.558916999998473
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 14.679958000000624
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 11.754084000000148
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 12.132958999998664
+              }
+            ],
+            "combinedParsedBodiesMS": 15.431334000000788
+          },
+          "actual": {
+            "body": {
+              "startDate": "2023-12-31",
+              "endDate": "2025-01-08T23:59:59.999Z"
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 16,
+                      "patient_count": 11,
+                      "expense": 2325,
+                      "hcode_count": 13,
+                      "avg_service": 1.45,
+                      "avg_expense": 211.36
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 128.6185000000005
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 5,
+                      "avg": 1.4
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 131.53758400000152
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 480,
+                      "avg": 96
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 100,
+                      "avg": 50
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 1200,
+                      "avg": 600
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 100,
+                      "avg": 100
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 225,
+                      "avg": 112.5
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 148.48429100000067
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 89.85012500000084
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 96.43350000000282
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 85.70841700000165
+              }
+            ],
+            "combinedParsedBodiesMS": 148.7235839999994
+          },
+          "equalEntireBodiesAndStatus": true
+        },
+        {
+          "name": "snapshot",
+          "reference": {
+            "body": {
+              "startDate": "2024-01-07",
+              "endDate": "2025-01-10",
+              "area": "",
+              "province": "",
+              "district": "",
+              "hcode": ""
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 15,
+                      "patient_count": 10,
+                      "expense": 2275,
+                      "hcode_count": 12,
+                      "avg_service": 1.5,
+                      "avg_expense": 227.5
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.210958000003302
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 4,
+                      "avg": 1.5
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.1897080000017013
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 430,
+                      "avg": 107.5
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 100,
+                      "avg": 50
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 1200,
+                      "avg": 600
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 100,
+                      "avg": 100
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 225,
+                      "avg": 112.5
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.2022500000020955
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.266542000001209
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.3004579999978887
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": null,
+                "state": null,
+                "parsedBodyMS": 2.427750000002561
+              }
+            ],
+            "combinedParsedBodiesMS": 2.7784169999977166
+          },
+          "actual": {
+            "body": {
+              "startDate": "2024-01-07",
+              "endDate": "2025-01-10",
+              "area": "",
+              "province": "",
+              "district": "",
+              "hcode": ""
+            },
+            "responses": [
+              {
+                "route": "card",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "service_count": 15,
+                      "patient_count": 10,
+                      "expense": 2275,
+                      "hcode_count": 12,
+                      "avg_service": 1.5,
+                      "avg_expense": 227.5
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 31.695749999998952
+              },
+              {
+                "route": "bar-chart-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfPatient": 4,
+                      "avg": 1.5
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfPatient": 1,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfPatient": 2,
+                      "avg": 1
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 47.913291999997455
+              },
+              {
+                "route": "bar-chart-ex",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "qtyOfExpense": 430,
+                      "avg": 107.5
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "qtyOfExpense": 100,
+                      "avg": 50
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "qtyOfExpense": 1200,
+                      "avg": 600
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "qtyOfExpense": 100,
+                      "avg": 100
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "qtyOfExpense": 225,
+                      "avg": 112.5
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "qtyOfExpense": 220,
+                      "avg": 110
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 62.814290999998775
+              },
+              {
+                "route": "graph-disease-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "ทั้งหมด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                    },
+                    {
+                      "diseaseName": "โรคเบาหวาน",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                    },
+                    {
+                      "diseaseName": "โรคความดันโลหิตสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็ง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "สุขภาพจิต",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    },
+                    {
+                      "diseaseName": "โรคหัวใจและหลอดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 48.74262499999895
+              },
+              {
+                "route": "graph-dm-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 25.269957999997132
+              },
+              {
+                "route": "graph-ca-pt",
+                "status": 200,
+                "body": {
+                  "status": true,
+                  "message": "success",
+                  "result": [
+                    {
+                      "diseaseName": "โรคมะเร็งปอด",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งเต้านม",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งปากมดลูก",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งตับ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                    },
+                    {
+                      "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                      "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                  ]
+                },
+                "sourceCutAt": "2025-01-09T16:00:00.000Z",
+                "state": "fresh",
+                "parsedBodyMS": 52.93983399999706
+              }
+            ],
+            "combinedParsedBodiesMS": 62.94225000000006
+          },
+          "equalEntireBodiesAndStatus": true
+        }
+      ]
+    }
+  ],
+  "concurrent": [
+    {
+      "condition": "full-six-old-generation-while-new-full-raw-refresh-is-running",
+      "serving": {
+        "body": {
+          "startDate": "2023-12-31",
+          "endDate": "2025-01-08T23:59:59.999Z"
+        },
+        "responses": [
+          {
+            "route": "card",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "service_count": 18,
+                  "patient_count": 14,
+                  "expense": 1152,
+                  "hcode_count": 15,
+                  "avg_service": 1.29,
+                  "avg_expense": 82.29
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 213.49012500000026
+          },
+          {
+            "route": "bar-chart-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfPatient": 7,
+                  "avg": 1.14
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfPatient": 4,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfPatient": 1,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfPatient": 1,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 201.2797500000015
+          },
+          {
+            "route": "bar-chart-ex",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfExpense": 405,
+                  "avg": 57.86
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfExpense": 147,
+                  "avg": 36.75
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfExpense": 80,
+                  "avg": 80
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfExpense": 150,
+                  "avg": 75
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfExpense": 150,
+                  "avg": 150
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfExpense": 220,
+                  "avg": 110
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 170.9076669999995
+          },
+          {
+            "route": "graph-disease-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "ทั้งหมด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15]
+                },
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 136.72850000000108
+          },
+          {
+            "route": "graph-dm-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 114.95650000000023
+          },
+          {
+            "route": "graph-ca-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคมะเร็งปอด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งเต้านม",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งปากมดลูก",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งตับ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T04:00:00.000Z",
+            "state": "stale",
+            "parsedBodyMS": 150.97374999999738
+          }
+        ],
+        "combinedParsedBodiesMS": 213.4965830000001
+      }
+    }
+  ],
+  "rejectedSource": {
+    "records": 15,
+    "history": {
+      "start": "2023-12-31T00:00:00.000Z",
+      "end": "2025-01-08T23:59:59.999Z"
+    },
+    "sourceVersion": "larger-rejected-full-history",
+    "distinguishableFromActive": true,
+    "largerThanActive": true
+  },
+  "failedResourceAttempts": [
+    {
+      "attempt": 1,
+      "message": "Storage budget exceeded",
+      "runId": "49ec20d9-3ab9-4739-9cdd-39dff539e6d0",
+      "generationId": "26eacbca-7917-4721-964e-a35f25fa81d7",
+      "capacityKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+      "buildStartedAt": "2025-01-10T04:01:00.000Z",
+      "ledger": {
+        "cutAt": "2025-01-10T04:00:00.000Z",
+        "deadlineAt": "2025-01-10T16:00:00.000Z",
+        "acquisitionLimitMS": 7200000,
+        "buildLimitMS": 21600000,
+        "reserveLimitMS": 14400000,
+        "queueMS": 60000,
+        "acquisitionMS": 0.7380420000008598,
+        "buildMS": 110.41058399999747,
+        "cleanupMS": 23.067958999999973,
+        "reserveSpentMS": 60028.92195900001
+      },
+      "fixedBudget": {
+        "maxTimeMS": 30000,
+        "maxSourceBytes": 8388608,
+        "maxStorageBytes": 1,
+        "maxAdditionalRssBytes": 134217728,
+        "maxSerializedBytes": 8388608,
+        "maxChunkBytes": 1048576,
+        "maxPayloadBytes": 983040,
+        "maxHeavyOperations": 1
+      },
+      "resources": {
+        "elapsedMS": 98.1472500000018,
+        "peakRssBytes": 247054336,
+        "peakAdditionalRssBytes": 163823616,
+        "peakSerializedBytes": 75624,
+        "storageBytes": 1290240,
+        "peakNativeBytes": 0,
+        "observation": {
+          "actor": {
+            "pid": 21560,
+            "startedAt": 1792089957634,
+            "host": "isolated-fixture-host"
+          },
+          "attempt": "50427d7f-d743-494e-8743-e4687cb5696f",
+          "baseline": {
+            "at": 1792089957721,
+            "rssBytes": 83230720,
+            "method": "capacity-module-entry-process-sample"
+          },
+          "coverage": "sampled-not-complete-peak",
+          "attribution": "whole-process-includes-workers-and-all-roles",
+          "peakRssBytes": 247054336,
+          "peakAdditionalRssBytes": 163823616,
+          "samples": 191,
+          "lastAt": 1792089985715,
+          "diagnostics": {
+            "heapUsed": 59551528,
+            "external": 28676430,
+            "arrayBuffers": 24566407
+          }
+        },
+        "capacity": {
+          "policyKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+          "scope": "isolated-fixture",
+          "fixedLimits": [
+            {
+              "id": "fixture-host",
+              "kind": "host",
+              "apiBytes": 268435456,
+              "builderBytes": 536870912,
+              "databaseBytes": 1073741824,
+              "combinedBytes": 3221225472,
+              "diskBytes": 858993459,
+              "cpu": 4,
+              "io": {
+                "write": 500000
+              }
+            }
+          ],
+          "acceptance": "failed",
+          "targetAcceptance": "blocked",
+          "reasons": [
+            "metric-unavailable:fixture-host:cpu",
+            "metric-unavailable:fixture-host:disk",
+            "metric-unavailable:fixture-host:io:write",
+            "metric-unavailable:fixture-host:ram",
+            "metric-unavailable:fixture-host:response"
+          ],
+          "ownershipPeaks": {
+            "apiBytes": 0,
+            "builderBytes": 8388608,
+            "serializedBytes": 1048576,
+            "retainedSerializedBytes": 4283,
+            "decodedBytes": 5028,
+            "nativeHandles": 0
+          },
+          "observed": {},
+          "limitations": [
+            "workspace-and-serialized-windows-are-reservations",
+            "retained-backing-samples-are-local-and-deduplicated",
+            "native-and-heap-overlap-process-rss",
+            "sampling-is-not-peak-proof"
+          ]
+        },
+        "ledger": {
+          "transport": {
+            "backing": "57ef9996883cdd95d2eed0779113b31862fd637d2fe5c56df4672fdc7e7bb3e3",
+            "logicalBytes": 4283,
+            "allocatedBytes": 8192,
+            "bytes": 8192,
+            "coverage": "allocated-file-blocks-not-volume-peaks"
+          }
+        },
+        "peakStorageBytes": 1290240,
+        "storage": {
+          "coverage": "retained-collection-samples-not-volume-peaks",
+          "retainedCollectionBytes": 1204224,
+          "retainedSourceBytes": 20480,
+          "sources": [
+            {
+              "backing": "fc710f2ba1e7e4472f4d789bc268bdaa9675e2b6c917bed30834b13b8f7c5348",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            },
+            {
+              "backing": "67db9c1b672e3cf4c82f18674540965107301e9e1e065e8b34358108cfb4dcf7",
+              "logicalBytes": 4007,
+              "allocatedBytes": 4096,
+              "bytes": 4096,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            },
+            {
+              "backing": "57ef9996883cdd95d2eed0779113b31862fd637d2fe5c56df4672fdc7e7bb3e3",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            }
+          ],
+          "sourceRetention": "producer-owned-retained-until-independent-deletion-proof",
+          "inFlightRunReservation": 65536,
+          "collections": [
+            {
+              "name": "patients_date_month_atoms",
+              "documents": 13,
+              "dataBytes": 28672,
+              "indexBytes": 139264,
+              "logicalBsonBytes": 23780,
+              "indexes": 8
+            },
+            {
+              "name": "patients_date_month_scopes",
+              "documents": 34,
+              "dataBytes": 8192,
+              "indexBytes": 40960,
+              "logicalBsonBytes": 63368,
+              "indexes": 4
+            },
+            {
+              "name": "patients_scopes",
+              "documents": 31,
+              "dataBytes": 12288,
+              "indexBytes": 24576,
+              "logicalBsonBytes": 10062,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_directory",
+              "documents": 341,
+              "dataBytes": 49152,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 221806,
+              "indexes": 2
+            },
+            {
+              "name": "patients_refresh_runs",
+              "documents": 3,
+              "dataBytes": 20480,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 57222,
+              "indexes": 1
+            },
+            {
+              "name": "patients_recovery_journal",
+              "documents": 2,
+              "dataBytes": 24576,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 31729,
+              "indexes": 1
+            },
+            {
+              "name": "patients_daily",
+              "documents": 13,
+              "dataBytes": 57344,
+              "indexBytes": 163840,
+              "logicalBsonBytes": 51460,
+              "indexes": 8
+            },
+            {
+              "name": "patients_model_control",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 4718,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_scopes",
+              "documents": 34,
+              "dataBytes": 45056,
+              "indexBytes": 61440,
+              "logicalBsonBytes": 87788,
+              "indexes": 4
+            },
+            {
+              "name": "patients_identity",
+              "documents": 24,
+              "dataBytes": 12288,
+              "indexBytes": 36864,
+              "logicalBsonBytes": 3944,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_chunks",
+              "documents": 341,
+              "dataBytes": 45056,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 232906,
+              "indexes": 2
+            },
+            {
+              "name": "patients_snapshots",
+              "documents": 1,
+              "dataBytes": 8192,
+              "indexBytes": 16384,
+              "logicalBsonBytes": 6072,
+              "indexes": 2
+            },
+            {
+              "name": "patients_generations",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 24636,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_atoms",
+              "documents": 13,
+              "dataBytes": 16384,
+              "indexBytes": 147456,
+              "logicalBsonBytes": 30463,
+              "indexes": 8
+            }
+          ],
+          "unavailable": [
+            "database-transient-memory",
+            "aggregation-index-spill-scratch",
+            "journal-log-temp-volume-peaks"
+          ],
+          "attribution": "shared-physical-collection-allocation-once; per-generation-BSON-is-logical-and-not-added-again"
+        },
+        "failureHistory": [
+          {
+            "attempt": "50427d7f-d743-494e-8743-e4687cb5696f",
+            "actor": {
+              "pid": 21560,
+              "startedAt": 1792089957634,
+              "host": "isolated-fixture-host"
+            },
+            "name": "Error",
+            "at": 1792089985718,
+            "termination": {
+              "safe": true,
+              "proof": "all-commands-settled-and-cursors-exhausted"
+            }
+          }
+        ]
+      },
+      "after": {
+        "body": {
+          "startDate": "2023-12-31",
+          "endDate": "2025-01-08T23:59:59.999Z"
+        },
+        "responses": [
+          {
+            "route": "card",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "service_count": 16,
+                  "patient_count": 11,
+                  "expense": 2325,
+                  "hcode_count": 13,
+                  "avg_service": 1.45,
+                  "avg_expense": 211.36
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 153.32083300000158
+          },
+          {
+            "route": "bar-chart-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfPatient": 5,
+                  "avg": 1.4
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfPatient": 1,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 171.82666699999754
+          },
+          {
+            "route": "bar-chart-ex",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfExpense": 480,
+                  "avg": 96
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfExpense": 100,
+                  "avg": 50
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfExpense": 1200,
+                  "avg": 600
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfExpense": 100,
+                  "avg": 100
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfExpense": 225,
+                  "avg": 112.5
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfExpense": 220,
+                  "avg": 110
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 162.78933300000062
+          },
+          {
+            "route": "graph-disease-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "ทั้งหมด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                },
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 94.76520800000071
+          },
+          {
+            "route": "graph-dm-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 104.55525000000125
+          },
+          {
+            "route": "graph-ca-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคมะเร็งปอด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งเต้านม",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งปากมดลูก",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งตับ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 115.15795900000012
+          }
+        ],
+        "combinedParsedBodiesMS": 172.09729199999856
+      },
+      "preservedEveryEntireBodyStatusAndSource": true
+    },
+    {
+      "attempt": 2,
+      "message": "Storage budget exceeded",
+      "runId": "49ec20d9-3ab9-4739-9cdd-39dff539e6d0",
+      "generationId": "26eacbca-7917-4721-964e-a35f25fa81d7",
+      "capacityKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+      "buildStartedAt": "2025-01-10T04:01:00.000Z",
+      "ledger": {
+        "cutAt": "2025-01-10T04:00:00.000Z",
+        "deadlineAt": "2025-01-10T16:00:00.000Z",
+        "acquisitionLimitMS": 7200000,
+        "buildLimitMS": 21600000,
+        "reserveLimitMS": 14400000,
+        "queueMS": 60000,
+        "acquisitionMS": 0.7380420000008598,
+        "buildMS": 110.41058399999747,
+        "cleanupMS": 23.067958999999973,
+        "reserveSpentMS": 120181.66516600002
+      },
+      "fixedBudget": {
+        "maxTimeMS": 30000,
+        "maxSourceBytes": 8388608,
+        "maxStorageBytes": 1,
+        "maxAdditionalRssBytes": 134217728,
+        "maxSerializedBytes": 8388608,
+        "maxChunkBytes": 1048576,
+        "maxPayloadBytes": 983040,
+        "maxHeavyOperations": 1
+      },
+      "resources": {
+        "elapsedMS": 128.40287499999977,
+        "peakRssBytes": 247087104,
+        "peakAdditionalRssBytes": 163856384,
+        "peakSerializedBytes": 78748,
+        "storageBytes": 1290240,
+        "peakNativeBytes": 0,
+        "observation": {
+          "actor": {
+            "pid": 21560,
+            "startedAt": 1792089957634,
+            "host": "isolated-fixture-host"
+          },
+          "attempt": "336af325-6b6d-4cf8-8f1e-527fabcac274",
+          "baseline": {
+            "at": 1792089957721,
+            "rssBytes": 83230720,
+            "method": "capacity-module-entry-process-sample"
+          },
+          "coverage": "sampled-not-complete-peak",
+          "attribution": "whole-process-includes-workers-and-all-roles",
+          "peakRssBytes": 247087104,
+          "peakAdditionalRssBytes": 163856384,
+          "samples": 435,
+          "lastAt": 1792089986040,
+          "diagnostics": {
+            "heapUsed": 77386336,
+            "external": 31436030,
+            "arrayBuffers": 27326007
+          }
+        },
+        "capacity": {
+          "policyKey": "a610ef792b92d02b984843c98e353b504778e8343fbd459786fc798e60ab3eb1",
+          "scope": "isolated-fixture",
+          "fixedLimits": [
+            {
+              "id": "fixture-host",
+              "kind": "host",
+              "apiBytes": 268435456,
+              "builderBytes": 536870912,
+              "databaseBytes": 1073741824,
+              "combinedBytes": 3221225472,
+              "diskBytes": 858993459,
+              "cpu": 4,
+              "io": {
+                "write": 500000
+              }
+            }
+          ],
+          "acceptance": "failed",
+          "targetAcceptance": "blocked",
+          "reasons": [
+            "metric-unavailable:fixture-host:cpu",
+            "metric-unavailable:fixture-host:disk",
+            "metric-unavailable:fixture-host:io:write",
+            "metric-unavailable:fixture-host:ram",
+            "metric-unavailable:fixture-host:response"
+          ],
+          "ownershipPeaks": {
+            "apiBytes": 0,
+            "builderBytes": 8388608,
+            "serializedBytes": 1048576,
+            "retainedSerializedBytes": 4283,
+            "decodedBytes": 5028,
+            "nativeHandles": 0
+          },
+          "observed": {},
+          "limitations": [
+            "workspace-and-serialized-windows-are-reservations",
+            "retained-backing-samples-are-local-and-deduplicated",
+            "native-and-heap-overlap-process-rss",
+            "sampling-is-not-peak-proof"
+          ]
+        },
+        "observationHistory": [
+          {
+            "actor": {
+              "pid": 21560,
+              "startedAt": 1792089957634,
+              "host": "isolated-fixture-host"
+            },
+            "attempt": "50427d7f-d743-494e-8743-e4687cb5696f",
+            "baseline": {
+              "at": 1792089957721,
+              "rssBytes": 83230720,
+              "method": "capacity-module-entry-process-sample"
+            },
+            "coverage": "sampled-not-complete-peak",
+            "attribution": "whole-process-includes-workers-and-all-roles",
+            "peakRssBytes": 247054336,
+            "peakAdditionalRssBytes": 163823616,
+            "samples": 191,
+            "lastAt": 1792089985715,
+            "diagnostics": {
+              "heapUsed": 59551528,
+              "external": 28676430,
+              "arrayBuffers": 24566407
+            }
+          }
+        ],
+        "failureHistory": [
+          {
+            "attempt": "50427d7f-d743-494e-8743-e4687cb5696f",
+            "actor": {
+              "pid": 21560,
+              "startedAt": 1792089957634,
+              "host": "isolated-fixture-host"
+            },
+            "name": "Error",
+            "at": 1792089985718,
+            "termination": {
+              "safe": true,
+              "proof": "all-commands-settled-and-cursors-exhausted"
+            }
+          },
+          {
+            "attempt": "336af325-6b6d-4cf8-8f1e-527fabcac274",
+            "actor": {
+              "pid": 21560,
+              "startedAt": 1792089957634,
+              "host": "isolated-fixture-host"
+            },
+            "name": "Error",
+            "at": 1792089986044,
+            "termination": {
+              "safe": true,
+              "proof": "all-commands-settled-and-cursors-exhausted"
+            }
+          }
+        ],
+        "historicalAdditionalRssMaximumBytes": 163823616,
+        "peakStorageBytes": 1290240,
+        "ledger": {
+          "transport": {
+            "backing": "57ef9996883cdd95d2eed0779113b31862fd637d2fe5c56df4672fdc7e7bb3e3",
+            "logicalBytes": 4283,
+            "allocatedBytes": 8192,
+            "bytes": 8192,
+            "coverage": "allocated-file-blocks-not-volume-peaks"
+          }
+        },
+        "storage": {
+          "coverage": "retained-collection-samples-not-volume-peaks",
+          "retainedCollectionBytes": 1204224,
+          "retainedSourceBytes": 20480,
+          "sources": [
+            {
+              "backing": "fc710f2ba1e7e4472f4d789bc268bdaa9675e2b6c917bed30834b13b8f7c5348",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            },
+            {
+              "backing": "67db9c1b672e3cf4c82f18674540965107301e9e1e065e8b34358108cfb4dcf7",
+              "logicalBytes": 4007,
+              "allocatedBytes": 4096,
+              "bytes": 4096,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            },
+            {
+              "backing": "57ef9996883cdd95d2eed0779113b31862fd637d2fe5c56df4672fdc7e7bb3e3",
+              "logicalBytes": 4283,
+              "allocatedBytes": 8192,
+              "bytes": 8192,
+              "allocationUnknown": false,
+              "coverage": "retained-file-allocation-high-water-not-volume-peaks"
+            }
+          ],
+          "sourceRetention": "producer-owned-retained-until-independent-deletion-proof",
+          "inFlightRunReservation": 65536,
+          "collections": [
+            {
+              "name": "patients_date_month_atoms",
+              "documents": 13,
+              "dataBytes": 28672,
+              "indexBytes": 139264,
+              "logicalBsonBytes": 23780,
+              "indexes": 8
+            },
+            {
+              "name": "patients_date_month_scopes",
+              "documents": 34,
+              "dataBytes": 8192,
+              "indexBytes": 40960,
+              "logicalBsonBytes": 63368,
+              "indexes": 4
+            },
+            {
+              "name": "patients_scopes",
+              "documents": 31,
+              "dataBytes": 12288,
+              "indexBytes": 24576,
+              "logicalBsonBytes": 10062,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_directory",
+              "documents": 341,
+              "dataBytes": 49152,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 221806,
+              "indexes": 2
+            },
+            {
+              "name": "patients_refresh_runs",
+              "documents": 3,
+              "dataBytes": 20480,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 57923,
+              "indexes": 1
+            },
+            {
+              "name": "patients_recovery_journal",
+              "documents": 2,
+              "dataBytes": 24576,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 32510,
+              "indexes": 1
+            },
+            {
+              "name": "patients_daily",
+              "documents": 13,
+              "dataBytes": 57344,
+              "indexBytes": 163840,
+              "logicalBsonBytes": 51460,
+              "indexes": 8
+            },
+            {
+              "name": "patients_model_control",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 4724,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_scopes",
+              "documents": 34,
+              "dataBytes": 45056,
+              "indexBytes": 61440,
+              "logicalBsonBytes": 87788,
+              "indexes": 4
+            },
+            {
+              "name": "patients_identity",
+              "documents": 24,
+              "dataBytes": 12288,
+              "indexBytes": 36864,
+              "logicalBsonBytes": 3944,
+              "indexes": 3
+            },
+            {
+              "name": "patients_bitmap_chunks",
+              "documents": 341,
+              "dataBytes": 45056,
+              "indexBytes": 53248,
+              "logicalBsonBytes": 232906,
+              "indexes": 2
+            },
+            {
+              "name": "patients_snapshots",
+              "documents": 1,
+              "dataBytes": 8192,
+              "indexBytes": 16384,
+              "logicalBsonBytes": 6072,
+              "indexes": 2
+            },
+            {
+              "name": "patients_generations",
+              "documents": 1,
+              "dataBytes": 28672,
+              "indexBytes": 20480,
+              "logicalBsonBytes": 24636,
+              "indexes": 1
+            },
+            {
+              "name": "patients_month_atoms",
+              "documents": 13,
+              "dataBytes": 16384,
+              "indexBytes": 147456,
+              "logicalBsonBytes": 30463,
+              "indexes": 8
+            }
+          ],
+          "unavailable": [
+            "database-transient-memory",
+            "aggregation-index-spill-scratch",
+            "journal-log-temp-volume-peaks"
+          ],
+          "attribution": "shared-physical-collection-allocation-once; per-generation-BSON-is-logical-and-not-added-again"
+        }
+      },
+      "after": {
+        "body": {
+          "startDate": "2023-12-31",
+          "endDate": "2025-01-08T23:59:59.999Z"
+        },
+        "responses": [
+          {
+            "route": "card",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "service_count": 16,
+                  "patient_count": 11,
+                  "expense": 2325,
+                  "hcode_count": 13,
+                  "avg_service": 1.45,
+                  "avg_expense": 211.36
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 210.28779199999917
+          },
+          {
+            "route": "bar-chart-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfPatient": 5,
+                  "avg": 1.4
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfPatient": 1,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfPatient": 2,
+                  "avg": 1
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 220.8441669999993
+          },
+          {
+            "route": "bar-chart-ex",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "qtyOfExpense": 480,
+                  "avg": 96
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "qtyOfExpense": 100,
+                  "avg": 50
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "qtyOfExpense": 1200,
+                  "avg": 600
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "qtyOfExpense": 100,
+                  "avg": 100
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "qtyOfExpense": 225,
+                  "avg": 112.5
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "qtyOfExpense": 220,
+                  "avg": 110
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 197.19779199999903
+          },
+          {
+            "route": "graph-disease-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "ทั้งหมด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13]
+                },
+                {
+                  "diseaseName": "โรคเบาหวาน",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                },
+                {
+                  "diseaseName": "โรคความดันโลหิตสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคมะเร็ง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "สุขภาพจิต",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                },
+                {
+                  "diseaseName": "โรคหัวใจและหลอดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 85.75087500000154
+          },
+          {
+            "route": "graph-dm-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "เบาหวานชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 144.75074999999924
+          },
+          {
+            "route": "graph-ca-pt",
+            "status": 200,
+            "body": {
+              "status": true,
+              "message": "success",
+              "result": [
+                {
+                  "diseaseName": "โรคมะเร็งปอด",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งเต้านม",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งปากมดลูก",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งตับ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+                },
+                {
+                  "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+                  "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+              ]
+            },
+            "sourceCutAt": "2025-01-09T16:00:00.000Z",
+            "state": "fresh",
+            "parsedBodyMS": 106.79091700000208
+          }
+        ],
+        "combinedParsedBodiesMS": 221.1939999999995
+      },
+      "preservedEveryEntireBodyStatusAndSource": true
+    }
+  ],
+  "cleanup": {
+    "removed": {
+      "removed": ["26eacbca-7917-4721-964e-a35f25fa81d7"]
+    },
+    "repeat": {
+      "removed": []
+    },
+    "controlBytes": 3222,
+    "pins": 0,
+    "occupiedSlots": 1,
+    "retainedCapacityOwners": 0,
+    "retainedSourceBackings": 3,
+    "producerOwnedSourcesAwaitIndependentDeletionProof": true
+  },
+  "maximumConcurrentBuilderAggregationOrIndexCommands": 1,
+  "releaseGates": {
+    "targetCapacity": "blocked",
+    "immutableTargetSource": "unverified",
+    "targetNativePlatform": "unverified",
+    "actualPageAndFrontend": "deferred-and-unverified",
+    "production": "not-accepted"
+  }
+}

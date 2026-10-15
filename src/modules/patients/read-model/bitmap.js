@@ -39,7 +39,7 @@ async function writeChunks({ edges, chunks, directory, daily, generationId, budg
   const cursor = edges
     .find({ generationId }, budget.options({ promoteLongs: false }))
     .sort({ setId: 1, category: 1, block: 1, offset: 1 });
-  let bitmap = new native.RoaringBitmap32();
+  let bitmap = budget.bitmap(() => new native.RoaringBitmap32());
   let current,
     startContainer,
     chunkNo = 0,
@@ -48,31 +48,43 @@ async function writeChunks({ edges, chunks, directory, daily, generationId, budg
     digest;
   async function flushChunk() {
     if (!bitmap.size) return;
+    const encodedLength = bitmap.getSerializationSizeInBytes("portable");
+    await budget.admitAdditional(encodedLength * 4 + 65536);
+    const lease = await budget.reserveSerialized(encodedLength);
     const payload = bitmap.serialize("portable");
-    budget.serialized(payload.length * 4 + 65536);
-    const document = {
-      generationId,
-      setId: current.setId,
-      category: current.category,
-      block: current.block,
-      chunkNo: chunkNo++,
-      start: startContainer * 65536,
-      end: Math.min(Number(BLOCK_SIZE), (startContainer + maxContainers) * 65536),
-      popcount: bitmap.size,
-      length: payload.length,
-      checksum: createHash("sha256").update(payload).digest("hex"),
-      versions: VERSIONS,
-      payload: new Binary(payload),
-    };
-    if (payload.length > budget.limits.maxPayloadBytes || BSON.serialize(document).length > budget.limits.maxChunkBytes)
-      throw new Error("Chunk BSON budget exceeded");
-    digest.update(directoryToken(document));
-    members += bitmap.size;
-    count += 1;
-    await chunks.insertOne(document);
-    await directory.insertOne(BSON.deserialize(directoryToken(document), { promoteLongs: false }));
-    bitmap.dispose();
-    bitmap = new native.RoaringBitmap32();
+    const release = lease.hold(payload);
+    try {
+      budget.serialized(payload.length * 4 + 65536);
+      const document = {
+        generationId,
+        setId: current.setId,
+        category: current.category,
+        block: current.block,
+        chunkNo: chunkNo++,
+        start: startContainer * 65536,
+        end: Math.min(Number(BLOCK_SIZE), (startContainer + maxContainers) * 65536),
+        popcount: bitmap.size,
+        length: payload.length,
+        checksum: createHash("sha256").update(payload).digest("hex"),
+        versions: VERSIONS,
+        payload: new Binary(payload),
+      };
+      if (
+        payload.length > budget.limits.maxPayloadBytes ||
+        BSON.serialize(document).length > budget.limits.maxChunkBytes
+      )
+        throw new Error("Chunk BSON budget exceeded");
+      digest.update(directoryToken(document));
+      members += bitmap.size;
+      count += 1;
+      await chunks.insertOne(document);
+      await directory.insertOne(BSON.deserialize(directoryToken(document), { promoteLongs: false }));
+      bitmap.dispose();
+      bitmap = budget.bitmap(() => new native.RoaringBitmap32());
+    } finally {
+      release();
+      await lease.release();
+    }
   }
   async function finishSet() {
     if (!current) return;
@@ -142,7 +154,7 @@ function decodeChunk(document, budget) {
     document.end <= document.start
   )
     throw new Error("Corrupt bitmap chunk");
-  const bitmap = native.RoaringBitmap32.deserialize(payload, "portable");
+  const bitmap = budget.bitmap(() => native.RoaringBitmap32.deserialize(payload, "portable"), document.popcount);
   if (bitmap.size !== document.popcount || bitmap.minimum() < document.start || bitmap.maximum() >= document.end) {
     bitmap.dispose();
     throw new Error("Corrupt bitmap interval or count");

@@ -653,7 +653,7 @@ async function calculateDateRange({ db, generation, selection, budget }) {
     readChunks = SETS.map(() => 0),
     readMembers = SETS.map(() => 0);
   const native = codec(),
-    bitmap = new native.RoaringBitmap32();
+    bitmap = budget.bitmap(() => new native.RoaringBitmap32());
   let current;
   function finish() {
     if (!current) return;
@@ -766,7 +766,7 @@ async function validateDateMonths({ db, generationId, budget, collation }) {
         const keyFor = (row) =>
           BSON.serialize({ block: row.chunk.block, monthStart: row.monthStart, category: row.chunk.category });
         const key = keyFor(document),
-          bitmap = new native.RoaringBitmap32();
+          bitmap = budget.bitmap(() => new native.RoaringBitmap32());
         try {
           while (document) {
             if (!key.equals(keyFor(document))) {

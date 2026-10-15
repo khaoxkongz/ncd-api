@@ -94,6 +94,56 @@ function validate(document) {
     throw new Error("Unowned or duplicated pin");
   if (!Array.isArray(document.transitions) || document.transitions.length > 16)
     throw new Error("Unbounded control transitions");
+  if (document.capacity) {
+    const owners = document.capacity.owners;
+    if (
+      !Array.isArray(owners) ||
+      owners.length > 128 ||
+      new Set(owners.map((item) => item.id)).size !== owners.length ||
+      owners.some(
+        (item) =>
+          !["live", "suspect"].includes(item.state) ||
+          !["api", "builder"].includes(item.role) ||
+          typeof item.id !== "string" ||
+          item.id.length > 128 ||
+          !Number.isSafeInteger(item.workspaceBytes) ||
+          item.workspaceBytes <= 0 ||
+          item.workspaceBytes > 512 * 1048576 ||
+          !Number.isSafeInteger(item.serializedWindowBytes) ||
+          item.serializedWindowBytes < 0 ||
+          item.serializedWindowBytes > 8 * 1048576 ||
+          !Array.isArray(item.allocations) ||
+          item.allocations.length > 130 ||
+          item.allocations.some((allocation) => !Number.isSafeInteger(allocation.bytes) || allocation.bytes < 0)
+      )
+    )
+      throw new Error("Invalid or unbounded capacity ownership");
+  }
+  if (document.retainedSourceFiles) {
+    const ledger = document.retainedSourceFiles,
+      files = ledger.files;
+    if (
+      ledger.version !== "retained-source-files-v1" ||
+      !Array.isArray(files) ||
+      files.length > 64 ||
+      new Set(files.map((item) => item.backing)).size !== files.length ||
+      files.some(
+        (item) =>
+          !/^[a-f0-9]{64}$/.test(item.backing) ||
+          !Number.isSafeInteger(item.bytes) ||
+          item.bytes < 0 ||
+          !Number.isSafeInteger(item.logicalBytes) ||
+          item.logicalBytes < 0 ||
+          item.logicalBytes > item.bytes ||
+          (item.allocatedBytes !== null &&
+            (!Number.isSafeInteger(item.allocatedBytes) ||
+              item.allocatedBytes < 0 ||
+              item.allocatedBytes > item.bytes)) ||
+          typeof item.allocationUnknown !== "boolean"
+      )
+    )
+      throw new Error("Invalid or unbounded retained source files");
+  }
 }
 
 function createControl({ db, now = () => Date.now(), worker }) {
@@ -229,7 +279,7 @@ function createControl({ db, now = () => Date.now(), worker }) {
         return { generationId, owner, run, fence: document.fence.toString(), slot: slot.index };
       });
     },
-    async guardBuild(claim, budget) {
+    async guardBuild(claim, budget, { settlement = false } = {}) {
       const document = await read(budget);
       if (
         !document.builder ||
@@ -237,7 +287,7 @@ function createControl({ db, now = () => Date.now(), worker }) {
         document.builder.run !== claim.run ||
         document.builder.generationId !== claim.generationId ||
         document.fence.toString() !== claim.fence ||
-        document.builder.leaseUntil < now()
+        (!settlement && document.builder.leaseUntil < now())
       )
         throw new Error("Stale builder fencing or lease");
       return document;

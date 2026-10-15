@@ -19,7 +19,15 @@ function instant(value) {
   return result.toISOString();
 }
 
-async function runRefresh({ builder, db, clock, request, declaredBudget, comparisonContext }) {
+async function runRefresh({
+  builder,
+  db,
+  clock,
+  request,
+  declaredBudget,
+  comparisonContext,
+  capacityKey = "unverified",
+}) {
   createBudget(declaredBudget);
   const cutAt = instant(request.cutAt);
   const cut = new Date(cutAt).getTime();
@@ -43,6 +51,7 @@ async function runRefresh({ builder, db, clock, request, declaredBudget, compari
   if (
     request.resumeRunId &&
     (!previous ||
+      (previous.capacityKey ?? "unverified") !== capacityKey ||
       !BSON.serialize(previous.budget).equals(BSON.serialize(declaredBudget)) ||
       !BSON.serialize(previous.versions).equals(BSON.serialize(VERSIONS)) ||
       !BSON.serialize({ active: previous.expectedActive }).equals(BSON.serialize({ active: request.expectedActive })))
@@ -111,6 +120,7 @@ async function runRefresh({ builder, db, clock, request, declaredBudget, compari
     runId: randomUUID(),
     ledgerRevision: 0,
     version: "full-refresh-v1",
+    capacityKey,
     versions: VERSIONS,
     budget: declaredBudget,
     status: "acquiring",
@@ -260,7 +270,7 @@ async function runRefresh({ builder, db, clock, request, declaredBudget, compari
     )
       throw new Error("Refresh source evidence buffer budget exceeded");
     const manifest = BSON.deserialize(sourceCut.manifest);
-    const evidence = sourceIdentity(sourceCut, comparisonContext, declaredBudget);
+    const evidence = sourceIdentity(sourceCut, comparisonContext, declaredBudget, capacityKey);
     if (previousEvidence && !BSON.serialize(previousEvidence).equals(BSON.serialize(evidence)))
       throw new Error("Refresh recovery source changed");
     const key = comparisonContext.trustedProducers?.[manifest.producer];

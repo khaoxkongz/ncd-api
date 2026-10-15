@@ -66,29 +66,51 @@ async function openSource(sourceCut, budget, context) {
   )
     throw new Error("Invalid source inventory");
   const handle = await fs.open(sourceCut.filename, "r");
+  let transport;
   try {
-    const stat = await handle.stat();
-    if (!stat.isFile() || stat.size !== manifest.bytes) throw new Error("Source transport integrity mismatch");
+    const stat = await handle.stat({ bigint: true });
+    if (!stat.isFile() || stat.size !== BigInt(manifest.bytes)) throw new Error("Source transport integrity mismatch");
+    const allocated = typeof stat.blocks === "bigint" && stat.blocks >= 0n ? Number(stat.blocks * 512n) : NaN;
+    const allocatedBytes = Number.isSafeInteger(allocated) ? allocated : null;
+    transport = {
+      backing: createHash("sha256")
+        .update(`${require("node:os").hostname()}:${stat.dev}:${stat.ino}`)
+        .digest("hex"),
+      logicalBytes: manifest.bytes,
+      allocatedBytes,
+      bytes: Math.max(manifest.bytes, allocatedBytes ?? 0),
+      coverage:
+        allocatedBytes === null ? "allocated-file-blocks-unavailable" : "allocated-file-blocks-not-volume-peaks",
+    };
     // Verify the signed transport before extraction; verify again during stage
     // ingestion, so edits between the two passes cannot enter baseline ETL.
     const digest = createHash("sha256");
     let offset = 0;
-    const buffer = Buffer.alloc(Math.min(65536, Math.max(1, manifest.bytes)));
-    budget.serialized(buffer.length);
-    while (offset < manifest.bytes) {
-      budget.check();
-      const { bytesRead } = await handle.read(buffer, 0, Math.min(buffer.length, manifest.bytes - offset), offset);
-      if (!bytesRead) throw new Error("Truncated source export");
-      digest.update(buffer.subarray(0, bytesRead));
-      offset += bytesRead;
+    const length = Math.min(65536, Math.max(1, manifest.bytes));
+    const lease = await budget.reserveSerialized(length);
+    const buffer = Buffer.alloc(length);
+    const release = lease.hold(buffer);
+    try {
+      budget.serialized(buffer.length);
+      while (offset < manifest.bytes) {
+        budget.check();
+        const { bytesRead } = await handle.read(buffer, 0, Math.min(buffer.length, manifest.bytes - offset), offset);
+        if (!bytesRead) throw new Error("Truncated source export");
+        digest.update(buffer.subarray(0, bytesRead));
+        offset += bytesRead;
+      }
+      if (digest.digest("hex") !== manifest.sha256) throw new Error("Source transport integrity mismatch");
+    } finally {
+      release();
+      await lease.release();
     }
-    if (digest.digest("hex") !== manifest.sha256) throw new Error("Source transport integrity mismatch");
   } catch (error) {
     await handle.close();
     throw error;
   }
   return {
     manifest,
+    transport,
     async *documents() {
       const digest = createHash("sha256");
       let offset = 0,
@@ -102,24 +124,39 @@ async function openSource(sourceCut, budget, context) {
           cursor += bytesRead;
         }
       }
-      while (offset < manifest.bytes) {
-        const header = Buffer.alloc(4);
-        await readExactly(header, offset);
-        const length = header.readInt32LE(0);
-        if (length < 5 || offset + length > manifest.bytes) throw new Error("Invalid BSON source record");
-        // Reserve the source record, decode/driver copies and one cursor batch.
-        // An oversized record rejects the full candidate; it is never skipped.
-        budget.serialized(length * 4 + 65536 + 4);
-        const buffer = Buffer.alloc(length);
-        header.copy(buffer);
-        await readExactly(buffer.subarray(4), offset + 4);
-        digest.update(buffer);
-        offset += length;
-        count += 1;
-        yield BSON.deserialize(buffer, BSON_OPTIONS);
+      const headerLease = await budget.reserveSerialized(8192);
+      const header = Buffer.alloc(4);
+      const releaseHeader = headerLease.hold(header);
+      try {
+        while (offset < manifest.bytes) {
+          await readExactly(header, offset);
+          const length = header.readInt32LE(0);
+          if (length < 5 || offset + length > manifest.bytes) throw new Error("Invalid BSON source record");
+          // Reserve the source record, decode/driver copies and one cursor batch.
+          // An oversized record rejects the full candidate; it is never skipped.
+          await budget.admitAdditional(length * 4 + 65536 + 4);
+          budget.serialized(length * 4 + 65536 + 4);
+          const lease = await budget.reserveSerialized(length);
+          const buffer = Buffer.alloc(length);
+          const release = lease.hold(buffer);
+          try {
+            header.copy(buffer);
+            await readExactly(buffer.subarray(4), offset + 4);
+            digest.update(buffer);
+            offset += length;
+            count += 1;
+            yield BSON.deserialize(buffer, BSON_OPTIONS);
+          } finally {
+            release();
+            await lease.release();
+          }
+        }
+        if (count !== manifest.records || digest.digest("hex") !== manifest.sha256)
+          throw new Error("Source changed during staging");
+      } finally {
+        releaseHeader();
+        await headerLease.release();
       }
-      if (count !== manifest.records || digest.digest("hex") !== manifest.sha256)
-        throw new Error("Source changed during staging");
     },
     close: () => handle.close(),
   };

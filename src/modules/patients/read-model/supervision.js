@@ -89,6 +89,8 @@ function createSupervision(workers = []) {
           document.builder = null;
         }
         document.pins = document.pins.filter((pin) => pin.worker !== incarnation);
+        if (document.capacity)
+          document.capacity.owners = document.capacity.owners.filter((item) => item.worker !== incarnation);
         return true;
       });
     }
