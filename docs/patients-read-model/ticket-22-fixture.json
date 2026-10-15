@@ -1,0 +1,676 @@
+{
+  "schema": "ticket22-fixture-report-v1",
+  "fixtureRevision": "full-finite-raw-v1",
+  "evidence": "isolated-local-backend-only",
+  "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+  "calculationClock": "2024-01-03T00:00:00.000Z",
+  "serverTimeZone": "UTC",
+  "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+  "complete": false,
+  "components": {
+    "patientsBar": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": true
+    },
+    "daily": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": true
+    },
+    "dictionary": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "patientDictionary": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": true
+    },
+    "hospitalDictionary": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "monthlyStored": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": true
+    },
+    "monthlyDateUtc": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "preparedScopes": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "card": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "expenseBar": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": true
+    },
+    "snapshots": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    },
+    "control": {
+      "generationId": "39af1f34-2dbe-4930-90b2-e891ace3d193",
+      "complete": false
+    }
+  },
+  "sourceBytes": 2434,
+  "sourceRecords": 10,
+  "sourceDigest": "1f372edaa0d75fae3b1ecb39daef87e16c445d19e7c223136ca55994e42f448d",
+  "sourceCutAt": "2024-01-03T00:00:00.000Z",
+  "history": {
+    "start": "2024-01-01T00:00:00.000Z",
+    "end": "2024-01-02T23:59:59.999Z"
+  },
+  "rows": 4,
+  "storedAtoms": 2,
+  "identities": 6,
+  "chunks": 17,
+  "directories": 17,
+  "indexes": [
+    {
+      "collection": "patients_generations",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_identity",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_identity",
+      "name": "generationId_1_kind_1_ordinal_1",
+      "keys": {
+        "generationId": 1,
+        "kind": 1,
+        "ordinal": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_identity",
+      "name": "patients_identity_value_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "kind": 1,
+        "originalBsonValue": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_date_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_area_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "area": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_province_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "province": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_district_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "district": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_daily",
+      "name": "patients_daily_hcode_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "hcode": 1,
+        "date": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "generationId_1_periodKind_1_periodKey_1_partitionId_1",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "periodKey": 1,
+        "partitionId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "generationId_1_rowId_1",
+      "keys": {
+        "generationId": 1,
+        "rowId": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_period_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_hcode_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "hcode": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_area_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "area": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_province_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "province": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_month_atoms",
+      "name": "patients_month_district_2beb5d2b9ac62d82",
+      "keys": {
+        "generationId": 1,
+        "periodKind": 1,
+        "district": 1,
+        "storedYear": 1,
+        "storedMonth": 1
+      },
+      "unique": false,
+      "partialFilterExpression": {
+        "graphVisible": true
+      }
+    },
+    {
+      "collection": "patients_bitmap_chunks",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_bitmap_chunks",
+      "name": "generationId_1_setId_1_category_1_block_1_chunkNo_1",
+      "keys": {
+        "generationId": 1,
+        "setId": 1,
+        "category": 1,
+        "block": 1,
+        "chunkNo": 1
+      },
+      "unique": true
+    },
+    {
+      "collection": "patients_bitmap_directory",
+      "name": "_id_",
+      "keys": {
+        "_id": 1
+      },
+      "unique": false
+    },
+    {
+      "collection": "patients_bitmap_directory",
+      "name": "generationId_1_setId_1_category_1_block_1_chunkNo_1",
+      "keys": {
+        "generationId": 1,
+        "setId": 1,
+        "category": 1,
+        "block": 1,
+        "chunkNo": 1
+      },
+      "unique": true
+    }
+  ],
+  "stages": [
+    {
+      "name": "source-staging",
+      "complete": true,
+      "elapsedMS": 35.69562500000001
+    },
+    {
+      "name": "source-type-inventory",
+      "complete": true,
+      "elapsedMS": 7.495333999999957
+    },
+    {
+      "name": "baseline-hospital-day-etl",
+      "complete": true,
+      "elapsedMS": 35.020375
+    },
+    {
+      "name": "baseline-identity-finalization",
+      "complete": true,
+      "elapsedMS": 9.478083000000026
+    },
+    {
+      "name": "daily-facts-and-original-members",
+      "complete": true,
+      "elapsedMS": 48.074208
+    },
+    {
+      "name": "expense-v1-daily-operands",
+      "complete": true,
+      "elapsedMS": 10.096249999999998
+    },
+    {
+      "name": "mongo-equivalence-dictionary",
+      "complete": true,
+      "elapsedMS": 70.63833399999999
+    },
+    {
+      "name": "portable-daily-bitmaps",
+      "complete": true,
+      "elapsedMS": 267.81791599999997
+    },
+    {
+      "name": "stored-month-atoms",
+      "complete": true,
+      "elapsedMS": 264.16654200000005
+    },
+    {
+      "name": "patients-bar-differential-validation",
+      "complete": true,
+      "elapsedMS": 37.175749999999994
+    },
+    {
+      "name": "stored-month-differential-validation",
+      "complete": true,
+      "elapsedMS": 54.5614579999999
+    }
+  ],
+  "versions": {
+    "schema": "patients-daily-and-stored-months-v1",
+    "dictionary": "mongo-equivalence-v1",
+    "codec": "roaring-2.7.0-portable",
+    "arithmetic": "expense-v1",
+    "serviceArithmetic": "baseline-services-v1"
+  },
+  "facts": {
+    "counts": [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+    ],
+    "periods": [
+      {
+        "year": 2023,
+        "month": 2
+      },
+      {
+        "year": 2023,
+        "month": 3
+      },
+      {
+        "year": 2023,
+        "month": 4
+      },
+      {
+        "year": 2023,
+        "month": 5
+      },
+      {
+        "year": 2023,
+        "month": 6
+      },
+      {
+        "year": 2023,
+        "month": 7
+      },
+      {
+        "year": 2023,
+        "month": 8
+      },
+      {
+        "year": 2023,
+        "month": 9
+      },
+      {
+        "year": 2023,
+        "month": 10
+      },
+      {
+        "year": 2023,
+        "month": 11
+      },
+      {
+        "year": 2023,
+        "month": 12
+      },
+      {
+        "year": 2024,
+        "month": 1
+      }
+    ],
+    "categories": [
+      "DM",
+      "HT",
+      "COPD",
+      "CA",
+      "PSY",
+      "HD_CVD",
+      "DM_HG",
+      "DM_CKD",
+      "DM_ACS",
+      "DM_CVA",
+      "CA_LUNG",
+      "CA_BREAST",
+      "CA_CERVICAL",
+      "CA_LIVER",
+      "CA_COLORECTAL"
+    ],
+    "source": {
+      "sourceCutAt": "2024-01-03T00:00:00.000Z",
+      "state": "fresh"
+    }
+  },
+  "http": {
+    "responses": [
+      {
+        "route": "graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        },
+        "parsedBodyElapsedMS": 53.584499999999935
+      },
+      {
+        "route": "graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            }
+          ]
+        },
+        "parsedBodyElapsedMS": 53.529415999999856
+      },
+      {
+        "route": "graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        },
+        "parsedBodyElapsedMS": 53.55412500000011
+      }
+    ],
+    "parsedBodiesElapsedMS": 53.96858300000008
+  },
+  "baselineEqual": true,
+  "repeatedBaselineEqual": true,
+  "validation": {
+    "patientsBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "categories": 6,
+      "counts": [2, 1, 1, 1, 1, 1]
+    },
+    "expenseBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "policy": "expense-v1",
+      "totals": [
+        {
+          "coefficient": "100",
+          "scale": 0
+        },
+        {
+          "coefficient": "10",
+          "scale": 0
+        },
+        {
+          "coefficient": "50",
+          "scale": 0
+        },
+        {
+          "coefficient": "60",
+          "scale": 0
+        },
+        {
+          "coefficient": "70",
+          "scale": 0
+        },
+        {
+          "coefficient": "80",
+          "scale": 0
+        }
+      ]
+    },
+    "monthlyStored": {
+      "equal": true,
+      "categories": 15,
+      "windows": 1,
+      "scope": "all-supported-stored-periods"
+    }
+  },
+  "resources": {
+    "elapsedMS": 886.9956249999999,
+    "peakRssBytes": 106545152,
+    "peakAdditionalRssBytes": 21282816,
+    "peakSerializedBytes": 103092,
+    "storageBytes": 334210,
+    "peakNativeBytes": 1344,
+    "peakStorageBytes": 448898,
+    "declared": {
+      "maxTimeMS": 30000,
+      "maxSourceBytes": 8388608,
+      "maxStorageBytes": 33554432,
+      "maxAdditionalRssBytes": 134217728,
+      "maxSerializedBytes": 8388608,
+      "maxChunkBytes": 1048576,
+      "maxPayloadBytes": 983040,
+      "maxHeavyOperations": 1
+    },
+    "productionHeadroom": "unverified",
+    "databaseMemory": "unverified"
+  },
+  "buildElapsedMS": 889.5564999999999,
+  "build": {
+    "runtime": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "clock": "2026-10-15T03:38:41.382Z",
+    "timeZone": "Asia/Bangkok"
+  },
+  "mongo": "7.0.9",
+  "limits": {
+    "activation": "blocked",
+    "frontendEvidence": "deferred",
+    "databaseMemory": "unverified",
+    "productionHeadroom": "unverified",
+    "denseLargeBlockEvidence": "unverified",
+    "spending": 0
+  }
+}

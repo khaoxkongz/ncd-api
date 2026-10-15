@@ -6,6 +6,7 @@ const { createBudget } = require("./budget");
 const { openSource } = require("./source");
 const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, ordinalParts, writeChunks } = require("./bitmap");
+const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
 const expense = require("./expense");
 
 function createBuilder({ db }) {
@@ -157,7 +158,13 @@ function createBuilder({ db }) {
                   chunks: 0,
                   cardinality: 0,
                   directorySha256: createHash("sha256").digest("hex"),
-                  operandState: !Object.hasOwn(summary, field) ? "missing" : summary[field] === null ? "null" : "array",
+                  operandState: !Object.hasOwn(summary, field)
+                    ? "missing"
+                    : summary[field] === null
+                      ? "null"
+                      : Array.isArray(summary[field])
+                        ? "array"
+                        : "scalar",
                 };
                 delete facts[field];
               }
@@ -172,7 +179,14 @@ function createBuilder({ db }) {
           for (const category of CATEGORIES) {
             const cursor = summaries.aggregate(
               [
-                { $project: { _id: 0, rowId: "$modelRowId", value: { $setUnion: [`$${category.field}`] } } },
+                {
+                  $project: {
+                    _id: 0,
+                    rowId: "$modelRowId",
+                    value:
+                      CATEGORIES.indexOf(category) < 6 ? { $setUnion: [`$${category.field}`] } : `$${category.field}`,
+                  },
+                },
                 { $unwind: "$value" },
               ],
               options({ ...BSON_OPTIONS })
@@ -329,6 +343,20 @@ function createBuilder({ db }) {
             { unique: true }
           );
         });
+        let storedAtoms;
+        await stage("stored-month-atoms", async () => {
+          storedAtoms = await buildStoredMonths({
+            db,
+            summaries,
+            edges,
+            generationId,
+            prefix,
+            budget,
+            collation,
+            indexSuffix,
+            measureStorage,
+          });
+        });
         const rowCount = await daily.countDocuments({ generationId }, options());
         const chunkCount = await chunks.countDocuments({ generationId }, options());
         const indexes = [];
@@ -340,6 +368,7 @@ function createBuilder({ db }) {
               keys: index.key,
               unique: index.unique ?? false,
               ...(index.collation ? { collation: index.collation } : {}),
+              ...(index.partialFilterExpression ? { partialFilterExpression: index.partialFilterExpression } : {}),
             });
         }
         const component = (complete = false) => ({ generationId, complete });
@@ -356,7 +385,7 @@ function createBuilder({ db }) {
             dictionary: component(),
             patientDictionary: component(true),
             hospitalDictionary: component(),
-            monthlyStored: component(),
+            monthlyStored: component(true),
             monthlyDateUtc: component(),
             preparedScopes: component(),
             card: component(),
@@ -367,6 +396,7 @@ function createBuilder({ db }) {
           inventory: {
             generationId,
             rows: rowCount,
+            storedAtoms,
             identities: identityCount,
             chunks: chunkCount,
             directories: chunkCount,
@@ -467,6 +497,16 @@ function createBuilder({ db }) {
             policy: expense.VERSION,
             totals: expenseReference,
           };
+        });
+        await stage("stored-month-differential-validation", async () => {
+          report.validation.monthlyStored = await validateStoredMonths({
+            db,
+            summaries,
+            generationId,
+            budget,
+            collation,
+            clock: new Date(manifest.sourceCutAt),
+          });
         });
         for (const collection of [raw, summaries, values, edges]) await collection.drop();
         await measureStorage();
