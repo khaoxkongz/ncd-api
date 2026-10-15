@@ -7,6 +7,7 @@ const { openSource } = require("./source");
 const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, ordinalParts, writeChunks } = require("./bitmap");
 const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
+const expense = require("./expense");
 
 function createBuilder({ db }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
@@ -70,6 +71,8 @@ function createBuilder({ db }) {
           for await (const document of source.documents()) await raw.insertOne(document);
         });
         const typeInventory = [];
+        const expenseTypes = new Map();
+        const expenseReference = Array(6).fill(expense.ZERO);
         await stage("source-type-inventory", async () => {
           const cursor = raw.aggregate(
             [
@@ -187,6 +190,50 @@ function createBuilder({ db }) {
             } finally {
               await cursor.close();
             }
+          }
+        });
+        await stage("expense-v1-daily-operands", async () => {
+          // A one-row accumulator retains the baseline $group/$sum numeric
+          // and ignored-operand behavior, including arrays and sparse fields.
+          const cursor = summaries.aggregate(
+            [
+              {
+                $group: {
+                  _id: "$modelRowId",
+                  ...Object.fromEntries(
+                    CATEGORIES.slice(0, 6).flatMap(({ expense: field }, index) => [
+                      [field, { $sum: `$${field}` }],
+                      [`kind${index}`, { $first: { $type: `$${field}` } }],
+                    ])
+                  ),
+                },
+              },
+            ],
+            options({ ...BSON_OPTIONS })
+          );
+          try {
+            for await (const row of cursor) {
+              budget.serialized(BSON.serialize(row).length * 4 + 65536);
+              const operands = CATEGORIES.slice(0, 6).map(({ expense: field }, index) => {
+                const kind = row[`kind${index}`];
+                expenseTypes.set(kind, (expenseTypes.get(kind) ?? 0) + 1);
+                const value = expense.fromOperand(row[field]);
+                expenseReference[index] = expense.add(expenseReference[index], value);
+                return value;
+              });
+              await daily.updateOne(
+                { generationId, rowId: row._id },
+                {
+                  $set: {
+                    expenseVersion: expense.VERSION,
+                    expenses: operands,
+                    expenseSha256: expense.checksum(row._id, operands),
+                  },
+                }
+              );
+            }
+          } finally {
+            await cursor.close();
           }
         });
         let identityCount = 0,
@@ -329,7 +376,7 @@ function createBuilder({ db }) {
             monthlyDateUtc: component(),
             preparedScopes: component(),
             card: component(),
-            expenseBar: component(),
+            expenseBar: component(true),
             snapshots: component(),
             control: component(),
           },
@@ -343,6 +390,7 @@ function createBuilder({ db }) {
             indexedLookups,
             exactLookups,
             typeInventory,
+            expense: { policy: expense.VERSION, runtime: process.version, bsonKinds: Object.fromEntries(expenseTypes) },
             indexes,
             stages,
           },
@@ -420,6 +468,21 @@ function createBuilder({ db }) {
           }
           report.validation = {
             patientsBar: { equal: true, scope: "full-supported-history", categories: 6, counts: expectedCounts },
+          };
+          for (const [index, value] of expenseReference.entries()) {
+            if (
+              value.coefficient !== facts.expenseTotals[index].coefficient ||
+              value.scale !== facts.expenseTotals[index].scale
+            )
+              throw new Error("Exact expense range validation failed");
+            expense.roundedNumber(value);
+            if (facts.counts[index] > 0) expense.roundedNumber(value, facts.counts[index]);
+          }
+          report.validation.expenseBar = {
+            equal: true,
+            scope: "full-supported-history",
+            policy: expense.VERSION,
+            totals: expenseReference,
           };
         });
         await stage("stored-month-differential-validation", async () => {
