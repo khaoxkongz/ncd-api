@@ -266,6 +266,7 @@ it("keeps local clock windows and graph snapshot routing independent of request 
           {},
           { startDate: "wrong", endDate: "wrong", year: 1900, area: null },
           { area: false, province: 0, district: null, hcode: "" },
+          { area: { $eq: "A" } },
         ])
           expect(await graphs(optimized, body), `${clock}/${timeZone}`).toEqual(reference);
         const snapshots = await graphs(optimized, { area: "", province: "", district: "", hcode: "" });
@@ -310,7 +311,7 @@ it("fails changed monthly inventories and chunks as 503, removes settled work, a
     app = await startApplication({ db: local.db, generationId: candidate.generationId, clock });
     const reader = createReader({ db: local.db, generationId: candidate.generationId, validationOnly: true });
     const attempt = (extra = {}) =>
-      reader.read({ ...context, ...extra }, ({ monthFacts }) => monthFacts({ area: "A" }, periods));
+      reader.read({ ...context, ...extra }, ({ monthFacts }) => monthFacts({ area: "A", hcode: "H" }, periods));
     const settled = await Promise.allSettled([
       attempt(),
       attempt({ signal: AbortSignal.abort() }),
@@ -347,7 +348,7 @@ it("fails changed monthly inventories and chunks as 503, removes settled work, a
       await fault.apply();
       try {
         await expect(attempt()).rejects.toThrow();
-        expect((await graphs(app)).map(({ status, body }) => ({ status, body }))).toEqual(
+        expect((await graphs(app, { area: "A", hcode: "H" })).map(({ status, body }) => ({ status, body }))).toEqual(
           routes.map(() => ({ status: 503, body: { status: false, message: "Read model unavailable" } }))
         );
       } finally {

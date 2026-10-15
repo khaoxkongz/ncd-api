@@ -7,6 +7,7 @@ const { openSource } = require("./source");
 const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, ordinalParts, writeChunks } = require("./bitmap");
 const { buildStoredMonths, validateStoredMonths } = require("./stored-months");
+const { buildPreparedScopes, validatePreparedScopes } = require("./prepared-scopes");
 const expense = require("./expense");
 const { buildDailyCard, validateDailyCard } = require("./daily-card");
 
@@ -344,10 +345,13 @@ function createBuilder({ db }) {
               { generationId: 1, [field]: 1, date: 1 },
               { collation, name: `patients_daily_${field}_${indexSuffix}` }
             );
-          await chunks.createIndex({ generationId: 1, setId: 1, category: 1, block: 1, chunkNo: 1 }, { unique: true });
+          await chunks.createIndex(
+            { generationId: 1, setId: 1, category: 1, block: 1, chunkNo: 1 },
+            { unique: true, collation, name: `patients_chunks_${indexSuffix}` }
+          );
           await directory.createIndex(
             { generationId: 1, setId: 1, category: 1, block: 1, chunkNo: 1 },
-            { unique: true }
+            { unique: true, collation, name: `patients_directory_${indexSuffix}` }
           );
         });
         let storedAtoms;
@@ -355,6 +359,20 @@ function createBuilder({ db }) {
           storedAtoms = await buildStoredMonths({
             db,
             summaries,
+            edges,
+            generationId,
+            prefix,
+            budget,
+            collation,
+            indexSuffix,
+            measureStorage,
+          });
+        });
+        let preparedInventory;
+        await stage("prepared-stored-month-scopes", async () => {
+          preparedInventory = await buildPreparedScopes({
+            db,
+            daily,
             edges,
             generationId,
             prefix,
@@ -395,6 +413,7 @@ function createBuilder({ db }) {
             monthlyStored: component(true),
             monthlyDateUtc: component(),
             preparedScopes: component(),
+            preparedStored: component(true),
             card: component(true),
             expenseBar: component(true),
             snapshots: component(),
@@ -404,6 +423,7 @@ function createBuilder({ db }) {
             generationId,
             rows: rowCount,
             storedAtoms,
+            ...preparedInventory,
             identities: identityCount,
             chunks: chunkCount,
             directories: chunkCount,
@@ -508,6 +528,16 @@ function createBuilder({ db }) {
         });
         await stage("stored-month-differential-validation", async () => {
           report.validation.monthlyStored = await validateStoredMonths({
+            db,
+            summaries,
+            generationId,
+            budget,
+            collation,
+            clock: new Date(manifest.sourceCutAt),
+          });
+        });
+        await stage("prepared-stored-month-differential-validation", async () => {
+          report.validation.preparedStored = await validatePreparedScopes({
             db,
             summaries,
             generationId,
