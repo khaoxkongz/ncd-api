@@ -27,7 +27,7 @@ async function readPatientsBar(reader, body) {
   } catch {
     // Preserve the existing service's omitted-result input-coercion response.
     // These are validation semantics before any model read is attempted.
-    return undefined;
+    return { result: undefined };
   }
   // Keep the exact repository's string interpolation, inclusive dates and
   // independent truthy predicates. In particular, operator-valued predicates
@@ -43,7 +43,7 @@ async function readPatientsBar(reader, body) {
     } catch {
       // The legacy repository promises reject before its try block for this
       // input; the existing service applies all six explicit zero defaults.
-      return present({ counts: [0, 0, 0, 0, 0, 0], services: [0, 0, 0, 0, 0, 0] });
+      return { result: present({ counts: [0, 0, 0, 0, 0, 0], services: [0, 0, 0, 0, 0, 0] }) };
     }
   }
   try {
@@ -58,7 +58,8 @@ async function readPatientsBar(reader, body) {
       },
       async ({ rangeFacts, snapshot: selectedSnapshot }) => {
         if (snapshot) return selectedSnapshot("patients-bar");
-        return present(await rangeFacts(selection));
+        const facts = await rangeFacts(selection);
+        return { result: present(facts), source: facts.source };
       }
     );
   } catch {
@@ -66,4 +67,4 @@ async function readPatientsBar(reader, body) {
   }
 }
 
-module.exports = { readPatientsBar };
+module.exports = { readPatientsBar, present };

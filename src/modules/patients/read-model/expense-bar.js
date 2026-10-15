@@ -23,7 +23,7 @@ async function readExpenseBar(reader, body) {
       body.district == "" &&
       body.hcode == "";
   } catch {
-    return undefined;
+    return { result: undefined };
   }
   if (!snapshot) {
     try {
@@ -35,7 +35,7 @@ async function readExpenseBar(reader, body) {
       };
     } catch {
       // Preserve the existing service defaults for pre-read coercion errors.
-      return present({ counts: [0, 0, 0, 0, 0, 0], expenseTotals: Array(6).fill(ZERO) });
+      return { result: present({ counts: [0, 0, 0, 0, 0, 0], expenseTotals: Array(6).fill(ZERO) }) };
     }
   }
   try {
@@ -50,7 +50,8 @@ async function readExpenseBar(reader, body) {
       },
       async ({ rangeFacts, snapshot: selectedSnapshot }) => {
         if (snapshot) return selectedSnapshot("expense-bar");
-        return present(await rangeFacts(selection));
+        const facts = await rangeFacts(selection);
+        return { result: present(facts), source: facts.source };
       }
     );
   } catch {
@@ -58,4 +59,4 @@ async function readExpenseBar(reader, body) {
   }
 }
 
-module.exports = { readExpenseBar };
+module.exports = { readExpenseBar, present };

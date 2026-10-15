@@ -51,12 +51,15 @@ async function readGraph(reader, graph, body) {
         backendMode: "candidate-validation",
         timeoutMS: 60000,
       },
-      async ({ monthFacts, snapshot: selectedSnapshot }) =>
-        snapshot ? selectedSnapshot(`${graph}-patients`) : present(graph, await monthFacts(scope, storedPeriods(clock)))
+      async ({ monthFacts, snapshot: selectedSnapshot }) => {
+        if (snapshot) return selectedSnapshot(`${graph}-patients`);
+        const facts = await monthFacts(scope, storedPeriods(clock));
+        return { result: present(graph, facts), source: facts.source };
+      }
     );
   } catch {
     throw new ReadModelUnavailableError();
   }
 }
 
-module.exports = { readGraph };
+module.exports = { readGraph, present };

@@ -8,6 +8,7 @@ async function startApplication({
   sourceRoot = path.resolve(__dirname, "../../src"),
   clock = "2024-01-03T00:00:00.000Z",
   timeZone = "UTC",
+  responseHeaders = {},
 }) {
   sourceRoot = require("node:fs").realpathSync(sourceRoot);
   const uri = new URL(process.env.PATIENTS_TEST_MONGO_URI);
@@ -30,6 +31,7 @@ async function startApplication({
       CID_HASH_SECRET_KEY: "synthetic-raw-fixture-only",
       PATIENTS_APPLICATION_SOURCE: sourceRoot,
       PATIENTS_APPLICATION_CLOCK: clock,
+      PATIENTS_APPLICATION_RESPONSE_HEADERS: JSON.stringify(responseHeaders),
       ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
     },
   });

@@ -259,6 +259,7 @@ it("keeps baseline ignored expense values and empty memberships while rejecting 
       expect((await post(emptyApp, "bar-chart-ex")).body.result).toEqual(
         LABELS.map((diseaseName) => ({ diseaseName, qtyOfExpense: 0, avg: 0 }))
       );
+      await connection.db.collection("patients_snapshots").deleteMany({ generationId: report.generationId });
       expect(
         await post(emptyApp, "bar-chart-ex", {
           startDate: "2024-01-07",
