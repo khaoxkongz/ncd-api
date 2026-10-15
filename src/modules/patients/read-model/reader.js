@@ -2,6 +2,7 @@ const { BSON } = require("mongodb");
 const { createBudget } = require("./budget");
 const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, directoryToken, decodeChunk } = require("./bitmap");
+const expense = require("./expense");
 
 function compatible(versions) {
   return (
@@ -43,6 +44,11 @@ function createReader({ db, generationId, validationOnly = false }) {
         !compatible(generation.versions)
       )
         throw new Error("Incomplete or incompatible Patients Bar component");
+      if (
+        requestContext.route.startsWith("expense-bar/") &&
+        (!generation.components.expenseBar?.complete || generation.components.expenseBar.generationId !== generationId)
+      )
+        throw new Error("Incomplete or incompatible expense Bar component");
       const collation = generation.collation;
       const options = (budget, extra = {}) => budget.options({ collation, ...extra });
       async function calculateRange(selection, budget) {
@@ -174,13 +180,38 @@ function createReader({ db, generationId, validationOnly = false }) {
           await cursor.close();
           for (const bitmap of bitmaps) bitmap.dispose();
         }
+        const expenseTotals = Array(6).fill(expense.ZERO);
+        const expenseCursor = daily.find(
+          match,
+          options(budget, { projection: { _id: 0, rowId: 1, expenses: 1, expenseVersion: 1, expenseSha256: 1 } })
+        );
+        let expenseRows = 0;
+        try {
+          for await (const row of expenseCursor) {
+            budget.serialized(BSON.serialize(row).length * 4 + 65536);
+            if (
+              row.expenseVersion !== expense.VERSION ||
+              !Array.isArray(row.expenses) ||
+              row.expenses.length !== 6 ||
+              row.expenseSha256 !== expense.checksum(row.rowId, row.expenses)
+            )
+              throw new Error("Missing or incompatible exact expense facts");
+            for (let index = 0; index < 6; index += 1)
+              expenseTotals[index] = expense.add(expenseTotals[index], row.expenses[index]);
+            expenseRows += 1;
+          }
+          if (expenseRows !== matchedRows) throw new Error("Exact expense row inventory changed");
+        } finally {
+          await expenseCursor.close();
+        }
         return Object.freeze({
           counts,
           services,
+          expenseTotals: Object.freeze(expenseTotals),
           matchedRows,
           empty: matchedRows === 0,
-          // Original operands stream once per consumer inside the read callback.
-          // #20 can apply expense-v1 without narrowing BSON or materializing rows.
+          // Original BSON operands remain available for validation/audit;
+          // arithmetic uses the canonical unrounded expenseTotals above.
           expenseOperands: {
             async *[Symbol.asyncIterator]() {
               const cursor = daily.find(
