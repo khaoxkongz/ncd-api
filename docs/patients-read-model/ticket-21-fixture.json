@@ -1,0 +1,332 @@
+{
+  "schema": "ticket21-fixture-report-v1",
+  "fixtureRevision": "full-finite-raw-v1",
+  "baselineRevision": "0a1934df24b1b66a2edbe2cb3e8235a7073932a7",
+  "evidence": "isolated-local-only",
+  "sourceBytes": 2434,
+  "sourceRecords": 10,
+  "sourceDigest": "1f372edaa0d75fae3b1ecb39daef87e16c445d19e7c223136ca55994e42f448d",
+  "sourceCutAt": "2024-01-03T00:00:00.000Z",
+  "history": {
+    "start": "2024-01-01T00:00:00.000Z",
+    "end": "2024-01-02T23:59:59.999Z"
+  },
+  "rows": 4,
+  "inventories": {
+    "identities": 8,
+    "chunks": 25,
+    "directories": 25,
+    "storedAtoms": 2
+  },
+  "versions": {
+    "schema": "patients-daily-and-stored-months-v1",
+    "dictionary": "mongo-equivalence-v1",
+    "codec": "roaring-2.7.0-portable",
+    "arithmetic": "expense-v1",
+    "serviceArithmetic": "baseline-services-v1",
+    "card": "daily-card-v1"
+  },
+  "counts": [2, 1, 1, 1, 1, 1],
+  "services": [4, 1, 1, 1, 1, 1],
+  "card": {
+    "patients": 6,
+    "hospitals": 2,
+    "services": 9,
+    "serviceError": false
+  },
+  "candidate": {
+    "state": "candidate-partial",
+    "complete": false,
+    "components": {
+      "patientsBar": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "daily": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "dictionary": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "patientDictionary": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "hospitalDictionary": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "monthlyStored": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "monthlyDateUtc": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": false
+      },
+      "preparedScopes": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": false
+      },
+      "card": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "expenseBar": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": true
+      },
+      "snapshots": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": false
+      },
+      "control": {
+        "generationId": "ff5e0730-f7b3-4bae-8e92-883fdf2319e1",
+        "complete": false
+      }
+    }
+  },
+  "exactExpenseTotals": [
+    {
+      "coefficient": "100",
+      "scale": 0
+    },
+    {
+      "coefficient": "10",
+      "scale": 0
+    },
+    {
+      "coefficient": "50",
+      "scale": 0
+    },
+    {
+      "coefficient": "60",
+      "scale": 0
+    },
+    {
+      "coefficient": "70",
+      "scale": 0
+    },
+    {
+      "coefficient": "80",
+      "scale": 0
+    }
+  ],
+  "expenseInventory": {
+    "policy": "expense-v1",
+    "runtime": "v24.22.0",
+    "bsonKinds": {
+      "double": 8,
+      "int": 16
+    }
+  },
+  "validation": {
+    "patientsBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "categories": 6,
+      "counts": [2, 1, 1, 1, 1, 1]
+    },
+    "expenseBar": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "policy": "expense-v1",
+      "totals": [
+        {
+          "coefficient": "100",
+          "scale": 0
+        },
+        {
+          "coefficient": "10",
+          "scale": 0
+        },
+        {
+          "coefficient": "50",
+          "scale": 0
+        },
+        {
+          "coefficient": "60",
+          "scale": 0
+        },
+        {
+          "coefficient": "70",
+          "scale": 0
+        },
+        {
+          "coefficient": "80",
+          "scale": 0
+        }
+      ]
+    },
+    "card": {
+      "equal": true,
+      "scope": "full-supported-history",
+      "patientCount": 6,
+      "hospitalCount": 2,
+      "baselineError": false,
+      "policy": "expense-v1"
+    },
+    "monthlyStored": {
+      "equal": true,
+      "categories": 15,
+      "windows": 1,
+      "scope": "all-supported-stored-periods"
+    }
+  },
+  "http": [
+    {
+      "route": "/ncds_api/api/v1/card",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-02"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 9,
+            "patient_count": 6,
+            "expense": 370,
+            "hcode_count": 2,
+            "avg_service": 1.5,
+            "avg_expense": 61.67
+          }
+        ]
+      },
+      "parsedBodyElapsedMS": 70.01333399999999
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-pt",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-02"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 2,
+            "avg": 2
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 1,
+            "avg": 1
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 1,
+            "avg": 1
+          }
+        ]
+      },
+      "parsedBodyElapsedMS": 14.534833000000162
+    },
+    {
+      "route": "/ncds_api/api/v1/bar-chart-ex",
+      "request": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-02"
+      },
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 100,
+            "avg": 50
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 10,
+            "avg": 10
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 50,
+            "avg": 50
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 60,
+            "avg": 60
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 70,
+            "avg": 70
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 80,
+            "avg": 80
+          }
+        ]
+      },
+      "parsedBodyElapsedMS": 13.638584000000037
+    }
+  ],
+  "resources": {
+    "elapsedMS": 1000.799792,
+    "peakRssBytes": 109445120,
+    "peakAdditionalRssBytes": 24592384,
+    "peakSerializedBytes": 104004,
+    "storageBytes": 334210,
+    "peakNativeBytes": 2624,
+    "peakStorageBytes": 469378,
+    "declared": {
+      "maxTimeMS": 30000,
+      "maxSourceBytes": 8388608,
+      "maxStorageBytes": 33554432,
+      "maxAdditionalRssBytes": 134217728,
+      "maxSerializedBytes": 8388608,
+      "maxChunkBytes": 1048576,
+      "maxPayloadBytes": 983040,
+      "maxHeavyOperations": 1
+    },
+    "productionHeadroom": "unverified",
+    "databaseMemory": "unverified"
+  },
+  "buildElapsedMS": 1003.3619999999999,
+  "build": {
+    "runtime": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "clock": "2026-10-15T03:46:08.520Z",
+    "timeZone": "Asia/Bangkok"
+  },
+  "mongo": "7.0.9",
+  "limits": {
+    "activation": "blocked",
+    "frontendEvidence": "deferred",
+    "databaseMemory": "unverified",
+    "productionHeadroom": "unverified",
+    "spending": 0
+  }
+}
