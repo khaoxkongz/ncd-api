@@ -24,7 +24,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
   if (!db) throw new Error("An explicit Mongo adapter is required");
   const rawDb = unwrapDb(db);
   db = trackedDb(rawDb);
-  const control = createControl({ db: rawDb });
+  const control = createControl({ db: rawDb, worker });
   const coordinationBudget = () => createBudget({ maxTimeMS: 60000 }, { request: true });
   const inFlight = [];
   return Object.freeze({

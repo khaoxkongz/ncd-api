@@ -23,6 +23,9 @@ async function openTransport() {
     sockets.add(downstream);
     sockets.add(upstream);
     let input = Buffer.alloc(0),
+      output = Buffer.alloc(0),
+      replacement,
+      requestHeld,
       held = false,
       lost = false;
     const buffered = [];
@@ -49,18 +52,29 @@ async function openTransport() {
         if (rule && command && rule.predicate(command)) {
           const action = rule.action;
           rule = null;
-          held = true;
+          held = typeof action === "object" ? action.hold !== false : true;
           lost = action === "lose";
+          if (typeof action === "object" && action.reply)
+            replacement = { responseTo: message.readInt32LE(4), reply: action.reply };
           release = () => {
             held = false;
+            if (requestHeld) {
+              upstream.write(requestHeld);
+              requestHeld = null;
+            }
             for (const bytes of buffered.splice(0)) downstream.write(bytes);
           };
           reached({ commandName: Object.keys(command)[0], release });
+          if (action === "hold-request") {
+            held = false;
+            requestHeld = Buffer.from(message);
+            continue;
+          }
         }
         upstream.write(message);
       }
     });
-    upstream.on("data", (chunk) => {
+    function forward(chunk) {
       if (lost) {
         downstream.destroy();
         upstream.destroy();
@@ -73,6 +87,34 @@ async function openTransport() {
           stop();
         }
       } else downstream.write(chunk);
+    }
+    upstream.on("data", (chunk) => {
+      if (!replacement) return forward(chunk);
+      output = Buffer.concat([output, chunk]);
+      if (output.length > 8 * 1048576) {
+        failure = new Error("Fixture response buffer limit");
+        stop();
+        return;
+      }
+      while (output.length >= 4 && output.length >= output.readInt32LE(0)) {
+        const size = output.readInt32LE(0);
+        if (size < 21) return stop();
+        let packet = output.subarray(0, size);
+        output = output.subarray(size);
+        if (replacement && packet.readInt32LE(8) === replacement.responseTo) {
+          // Fault the real command's reply at the wire boundary. The actual
+          // driver parses the error; no model collaborator is replaced.
+          const bson = BSON.serialize(replacement.reply);
+          const rewritten = Buffer.alloc(21 + bson.length);
+          packet.copy(rewritten, 0, 0, 16);
+          rewritten.writeInt32LE(rewritten.length, 0);
+          rewritten.writeInt32LE(2013, 12);
+          bson.copy(rewritten, 21);
+          packet = rewritten;
+          replacement = null;
+        }
+        forward(packet);
+      }
     });
     const stop = () => {
       downstream.destroy();
@@ -82,7 +124,9 @@ async function openTransport() {
     };
     downstream.on("error", stop);
     upstream.on("error", stop);
-    downstream.on("close", stop);
+    downstream.on("close", () => {
+      if (!requestHeld) stop();
+    });
     upstream.on("close", stop);
   });
   server.listen(0, "127.0.0.1");
