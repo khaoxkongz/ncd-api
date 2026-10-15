@@ -1,0 +1,1053 @@
+{
+  "schema": "ticket26-fixture-report-v1",
+  "evidence": "isolated-local-real-http-mongo-wire-publication",
+  "mongo": "7.0.9",
+  "calculationClock": "2024-01-11T00:00:00.000Z",
+  "request": {
+    "startDate": "2024-01-07",
+    "endDate": "2024-01-11",
+    "area": "",
+    "province": "",
+    "district": "",
+    "hcode": ""
+  },
+  "candidates": [
+    {
+      "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+      "complete": true,
+      "state": "ready",
+      "sourceCutAt": "2024-01-09T05:00:00.000Z",
+      "records": 10,
+      "seal": "7c36e9e9d013e1d2cce6c12b886077cb78b9ee4cec58e3f3222ddfac74ae6165",
+      "components": {
+        "patientsBar": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "daily": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "dictionary": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "patientDictionary": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "hospitalDictionary": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "monthlyStored": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "monthlyDateUtc": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "preparedDateUtc": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "preparedScopes": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "preparedStored": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "card": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "expenseBar": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "snapshots": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        },
+        "control": {
+          "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+          "complete": true
+        }
+      },
+      "collections": {
+        "patients_identity": {
+          "count": 8,
+          "sha256": "316a0fe9018380978cb42a215cc004523274500a4be6856cb871712a372f28e9"
+        },
+        "patients_daily": {
+          "count": 4,
+          "sha256": "edcc3674fa495ed8b53980fe1da05f0160a547127e8b79dea48280a2bb9264a2"
+        },
+        "patients_month_atoms": {
+          "count": 2,
+          "sha256": "7f18f96afa158cfdfb8242949492edb49efab8d3f2fa4352a4f9fef0b7f1f04a"
+        },
+        "patients_scopes": {
+          "count": 8,
+          "sha256": "2e44effcb26d3990ae2a6afbe17bd39b87e4f1fcdbdaf165d3d119d1e0c8d224"
+        },
+        "patients_month_scopes": {
+          "count": 8,
+          "sha256": "a335e0008261cbb2701cd5799bb27e34672131eaeb70d66c1cad6fad545c28c8"
+        },
+        "patients_date_month_atoms": {
+          "count": 2,
+          "sha256": "5721442db162e747e78eea433877996c31ebcb76bd130fe159fe34d0e3343693"
+        },
+        "patients_date_month_scopes": {
+          "count": 8,
+          "sha256": "e54b7fd0b510b03e5a3f5e0562bde00288a41ce4647b00d49f179c54b8192c7d"
+        },
+        "patients_bitmap_chunks": {
+          "count": 123,
+          "sha256": "b1f2c43bdf562e5d2430a280625c2833e94d4bfe8b39ddd91195a40a62dc91e2"
+        },
+        "patients_bitmap_directory": {
+          "count": 123,
+          "sha256": "c42b7fa08cf08661042a1b11cf399c5e0b7cbcc0d99cf7486e606ecdcd47a75e"
+        },
+        "patients_snapshots": {
+          "count": 1,
+          "sha256": "dd18858164404dc8f5cf92e9ab5c5beadfbd51d0ef5472a53250bafd1a8c564c"
+        }
+      },
+      "build": {
+        "runtime": "v24.22.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "driver": "6.10.0",
+        "codec": "2.7.0",
+        "clock": "2026-10-15T07:45:14.263Z",
+        "timeZone": "Asia/Bangkok"
+      },
+      "resources": {
+        "elapsedMS": 2558.284666,
+        "peakRssBytes": 127320064,
+        "peakAdditionalRssBytes": 41582592,
+        "peakSerializedBytes": 124704,
+        "storageBytes": 575874,
+        "peakNativeBytes": 24208,
+        "peakStorageBytes": 698754,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      }
+    },
+    {
+      "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+      "complete": true,
+      "state": "ready",
+      "sourceCutAt": "2024-01-10T00:00:00.000Z",
+      "records": 11,
+      "seal": "5ca8c8642f506aa04aa27595233a3535d43d7fa3bdaa0ceb9e72be1560b866a5",
+      "components": {
+        "patientsBar": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "daily": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "dictionary": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "patientDictionary": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "hospitalDictionary": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "monthlyStored": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "monthlyDateUtc": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "preparedDateUtc": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "preparedScopes": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "preparedStored": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "card": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "expenseBar": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "snapshots": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        },
+        "control": {
+          "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+          "complete": true
+        }
+      },
+      "collections": {
+        "patients_identity": {
+          "count": 9,
+          "sha256": "cfe2cbd0426afca8ad17442099b21826443475e94d2b100bc71838b8a2474021"
+        },
+        "patients_daily": {
+          "count": 4,
+          "sha256": "38cb9b4b8805c2f938715a9c22275b913ec45b1d20763ed569298fdff387961f"
+        },
+        "patients_month_atoms": {
+          "count": 2,
+          "sha256": "858746e03d5d59752b38dfb4c4eacde1f8625abc5838769510fbe2a1c85ef6c3"
+        },
+        "patients_scopes": {
+          "count": 8,
+          "sha256": "3555f09e15bf15c451d0044707cf389192d6bb29d3acf13b4fde307d7e2e5c2e"
+        },
+        "patients_month_scopes": {
+          "count": 8,
+          "sha256": "b22942f7676aa7f1674b5a864f1b8c837ace174148c4990f7f37c3a620a3b8e8"
+        },
+        "patients_date_month_atoms": {
+          "count": 2,
+          "sha256": "b869faff52d3357f8c37b693af680593ff100227dffb204934ca20893167d36c"
+        },
+        "patients_date_month_scopes": {
+          "count": 8,
+          "sha256": "c5dc8c140bd740ffd01cd3f87c39612d7cc9f451cd7daf4dc8f583855ca7092c"
+        },
+        "patients_bitmap_chunks": {
+          "count": 123,
+          "sha256": "ea5359bfbcd735b0818c1f858bd44676db1116b930cf13f3c0b6e7b4ebbe9a7e"
+        },
+        "patients_bitmap_directory": {
+          "count": 123,
+          "sha256": "d1166e1429f66353031cd9557e0b6cc84cb8201efae81478b1e902d92406ba44"
+        },
+        "patients_snapshots": {
+          "count": 1,
+          "sha256": "2a4e5a980db88836bdfc0c688d86a42f0c818fd072eaf1d41c892ad57cd839d5"
+        }
+      },
+      "build": {
+        "runtime": "v24.22.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "driver": "6.10.0",
+        "codec": "2.7.0",
+        "clock": "2026-10-15T07:45:16.855Z",
+        "timeZone": "Asia/Bangkok"
+      },
+      "resources": {
+        "elapsedMS": 1939.0137079999995,
+        "peakRssBytes": 161202176,
+        "peakAdditionalRssBytes": 10321920,
+        "peakSerializedBytes": 124704,
+        "storageBytes": 576153,
+        "peakNativeBytes": 38064,
+        "peakStorageBytes": 711321,
+        "declared": {
+          "maxTimeMS": 30000,
+          "maxSourceBytes": 8388608,
+          "maxStorageBytes": 33554432,
+          "maxAdditionalRssBytes": 134217728,
+          "maxSerializedBytes": 8388608,
+          "maxChunkBytes": 1048576,
+          "maxPayloadBytes": 983040,
+          "maxHeavyOperations": 1
+        },
+        "productionHeadroom": "unverified",
+        "databaseMemory": "unverified"
+      }
+    }
+  ],
+  "publication": {
+    "before": {
+      "generationId": "f2b3fba1-7229-4f6b-9e2a-c0d2ad138358",
+      "publicationVersion": "1"
+    },
+    "after": {
+      "generationId": "e718ad3e-c382-49ff-af27-cc03e48498f6",
+      "publicationVersion": "2"
+    },
+    "responseGenerations": ["old", "old", "old", "old", "old", "old"]
+  },
+  "control": {
+    "version": "generation-control-v1",
+    "revision": "162",
+    "publicationVersion": "2",
+    "fence": "2",
+    "bsonBytes": 3069,
+    "occupiedSlots": 1,
+    "pins": 0,
+    "observedPinnedBeforePublication": 1,
+    "deletingWasBlockedByPin": true,
+    "removedRetiredGeneration": true
+  },
+  "before": {
+    "responses": [
+      {
+        "route": "/ncds_api/api/v1/card",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "service_count": 9,
+              "patient_count": 6,
+              "expense": 370,
+              "hcode_count": 2,
+              "avg_service": 1.5,
+              "avg_expense": 61.67
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfPatient": 2,
+              "avg": 2
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfPatient": 1,
+              "avg": 1
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-ex",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfExpense": 100,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfExpense": 10,
+              "avg": 10
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfExpense": 50,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfExpense": 60,
+              "avg": 60
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfExpense": 70,
+              "avg": 70
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfExpense": 80,
+              "avg": 80
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        }
+      }
+    ],
+    "combinedParsedBodiesMS": 90.16312500000004
+  },
+  "during": {
+    "responses": [
+      {
+        "route": "/ncds_api/api/v1/card",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "service_count": 9,
+              "patient_count": 6,
+              "expense": 370,
+              "hcode_count": 2,
+              "avg_service": 1.5,
+              "avg_expense": 61.67
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfPatient": 2,
+              "avg": 2
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfPatient": 1,
+              "avg": 1
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-ex",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfExpense": 100,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfExpense": 10,
+              "avg": 10
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfExpense": 50,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfExpense": 60,
+              "avg": 60
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfExpense": 70,
+              "avg": 70
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfExpense": 80,
+              "avg": 80
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "stale",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        }
+      }
+    ],
+    "combinedParsedBodiesMS": 86.86250000000018
+  },
+  "after": {
+    "responses": [
+      {
+        "route": "/ncds_api/api/v1/card",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "service_count": 11,
+              "patient_count": 7,
+              "expense": 390,
+              "hcode_count": 2,
+              "avg_service": 1.57,
+              "avg_expense": 55.71
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfPatient": 3,
+              "avg": 1.67
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfPatient": 2,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfPatient": 1,
+              "avg": 1
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/bar-chart-ex",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfExpense": 110,
+              "avg": 36.67
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfExpense": 20,
+              "avg": 10
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfExpense": 50,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfExpense": 60,
+              "avg": 60
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfExpense": 70,
+              "avg": 70
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfExpense": 80,
+              "avg": 80
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+            }
+          ]
+        }
+      },
+      {
+        "route": "/ncds_api/api/v1/graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "x-ncd-source-cut": "2024-01-10T00:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "cache-control": "no-store",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State"
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        }
+      }
+    ],
+    "combinedParsedBodiesMS": 38.03366600000027
+  },
+  "limits": {
+    "requestBudgetMS": 60000,
+    "heartbeatMS": 15000,
+    "leaseMS": 120000,
+    "maxPins": 64,
+    "maxControlBsonBytes": 1048576,
+    "maxOccupiedSlots": 2,
+    "activation": "blocked",
+    "frontendEvidence": "deferred-to-issue-32",
+    "frontendIssue": "https://github.com/khaoxkongz/ncd-api/issues/32",
+    "targetTopologyTermination": "unverified-suspect-protection-retained",
+    "targetNativeRuntime": "unverified",
+    "representativeHeadroomAndLatency": "unverified",
+    "spending": 0
+  }
+}

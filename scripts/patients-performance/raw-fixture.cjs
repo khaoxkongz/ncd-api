@@ -75,6 +75,7 @@ function sealFixture(
   return {
     sourceCut,
     comparisonContext: {
+      comparisonOnly: true,
       trustedProducers: { "synthetic-finite-domain-v1": publicKey },
       supportedHistory: HISTORY,
       supportedDomainRevision: "finite-domain-v1",
