@@ -11,6 +11,7 @@ const { readSnapshot } = require("./snapshots");
 const { createControl, HEARTBEAT_MS, buildContext } = require("./control");
 const { complete } = require("./generation");
 const { scope: lifetime, trackedDb, rawDb: unwrapDb, WORKER: worker, within } = require("./lifetime");
+const { createCapacity, HTTP_CAPACITY } = require("./capacity");
 
 function compatible(versions) {
   return (
@@ -20,9 +21,10 @@ function compatible(versions) {
   );
 }
 
-function createReader({ db, generationId: explicitGenerationId, validationOnly = false }) {
+function createReader({ db, generationId: explicitGenerationId, validationOnly = false, capacity }) {
   if (!db) throw new Error("An explicit Mongo adapter is required");
   const rawDb = unwrapDb(db);
+  const capacityContext = buildContext.getStore()?.capacity ?? createCapacity({ db: rawDb, config: capacity });
   db = trackedDb(rawDb);
   const control = createControl({ db: rawDb, worker });
   const coordinationBudget = () => createBudget({ maxTimeMS: 60000 }, { request: true });
@@ -57,6 +59,25 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
         heartbeat.unref();
       } else if (!explicitGenerationId) throw new Error("Read-model control unavailable");
       const requestScope = lifetime({ db: rawDb, budget: requestBudget, pin });
+      let resourceOwner;
+      try {
+        resourceOwner = await capacityContext.begin(requestBudget, "api", { pin, worker, generationId });
+        requestContext[HTTP_CAPACITY]?.bind(resourceOwner);
+      } catch (error) {
+        clearInterval(heartbeat);
+        let proof = { safe: error.controlOutcome !== "unknown", proof: "capacity-admission-before-model-dispatch" };
+        requestBudget.settlement = coordinationBudget();
+        try {
+          proof = (await requestBudget.capacity?.finish(proof)) ?? proof;
+        } catch {
+          proof = { safe: false, proof: "capacity-admission-settlement-unverified" };
+        }
+        if (pin) {
+          if (!proof.safe) await control.suspect(pin, coordinationBudget());
+          else await control.release(pin, coordinationBudget());
+        }
+        throw error;
+      }
       let accepting = true;
       const execution = requestScope.task(async () => {
         const generations = db.collection(COLLECTIONS.generations),
@@ -93,6 +114,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
         )
           throw new Error("Incomplete or incompatible Card component");
         const collation = generation.collation;
+        capacityContext.source(generation.source);
         const options = (budget, extra = {}) => budget.options({ collation, ...extra });
         async function calculateRange(selection, budget) {
           const monthly = await calculateDateRange({ db, generation, selection, budget });
@@ -154,7 +176,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
           const services = CATEGORIES.slice(0, 6).map(({ service }) => grouped[0]?.[service] ?? 0);
           const counts = rangeSets.map(() => 0);
           const native = codec();
-          const bitmaps = counts.map(() => new native.RoaringBitmap32());
+          const bitmaps = counts.map(() => budget.bitmap(() => new native.RoaringBitmap32()));
           const categoryIndex = new Map(rangeSets.map((id, index) => [id, index]));
           const readChunks = counts.map(() => 0),
             readMembers = counts.map(() => 0);
@@ -340,7 +362,12 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
           let entry = inFlight.find((item) => !item.cancelled && item.key.equals(key));
           if (!entry) {
             if (inFlight.length >= 64) throw new Error("Range work coordination limit exceeded");
-            entry = { key, consumers: 0, workPin: pin ? control.fork(pin, requestBudget) : Promise.resolve(undefined) };
+            entry = {
+              key,
+              consumers: 0,
+              resourceParents: new Set(),
+              workPin: pin ? control.fork(pin, requestBudget) : Promise.resolve(undefined),
+            };
             entry.promise = shared(entry, (budget) => calculateRange(selection, budget));
             void entry.promise.catch(() => {});
             inFlight.push(entry);
@@ -384,7 +411,12 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
           let entry = inFlight.find((item) => !item.cancelled && item.key.equals(key));
           if (!entry) {
             if (inFlight.length >= 64) throw new Error("Monthly work coordination limit exceeded");
-            entry = { key, consumers: 0, workPin: pin ? control.fork(pin, requestBudget) : Promise.resolve(undefined) };
+            entry = {
+              key,
+              consumers: 0,
+              resourceParents: new Set(),
+              workPin: pin ? control.fork(pin, requestBudget) : Promise.resolve(undefined),
+            };
             entry.promise = shared(entry, (budget) => calculateMonths({ db, generation, scope, periods, budget }));
             void entry.promise.catch(() => {});
             inFlight.push(entry);
@@ -428,6 +460,11 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
             if (!entry.settled || entry.consumers) return;
             return (finished ??= (async () => {
               try {
+                entry.resultRelease?.();
+                if (entry.resources) {
+                  budget.settlement = coordinationBudget();
+                  entry.proof = await entry.resources.finish(entry.proof);
+                }
                 if (workPin) {
                   if (entry.proof.safe) await control.release(workPin, coordinationBudget());
                   else await control.suspect(workPin, coordinationBudget());
@@ -438,9 +475,22 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
             })());
           };
           const budget = createBudget({ maxTimeMS: requestBudget.check() }, { request: true });
+          let ready, failed;
+          entry.resourceReady = new Promise((resolve, reject) => {
+            ready = resolve;
+            failed = reject;
+          });
+          void entry.resourceReady.catch(() => {});
           try {
             workPin = await entry.workPin;
+            entry.resources = await capacityContext.begin(budget, "api", {
+              pin: workPin,
+              worker,
+              generationId,
+              dependents: entry.resourceParents,
+            });
             entry.scope = lifetime({ db: rawDb, budget, pin: workPin });
+            ready(entry.resources);
             if (entry.cancelled) entry.scope.stop();
             if (workPin) {
               heartbeat = setInterval(() => {
@@ -448,7 +498,13 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
               }, HEARTBEAT_MS);
               heartbeat.unref();
             }
-            return await entry.scope.task(() => calculate(budget));
+            const result = await entry.scope.task(() => calculate(budget));
+            entry.resultRelease = entry.resources.hold(result, "decoded");
+            return result;
+          } catch (error) {
+            entry.resources ??= budget.capacity;
+            failed(error);
+            throw error;
           } finally {
             entry.proof = entry.scope ? await entry.scope.drain() : { safe: true };
             entry.settled = true;
@@ -462,11 +518,17 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
         }
         async function consume(entry) {
           entry.consumers += 1;
+          entry.resourceParents.add(resourceOwner);
           try {
             const workPin = await entry.workPin;
             if (pin && workPin) await control.link(pin, workPin, requestBudget);
-            return await within(entry.promise, requestBudget, requestContext.signal);
+            const sharedOwner = await within(entry.resourceReady, requestBudget, requestContext.signal);
+            await resourceOwner.link(sharedOwner);
+            const value = await within(entry.promise, requestBudget, requestContext.signal);
+            requestBudget.hold(value, "decoded");
+            return value;
           } finally {
+            entry.resourceParents.delete(resourceOwner);
             entry.consumers -= 1;
             if (entry.consumers === 0) {
               entry.cancelled = true;
@@ -502,7 +564,10 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
       );
       async function finalize() {
         accepting = false;
-        const proof = await requestScope.drain();
+        const proof = resourceOwner.settlementProof(await requestScope.drain());
+        requestBudget.settlement = coordinationBudget();
+        if (requestContext[HTTP_CAPACITY]) requestContext[HTTP_CAPACITY].settle(proof);
+        else await resourceOwner.finish(proof);
         clearInterval(heartbeat);
         if (pin) {
           if (proof.safe) await control.release(pin, coordinationBudget());

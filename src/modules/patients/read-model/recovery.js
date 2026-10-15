@@ -2,6 +2,7 @@ const { createHash, createHmac, createPublicKey } = require("node:crypto");
 const { performance: monotonicClock } = require("node:perf_hooks");
 const { BSON } = require("mongodb");
 const { COLLECTIONS, VERSIONS, BSON_OPTIONS } = require("./schema");
+const { rawDb } = require("./lifetime");
 
 const JOURNAL = "patients_recovery_journal";
 const GROUPS = ["A", "B", "C", "D"];
@@ -12,7 +13,7 @@ function journalSeal(document) {
   return digest(content);
 }
 
-function identity(sourceCut, context, budget) {
+function identity(sourceCut, context, budget, capacityKey = "unverified") {
   if (!Buffer.isBuffer(sourceCut?.manifest) || !Buffer.isBuffer(sourceCut?.signature)) return null;
   if (sourceCut.manifest.length * 4 + sourceCut.signature.length > budget.maxSerializedBytes)
     throw new Error("Recovery source evidence exceeds buffer budget");
@@ -23,6 +24,7 @@ function identity(sourceCut, context, budget) {
     sourceKey: digest({ manifest: sourceCut.manifest, signature: sourceCut.signature }),
     policyKey: digest({
       versions: VERSIONS,
+      capacityKey,
       producerKey: publicKey?.export({ type: "spki", format: "der" }) ?? null,
       domain: context.supportedDomainRevision,
       history: context.supportedHistory,
@@ -108,9 +110,7 @@ function createRecovery({
     groups,
   };
   const elapsedBase = Math.max(journal.elapsedMS, Date.now() - journal.startedAt);
-  for (const [key, value] of Object.entries(journal.resources ?? {}))
-    if (key.startsWith("peak") && typeof value === "number")
-      budget.metrics[key] = Math.max(budget.metrics[key] ?? 0, value);
+  if (journal.resources) budget.restore(journal.resources);
   const collection = db.collection(JOURNAL);
   const names = {
     A: [`${prefix}_raw`],
@@ -131,28 +131,30 @@ function createRecovery({
       Math.max(Date.now() - journal.startedAt, elapsedBase + monotonicClock.now() - attemptStart)
     );
   }
-  async function save() {
+  async function save(settlement) {
+    const persistence = settlement ?? budget;
+    const target = settlement ? rawDb(db).collection(JOURNAL) : collection;
     const revision = journal.revision;
     journal.revision += 1;
     journal.claim = claim;
     journal.elapsedMS = budget.limits.maxTimeMS - remaining();
     journal.lastWallAt = Date.now();
-    journal.resources = { ...budget.metrics };
+    journal.resources = budget.snapshot();
     journal.seal = journalSeal(journal);
-    budget.serialized(BSON.serialize(journal).length * 4 + 65536);
+    persistence.serialized(BSON.calculateObjectSize(journal) * 4 + 65536);
     try {
       if (!previous && revision === 0)
-        await collection.insertOne(journal, budget.options({ writeConcern: { w: "majority" } }));
+        await target.insertOne(journal, persistence.options({ writeConcern: { w: "majority" } }));
       else {
-        const result = await collection.replaceOne(
+        const result = await target.replaceOne(
           { _id: generationId, revision },
           journal,
-          budget.options({ writeConcern: { w: "majority" } })
+          persistence.options({ writeConcern: { w: "majority" } })
         );
         if (result.matchedCount !== 1) throw new Error("Recovery journal ownership changed");
       }
     } catch (error) {
-      const actual = await collection.findOne({ _id: generationId }, budget.options());
+      const actual = await target.findOne({ _id: generationId }, persistence.options());
       if (actual?.revision !== journal.revision || digest(actual) !== digest(journal)) throw error;
     }
   }
@@ -185,6 +187,20 @@ function createRecovery({
     completed: (group) => verified.includes("D") || verified.includes(group),
     async initialize() {
       if (!previous) await save();
+    },
+    async failure(settlement, error, proof) {
+      const failures = [...(budget.metrics.failureHistory ?? [])];
+      if (failures.length >= 16) throw new Error("Bounded recovery failure history exhausted");
+      failures.push({
+        attempt: budget.metrics.observation.attempt,
+        actor: budget.metrics.observation.actor,
+        name: error.name,
+        ...(Number.isInteger(error.code) ? { code: error.code } : {}),
+        at: Date.now(),
+        termination: proof,
+      });
+      budget.metrics.failureHistory = failures;
+      await save(settlement);
     },
     async prepare() {
       if (previous) {

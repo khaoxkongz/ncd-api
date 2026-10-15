@@ -19,12 +19,21 @@ void (async () => {
   const mongoPath = path.join(root, "lib/mongo.js");
   require.cache[mongoPath] = { id: mongoPath, filename: mongoPath, loaded: true, exports: { db: client.db() } };
   const app = require(path.join(root, "app.js"));
+  let capacity;
+  if (process.env.PATIENTS_APPLICATION_CAPACITY) {
+    const received = require("node:events").once(process, "message");
+    process.send({ capacityActor: require(path.join(root, "modules/patients/read-model/capacity.js")).ACTOR });
+    const [message] = await received;
+    if (!message?.capacity) throw new Error("Missing fixture capacity composition");
+    capacity = message.capacity;
+  }
   let reader;
   if (process.env.PATIENTS_CANDIDATE_GENERATION || process.env.PATIENTS_ACTIVE_GENERATION)
     reader = require(path.join(root, "modules/patients/read-model/reader.js")).createReader({
       db: client.db(),
       generationId: process.env.PATIENTS_CANDIDATE_GENERATION,
       validationOnly: true,
+      capacity,
     });
   const backend = reader ? require(path.join(root, "modules/patients/backend.js")) : null;
   server = require("node:http").createServer((req, res) => {

@@ -14,20 +14,23 @@ const { buildDateMonths, validateDateMonths } = require("./date-months");
 const { buildSnapshots } = require("./snapshots");
 const { createControl, HEARTBEAT_MS, buildContext } = require("./control");
 const generationsSeal = require("./generation");
-const { scope: lifetime, trackedDb, rawDb: unwrapDb, WORKER } = require("./lifetime");
+const { scope: lifetime, trackedDb, rawDb: unwrapDb, WORKER, releaseRows } = require("./lifetime");
 const { createSupervision, pauseCheckpoint } = require("./supervision");
-const { runRefresh, RUNS, refreshContext } = require("./refresh");
+const { runRefresh, refreshContext } = require("./refresh");
 const recoveryStore = require("./recovery");
+const { createCapacity, rawInventory, summaryInventory, outputInventory, storageInventory } = require("./capacity");
 
 function createBuilder({
   db,
   clock = () => new Date(),
   timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone,
   workers,
+  capacity,
 }) {
   if (!db || typeof db.collection !== "function") throw new Error("An explicit Mongo adapter is required");
   let busy = false;
   const rawDb = unwrapDb(db);
+  const capacityContext = createCapacity({ db: rawDb, config: capacity });
   db = trackedDb(rawDb);
   const owner = randomUUID();
   const control = createControl({ db: rawDb, worker: WORKER });
@@ -76,10 +79,18 @@ function createBuilder({
   return Object.freeze({
     async refresh(request, declaredBudget, comparisonContext = {}) {
       await reconcileWorkers(rawDb, control, coordinationBudget());
-      return runRefresh({ builder: this, db: rawDb, clock, request, declaredBudget, comparisonContext });
+      return runRefresh({
+        builder: this,
+        db: rawDb,
+        clock,
+        request,
+        declaredBudget,
+        comparisonContext,
+        capacityKey: capacityContext.key,
+      });
     },
     async build(sourceCut, declaredBudget, comparisonContext = {}) {
-      return buildContext.run({ claim: null }, async () => {
+      return buildContext.run({ claim: null, capacity: capacityContext }, async () => {
         if (busy) throw new Error("A build is already running");
         let recovery;
         const refreshRemaining = refreshContext.getStore()?.remaining;
@@ -91,8 +102,14 @@ function createBuilder({
         const comparisonOnly = comparisonContext.comparisonOnly === true;
         let sourceIdentity, previous;
         try {
-          sourceIdentity = comparisonOnly ? null : recoveryStore.identity(sourceCut, comparisonContext, declaredBudget);
-          if (!comparisonOnly) await reconcileWorkers(rawDb, control, budget);
+          sourceIdentity = comparisonOnly
+            ? null
+            : recoveryStore.identity(sourceCut, comparisonContext, declaredBudget, capacityContext.key);
+          if (!comparisonOnly) {
+            if (Buffer.isBuffer(sourceCut?.manifest))
+              capacityContext.source(BSON.deserialize(sourceCut.manifest), comparisonContext.trustedProducers);
+            await reconcileWorkers(rawDb, control, budget);
+          }
           previous = comparisonOnly ? null : await recoveryStore.find(rawDb, control, sourceIdentity, budget);
         } catch (error) {
           busy = false;
@@ -115,24 +132,10 @@ function createBuilder({
         let claim;
         let heartbeat;
         const stages = [];
+        let capacityOwner;
         const buildScope = lifetime({ db: rawDb, budget, pin: { id: `build:${generationId}`, generationId } });
-        async function measureStorage() {
-          // Reserve the maximum in-flight run record as well as the persisted
-          // ledgers, so final publication bookkeeping cannot evade storage caps.
-          let storage = (source?.manifest.bytes ?? 0) + (refresh ? 65536 : 0);
-          const names = await db.listCollections({}, { nameOnly: true }).toArray();
-          for (const { name } of names) {
-            if (
-              Object.values(COLLECTIONS).includes(name) ||
-              [RUNS, recoveryStore.JOURNAL].includes(name) ||
-              name.startsWith(prefix)
-            ) {
-              const stats = await db.command({ collStats: name });
-              storage += stats.storageSize + stats.totalIndexSize;
-            }
-          }
-          budget.storage(storage);
-          budget.metrics.peakStorageBytes = Math.max(budget.metrics.peakStorageBytes ?? 0, storage);
+        async function measureStorage(full = false) {
+          await storageInventory(db, source, budget, { full, reserveRun: !!refresh });
         }
         const groupFor = (name) =>
           ["source-staging", "source-type-inventory"].includes(name)
@@ -160,6 +163,11 @@ function createBuilder({
           }
           const started = budget.metrics.elapsedMS;
           await operation();
+          // Stage-local cursor arrays are no longer used. Release their phase
+          // ownership only after genuine command/cursor settlement; persistent
+          // source inputs and shared request results have separate owners.
+          const phaseProof = await buildScope.drain();
+          if (!phaseProof.safe) throw new Error("Builder stage resource settlement is unverified");
           budget.check();
           await measureStorage();
           stages.push({ name, complete: true, elapsedMS: budget.metrics.elapsedMS - started });
@@ -177,9 +185,9 @@ function createBuilder({
           if (recovery && group) {
             const metadata =
               group === "A"
-                ? { typeInventory }
+                ? { typeInventory, raw: budget.metrics.ledger.raw, transport: source.transport }
                 : group === "B"
-                  ? {}
+                  ? { summary: budget.metrics.ledger.summary }
                   : group === "C"
                     ? {
                         expenseTypes: [...expenseTypes],
@@ -234,7 +242,6 @@ function createBuilder({
                   return true;
                 });
               }
-              heartbeat = builderHeartbeat();
             }
             if (claim && sourceIdentity) {
               recovery = recoveryStore.createRecovery({
@@ -250,18 +257,29 @@ function createBuilder({
               });
               await recovery.initialize();
             }
+            if (claim) {
+              capacityOwner = await capacityContext.begin(budget, "builder", {
+                worker: buildScope.worker,
+                generationId,
+              });
+              heartbeat = builderHeartbeat();
+            }
             // Transport verification scans the complete source. Own the global
             // Builder fence before that I/O, not only before database staging.
             codec();
             source = await openSource(sourceCut, budget, comparisonContext);
+            capacityContext.source(source.manifest, comparisonContext.trustedProducers);
             if (!comparisonOnly && source.manifest.dataset !== "raw")
               throw new Error("Managed generations require full raw input");
             const manifest = source.manifest;
+            budget.metrics.ledger = { transport: source.transport };
             const collation = manifest.collation;
             if (recovery) {
               await recovery.prepare();
               await measureStorage();
               typeInventory = recovery.get("A")?.typeInventory ?? [];
+              if (recovery.get("A")?.raw) budget.metrics.ledger.raw = recovery.get("A").raw;
+              if (recovery.get("B")?.summary) budget.metrics.ledger.summary = recovery.get("B").summary;
               const restored = recovery.get("C");
               if (restored) {
                 expenseTypes = new Map(restored.expenseTypes);
@@ -290,6 +308,7 @@ function createBuilder({
               for await (const document of source.documents()) await raw.insertOne(document);
             });
             await stage("source-type-inventory", async () => {
+              budget.metrics.ledger.raw = await rawInventory(raw, budget);
               const cursor = raw.aggregate(
                 [
                   { $project: { fields: { $objectToArray: "$$ROOT" } } },
@@ -364,6 +383,7 @@ function createBuilder({
               for await (const row of summaries.find({}, options({ projection: { _id: 1 } })))
                 await summaries.updateOne({ _id: row._id }, { $set: { modelRowId: String(rowNo++) } });
               await summaries.createIndex({ modelRowId: 1 }, { unique: true });
+              budget.metrics.ledger.summary = await summaryInventory(summaries, budget);
             });
             await stage("daily-facts-and-original-members", async () => {
               const cursor = summaries.find({}, options({ ...BSON_OPTIONS }));
@@ -517,33 +537,39 @@ function createBuilder({
                     )
                     .limit(2)
                     .toArray();
-                  if (exact.length !== 1) throw new Error("Ambiguous BSON dictionary class");
-                  const value = member.originalBsonValue;
-                  const ordinary =
-                    value === null ||
-                    ["string", "number", "boolean"].includes(typeof value) ||
-                    ["Int32", "Long", "Double", "Decimal128", "ObjectId"].includes(value?._bsontype) ||
-                    value instanceof Date;
-                  let selected = exact[0];
-                  if (ordinary) {
-                    const indexed = await identity
-                      .find({ ...scope, originalBsonValue: value }, options({ ...BSON_OPTIONS }))
-                      .limit(2)
-                      .toArray();
-                    if (indexed.length === 1 && indexed[0].ordinal.equals(exact[0].ordinal)) {
-                      selected = indexed[0];
-                      indexedLookups += 1;
-                    }
-                    // An ordinary scalar can also match an array's multikey index
-                    // entry. Its exact expression class remains the authority.
-                    else exactLookups += 1;
-                  } else exactLookups += 1;
-                  await edges.insertOne({
-                    generationId,
-                    setId: member.rowId,
-                    category: member.category,
-                    ...ordinalParts(selected.ordinal),
-                  });
+                  let indexed;
+                  try {
+                    if (exact.length !== 1) throw new Error("Ambiguous BSON dictionary class");
+                    const value = member.originalBsonValue;
+                    const ordinary =
+                      value === null ||
+                      ["string", "number", "boolean"].includes(typeof value) ||
+                      ["Int32", "Long", "Double", "Decimal128", "ObjectId"].includes(value?._bsontype) ||
+                      value instanceof Date;
+                    let selected = exact[0];
+                    if (ordinary) {
+                      indexed = await identity
+                        .find({ ...scope, originalBsonValue: value }, options({ ...BSON_OPTIONS }))
+                        .limit(2)
+                        .toArray();
+                      if (indexed.length === 1 && indexed[0].ordinal.equals(exact[0].ordinal)) {
+                        selected = indexed[0];
+                        indexedLookups += 1;
+                      }
+                      // An ordinary scalar can also match an array's multikey index
+                      // entry. Its exact expression class remains the authority.
+                      else exactLookups += 1;
+                    } else exactLookups += 1;
+                    await edges.insertOne({
+                      generationId,
+                      setId: member.rowId,
+                      category: member.category,
+                      ...ordinalParts(selected.ordinal),
+                    });
+                  } finally {
+                    releaseRows(exact);
+                    if (indexed) releaseRows(indexed);
+                  }
                 }
               } finally {
                 await members.close();
@@ -610,6 +636,7 @@ function createBuilder({
                 measureStorage,
               });
             });
+            budget.metrics.ledger.output = await outputInventory(db, generationId, budget);
             const rowCount = await daily.countDocuments({ generationId }, options());
             const chunkCount = await chunks.countDocuments({ generationId }, options());
             await db.collection(COLLECTIONS.snapshots).createIndex({ generationId: 1 });
@@ -671,7 +698,7 @@ function createBuilder({
                 stages,
               },
               resources: {
-                ...budget.metrics,
+                ...budget.snapshot(),
                 declared: declaredBudget,
                 productionHeadroom: "unverified",
                 databaseMemory: "unverified",
@@ -813,10 +840,11 @@ function createBuilder({
                 if (error.code !== 26) throw error;
               }
             }
-            await measureStorage();
-            report.resources = { ...report.resources, ...budget.metrics };
+            budget.metrics.ledger.output = await outputInventory(db, generationId, budget);
+            await measureStorage(true);
+            report.resources = { ...report.resources, ...budget.snapshot() };
             budget.serialized(BSON.serialize(report).length * 4 + 65536);
-            report.resources = { ...report.resources, ...budget.metrics };
+            report.resources = { ...report.resources, ...budget.snapshot() };
             if (claim) {
               await control.guardBuild(claim, budget);
               report.components.control = component(true);
@@ -825,32 +853,72 @@ function createBuilder({
               report.control = claim;
               report.collation = collation;
               report.inventory.collections = await generationsSeal.inventories(db, generationId, budget);
-              report.resources = { ...report.resources, ...budget.metrics };
+              report.resources = { ...report.resources, ...budget.snapshot() };
               report.seal = generationsSeal.descriptorSeal(report);
               generationsSeal.complete(report);
             }
             await generations.replaceOne({ _id: generationId }, { _id: generationId, ...report, collation });
-            const proof = await buildScope.drain();
+            const drained = await buildScope.drain();
+            const proof = capacityOwner?.settlementProof(drained) ?? drained;
             if (!proof.safe) throw new Error("Builder database termination is unverified");
+            await capacityOwner?.finish(proof);
             if (claim) await control.finishBuild(claim, "ready", report.seal, true, budget);
             return report;
           } catch (error) {
-            const proof = await buildScope.drain();
+            const failedOwner = capacityOwner ?? budget.capacity;
+            const drained = await buildScope.drain();
+            const proof = failedOwner?.settlementProof(drained) ?? drained;
             const settlement = coordinationBudget({ settlement: true });
-            await rawDb.collection(COLLECTIONS.generations).updateOne(
-              { _id: generationId },
-              {
-                $set: {
-                  state: "failed",
-                  complete: false,
-                  failedStage: stages.length,
-                  resources: budget.metrics,
-                  termination: proof,
+            budget.settlement = settlement;
+            let recorded = !recovery || !claim;
+            if (recovery && claim) {
+              try {
+                // Lease expiry stops new data work, but the unchanged owner/run
+                // and fence may still persist its actually settled failure.
+                await control.guardBuild(claim, settlement, { settlement: true });
+                if (failedOwner) budget.metrics.capacity = failedOwner.state();
+                await recovery.failure(settlement, error, proof);
+                recorded = true;
+              } catch {
+                budget.metrics.failureRecordPersistence = "unverified";
+              }
+            }
+            try {
+              await failedOwner?.finish(proof);
+            } catch {
+              recorded = false;
+              error.capacityPersistence = "unverified";
+            }
+            error.resources = budget.snapshot();
+            try {
+              await rawDb.collection(COLLECTIONS.generations).updateOne(
+                { _id: generationId },
+                {
+                  $set: {
+                    state: "failed",
+                    complete: false,
+                    failedStage: stages.length,
+                    resources: budget.snapshot(),
+                    termination: proof,
+                  },
                 },
-              },
-              settlement.options()
-            );
-            if (claim) await control.finishBuild(claim, "failed", null, proof.safe, settlement);
+                settlement.options()
+              );
+            } catch {
+              recorded = false;
+              budget.metrics.failureRecordPersistence = "unverified";
+              error.resources = budget.snapshot();
+            }
+            // A checkpoint without the failed attempt's observations must not
+            // become a fresh recovery allowance. Retain the fence if any
+            // evidence/ownership transition could not be confirmed.
+            if (claim) {
+              try {
+                await control.finishBuild(claim, "failed", null, proof.safe && recorded, settlement);
+              } catch {
+                error.controlPersistence = "unverified";
+              }
+            }
             error.generationId = generationId;
             throw error;
           } finally {

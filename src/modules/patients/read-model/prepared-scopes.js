@@ -416,7 +416,7 @@ async function validateScopeSets({ db, generationId, scope, budget, collation })
         const keyFor = (row) =>
           BSON.serialize({ block: row.chunk.block, period: row.period, category: row.chunk.category });
         const key = keyFor(document);
-        const bitmap = new native.RoaringBitmap32();
+        const bitmap = budget.bitmap(() => new native.RoaringBitmap32());
         try {
           while (document) {
             if (!key.equals(keyFor(document))) {

@@ -1,9 +1,10 @@
 const { AsyncLocalStorage } = require("node:async_hooks");
 const { randomUUID } = require("node:crypto");
 const { workerData } = require("node:worker_threads");
-const { MongoServerError, MongoWriteConcernError } = require("mongodb");
+const { BSON, Binary, MongoServerError, MongoWriteConcernError } = require("mongodb");
 
 const current = new AsyncLocalStorage();
+const results = new WeakMap();
 const RAW = Symbol("patients-raw-db");
 const WORKER = workerData?.patientsWorker ?? randomUUID();
 const OPTION_AT = {
@@ -116,11 +117,19 @@ function scope({ db, budget, pin, worker = WORKER }) {
   function operation(fn, { cleanup = false, kind } = {}) {
     if (!cleanup) {
       if (stopped) return Promise.reject(new Error("Read-model work is cancelled"));
-      budget.check();
     }
-    let result;
+    let result,
+      dispatched = false;
     try {
-      result = Promise.resolve(fn());
+      result = Promise.resolve().then(async () => {
+        if (!cleanup) {
+          if (stopped) throw new Error("Read-model work is cancelled");
+          budget.check();
+          await budget.flush();
+        }
+        dispatched = true;
+        return fn();
+      });
     } catch (error) {
       result = Promise.reject(error);
     }
@@ -129,6 +138,7 @@ function scope({ db, budget, pin, worker = WORKER }) {
       () => pending.delete(result),
       (error) => {
         pending.delete(result);
+        if (!dispatched) return;
         if (unknown(error, kind)) uncertain = true;
         if (!(error instanceof MongoServerError)) missingReply = true;
         if (["createIndex", "createIndexes"].includes(kind)) uncertainIndex = true;
@@ -164,11 +174,53 @@ function scope({ db, budget, pin, worker = WORKER }) {
     operation,
     cursor(raw) {
       const state = { raw, started: false, exhausted: false };
+      let retained, lease;
       cursors.add(state);
       let proxy;
-      async function next() {
+      async function next(accumulated) {
+        if (!accumulated) {
+          retained?.();
+          retained = null;
+        }
+        // The bounded batch and cumulative toArray result have durable grants
+        // before the next database dispatch. BSON/V8 estimates are reservations,
+        // not claims of exact decoded heap or complete driver peak visibility.
+        await budget.admitAdditional(budget.wireBytes * 4 + 1048576);
+        lease = await budget.reserveSerialized(budget.wireBytes);
         state.started = true;
-        const row = await operation(() => raw.next());
+        let row;
+        try {
+          row = await operation(() => raw.next());
+        } catch (error) {
+          // A missing reply can mean a still live driver/server operation. Its
+          // serialized reservation remains charged until actual scope proof.
+          if (!unknown(error)) await lease.release();
+          throw error;
+        }
+        const held = [];
+        if (row !== null) {
+          const bytes = BSON.calculateObjectSize(row) * 4;
+          if (bytes > budget.wireBytes * 4) throw new Error("Cursor document exceeds admitted capacity");
+          held.push(budget.hold(row, "decoded", bytes));
+          const visit = (value) => {
+            if (Buffer.isBuffer(value) || ArrayBuffer.isView(value)) {
+              held.push(lease.hold(value));
+            } else if (value instanceof Binary) {
+              held.push(lease.hold(value.buffer));
+            } else if (value && typeof value === "object") for (const child of Object.values(value)) visit(child);
+          };
+          visit(row);
+          const release = () => {
+            for (const end of held) end();
+          };
+          if (accumulated) accumulated.push(release);
+          else retained = release;
+        }
+        // A settled reply transfers the actual unique returned backings into
+        // retained ownership. An idle cursor does not retain its unused wire
+        // dispatch grant; its next/getMore must acquire a fresh grant first.
+        await lease.release();
+        lease = null;
         if (row === null) {
           state.exhausted = true;
           cursors.delete(state);
@@ -179,6 +231,11 @@ function scope({ db, budget, pin, worker = WORKER }) {
         // Inspect the server cursor ID before close can turn it into zero.
         const knownEnded = !state.started || state.exhausted || raw.id?.isZero() === true;
         await operation(() => raw.close(), { cleanup: true });
+        retained?.();
+        retained = null;
+        if (knownEnded) {
+          await lease?.release();
+        }
         if (knownEnded) {
           state.exhausted = true;
           cursors.delete(state);
@@ -190,9 +247,13 @@ function scope({ db, budget, pin, worker = WORKER }) {
           if (name === "close") return close;
           if (name === "toArray")
             return async () => {
-              const rows = [];
+              const rows = [],
+                held = [];
+              results.set(rows, () => {
+                for (const release of held) release();
+              });
               for (;;) {
-                const row = await next();
+                const row = await next(held);
                 if (row === null) return rows;
                 rows.push(row);
               }
@@ -231,10 +292,19 @@ function scope({ db, budget, pin, worker = WORKER }) {
       }
       if (missingReply) return { safe: false, proof: "command-dispatch-outcome-unverified" };
       if (uncertainIndex) return { safe: false, proof: "index-completion-and-tag-association-unverified" };
-      if (!uncertain && !cursors.size) return { safe: true, proof: "all-commands-settled-and-cursors-exhausted" };
+      if (!uncertain && !cursors.size) {
+        budget.releaseAllocations();
+        budget.capacity?.settledPhase();
+        return { safe: true, proof: "all-commands-settled-and-cursors-exhausted" };
+      }
       // Application work is quiescent here. Driver close/kill acknowledgments
       // alone are insufficient; independently inspect executing and idle work.
-      return observeDatabase(db, tag);
+      const proof = await observeDatabase(db, tag);
+      if (proof.safe) {
+        budget.releaseAllocations();
+        budget.capacity?.settledPhase();
+      }
+      return proof;
     },
   };
   return api;
@@ -299,4 +369,15 @@ async function within(promise, budget, signal) {
   }
 }
 
-module.exports = { scope, trackedDb, WORKER, within, observeDatabase, rawDb: (db) => db[RAW] ?? db };
+module.exports = {
+  scope,
+  trackedDb,
+  WORKER,
+  within,
+  observeDatabase,
+  rawDb: (db) => db[RAW] ?? db,
+  releaseRows: (rows) => {
+    results.get(rows)?.();
+    results.delete(rows);
+  },
+};
