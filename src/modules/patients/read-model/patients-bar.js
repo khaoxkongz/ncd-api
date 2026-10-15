@@ -50,6 +50,7 @@ async function readPatientsBar(reader, body) {
     return await reader.read(
       {
         route: snapshot ? "patients-bar/snapshot" : "patients-bar/live",
+        rangeRoute: "daily-range/live",
         clock,
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         backendMode: "candidate-validation",

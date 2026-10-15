@@ -4,6 +4,7 @@ const { CATEGORIES, VERSIONS, COLLECTIONS, BSON_OPTIONS } = require("./schema");
 const { codec, directoryToken, decodeChunk } = require("./bitmap");
 const { calculateMonths } = require("./stored-months");
 const expense = require("./expense");
+const card = require("./daily-card");
 
 function compatible(versions) {
   return (
@@ -50,10 +51,18 @@ function createReader({ db, generationId, validationOnly = false }) {
         (!generation.components.expenseBar?.complete || generation.components.expenseBar.generationId !== generationId)
       )
         throw new Error("Incomplete or incompatible expense Bar component");
+      if (
+        requestContext.route.startsWith("card/") &&
+        ["card", "hospitalDictionary"].some(
+          (name) => !generation.components[name]?.complete || generation.components[name].generationId !== generationId
+        )
+      )
+        throw new Error("Incomplete or incompatible Card component");
       const collation = generation.collation;
       const options = (budget, extra = {}) => budget.options({ collation, ...extra });
       async function calculateRange(selection, budget) {
         const match = { ...selection, generationId };
+        const rangeSets = [...CATEGORIES.slice(0, 6).map(({ id }) => id), ...card.SETS];
         const chunkCount = await chunks.countDocuments({ generationId }, options(budget));
         const rowCount = await daily.countDocuments({ generationId }, options(budget));
         const directoryCount = await directory.countDocuments({ generationId }, options(budget));
@@ -74,9 +83,21 @@ function createReader({ db, generationId, validationOnly = false }) {
                 $group: {
                   _id: null,
                   matchedRows: { $sum: 1 },
+                  cardService: { $sum: "$card.service" },
+                  cardServiceErrors: { $sum: { $cond: [{ $eq: ["$card.serviceState", "error"] }, 1, 0] } },
                   ...Object.fromEntries(
                     CATEGORIES.slice(0, 6).flatMap(({ id, service }) => [
                       [service, { $sum: `$${service}` }],
+                      [`${id}_chunks`, { $sum: `$members.${id}.chunks` }],
+                      [`${id}_members`, { $sum: `$members.${id}.cardinality` }],
+                      [
+                        `${id}_inventories`,
+                        { $sum: { $cond: [{ $eq: [{ $type: `$members.${id}.chunks` }, "missing"] }, 0, 1] } },
+                      ],
+                    ])
+                  ),
+                  ...Object.fromEntries(
+                    card.SETS.flatMap((id) => [
                       [`${id}_chunks`, { $sum: `$members.${id}.chunks` }],
                       [`${id}_members`, { $sum: `$members.${id}.cardinality` }],
                       [
@@ -92,18 +113,18 @@ function createReader({ db, generationId, validationOnly = false }) {
           )
           .toArray();
         const matchedRows = grouped[0]?.matchedRows ?? 0;
-        for (const { id } of CATEGORIES.slice(0, 6))
+        for (const id of rangeSets)
           if ((grouped[0]?.[`${id}_inventories`] ?? 0) !== matchedRows) throw new Error("Missing set inventory");
         const services = CATEGORIES.slice(0, 6).map(({ service }) => grouped[0]?.[service] ?? 0);
-        const counts = [0, 0, 0, 0, 0, 0];
+        const counts = rangeSets.map(() => 0);
         const native = codec();
         const bitmaps = counts.map(() => new native.RoaringBitmap32());
-        const categoryIndex = new Map(CATEGORIES.slice(0, 6).map(({ id }, index) => [id, index]));
+        const categoryIndex = new Map(rangeSets.map((id, index) => [id, index]));
         const readChunks = counts.map(() => 0),
           readMembers = counts.map(() => 0);
         const cursor = chunks.aggregate(
           [
-            { $match: { generationId, category: { $in: CATEGORIES.slice(0, 6).map(({ id }) => id) } } },
+            { $match: { generationId, category: { $in: rangeSets } } },
             {
               $lookup: {
                 from: COLLECTIONS.daily,
@@ -171,7 +192,7 @@ function createReader({ db, generationId, validationOnly = false }) {
             budget.native(native.getRoaringUsedMemory());
           }
           finishBlock();
-          for (const [index, { id }] of CATEGORIES.slice(0, 6).entries())
+          for (const [index, id] of rangeSets.entries())
             if (
               readChunks[index] !== (grouped[0]?.[`${id}_chunks`] ?? 0) ||
               readMembers[index] !== (grouped[0]?.[`${id}_members`] ?? 0)
@@ -184,12 +205,26 @@ function createReader({ db, generationId, validationOnly = false }) {
         const expenseTotals = Array(6).fill(expense.ZERO);
         const expenseCursor = daily.find(
           match,
-          options(budget, { projection: { _id: 0, rowId: 1, expenses: 1, expenseVersion: 1, expenseSha256: 1 } })
+          options(budget, {
+            ...BSON_OPTIONS,
+            projection: { _id: 0, rowId: 1, expenses: 1, expenseVersion: 1, expenseSha256: 1, card: 1 },
+          })
         );
         let expenseRows = 0;
         try {
           for await (const row of expenseCursor) {
             budget.serialized(BSON.serialize(row).length * 4 + 65536);
+            // Read the Card scalar under the same original BSON types used to
+            // seal it. Aggregation above retains baseline driver promotion.
+            if (
+              !row.card ||
+              row.card.version !== card.VERSION ||
+              row.card.sha256 !== card.checksum(row.rowId, row.card)
+            )
+              throw new Error("Missing or changed Card facts");
+            // Exact decimals are represented as strings plus integer scales;
+            // driver numeric wrappers must not alter that application schema.
+            row.expenses = row.expenses?.map((value) => ({ ...value, scale: Number(value.scale) }));
             if (
               row.expenseVersion !== expense.VERSION ||
               !Array.isArray(row.expenses) ||
@@ -206,7 +241,11 @@ function createReader({ db, generationId, validationOnly = false }) {
           await expenseCursor.close();
         }
         return Object.freeze({
-          counts,
+          counts: counts.slice(0, 6),
+          cardPatientCount: counts[6],
+          hospitalCount: counts[7],
+          cardService: grouped[0]?.cardService ?? 0,
+          cardServiceError: (grouped[0]?.cardServiceErrors ?? 0) > 0,
           services,
           expenseTotals: Object.freeze(expenseTotals),
           matchedRows,
@@ -237,14 +276,6 @@ function createReader({ db, generationId, validationOnly = false }) {
               }
             },
           },
-          source: {
-            sourceCutAt: generation.source.sourceCutAt,
-            state: generation.source.rawComplete
-              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
-                ? "fresh"
-                : "stale"
-              : "unknown",
-          },
         });
       }
       async function rangeFacts(selection) {
@@ -254,7 +285,7 @@ function createReader({ db, generationId, validationOnly = false }) {
         const key = BSON.serialize({
           generationId,
           versions: VERSIONS,
-          route: requestContext.route,
+          route: requestContext.rangeRoute ?? requestContext.route,
           backendMode: requestContext.backendMode,
           timeoutMS: requestContext.timeoutMS ?? 60000,
           selection,
@@ -273,7 +304,19 @@ function createReader({ db, generationId, validationOnly = false }) {
         }
         const result = await entry.promise;
         requestBudget.check();
-        return result;
+        // Calculation facts can be shared across equivalent live adapters;
+        // freshness belongs to each caller's captured clock and source state.
+        return Object.freeze({
+          ...result,
+          source: {
+            sourceCutAt: generation.source.sourceCutAt,
+            state: generation.source.rawComplete
+              ? requestContext.clock - new Date(generation.source.sourceCutAt) <= 86400000
+                ? "fresh"
+                : "stale"
+              : "unknown",
+          },
+        });
       }
       async function monthFacts(scope, periods) {
         requestBudget.check();

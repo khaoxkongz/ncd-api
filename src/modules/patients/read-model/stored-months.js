@@ -85,7 +85,7 @@ async function buildStoredMonths({
     await rows.createIndex({ rowId: 1 }, { unique: true });
     const members = edges.aggregate(
       [
-        { $match: { generationId } },
+        { $match: { generationId, category: { $in: CATEGORIES.map(({ id }) => id) } } },
         { $lookup: { from: rows.collectionName, localField: "setId", foreignField: "rowId", as: "atom" } },
         { $unwind: "$atom" },
         { $project: { _id: 0, generationId: 1, setId: "$atom.setId", category: 1, block: 1, offset: 1 } },

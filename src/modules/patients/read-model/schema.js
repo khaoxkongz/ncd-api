@@ -31,6 +31,7 @@ const VERSIONS = Object.freeze({
   codec: "roaring-2.7.0-portable",
   arithmetic: "expense-v1",
   serviceArithmetic: "baseline-services-v1",
+  card: "daily-card-v1",
 });
 const COLLECTIONS = Object.freeze({
   generations: "patients_generations",
