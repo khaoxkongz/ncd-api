@@ -131,7 +131,7 @@ PATIENTS_TEST_MONGO_URI='mongodb://127.0.0.1:27187/?directConnection=true' \
   vp exec node scripts/patients-performance/report-loads.cjs explore \
   --output /tmp/patients-load-report-new
 PATIENTS_TEST_MONGO_URI='mongodb://127.0.0.1:27187/?directConnection=true' \
-  caffeinate -i -t 600 vp test
+  caffeinate -i -t 1800 vp test
 vp check
 vp run lint
 ```
@@ -143,7 +143,7 @@ focused real-application regression executes 100 retained attempts and five
 warmups for one condition. The reproducible explore report covers live and
 selected-snapshot first/later conditions, 80 retained attempts plus ten warmups.
 
-The final complete suite passed **120/120 tests in 15 files, 287.99 seconds**,
+The feature worktree's historical complete suite passed **120/120 tests in 15 files, 287.99 seconds**,
 with no unhandled errors. It includes the focused original disconnect/publication
 contract repaired after the first full run passed 119/120 tests in 207.51 seconds.
 The focused red reproduced in 21.20 seconds and green passed in 13.87 seconds.
@@ -155,8 +155,9 @@ Only the final static clock/timezone/Mongo-version and product-file hash fields
 landed after that complete suite loaded its source. The existing real capture
 case then passed in **43.18 seconds**, including 20 first attempts, 20 later
 attempts, 100 later acceptance attempts, five excluded warmups per later series,
-and the durable startup-failure artifact. The separate integration merger must
-run the final committed tree's full suite.
+and the durable startup-failure artifact. The subsequent integration run and
+validation scheduling repair are recorded below; that historical pass does not
+replace final-tree validation.
 
 The final explore report records all four live/snapshot first/later conditions:
 80 retained loads, ten excluded warmups, 90 durable starts and completions, and
@@ -179,6 +180,63 @@ with no warnings, lint errors or type errors. Mandatory `vp check` still reports
 the same **35 untouched baseline formatting files**. Mandatory `vp run lint`
 still fails because ESLint 9.18 has no flat `eslint.config.*`. `git diff --check`
 is clean. Earlier failed/red logs remain outside the repository.
+
+## Validation scheduling repair
+
+The integration tree subsequently failed **119/120 tests in 15 files, 336.17
+seconds**: the unchanged full-history refresh exceeded its original 30-second
+budget. Its focused two-cut case passed alone in **45.88 seconds**. A bounded
+profile of the first complete cut measured **17.94 seconds**, 13,930 actual
+commands and 7,281 single-document `getMore` commands. That work remains sensitive
+to serial round trips: a separate real-wire diagnostic with 2 ms minimum reply
+delay exhausted the unchanged budget. That injected delay does not establish
+the cause of the integration failure.
+
+Four simultaneous complete first-cut fixtures passed in **16.93–17.27 seconds**
+each. Eight passed in **26.17–26.74 seconds** each, with eight actual unresolved
+heavy commands at their peak. Those passing controls are retained; homogeneous
+parallelism alone did not reproduce the failure.
+
+A diagnostic replay of the original suite reproduced the full-history deadline
+and also failed the pinned-old-response build deadline and the load-capture test
+deadline: **117/120 tests, 15 files, 374.20 seconds**. The full-history case shared
+its 32.838-second observation window with 3,141 monitored aggregate/index starts
+across eight participating files. At the observed peak, seven different files
+had unresolved heavy commands; 3,099 starts overlapped another file. Driver
+coverage excludes automatically observing application-child commands. Metadata
+traces had no drops and occupied 1,199,168 bytes. The observer added synchronous
+bounded metadata writes and 374 process samples totaling 7.67 seconds of sampler
+execution. CPU samples are incomplete observations, not proof of complete peaks
+or constant CPU saturation. All original failures remain retained.
+
+`vite.config.ts` now sets `test.fileParallelism: false`. Fixture files share one
+local MongoDB host and consume real wall-clock budgets, so unrelated files run
+sequentially. Concurrent callers, shared work, publication, Builder and
+cancellation scenarios inside each original test remain unchanged. No production
+query, cursor batch, fixture data, history, category, assertion or deadline was
+changed. The 1,800-second `caffeinate` bound prevents host idle sleep while the
+longer serial validation runs; it grants no extra test or application time.
+
+The three existing failed cases passed under this schedule: **3/3 tests, three
+files, 91.74 seconds**, with the other 26 cases excluded only from that focused
+regression run. The complete, uninstrumented original `vp test` command then
+passed **120/120 tests in 15 files, 1,007.30 seconds**, with no unhandled errors.
+This is the repair worktree's full validation. It is not an unrun postmerge test
+or target-capacity result. Its exact tested config SHA-256 is
+`73dcd115dd71843a6ee5b23b91f8b2189829c60a8bc45dc2cb62c5e7741f2b2a`.
+Final documentation and formatting do not change that config or any runtime or
+test source bytes.
+
+Repair-path `vp check` passed all three formatted files and the one TypeScript
+config, with no warnings, lint errors or type errors. Global `vp check` still
+reports the same 35 untouched formatting files, and `vp run lint` still requires
+the missing ESLint flat config. `git diff --check` remains clean.
+
+This repair changes only test configuration and documentation. All 135 files in
+the historical report's source inventory still match their packaged hashes;
+`vite.config.ts` is outside that JavaScript/CJS inventory. The embedded report
+and its recorded revision remain historical evidence and are not regenerated
+or relabeled as measurements of this validation repair.
 
 ## External gates
 

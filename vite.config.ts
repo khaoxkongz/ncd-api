@@ -1,6 +1,12 @@
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
+  test: {
+    // Fixture files share one local MongoDB host and enforce real deadlines.
+    // Keep each file's own concurrent HTTP/Builder scenarios intact without
+    // superimposing unrelated fixture workloads on that validation topology.
+    fileParallelism: false,
+  },
   lint: {
     plugins: ["oxc", "typescript", "unicorn"],
     jsPlugins: [

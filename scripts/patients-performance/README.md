@@ -19,6 +19,12 @@ The port is the fixture server's actual port. Remote hosts, credentials, and a
 caller-selected database are rejected. The tests do not start or install a
 MongoDB service.
 
+`vite.config.ts` runs fixture files sequentially because they share that local
+MongoDB host and enforce elapsed-time budgets. Each test retains its concurrent
+HTTP callers, Builder, publication and cancellation scenarios. Running unrelated
+fixture files in parallel adds an unbudgeted workload to those scenarios; it is
+not a target-environment capacity measurement.
+
 `contract-fixture.cjs` retains the historical 97 cases and adds 24 cases for typed
 identities/geography, conflicting predicates, historical geography, stored/date
 period disagreement, invalid date inputs, missing/null membership arrays,
