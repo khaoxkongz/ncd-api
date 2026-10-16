@@ -21,7 +21,7 @@ function selectPatientsBackend(route, req, res) {
     if (!req || !res) return validation;
     const cancellation = new AbortController();
     const { HTTP_CAPACITY, responseCapacity } = require("./read-model/capacity");
-    const responseOwner = responseCapacity(res);
+    const responseOwner = responseCapacity(res, validation.onSettlement);
     const abort = () => {
       if (!res.writableFinished) cancellation.abort();
     };
@@ -56,8 +56,8 @@ function selectPatientsBackend(route, req, res) {
 
 // Private process-side validation context. No request parameter, header, route
 // or environment selector can activate a partial generation through this seam.
-function withCandidateValidation(reader, callback) {
-  return candidateValidation.run({ mode: "candidate-validation", reader }, callback);
+function withCandidateValidation(reader, callback, onSettlement) {
+  return candidateValidation.run({ mode: "candidate-validation", reader, onSettlement }, callback);
 }
 
 module.exports = { selectPatientsBackend, ReadModelUnavailableError, withCandidateValidation };

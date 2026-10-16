@@ -1,6 +1,18 @@
 const { fork } = require("node:child_process");
-const { once } = require("node:events");
 const path = require("node:path");
+const { randomUUID } = require("node:crypto");
+const { performance: monotonicClock } = require("node:perf_hooks");
+const { PARTS } = require("./contract-fixture.cjs");
+const HEADER_NAMES = [
+  "content-type",
+  "cache-control",
+  "x-ncd-source-cut",
+  "x-ncd-data-state",
+  "access-control-expose-headers",
+  "access-control-allow-origin",
+  "vary",
+  "etag",
+];
 
 async function startApplication({
   db,
@@ -12,7 +24,11 @@ async function startApplication({
   responseHeaders = {},
   transportUri,
   capacityFactory,
+  startupTimeoutMS = 20000,
+  shutdownTimeoutMS = 3000,
 }) {
+  for (const value of [startupTimeoutMS, shutdownTimeoutMS])
+    if (!Number.isInteger(value) || value < 1 || value > 60000) throw new Error("Invalid fixture lifecycle bound");
   sourceRoot = require("node:fs").realpathSync(sourceRoot);
   const uri = new URL(transportUri ?? process.env.PATIENTS_TEST_MONGO_URI);
   if (uri.hostname !== "127.0.0.1" || uri.username || uri.password || !db.databaseName.startsWith("patients_contract_"))
@@ -41,7 +57,67 @@ async function startApplication({
       ...(capacityFactory ? { PATIENTS_APPLICATION_CAPACITY: "1" } : {}),
     },
   });
-  const timer = setTimeout(() => child.kill(), 20000);
+  const messages = [],
+    waiters = new Set();
+  let exited = false;
+  const exit = new Promise((resolve) => {
+    child.once("exit", (code, signal) => {
+      exited = true;
+      resolve({ code, signal });
+      for (const waiter of waiters) waiter.reject(new Error("Fixture app exited before ready"));
+      waiters.clear();
+    });
+    child.once("error", (error) => {
+      for (const waiter of waiters) waiter.reject(error);
+      waiters.clear();
+    });
+  });
+  child.on("message", (message) => {
+    const waiter = waiters.values().next().value;
+    if (waiter) {
+      waiters.delete(waiter);
+      waiter.resolve(message);
+    } else messages.push(message);
+  });
+  function receive() {
+    if (exited) return Promise.reject(new Error("Fixture app exited before ready"));
+    if (messages.length) return Promise.resolve(messages.shift());
+    return new Promise((resolve, reject) => waiters.add({ resolve, reject }));
+  }
+  async function bound(promise, milliseconds, message) {
+    let timer;
+    try {
+      return await Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          timer = setTimeout(() => reject(new Error(message)), milliseconds);
+        }),
+      ]);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  async function stop(graceful) {
+    if (exited) return { exited: true, graceful };
+    if (graceful && child.connected) child.send("close");
+    try {
+      await bound(exit, graceful ? shutdownTimeoutMS : 1, "Fixture shutdown deadline");
+    } catch {
+      graceful = false;
+      child.kill("SIGTERM");
+      try {
+        await bound(exit, 1000, "Fixture termination deadline");
+      } catch {
+        child.kill("SIGKILL");
+        try {
+          await bound(exit, 1000, "Fixture kill deadline");
+        } catch {
+          return { exited: false, graceful: false, dependencySettlement: "unverified" };
+        }
+      }
+    }
+    return { exited: true, graceful, dependencySettlement: graceful ? "not-observed" : "unverified" };
+  }
   const diagnostics = [];
   let diagnosticBytes = 0;
   child.stderr.on("data", (chunk) => {
@@ -51,39 +127,171 @@ async function startApplication({
     diagnostics.push(retained.toString());
   });
   try {
-    let message;
-    for (;;) {
-      [message] = await once(child, "message");
-      if (!message.capacityActor) break;
-      const config = await capacityFactory(message.capacityActor);
-      const trustedOperators = Object.fromEntries(
-        Object.entries(config.trustedOperators).map(([id, entry]) => [
-          id,
-          {
-            ...entry,
-            publicKey:
-              typeof entry.publicKey === "string"
-                ? entry.publicKey
-                : entry.publicKey.export({ type: "spki", format: "pem" }),
-          },
-        ])
-      );
-      child.send({ capacity: { ...config, trustedOperators } });
+    const ready = (async () => {
+      for (;;) {
+        const message = await receive();
+        if (message.capacityActor) {
+          if (!capacityFactory) throw new Error("Unexpected fixture capacity handshake");
+          const config = await capacityFactory(message.capacityActor);
+          const trustedOperators = Object.fromEntries(
+            Object.entries(config.trustedOperators).map(([id, entry]) => [
+              id,
+              {
+                ...entry,
+                publicKey:
+                  typeof entry.publicKey === "string"
+                    ? entry.publicKey
+                    : entry.publicKey.export({ type: "spki", format: "pem" }),
+              },
+            ])
+          );
+          child.send({ capacity: { ...config, trustedOperators } });
+          continue;
+        }
+        if (message.error) throw new Error(`Fixture app failed: ${message.error}`);
+        if (typeof message.url !== "string" || !/^http:\/\/127\.0\.0\.1:\d+$/.test(message.url))
+          throw new Error("Invalid fixture ready message");
+        return message;
+      }
+    })();
+    const message = await bound(ready, startupTimeoutMS, "Fixture startup deadline");
+    let closing,
+      capturing = false,
+      unresolvedId;
+    async function rpc(kind, id, timeoutMS = 3000) {
+      if (exited || !child.connected) throw new Error("Fixture app is unavailable");
+      child.send({ load: { id, kind, timeoutMS } });
+      const reply = (await bound(receive(), timeoutMS + 1000, "Fixture evidence deadline"))?.loadReply;
+      if (reply?.id !== id || reply.kind !== kind || reply.error || !reply.value)
+        throw new Error("Fixture evidence protocol failed");
+      return reply.value;
     }
-    if (message.error) throw new Error(`Fixture app failed: ${message.error}`);
-    clearTimeout(timer);
+    async function settleLoad({ timeoutMS = 60000 } = {}) {
+      if (!Number.isInteger(timeoutMS) || timeoutMS < 1 || timeoutMS > 60000) throw new Error("Invalid evidence bound");
+      if (!unresolvedId) throw new Error("No unresolved fixture load");
+      const evidence = await rpc("seal", unresolvedId, timeoutMS);
+      if (evidence.settlement.safe) unresolvedId = undefined;
+      return evidence;
+    }
     return {
       url: message.url,
+      actor: message.actor,
+      runtime: message.runtime,
+      productSources: message.productSources,
+      generation: message.generation,
       diagnostics: () => diagnostics.join(""),
-      async close() {
-        if (child.exitCode !== null || child.signalCode !== null) return;
-        if (child.connected) child.send("close");
-        await once(child, "exit");
+      settleLoad,
+      async captureLoad({
+        bodyBytes,
+        origin = "https://fixture.invalid",
+        transportTimeoutMS = 65000,
+        drainTimeoutMS = 60000,
+        signal,
+        signals = {},
+      } = {}) {
+        if (capturing || unresolvedId || closing) throw new Error("A fixture load is already active or unresolved");
+        if (typeof bodyBytes !== "string" || Buffer.byteLength(bodyBytes) > 65536)
+          throw new Error("Invalid bounded request bytes");
+        JSON.parse(bodyBytes);
+        for (const value of [transportTimeoutMS, drainTimeoutMS])
+          if (!Number.isInteger(value) || value < 1 || value > 90000) throw new Error("Invalid load observation bound");
+        if (drainTimeoutMS > 60000 || origin !== "https://fixture.invalid")
+          throw new Error("Unsupported fixture observation");
+        capturing = true;
+        const id = randomUUID();
+        try {
+          const began = await rpc("begin", id);
+          unresolvedId = id;
+          const started = monotonicClock.now();
+          const responses = await Promise.allSettled(
+            PARTS.map(async ({ route }) => {
+              const at = monotonicClock.now();
+              try {
+                const response = await fetch(`${message.url}/ncds_api/api/v1/${route}`, {
+                  method: "POST",
+                  headers: { "content-type": "application/json", origin },
+                  body: bodyBytes,
+                  signal: AbortSignal.any([
+                    AbortSignal.timeout(transportTimeoutMS),
+                    ...(signal ? [signal] : []),
+                    ...(signals[route] ? [signals[route]] : []),
+                  ]),
+                });
+                const chunks = [];
+                let bytes = 0;
+                for await (const chunk of response.body) {
+                  bytes += chunk.length;
+                  if (bytes > 1048576) throw new Error("Fixture response exceeds fixed buffer allowance");
+                  chunks.push(chunk);
+                }
+                const bodyWire = Buffer.concat(chunks, bytes).toString("utf8");
+                const body = JSON.parse(bodyWire);
+                return {
+                  route,
+                  status: response.status,
+                  headers: Object.fromEntries(HEADER_NAMES.map((name) => [name, response.headers.get(name)])),
+                  body,
+                  bodyWire,
+                  bodyBytes: bytes,
+                  parsed: true,
+                  parsedBodyMS: monotonicClock.now() - at,
+                };
+              } catch (error) {
+                return {
+                  route,
+                  parsed: false,
+                  error: ["AbortError", "TimeoutError", "SyntaxError", "TypeError"].includes(error.name)
+                    ? error.name
+                    : "LoadObservationError",
+                  observedMS: monotonicClock.now() - at,
+                };
+              }
+            })
+          );
+          const captured = responses.map((result, index) =>
+            result.status === "fulfilled"
+              ? result.value
+              : { route: PARTS[index].route, parsed: false, error: "UnsettledCapture" }
+          );
+          const observedMS = monotonicClock.now() - started;
+          const drainAt = monotonicClock.now();
+          let evidence;
+          try {
+            evidence = await settleLoad({ timeoutMS: drainTimeoutMS });
+          } catch {
+            evidence = {
+              errorEvidenceVerified: false,
+              queryErrors: [],
+              settlement: { safe: false, proof: "child-evidence-unavailable" },
+            };
+          }
+          const allParsed = captured.every((response) => response.parsed);
+          return {
+            id,
+            requestBytes: bodyBytes,
+            origin,
+            responses: captured,
+            combinedObservedMS: observedMS,
+            combinedParsedBodiesMS: allParsed ? observedMS : null,
+            drainMS: monotonicClock.now() - drainAt,
+            telemetry: { ...evidence, preflightCommands: began.preflightCommands },
+            queryErrors: evidence.queryErrors,
+            errorEvidenceVerified: evidence.errorEvidenceVerified,
+            settlement: evidence.settlement,
+            complete: allParsed && evidence.settlement.safe,
+          };
+        } finally {
+          capturing = false;
+        }
       },
+      close: () =>
+        (closing ??= stop(true).then((value) => ({
+          ...value,
+          dependencySettlement: unresolvedId ? "unverified" : "no-unresolved-observed-load",
+        }))),
     };
   } catch (error) {
-    clearTimeout(timer);
-    child.kill();
+    error.teardown = await stop(false);
     throw error;
   }
 }

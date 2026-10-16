@@ -51,3 +51,31 @@ in this ticket. Other values fail explicitly with the existing 500 envelope.
 Legacy startup does not import a native codec or initialize a source adapter.
 The startup test uses the existing Express app with synthetic environment values,
 an unavailable native codec, and no source configuration.
+
+## Six-route load evidence
+
+`loads.cjs` runs one active load through the actual application child. It keeps
+all six parsed-response slots, exact comparisons, genuine driver errors and the
+private Reader/shared/response settlement handoff. First trials use fresh
+processes; later trials keep five excluded warmups and then exactly 20 explore
+or 100 acceptance attempts. Failures stay in the denominator at infinity.
+
+```sh
+PATIENTS_TEST_MONGO_URI='mongodb://127.0.0.1:27187/?directConnection=true' \
+  vp exec node scripts/patients-performance/report-loads.cjs explore \
+  --output /tmp/patients-load-report-new
+```
+
+The output directory must be new. Reports retain raw attempts and deduplicated
+full synthetic response bodies under a fixed 8 MiB allowance reserved from the
+original fixture storage budget. Overflow or unknown dependency settlement
+stops with partial failed evidence. Source/model files with unknown ownership
+remain available for independent recovery; private cleanup receipts are kept
+outside public reports. The `acceptance` phase requests 100 attempts; it does
+not waive the fixed artifact budget or missing cases.
+
+See `docs/patients-read-model/ticket-34.md` for limits, exact provenance and
+reproduction. API body timing excludes real dashboard rendering. The full
+scenario matrix, representative source/capacity/native inputs, real visible
+24-hour chain and deferred frontend remain unmet release gates. Legacy stays
+the deployment default.
