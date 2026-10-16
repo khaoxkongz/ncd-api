@@ -92,7 +92,10 @@ function configuration(filename) {
   return {
     policy: installed.policy,
     capacity,
-    evidence: () => signed(installed.evidence, 512 * 1024),
+    evidence: () => ({
+      ...signed(installed.evidence, 512 * 1024),
+      recordsDirectory: path.dirname(path.resolve(filename)),
+    }),
   };
 }
 
@@ -335,10 +338,12 @@ async function prepareRelease({ db, capacity, policy, evidence, configFile } = {
             if (!capacity?.evidence?.manifest) failure("release-capacity-policy-missing");
             const mongo = await trackedDb(db).command({ buildInfo: 1 });
             const hello = await trackedDb(db).command({ hello: 1 });
-            checked = require("./release-evidence").verifyObservations(record.manifest, record.policy, {
+            checked = await require("./release-evidence").verifyObservations(record.manifest, record.policy, {
               capacityPolicy: BSON.deserialize(capacity.evidence.manifest),
               capacityKey: owner.identity().policyKey,
               mongo,
+              recordsDirectory: evidence.recordsDirectory,
+              budget,
               topology: {
                 replicaSet: hello.setName ?? null,
                 router: hello.msg ?? null,

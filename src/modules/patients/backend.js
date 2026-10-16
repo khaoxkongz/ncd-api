@@ -27,7 +27,10 @@ function selectPatientsBackend(route, req, res) {
     if (!req || !res) return validation;
     const cancellation = new AbortController();
     const { HTTP_CAPACITY, responseCapacity } = require("./read-model/capacity");
-    const responseOwner = responseCapacity(res, validation.onSettlement);
+    const responseOwner = responseCapacity(res, validation.onSettlement, {
+      signal: cancellation.signal,
+      cancel: () => cancellation.abort(),
+    });
     const abort = () => {
       if (!res.writableFinished) cancellation.abort();
     };

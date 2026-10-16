@@ -15,6 +15,7 @@ import { BSON } from "mongodb";
 import { fixtureRelease, descriptor, reviewedEvidence, page, apiCapacity, TARGET_GATES } from "./release-fixture.cjs";
 import { openTransport } from "./mongo-transport.cjs";
 import { rawDocuments } from "./raw-fixture.cjs";
+import { changeTimingSeries } from "./release-matrix-fixture.cjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 it("captures one backend at actual startup, keeps legacy independent, and rejects missing release evidence on all six routes", async () => {
@@ -169,6 +170,8 @@ it("loads independently installed release and capacity files through actual boot
         const installedCapacity = apiCapacity([cut], actor);
         const release = reviewedEvidence(subject, [descriptor(candidate)], installedCapacity);
         expectedKey = BSON.deserialize(release.evidence.manifest).gates.capacity.observations.policyKey;
+        for (const name of fs.readdirSync(release.evidence.recordsDirectory))
+          fs.copyFileSync(path.join(release.evidence.recordsDirectory, name), path.join(directory, name));
         fs.writeFileSync(path.join(directory, "release.bson"), release.evidence.manifest);
         fs.writeFileSync(path.join(directory, "release.sig"), release.evidence.signature);
         fs.writeFileSync(path.join(directory, "capacity.bson"), installedCapacity.evidence.manifest);
@@ -414,6 +417,89 @@ it("rejects reviewed missing, mismatched, revoked, expired and overrun gate obse
         },
       ],
       [
+        "missing-snapshot-timing-series",
+        (draft) => {
+          draft.gates.page.observations.conditions = draft.gates.page.observations.conditions.filter(
+            (condition) => condition.routing !== "snapshot"
+          );
+        },
+      ],
+      [
+        "missing-concrete-scenario",
+        (draft) => {
+          const page = draft.gates.page.observations;
+          const removed = page.scenarios.pop().id;
+          page.conditions = page.conditions.filter((condition) => condition.scenarioId !== removed);
+          draft.gates.correctness.observations.cases = draft.gates.correctness.observations.cases.filter(
+            (test) => test.id !== removed
+          );
+        },
+      ],
+      [
+        "missing-exploratory-series",
+        (draft) => {
+          draft.gates.page.observations.conditions = draft.gates.page.observations.conditions.filter(
+            (condition) => condition.phase !== "explore"
+          );
+        },
+      ],
+      [
+        "missing-first-series",
+        (draft) => {
+          draft.gates.page.observations.conditions = draft.gates.page.observations.conditions.filter(
+            (condition) => condition.trial !== "first"
+          );
+        },
+      ],
+      [
+        "wrong-typed-request",
+        (draft) => {
+          draft.gates.page.observations.scenarios[0].requestBytes = JSON.stringify({ area: false });
+        },
+      ],
+      [
+        "wrong-reference-binding",
+        (draft) => {
+          draft.gates.page.observations.scenarios[0].referenceSha256 = "f".repeat(64);
+        },
+      ],
+      [
+        "duplicate-timing-condition",
+        (draft) => {
+          const conditions = draft.gates.page.observations.conditions;
+          conditions[1] = structuredClone(conditions[0]);
+        },
+      ],
+      [
+        "unavailable-retained-series",
+        (draft) => {
+          const series = draft.gates.page.observations.conditions[1].series;
+          series.filename = `series-${"f".repeat(64)}.ndjson`;
+          series.sha256 = "f".repeat(64);
+        },
+      ],
+      [
+        "acceptance-six-retained-errors",
+        (draft) =>
+          changeTimingSeries(draft, { phase: "acceptance", trial: "first" }, (rows) => {
+            rows.slice(1, 7).forEach((row) => (row[6] = 1));
+          }),
+      ],
+      [
+        "wrong-retained-series-binding",
+        (draft) =>
+          changeTimingSeries(draft, { phase: "explore", trial: "later" }, (rows) => {
+            rows[0].requestSha256 = "f".repeat(64);
+          }),
+      ],
+      [
+        "missing-retained-attempt",
+        (draft) =>
+          changeTimingSeries(draft, { phase: "acceptance", trial: "first" }, (rows) => {
+            rows.pop();
+          }),
+      ],
+      [
         "page-denominator",
         (draft) => {
           draft.gates.page.observations.conditions[0].attempts.pop();
@@ -423,6 +509,22 @@ it("rejects reviewed missing, mismatched, revoked, expired and overrun gate obse
         "page-failures",
         (draft) => {
           draft.gates.page.observations.conditions[0].attempts.slice(0, 6).forEach((attempt) => (attempt.errors = 1));
+        },
+      ],
+      [
+        "freshness-unexplained-publication-and-cleanup-gap",
+        (draft) => {
+          const fresh = draft.gates.freshness.observations;
+          Object.assign(fresh, {
+            mutationAvailableAt: fresh.cutAt,
+            publishedAt: fresh.cutAt + 20 * 3600000,
+            readAt: fresh.cutAt + 20 * 3600000,
+            displayedAt: fresh.cutAt + 20 * 3600000,
+            cleanupCompletedAt: fresh.cutAt + 48 * 3600000,
+            coordinationMS: 0,
+            cleanupMS: 0,
+            recoveryMS: 0,
+          });
         },
       ],
       [

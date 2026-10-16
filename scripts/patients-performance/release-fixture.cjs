@@ -1,7 +1,7 @@
 const { BSON } = require("mongodb");
 const { createHash, generateKeyPairSync, sign } = require("node:crypto");
 const { policy } = require("./capacity-fixture.cjs");
-const { ACTOR } = require("../../src/modules/patients/read-model/capacity");
+const { ACTOR, digest } = require("../../src/modules/patients/read-model/capacity");
 const { SNAPSHOT_REQUEST } = require("./snapshot-fixture.cjs");
 const { deploymentEvidence } = require("./release-evidence-fixture.cjs");
 
@@ -61,12 +61,20 @@ function descriptor(candidate, publications = ["1"]) {
 }
 
 function reviewedEvidence(subject, descriptors, config, mutate = (value) => value) {
-  const draft = mutate(deploymentEvidence(subject, descriptors, config));
-  return fixtureRelease(subject, descriptors, {
+  const original = deploymentEvidence(subject, descriptors, config);
+  const requiredTimingScenarios = {
+    schema: "patients-required-timing-scenarios-v1",
+    count: original.gates.page.observations.scenarios.length,
+    sha256: digest({ scenarios: original.gates.page.observations.scenarios }),
+    recordsVolumeId: "fixture-volume",
+  };
+  const draft = mutate(original);
+  const release = fixtureRelease(subject, descriptors, {
     change: () => draft,
     policyChange: (policy) => ({
       ...policy,
       deployment: draft.deployment,
+      requiredTimingScenarios,
       reviewer: {
         ...policy.reviewer,
         role: "release-review",
@@ -76,6 +84,8 @@ function reviewedEvidence(subject, descriptors, config, mutate = (value) => valu
       },
     }),
   });
+  release.evidence.recordsDirectory = require("./release-matrix-fixture.cjs").timingMatrix([]).directory;
+  return release;
 }
 
 async function page(app, request = SNAPSHOT_REQUEST) {

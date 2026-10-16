@@ -295,6 +295,7 @@ function createCapacity({ db, config }) {
         ended = false,
         active = false,
         sequence = Promise.resolve(),
+        coordinationUnknown = false,
         lastFlushed;
       let workspace = resolved.policy?.admission?.[`${role}Bytes`] ?? 4 * MiB;
       if (!Number.isSafeInteger(workspace) || workspace <= 0 || workspace > budget.limits.maxAdditionalRssBytes)
@@ -554,6 +555,8 @@ function createCapacity({ db, config }) {
               }
           }
         }
+        if (resolved.policy.scope === "deployment" && reasons.size)
+          throw new Error("Mandatory live capacity evidence is unavailable");
         budget.check();
       }
       const account = {
@@ -562,6 +565,7 @@ function createCapacity({ db, config }) {
         state,
         id,
         settlementProof(proof) {
+          if (coordinationUnknown) return { safe: false, proof: "capacity-coordination-outcome-unverified" };
           if (!observations.size) return proof;
           reasons.add("observation-termination-unverified");
           return { safe: false, proof: "capacity-observation-work-unsettled" };
@@ -744,6 +748,7 @@ function createCapacity({ db, config }) {
           try {
             await operation;
           } catch (error) {
+            if (error.controlOutcome === "unknown") coordinationUnknown = true;
             reasons.add("capacity-guard-failed");
             budget.metrics.capacity = state();
             throw error;
@@ -801,7 +806,8 @@ module.exports = { observation, absent, createCapacity, digest, ACTOR, HTTP_CAPA
 
 // Private HTTP handoff. Model work can settle before res.json encodes its body;
 // the physical output buffer stays owned until the actual response ends.
-function responseCapacity(res, onSettlement) {
+function responseCapacity(res, onSettlement, { signal, cancel } = {}) {
+  const budget = require("./budget").createBudget({ maxTimeMS: 60000 }, { request: true, signal });
   let owner,
     proof,
     readProof,
@@ -809,11 +815,18 @@ function responseCapacity(res, onSettlement) {
     closing;
   const releases = [],
     pending = new Set();
+  const deadline = setTimeout(() => {
+    onSettlement?.error?.(new Error("Read-model response deadline exceeded"));
+    cancel?.();
+    unavailable();
+  }, budget.check());
+  deadline.unref();
   const finish = () => {
     if (!readProof || !finished || (owner && !proof)) return;
     return (closing ??= (async () => {
       await Promise.allSettled(pending);
       for (const release of releases) release();
+      if (owner) budget.settlement = require("./budget").createBudget({ maxTimeMS: 60000 }, { request: true });
       const result = owner ? await owner.finish(readProof.safe ? proof : readProof) : readProof;
       onSettlement?.({ ...result, capacity: owner?.identity() });
     })().catch(() => {
@@ -823,6 +836,7 @@ function responseCapacity(res, onSettlement) {
   };
   for (const event of ["finish", "close"])
     res.once(event, () => {
+      clearTimeout(deadline);
       finished = true;
       void finish();
     });
@@ -862,7 +876,11 @@ function responseCapacity(res, onSettlement) {
       } finally {
         await lease.release();
       }
-    })().catch(unavailable);
+    })().catch((error) => {
+      if (error.controlOutcome === "unknown") proof = { safe: false, proof: "http-encoding-admission-unverified" };
+      onSettlement?.error?.(error);
+      return unavailable();
+    });
     pending.add(work);
     void work.then(
       () => {
@@ -887,6 +905,7 @@ function responseCapacity(res, onSettlement) {
     return original.call(res, { status: false, message: "Read model unavailable" });
   }
   return {
+    budget,
     failed(error) {
       onSettlement?.error?.(error);
     },

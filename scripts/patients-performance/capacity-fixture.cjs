@@ -6,7 +6,14 @@ const { ACTOR } = require("../../src/modules/patients/read-model/capacity");
 // installed by the fixture's composition root; the evidence carries no key.
 function policy(
   cuts,
-  { processes = [{ id: "builder", ...ACTOR, roles: ["builder", "api"] }], overrides = {}, observations } = {}
+  {
+    processes = [{ id: "builder", ...ACTOR, roles: ["builder", "api"] }],
+    overrides = {},
+    observations,
+    observationScope = "synthetic-stimulus",
+    observationTransform = (value) => value,
+    maximumLagMS = 1000,
+  } = {}
 ) {
   const { privateKey, publicKey } = generateKeyPairSync("ed25519");
   const unit = (allocation, existingPeak = 0, reservations = 0) => ({
@@ -40,7 +47,11 @@ function policy(
       processes: processes.map((item) => ({ ...item, domains: ["fixture-host"] })),
       database: { id: "fixture-mongo", domains: ["fixture-host"] },
       volumes: [
-        { id: "fixture-volume", purposes: ["source", "database", "logs", "temporary"], domains: ["fixture-host"] },
+        {
+          id: "fixture-volume",
+          purposes: ["source", "database", "logs", "temporary", "reports"],
+          domains: ["fixture-host"],
+        },
       ],
     },
     workloads: cuts.map(({ sourceCut }) => {
@@ -70,7 +81,7 @@ function policy(
       {
         authority: "finite-fixture-collector",
         mechanism: "signed-synthetic-guard-stimulus",
-        maximumLagMS: 1000,
+        maximumLagMS,
         maximumGapMS: 0,
       },
     ];
@@ -78,7 +89,7 @@ function policy(
   const result = {
     evidence: { manifest: bytes, signature: sign(null, bytes, privateKey) },
     trustedOperators: {
-      "finite-fixture-operator": { publicKey, scope: "isolated-fixture", deployments: [deployment.id] },
+      "finite-fixture-operator": { publicKey, scope: manifest.scope, deployments: [deployment.id] },
     },
     binding: deployment,
     processId: processes.find((item) => item.pid === process.pid)?.id ?? processes[0].id,
@@ -87,7 +98,7 @@ function policy(
   };
   if (observer) {
     result.trustedCollectors = {
-      "finite-fixture-collector": { publicKey: observer.publicKey, scope: "isolated-fixture" },
+      "finite-fixture-collector": { publicKey: observer.publicKey, scope: manifest.scope },
     };
     result.observe = async ({ policyKey }) => {
       const values = Object.fromEntries(
@@ -107,16 +118,18 @@ function policy(
           },
         ])
       );
-      const record = BSON.serialize({
-        authority: "finite-fixture-collector",
-        mechanism: "signed-synthetic-guard-stimulus",
-        policyKey,
-        scope: "synthetic-stimulus",
-        from: ACTOR.startedAt,
-        through: Date.now(),
-        maximumGapMS: 0,
-        domains: [{ id: "fixture-host", ...values }],
-      });
+      const record = BSON.serialize(
+        observationTransform({
+          authority: "finite-fixture-collector",
+          mechanism: "signed-synthetic-guard-stimulus",
+          policyKey,
+          scope: observationScope,
+          from: ACTOR.startedAt,
+          through: Date.now(),
+          maximumGapMS: 0,
+          domains: [{ id: "fixture-host", ...values }],
+        })
+      );
       return { manifest: record, signature: sign(null, record, observer.privateKey) };
     };
   }

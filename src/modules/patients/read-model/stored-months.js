@@ -1,7 +1,8 @@
 const { createHash, randomUUID } = require("node:crypto");
 const { BSON, Binary } = require("mongodb");
 const { CATEGORIES, COLLECTIONS, BSON_OPTIONS } = require("./schema");
-const { codec, writeChunks, directoryToken, decodeChunk } = require("./bitmap");
+const { verifySelectedSets, verifyChunkDirectory } = require("./selected-sets");
+const { codec, writeChunks, decodeChunk } = require("./bitmap");
 const { calculatePreparedMonths } = require("./prepared-scopes");
 
 const GEOGRAPHY = ["hcode", "area", "province", "district"];
@@ -201,6 +202,14 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
     graphVisible: true,
     $or: periods.map(({ year, month }) => ({ storedYear: year, storedMonth: month })),
   };
+  await verifySelectedSets({
+    db,
+    generationId,
+    selections: [{ collection: COLLECTIONS.months, match }],
+    categories: CATEGORIES.map(({ id }) => id),
+    budget,
+    collation: generation.collation,
+  });
   const grouped = await atoms
     .aggregate(
       [
@@ -296,13 +305,8 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
           year === Number(document.eligible.storedYear) && month === Number(document.eligible.storedMonth)
       );
       const category = CATEGORIES.findIndex(({ id }) => id === document.category);
-      if (
-        month < 0 ||
-        category < 0 ||
-        document.directory.length !== 1 ||
-        !directoryToken(document).equals(directoryToken(document.directory[0]))
-      )
-        throw new Error("Missing or changed stored-month directory entry");
+      if (month < 0 || category < 0) throw new Error("Missing or changed stored-month directory entry");
+      verifyChunkDirectory(document);
       if (
         current &&
         (!current.block.equals(document.block) || current.month !== month || current.category !== category)
@@ -311,7 +315,6 @@ async function calculateMonths({ db, generation, scope, periods, budget }) {
       current = { month, category, block: document.block };
       readChunks[month][category] += 1;
       readMembers[month][category] += document.popcount;
-      delete document.directory;
       delete document.eligible;
       const contribution = decodeChunk(document, budget);
       try {

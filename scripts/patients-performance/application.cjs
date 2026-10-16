@@ -1,4 +1,6 @@
 const { fork } = require("node:child_process");
+const fs = require("node:fs");
+const os = require("node:os");
 const path = require("node:path");
 const { randomUUID } = require("node:crypto");
 const { performance: monotonicClock } = require("node:perf_hooks");
@@ -36,36 +38,45 @@ async function startApplication({
   if (uri.hostname !== "127.0.0.1" || uri.username || uri.password || !db.databaseName.startsWith("patients_contract_"))
     throw new Error("Only isolated loopback fixture apps are allowed");
   uri.pathname = `/${db.databaseName}`;
-  const child = fork(path.join(__dirname, "application-child.cjs"), [], {
-    stdio: ["ignore", "ignore", "pipe", "ipc"],
-    serialization: "advanced",
-    env: {
-      PATH: process.env.PATH,
-      NODE_PATH: path.resolve(__dirname, "../../node_modules"),
-      NODE_ENV: "production",
-      TZ: timeZone,
-      NCD_PATIENTS_BACKEND: backendMode,
-      MONGO_URI: uri.toString(),
-      DISCORD_BOT_TOKEN: "unused-fixture",
-      DISCORD_CHANNEL_ID_SUCCESS: "unused-fixture",
-      DISCORD_CHANNEL_ID_PROGRESS: "unused-fixture",
-      DISCORD_CHANNEL_ID_ERROR: "unused-fixture",
-      CID_HASH_SECRET_KEY: "synthetic-raw-fixture-only",
-      PATIENTS_APPLICATION_SOURCE: sourceRoot,
-      PATIENTS_APPLICATION_CLOCK: clock,
-      PATIENTS_APPLICATION_RESPONSE_HEADERS: JSON.stringify(responseHeaders),
-      ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
-      ...(activeGeneration ? { PATIENTS_ACTIVE_GENERATION: "1" } : {}),
-      ...(capacityFactory ? { PATIENTS_APPLICATION_CAPACITY: "1" } : {}),
-      ...(releaseFactory ? { PATIENTS_APPLICATION_RELEASE: "1" } : {}),
-    },
-  });
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "patients-application-cwd-"));
+  let child;
+  try {
+    child = fork(path.join(__dirname, "application-child.cjs"), [], {
+      cwd: directory,
+      stdio: ["ignore", "ignore", "pipe", "ipc"],
+      serialization: "advanced",
+      env: {
+        PATH: process.env.PATH,
+        NODE_PATH: path.resolve(__dirname, "../../node_modules"),
+        NODE_ENV: "production",
+        TZ: timeZone,
+        NCD_PATIENTS_BACKEND: backendMode,
+        MONGO_URI: uri.toString(),
+        DISCORD_BOT_TOKEN: "unused-fixture",
+        DISCORD_CHANNEL_ID_SUCCESS: "unused-fixture",
+        DISCORD_CHANNEL_ID_PROGRESS: "unused-fixture",
+        DISCORD_CHANNEL_ID_ERROR: "unused-fixture",
+        CID_HASH_SECRET_KEY: "synthetic-raw-fixture-only",
+        PATIENTS_APPLICATION_SOURCE: sourceRoot,
+        PATIENTS_APPLICATION_CLOCK: clock,
+        PATIENTS_APPLICATION_RESPONSE_HEADERS: JSON.stringify(responseHeaders),
+        ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
+        ...(activeGeneration ? { PATIENTS_ACTIVE_GENERATION: "1" } : {}),
+        ...(capacityFactory ? { PATIENTS_APPLICATION_CAPACITY: "1" } : {}),
+        ...(releaseFactory ? { PATIENTS_APPLICATION_RELEASE: "1" } : {}),
+      },
+    });
+  } catch (error) {
+    fs.rmSync(directory, { recursive: true, force: true });
+    throw error;
+  }
   const messages = [],
     waiters = new Set();
   let exited = false;
   const exit = new Promise((resolve) => {
     child.once("exit", (code, signal) => {
       exited = true;
+      fs.rmSync(directory, { recursive: true, force: true });
       resolve({ code, signal });
       for (const waiter of waiters) waiter.reject(new Error("Fixture app exited before ready"));
       waiters.clear();

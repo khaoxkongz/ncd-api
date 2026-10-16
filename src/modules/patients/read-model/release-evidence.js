@@ -1,6 +1,7 @@
 // Concrete reviewed observation schemas. Trust comes from the independently
 // installed reviewer and exact approved bytes, not from fields named "passed".
 const { createHash } = require("node:crypto");
+const { BSON } = require("mongodb");
 const { isDeepStrictEqual } = require("node:util");
 const { CATEGORIES } = require("./schema");
 const { digest } = require("./capacity");
@@ -48,7 +49,11 @@ const finite = (value) => Number.isFinite(value) && value >= 0;
 const integer = (value) => Number.isSafeInteger(value) && value >= 0;
 const same = isDeepStrictEqual;
 
-function verifyObservations(manifest, policy, { capacityPolicy, capacityKey, mongo, topology }) {
+async function verifyObservations(
+  manifest,
+  policy,
+  { capacityPolicy, capacityKey, mongo, topology, recordsDirectory, budget }
+) {
   const fail = (name) => {
     const error = new Error("Release observations unavailable");
     error.releaseReason = `release-gate-${name}`;
@@ -116,6 +121,17 @@ function verifyObservations(manifest, policy, { capacityPolicy, capacityKey, mon
   }
 
   const correctness = witnessed("correctness");
+  const compared = {
+    ...correctness,
+    cases: correctness.cases?.map((test) => ({
+      ...test,
+      responses:
+        test.responses ??
+        correctness.responseDictionaries?.find(
+          (item) => item.sha256 === test.responsesSha256 && digest({ values: item.values }) === item.sha256
+        )?.values,
+    })),
+  };
   need(
     correctness.baselineRevision === BASELINE &&
       correctness.referenceSha256 === deployment.referenceSha256 &&
@@ -130,12 +146,20 @@ function verifyObservations(manifest, policy, { capacityPolicy, capacityKey, mon
   );
   for (const family of COVERAGE)
     need(
-      correctness.cases.some((value) => value.family === family),
+      compared.cases.some((value) => value.families?.includes(family)),
       "correctness"
     );
-  for (const test of correctness.cases) {
+  need(new Set(compared.cases.map((test) => test.id)).size === compared.cases.length, "correctness");
+  for (const test of compared.cases) {
     need(
-      sha(test.requestSha256) &&
+      typeof test.id === "string" &&
+        Array.isArray(test.families) &&
+        test.families.length > 0 &&
+        test.families.length <= COVERAGE.length &&
+        new Set(test.families).size === test.families.length &&
+        test.families.every((family) => COVERAGE.includes(family)) &&
+        sha(test.contextSha256) &&
+        sha(test.requestSha256) &&
         Number.isFinite(Date.parse(test.clock)) &&
         typeof test.timeZone === "string" &&
         Array.isArray(test.responses) &&
@@ -314,85 +338,27 @@ function verifyObservations(manifest, policy, { capacityPolicy, capacityKey, mon
       page.timing === "initiating-action-to-current-six-render" &&
       Number.isFinite(Date.parse(page.calculationClock)) &&
       page.timeZone === manifest.subject.timeZone &&
-      covers(page.coverage, COVERAGE) &&
-      Array.isArray(page.conditions) &&
-      page.conditions.length >= 2 &&
-      page.conditions.length <= 512 &&
-      ["first", "later"].every((trial) => page.conditions.some((value) => value.trial === trial)),
+      covers(page.coverage, COVERAGE),
     "page"
   );
-  const timings = [];
-  for (const condition of page.conditions) {
-    need(
-      ["first", "later"].includes(condition.trial) &&
-        sha(condition.requestSha256) &&
-        Array.isArray(condition.warmups) &&
-        condition.warmups.length === (condition.trial === "first" ? 0 : 5) &&
-        condition.warmups.every(
-          (value) => finite(value.elapsedMS) && value.errors === 0 && value.currentResults === 6
-        ) &&
-        Array.isArray(condition.attempts) &&
-        condition.attempts.length === 100 &&
-        new Set(condition.attempts.map((value) => value.id)).size === 100,
-      "page"
-    );
-    const reference = correctness.cases.find((value) => value.requestSha256 === condition.requestSha256);
-    need(reference, "page");
-    if (condition.trial === "first")
-      need(new Set(condition.attempts.map((value) => value.session)).size === 100, "page");
-    else
-      need(
-        new Set([...condition.attempts, ...condition.warmups].map((value) => value.session)).size === 1 &&
-          condition.warmups.every((value) => value.referenceSha256 === deployment.referenceSha256),
-        "page"
-      );
-    const apiSamples = [];
-    const samples = condition.attempts
-      .map((value) => {
-        const api = value.api;
-        need(
-          api &&
-            integer(api.commandsStarted) &&
-            api.commandsStarted > 0 &&
-            api.commandsStarted === api.commandsSettled &&
-            api.activeCommands === 0 &&
-            integer(api.queryErrors) &&
-            api.overflow === 0 &&
-            api.proof === "reader-shared-renewals-http-and-capacity-settled",
-          "page"
-        );
-        const correct =
-          typeof value.session === "string" &&
-          value.session.length > 0 &&
-          integer(value.actionAt) &&
-          integer(value.apiCompletedAt) &&
-          integer(value.renderedAt) &&
-          value.apiCompletedAt >= value.actionAt &&
-          value.renderedAt >= value.apiCompletedAt &&
-          value.errors === 0 &&
-          api.queryErrors === 0 &&
-          Array.isArray(value.responses) &&
-          value.responses.length === 6 &&
-          value.responses.every(
-            (response, i) =>
-              response.route === ROUTES[i] &&
-              response.status === 200 &&
-              response.bodySha256 === reference.responses[i].expectedBodySha256 &&
-              response.headersSha256 === reference.responses[i].expectedHeadersSha256 &&
-              integer(response.parsedAt) &&
-              response.parsedAt >= value.actionAt &&
-              response.parsedAt <= value.apiCompletedAt &&
-              response.renderedForCurrentLoad === true
-          );
-        apiSamples.push(correct ? value.apiCompletedAt - value.actionAt : Infinity);
-        return correct ? value.renderedAt - value.actionAt : Infinity;
-      })
-      .sort((a, b) => a - b);
-    need(samples.filter((value) => value <= 15000).length >= 95 && samples[94] <= 15000, "page");
-    apiSamples.sort((a, b) => a - b);
-    need(apiSamples.filter((value) => value <= 15000).length >= 95 && apiSamples[94] <= 15000, "page");
-    timings.push({ id: condition.id, attempts: 100, rank: 95, p95PageMS: samples[94], p95ApiMS: apiSamples[94] });
-  }
+  const series = await require("./release-series").verifySeries(page, compared, COVERAGE, {
+    recordsDirectory,
+    budget,
+    inventory: policy.requiredTimingScenarios,
+  });
+  const timings = series.timings;
+  const reportVolume = capacityPolicy.topology.volumes.find(
+    (volume) => volume.id === policy.requiredTimingScenarios.recordsVolumeId && volume.purposes.includes("reports")
+  );
+  need(
+    reportVolume &&
+      reportVolume.domains.every(
+        (id) =>
+          capacity.domains.find((domain) => domain.id === id)?.disk?.additional >=
+          series.allocatedBytes + BSON.calculateObjectSize(manifest)
+      ),
+    "capacity"
+  );
 
   const fresh = witnessed("freshness");
   const chain = [
@@ -425,6 +391,67 @@ function verifyObservations(manifest, policy, { capacityPolicy, capacityKey, mon
       fresh.cleanupCompletedAt >= fresh.publishedAt &&
       fresh.recovery === "same-cut-same-run-fixed-ledger" &&
       fresh.termination === "registered-worker-and-independent-database-proof",
+    "freshness"
+  );
+
+  const ledger = fresh.ledger,
+    terminal = Math.max(fresh.displayedAt, fresh.cleanupCompletedAt);
+  need(
+    ledger?.version === "full-refresh-v1" &&
+      typeof ledger.runId === "string" &&
+      /^[a-f0-9-]{36}$/.test(ledger.runId) &&
+      ledger.runId === fresh.recoveryRunId &&
+      ledger.generationId === manifest.descriptors[0].generationId &&
+      ledger.sourceSha256 === first.sha256 &&
+      ledger.cutAt === first.sourceCutAt &&
+      Date.parse(ledger.deadlineAt) === fresh.cutAt + 12 * 3600000 &&
+      terminal <= Date.parse(ledger.deadlineAt) &&
+      ledger.acquisitionLimitMS === 2 * 3600000 &&
+      ledger.buildLimitMS === 6 * 3600000 &&
+      ledger.reserveLimitMS === 4 * 3600000 &&
+      Array.isArray(ledger.events) &&
+      ledger.events.length > 0 &&
+      ledger.events.length <= 512,
+    "freshness"
+  );
+  const phases = Object.fromEntries(
+    ["queue", "acquisition", "build", "coordination", "reader", "cleanup", "recovery", "display"].map((name) => [
+      name,
+      0,
+    ])
+  );
+  let observedAt = fresh.cutAt;
+  for (const event of ledger.events) {
+    need(
+      Object.hasOwn(phases, event.phase) &&
+        event.runId === ledger.runId &&
+        integer(event.startedAt) &&
+        integer(event.endedAt) &&
+        event.startedAt === observedAt &&
+        event.endedAt >= event.startedAt &&
+        event.elapsedMS === event.endedAt - event.startedAt,
+      "freshness"
+    );
+    if (event.phase === "acquisition") need(event.endedAt <= fresh.acquisitionCompletedAt, "freshness");
+    if (event.phase === "build")
+      need(event.startedAt >= fresh.buildStartedAt && event.endedAt <= fresh.buildCompletedAt, "freshness");
+    phases[event.phase] += event.elapsedMS;
+    observedAt = event.endedAt;
+  }
+  const reserve =
+    phases.queue + phases.coordination + phases.reader + phases.cleanup + phases.recovery + phases.display;
+  need(
+    observedAt === terminal &&
+      phases.acquisition === fresh.acquisitionCompletedAt - fresh.cutAt - phases.queue &&
+      phases.build === fresh.buildCompletedAt - fresh.buildStartedAt &&
+      phases.acquisition <= ledger.acquisitionLimitMS &&
+      phases.build <= ledger.buildLimitMS &&
+      reserve <= ledger.reserveLimitMS &&
+      Object.entries(phases).every(([name, value]) => ledger[`${name}MS`] === value) &&
+      ledger.reserveSpentMS === reserve &&
+      ledger.reserveRemainingMS === ledger.reserveLimitMS - reserve &&
+      ledger.elapsedMS === terminal - fresh.cutAt &&
+      ["coordination", "cleanup", "recovery", "reader", "display"].every((name) => fresh[`${name}MS`] === phases[name]),
     "freshness"
   );
 
