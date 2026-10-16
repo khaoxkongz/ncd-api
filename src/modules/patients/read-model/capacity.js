@@ -557,6 +557,7 @@ function createCapacity({ db, config }) {
         budget.check();
       }
       const account = {
+        identity: () => ({ generationId, policyKey: resolved.key, scope: resolved.policy?.scope ?? "unverified" }),
         descriptor,
         state,
         id,
@@ -799,21 +800,24 @@ module.exports = { observation, absent, createCapacity, digest, ACTOR, HTTP_CAPA
 
 // Private HTTP handoff. Model work can settle before res.json encodes its body;
 // the physical output buffer stays owned until the actual response ends.
-function responseCapacity(res) {
+function responseCapacity(res, onSettlement) {
   let owner,
     proof,
+    readProof,
     finished = false,
     closing;
   const releases = [],
     pending = new Set();
   const finish = () => {
-    if (!owner || !proof || !finished) return;
+    if (!readProof || !finished || (owner && !proof)) return;
     return (closing ??= (async () => {
       await Promise.allSettled(pending);
       for (const release of releases) release();
-      await owner.finish(proof);
+      const result = owner ? await owner.finish(readProof.safe ? proof : readProof) : readProof;
+      onSettlement?.({ ...result, capacity: owner?.identity() });
     })().catch(() => {
       /* Durable ownership remains if settlement is uncertain. */
+      onSettlement?.({ safe: false, proof: "http-capacity-finalization-unverified" });
     }));
   };
   for (const event of ["finish", "close"])
@@ -882,12 +886,19 @@ function responseCapacity(res) {
     return original.call(res, { status: false, message: "Read model unavailable" });
   }
   return {
+    failed(error) {
+      onSettlement?.error?.(error);
+    },
     bind(value) {
       owner = value;
       void finish();
     },
     settle(value) {
       proof = value;
+      void finish();
+    },
+    readSettled(value) {
+      readProof ??= value;
       void finish();
     },
   };

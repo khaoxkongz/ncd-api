@@ -369,11 +369,37 @@ async function within(promise, budget, signal) {
   }
 }
 
+// Clearing the interval prevents future dispatch. Every renewal already queued
+// by it remains owned until its actual asynchronous continuation has ended.
+function renewals(fn, intervalMS, onError) {
+  const pending = new Set();
+  let failed = false;
+  const timer = setInterval(() => {
+    const work = Promise.resolve().then(fn);
+    pending.add(work);
+    void work.then(
+      () => pending.delete(work),
+      (error) => {
+        failed = true;
+        pending.delete(work);
+        onError?.(error);
+      }
+    );
+  }, intervalMS);
+  timer.unref();
+  return async () => {
+    clearInterval(timer);
+    while (pending.size) await Promise.allSettled(pending);
+    return { safe: !failed, proof: failed ? "renewal-outcome-unverified" : "queued-renewals-settled" };
+  };
+}
+
 module.exports = {
   scope,
   trackedDb,
   WORKER,
   within,
+  renewals,
   observeDatabase,
   rawDb: (db) => db[RAW] ?? db,
   releaseRows: (rows) => {
