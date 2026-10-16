@@ -15,6 +15,8 @@ class CalculationDate extends NativeDate {
 }
 global.Date = CalculationDate;
 let server;
+let applyRelease;
+let rollbackRelease;
 void (async () => {
   await client.connect();
   const mongoPath = path.join(root, "lib/mongo.js");
@@ -36,12 +38,37 @@ void (async () => {
       validationOnly: true,
       capacity,
     });
-  const backend = reader ? require(path.join(root, "modules/patients/backend.js")) : null;
+  const backend =
+    reader || process.env.PATIENTS_APPLICATION_RELEASE ? require(path.join(root, "modules/patients/backend.js")) : null;
+  let release;
+  if (process.env.PATIENTS_APPLICATION_RELEASE) {
+    const received = require("node:events").once(process, "message");
+    const subject = require(path.join(root, "modules/patients/read-model/release.js")).releaseSubject(client.db());
+    process.send({ releaseSubject: subject });
+    const [message] = await received;
+    release = await backend.initializePatientsBackend({ db: client.db(), capacity, release: message?.release });
+    applyRelease = (configuration) =>
+      backend.initializePatientsBackend({ db: client.db(), capacity, ...configuration });
+    rollbackRelease = (configuration) =>
+      backend.rollbackPatientsBackend({
+        db: client.db(),
+        capacity,
+        builder:
+          configuration.target === "legacy"
+            ? undefined
+            : require(path.join(root, "modules/patients/read-model/builder.js")).createBuilder({
+                db: client.db(),
+                capacity,
+              }),
+        ...configuration,
+      });
+  }
   server = require("node:http").createServer((req, res) => {
     for (const [name, value] of Object.entries(JSON.parse(process.env.PATIENTS_APPLICATION_RESPONSE_HEADERS ?? "{}")))
       res.setHeader(name, value);
     const onSettlement = trace.response(req.url.split("?")[0].split("/").pop(), res);
     if (reader) backend.withCandidateValidation(reader, () => app(req, res), onSettlement);
+    else if (backend) backend.withPatientsObservation(() => app(req, res), onSettlement);
     else app(req, res);
   });
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
@@ -91,6 +118,7 @@ void (async () => {
           capacityKey: generation.resources?.capacity?.policyKey ?? "unverified",
         }
       : null,
+    release,
   });
 })().catch(async (error) => {
   process.send({ error: error.name });
@@ -98,6 +126,17 @@ void (async () => {
   process.exitCode = 1;
 });
 process.on("message", async (message) => {
+  if (message?.releaseUpdate && applyRelease) {
+    const { id, configuration, kind } = message.releaseUpdate;
+    try {
+      process.send({
+        releaseReply: { id, report: await (kind === "rollback" ? rollbackRelease : applyRelease)(configuration) },
+      });
+    } catch (error) {
+      process.send({ releaseReply: { id, error: error.name } });
+    }
+    return;
+  }
   if (message?.load) {
     const { id, kind, timeoutMS } = message.load;
     try {

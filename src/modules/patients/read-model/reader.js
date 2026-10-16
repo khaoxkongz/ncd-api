@@ -21,7 +21,7 @@ function compatible(versions) {
   );
 }
 
-function createReader({ db, generationId: explicitGenerationId, validationOnly = false, capacity }) {
+function createReader({ db, generationId: explicitGenerationId, validationOnly = false, capacity, authorization }) {
   if (!db) throw new Error("An explicit Mongo adapter is required");
   const rawDb = unwrapDb(db);
   const capacityContext = buildContext.getStore()?.capacity ?? createCapacity({ db: rawDb, config: capacity });
@@ -35,7 +35,11 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
       let supervised = false,
         acquisitionStarted = false;
       try {
-        if (!validationOnly || requestContext?.backendMode !== "candidate-validation")
+        const serving = authorization && requestContext?.backendMode === "read-model";
+        if (
+          (!serving && (!validationOnly || requestContext?.backendMode !== "candidate-validation")) ||
+          (serving && (validationOnly || explicitGenerationId))
+        )
           throw new Error("Incomplete generation is unavailable for serving");
         if (
           typeof requestContext.route !== "string" ||
@@ -90,6 +94,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
         }
         let accepting = true;
         const execution = requestScope.task(async () => {
+          if (serving) require("./release").authorizeRelease(authorization, pin);
           const generations = db.collection(COLLECTIONS.generations),
             daily = db.collection(COLLECTIONS.daily),
             chunks = db.collection(COLLECTIONS.chunks),
@@ -109,6 +114,7 @@ function createReader({ db, generationId: explicitGenerationId, validationOnly =
             if (pin.descriptorSeal !== generation.seal) throw new Error("Pinned generation descriptor changed");
           } else if (!pin && generation.comparisonOnly !== true)
             throw new Error("Unmanaged candidate is not an explicit comparison fixture");
+          if (serving) require("./release").authorizeRelease(authorization, pin, generation);
           if (
             requestContext.route.startsWith("expense-bar/") &&
             (!generation.components.expenseBar?.complete ||

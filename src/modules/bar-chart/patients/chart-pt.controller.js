@@ -16,10 +16,10 @@ async function chartPatientController(req, res) {
       hcode,
     };
     const response =
-      backend.mode === "candidate-validation"
+      backend.mode !== "legacy"
         ? await require("../../patients/read-model/patients-bar").readPatientsBar(backend.reader, body)
         : await chartPatientServiceV2(body);
-    const result = backend.mode === "candidate-validation" ? responseResult(res, response) : response;
+    const result = backend.mode !== "legacy" ? responseResult(res, response) : response;
     return res.status(200).json({
       status: true,
       message: "success",

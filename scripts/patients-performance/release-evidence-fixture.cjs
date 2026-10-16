@@ -1,0 +1,314 @@
+// Deliberately synthetic schema stimuli. These are never measurements of a
+// dashboard, capacity, freshness, operations or a target environment.
+const { createHash, createPublicKey } = require("node:crypto");
+const { BSON } = require("mongodb");
+const { digest } = require("../../src/modules/patients/read-model/capacity");
+const { REQUIRED_FAMILIES } = require("./cases.cjs");
+const { BASELINE_REVISION, PARTS } = require("./contract-fixture.cjs");
+
+const SUPPLEMENTAL = [
+  "typed-bson-collation",
+  "all-fifteen-bindings",
+  "independent-card-services-and-hospitals",
+  "exact-expense-policy",
+  "snapshot-source-provenance",
+  "full-raw-corrections-and-deletions",
+  "same-cut-recovery",
+  "concurrent-generation-lifetime",
+  "full-target-workload",
+  "actual-page-and-visible-freshness",
+];
+const hex = (n) => String(n).repeat(64);
+function capacityKey(config) {
+  const policy = BSON.deserialize(config.evidence.manifest);
+  const installedKey = config.trustedOperators[policy.authority].publicKey;
+  const key = installedKey.type === "public" ? installedKey : createPublicKey(installedKey);
+  return digest({ policy, operatorKey: key.export({ type: "spki", format: "der" }) });
+}
+function deploymentEvidence(subject, descriptors, config) {
+  const source = descriptors[0].source;
+  const coverage = [...REQUIRED_FAMILIES, ...SUPPLEMENTAL];
+  const peak = { allocation: 4 * 1024 ** 3, totalLimit: 4 * 1024 ** 3, existingPeak: 0, reservations: 0 };
+  const deployment = {
+    id: "fixture-release-protocol",
+    revision: "fixture-config-v1",
+    environment: "fixture",
+    configSha256: hex(1),
+    frontendRevision: "fixture-frontend-v1",
+    referenceSha256: hex(2),
+  };
+  const page = ["first", "later"].map((trial) => ({
+    id: trial,
+    trial,
+    requestSha256: hex(3),
+    routing: "live",
+    warmups:
+      trial === "first"
+        ? []
+        : Array(5).fill({
+            elapsedMS: 10,
+            errors: 0,
+            currentResults: 6,
+            session: "later-session",
+            referenceSha256: deployment.referenceSha256,
+          }),
+    attempts: Array.from({ length: 100 }, (_, i) => ({
+      id: `${trial}-${i}`,
+      session: trial === "first" ? `fresh-${i}` : "later-session",
+      actionAt: i * 1000,
+      renderedAt: i * 1000 + 10,
+      errors: 0,
+      apiCompletedAt: i * 1000 + 5,
+      api: {
+        commandsStarted: 6,
+        commandsSettled: 6,
+        activeCommands: 0,
+        queryErrors: 0,
+        overflow: 0,
+        proof: "reader-shared-renewals-http-and-capacity-settled",
+      },
+      responses: PARTS.map(({ route }) => ({
+        route,
+        status: 200,
+        bodySha256: hex(4),
+        headersSha256: hex(5),
+        parsedAt: i * 1000 + 5,
+        renderedForCurrentLoad: true,
+      })),
+    })),
+  }));
+  const gate = (name, observations) => ({
+    schema: `patients-release-${name}-v1`,
+    failures: [],
+    unverified: [],
+    artifactSha256: createHash("sha256").update(`synthetic-${name}-protocol-stimulus`).digest("hex"),
+    observations,
+  });
+  return {
+    schema: "patients-release-evidence-v1",
+    scope: "isolated-fixture",
+    purpose: "six-controller-release",
+    origin: "synthetic-protocol-stimulus",
+    reviewer: "fixture-release-reviewer",
+    subject,
+    deployment,
+    descriptors,
+    gates: {
+      source: gate("source", {
+        sources: descriptors.map((d) => ({
+          sha256: d.source.sha256,
+          sourceVersion: d.source.sourceVersion,
+          domain: d.source.domain,
+          history: d.source.history,
+          records: d.source.records,
+          transportSha256: d.source.sha256,
+          availableAt: d.source.sourceCutAt,
+          maximumUpstreamDelayMS: 1,
+          consistency: "producer-sealed-full-export",
+          dataset: "raw",
+        })),
+      }),
+      correctness: gate("correctness", {
+        baselineRevision: BASELINE_REVISION,
+        referenceSha256: deployment.referenceSha256,
+        repeatedReferenceSha256: deployment.referenceSha256,
+        sourceSha256: source.sha256,
+        comparison: "exact-status-headers-types-presence-array-order-approved-expense-503-metadata",
+        coverage,
+        cases: coverage.map((family) => ({
+          family,
+          requestSha256: hex(3),
+          clock: "2024-01-09T05:00:00.000Z",
+          timeZone: "UTC",
+          responses: PARTS.map(({ route }) => ({
+            route,
+            expectedStatus: 200,
+            actualStatus: 200,
+            expectedBodySha256: hex(4),
+            actualBodySha256: hex(4),
+            expectedHeadersSha256: hex(5),
+            actualHeadersSha256: hex(5),
+          })),
+        })),
+      }),
+      native: gate("native", {
+        runtime: {
+          node: subject.node,
+          platform: subject.platform,
+          arch: subject.arch,
+          driver: subject.driver,
+          codec: subject.codec,
+        },
+        mongoVersion: "7.0.9",
+        topologySha256: digest({ replicaSet: null, router: null, members: 1 }),
+        goldenSha256: createHash("sha256")
+          .update(Buffer.from("3a300000020000000000010001000000180000001c000000000001000000", "hex"))
+          .digest("hex"),
+        processInventorySha256: digest({ processes: BSON.deserialize(config.evidence.manifest).topology.processes }),
+        termination: "registered-worker-and-independent-database-proof",
+      }),
+      capacity: gate("capacity", {
+        policyKey: capacityKey(config),
+        coverage: "complete-peak",
+        responseAttribution: "isolated-response",
+        physicalSharing: "deduplicated",
+        domains: [
+          {
+            id: "fixture-host",
+            ram: { ...peak, response: 1, api: 2, builder: 3, database: 4, combined: 9, total: 9 },
+            disk: { ...BSON.deserialize(config.evidence.manifest).domains[0].disk, additional: 10, total: 10 },
+            cpu: {
+              allocation: 8,
+              totalLimit: 8,
+              existingPeak: 0,
+              reservations: 0,
+              additional: 1,
+              total: 1,
+              unit: "cores",
+              windowMS: 1000,
+            },
+            io: [
+              {
+                id: "write",
+                allocation: 1000000,
+                totalLimit: 1000000,
+                existingPeak: 0,
+                reservations: 0,
+                additional: 1,
+                total: 1,
+                unit: "bytes/s",
+                windowMS: 1000,
+              },
+            ],
+          },
+        ],
+        purposes: [
+          "source",
+          "collections",
+          "indexes",
+          "staging",
+          "spill",
+          "logs",
+          "retry",
+          "retained-generations",
+          "control",
+          "reports",
+        ],
+        concurrent: ["serving", "refresh", "recovery"],
+        fixedBudgets: {
+          responseBytes: 128 * 1048576,
+          apiBytes: 256 * 1048576,
+          builderBytes: 128 * 1048576,
+          serializedBytes: 8 * 1048576,
+          chunkBytes: 1048576,
+          payloadBytes: 960 * 1024,
+        },
+      }),
+      "full-workload": gate("full-workload", {
+        sourceSha256: source.sha256,
+        domain: source.domain,
+        history: source.history,
+        rawRecords: source.records,
+        categories: Array.from({ length: 15 }, (_, i) => ({
+          id: [
+            "DM",
+            "HT",
+            "COPD",
+            "CA",
+            "PSY",
+            "HD_CVD",
+            "DM_HG",
+            "DM_CKD",
+            "DM_ACS",
+            "DM_CVA",
+            "CA_LUNG",
+            "CA_BREAST",
+            "CA_CERVICAL",
+            "CA_LIVER",
+            "CA_COLORECTAL",
+          ][i],
+          memberships: 1,
+          bytes: 1,
+        })),
+        cardinalities: {
+          typedIdentities: 1,
+          hospitalDays: 1,
+          historicalGeographies: 1,
+          partitions: 1,
+          scopes: 1,
+          dateMonths: 1,
+          storedMonths: 1,
+          dictionaryBytes: 1,
+          indexBytes: 1,
+          bitmapBytes: 1,
+          largestPartitionBytes: 1,
+          largestUnionBytes: 1,
+        },
+        occupiedGenerationBytes: [100, 200],
+        coverage,
+      }),
+      page: gate("page", {
+        frontendRevision: deployment.frontendRevision,
+        referenceSha256: deployment.referenceSha256,
+        timing: "initiating-action-to-current-six-render",
+        calculationClock: "2024-01-09T05:00:00.000Z",
+        timeZone: "UTC",
+        coverage,
+        conditions: page,
+      }),
+      freshness: gate("freshness", {
+        sourceSha256: source.sha256,
+        mutationAvailableAt: Date.parse(source.sourceCutAt) - 1,
+        previousCutAt: Date.parse(source.sourceCutAt) - 43200000,
+        cutAt: Date.parse(source.sourceCutAt),
+        exportCompletedAt: Date.parse(source.sourceCutAt) + 1,
+        acquisitionCompletedAt: Date.parse(source.sourceCutAt) + 2,
+        buildStartedAt: Date.parse(source.sourceCutAt) + 2,
+        buildCompletedAt: Date.parse(source.sourceCutAt) + 3,
+        publishedAt: Date.parse(source.sourceCutAt) + 4,
+        readAt: Date.parse(source.sourceCutAt) + 5,
+        cleanupCompletedAt: Date.parse(source.sourceCutAt) + 6,
+        displayedAt: Date.parse(source.sourceCutAt) + 7,
+        coordinationMS: 1,
+        cleanupMS: 1,
+        recoveryMS: 1,
+        recoveredSourceSha256: source.sha256,
+        recovery: "same-cut-same-run-fixed-ledger",
+        termination: "registered-worker-and-independent-database-proof",
+      }),
+      frontend: gate("frontend", {
+        revision: deployment.frontendRevision,
+        observations: [
+          "source-time-rendered",
+          "stale-rendered",
+          "unknown-rendered",
+          "503-without-current-zeros",
+          "rapid-filter-current-six-only",
+          "atomic-six-result-replacement",
+        ],
+      }),
+      operations: gate("operations", {
+        deploymentRevision: deployment.revision,
+        processInventorySha256: digest({ processes: BSON.deserialize(config.evidence.manifest).topology.processes }),
+        schedules: ["11:00", "23:00"],
+        timeZone: "Asia/Bangkok",
+        budgetHours: [12, 2, 6, 4],
+        maximumHeavy: 1,
+        maximumBuilders: 1,
+        maximumSlots: 2,
+        maximumPins: 64,
+        maximumControlBytes: 1048576,
+        requestDeadlineMS: 60000,
+        observations: [
+          "six-mode-consistent",
+          "optimized-failure-503",
+          "retained-compatible-rollback",
+          "legacy-selector-rollback",
+          "cleanup-deletion-exclusion",
+          "source-job-frontend-deployment-handoffs",
+        ],
+      }),
+    },
+  };
+}
+module.exports = { deploymentEvidence };

@@ -400,7 +400,12 @@ function createControl({ db, now = () => Date.now(), worker }) {
             leaseUntil: now() + LEASE_MS,
           });
         });
-        if (attempt) return { ...attempt, descriptorSeal: claim ? null : selection.active.seal };
+        if (attempt)
+          return {
+            ...attempt,
+            descriptorSeal: claim ? null : selection.active.seal,
+            publicationVersion: claim ? null : selection.publicationVersion.toString(),
+          };
       }
     },
     async fork(parent, budget) {

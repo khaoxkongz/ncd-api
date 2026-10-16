@@ -1,0 +1,1652 @@
+{
+  "schema": "patients-release-fixture-report-v1",
+  "scope": "isolated-fixture",
+  "purpose": "backend-startup-selection-and-rollback-only",
+  "source": {
+    "sha256": "3269b3b875411ed28793bfa5706fe1398fbe5f1faac6279a84b64616a1462826",
+    "records": 10,
+    "history": {
+      "start": "2024-01-07T00:00:00.000Z",
+      "end": "2024-01-08T23:59:59.999Z"
+    },
+    "domain": {
+      "revision": "finite-domain-v1",
+      "records": 10,
+      "allSupportedHistory": true
+    }
+  },
+  "active": {
+    "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+    "publicationVersion": "1"
+  },
+  "seal": "09019cef95c674c4b996401777b5a229f63b3687cc649bf6571ff46a0043cde2",
+  "versions": {
+    "schema": "patients-daily-and-stored-months-v1",
+    "dictionary": "mongo-equivalence-v1",
+    "codec": "roaring-2.7.0-portable",
+    "arithmetic": "expense-v1",
+    "serviceArithmetic": "baseline-services-v1",
+    "preparedStored": "stored-scopes-v1",
+    "card": "daily-card-v1",
+    "dateUtc": "date-utc-months-v1",
+    "preparedDateUtc": "date-utc-scopes-v1"
+  },
+  "runtime": {
+    "database": "patients_contract_f7b5d174b4c24b2798951a1d2909e257",
+    "mongoConnectionSha256": "3eb86f24cfda312075300544d5435fc3400536d92a8c93598b28eb0b0d9097a4",
+    "actor": {
+      "pid": 45026,
+      "startedAt": 1792139948960,
+      "hostSha256": "76dc3fe6d0509607cd2b6749e3b92356710375f3fb3c00c6f225734eaf222dc6"
+    },
+    "node": "v24.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "driver": "6.10.0",
+    "codec": "2.7.0",
+    "timeZone": "UTC",
+    "productSha256": "2a6001311f20d342dce61a50fd669ac9c9ed0fa95bae34dc69216dbc20cb40fa",
+    "lockfileSha256": "2a178f7a49cf660882bcc48ff6ccfcc7de3402ec7fb81b0ea3d3324b2ae0c32f"
+  },
+  "execution": {
+    "revision": "8f785a02b1e57bba94631543fbe0df34f3de82f3",
+    "dirty": true,
+    "files": {
+      "package-lock.json": "2a178f7a49cf660882bcc48ff6ccfcc7de3402ec7fb81b0ea3d3324b2ae0c32f",
+      "package.json": "218ac218e2bb62c90451d6f8607116c5f2ee6bde0bc076c806a0706b500ca5da",
+      "scripts/patients-performance/application-child.cjs": "987e65f4c5e7c6b839e518777201eda78a9db1208bd191c7df65db34c7700e35",
+      "scripts/patients-performance/application.cjs": "cb2f75e8c431dbeeddcd583c73a6c930b1e7c3aaa82163af5208bf3f12657685",
+      "scripts/patients-performance/capacity-fixture.cjs": "a8a54f3d451d1d28d818531f50a8b433c936ee509dd558a769ab87caaebd92be",
+      "scripts/patients-performance/capacity.test.js": "c8020a60d2afdc7f6a7823a418921f3e63861816a3beb0a7df6d9fd535e2bc96",
+      "scripts/patients-performance/card.test.js": "82fbec39877d7869d3eeb18b0f784fe9833a3ee984468c5ce72da263371e6f72",
+      "scripts/patients-performance/cases.cjs": "9180c8060a7e9d11b53c674c2933bfe3213e64e7334692831ddf0aa600d096b7",
+      "scripts/patients-performance/compare.cjs": "b32811be2b60b5067bc299680d005d83a1969e71b24ea69d43b43192f2009c77",
+      "scripts/patients-performance/contract-fixture.cjs": "1b2d56fa95d1955d3dc493a424799ce9fd29af693e99c8578fa6b93fbed79291",
+      "scripts/patients-performance/contract.cjs": "3b2766faf8de0d9f540c3bf0b6cdb3150738fba79b68ae84ab6ab4161e5b060e",
+      "scripts/patients-performance/contract.test.js": "d234f8990bc4c2685e2095777e7ff5183fc7e610802692b6c900361d33c32d18",
+      "scripts/patients-performance/date-range-fixture.cjs": "253efa367c9e39bc1d809a7f822d3d0d9c25560b1f6b8fe7a1ea69fd4766c02e",
+      "scripts/patients-performance/date-ranges.test.js": "af31b101b7af44f3ac9469d69603e3304ebf19b7c58dbe943f6f5cfb980fd770",
+      "scripts/patients-performance/driver-trace.cjs": "70d112c023074322f98fa9050d415e982a9857f61cce710f91d561b19b76777b",
+      "scripts/patients-performance/expense.test.js": "d912868d5866e424454247987007148ac3fb88007f5764c99dbd901de7f76d57",
+      "scripts/patients-performance/generate.cjs": "8aef9081a6c5b31075a73a355663e619e5e907942f9f629a17e7ad0f22a1c9d5",
+      "scripts/patients-performance/generation-worker.cjs": "e9e6b5ec19a7f8abfef7ceea5f569597c25ba0e8f6a453530a390edc4b35daf0",
+      "scripts/patients-performance/generations.test.js": "890d334ba9b62cff3262e3ae88720ae2bff8998e9a8d665f5444334b8429799d",
+      "scripts/patients-performance/load-fixture.cjs": "62f8edd19286e248dcd9548ddcf092d3102be82b34eaab41f88f3eb68cdf050a",
+      "scripts/patients-performance/loads.cjs": "3b6de57b9accc8d7197026753b4376eac1935dc075587b228cdfccb4db5de24c",
+      "scripts/patients-performance/loads.test.js": "1d32b6863e6586fbb1b59c2f432507d569c743f2ce573364a5bc9f4ac225e300",
+      "scripts/patients-performance/mongo-transport.cjs": "2dfe6c491fbe23fd32591d0557a95857d04073442a23be6485f5cba7c58e0e8c",
+      "scripts/patients-performance/monthly-read-model.test.js": "0934e0eb20370b25fc17a2bf02be209c51a70b41906d92957ae289dae94a1825",
+      "scripts/patients-performance/prepared-scopes.test.js": "6dbfc7a569b3d73daa3a12bd3bdd7160354355f7f2596cf561ebecea2db8d8e1",
+      "scripts/patients-performance/raw-fixture.cjs": "aacdb4cb68e82c73986a9ec8d193b257ccb92038210f14aa96b1334eaabe1f49",
+      "scripts/patients-performance/read-model.test.js": "afeb1edef3822e0cda1cc6e5691dce771a75c0383fcc79c218e02c89f59e9a67",
+      "scripts/patients-performance/recovery-worker.cjs": "4d8c218b42d8102140d2ec39bf00c1dc33d800a2ae534612af0b11da527ecc2a",
+      "scripts/patients-performance/recovery.test.js": "33066c4bc63f3cc171352ce478f6de3924f9040e691471d1edc6beaa64950c55",
+      "scripts/patients-performance/references/legacy-six-endpoints.json": "26f633010cc869cf62e2084782b4496a100cdb67037560bf34c20eeb3cc93670",
+      "scripts/patients-performance/refresh-fixture.cjs": "04dabfd93e833a72d01916d11d5cdf38a90ecb815bcc4e0f674a6cafcc5c3918",
+      "scripts/patients-performance/refresh.test.js": "6311e59d3702db94cca77f986a4a4afad42953738c1dd8d6d1f5e6e51f9d57b4",
+      "scripts/patients-performance/release-evidence-fixture.cjs": "329b06170f49c5dff7678cfdb89b36495963d08e57f07505f87bab1d5e3a9b4d",
+      "scripts/patients-performance/release-fixture.cjs": "a328314c0dd105f0f213b6ec7388c3bab66b84d53927b08a2822e288681cd268",
+      "scripts/patients-performance/release.test.js": "42b7d9ff4c079258cd3979151966c26d5aface5d05eb0adff28ec54921b1e50b",
+      "scripts/patients-performance/report-capacity.cjs": "719c8f2f43a18082266666001eff50daafc0e04e62b3f666528e4ea54ba44a2d",
+      "scripts/patients-performance/report-card.cjs": "be2733f0332cab4f16ad69285f0005e9ab4df6111c045fc8f4b1777c19a643a0",
+      "scripts/patients-performance/report-date-ranges.cjs": "b81c7af7999734453959c3cc5f39d5cb38782c2973fa2e7c379c3f2fe152d3ba",
+      "scripts/patients-performance/report-expense.cjs": "ffc1bad27cf8fb5897185298d8e094186d0ccd754e69c62a84424aa07059cd17",
+      "scripts/patients-performance/report-generations.cjs": "ca8ac18bc6eaf27104c03a920518817c78bd2043b43aba27f101e44cd75c69d5",
+      "scripts/patients-performance/report-loads.cjs": "04fa7bd7d4070fd99b9595b878ba7a5c40e59af3e41111c0a34cd36103ce421b",
+      "scripts/patients-performance/report-monthly-read-model.cjs": "3c55e71e7026f837d2a0ec0a84022d255d862aa86457c1cfb1ac93860eaa4892",
+      "scripts/patients-performance/report-prepared-scopes.cjs": "1f719192e1b4a83d143754de2816f771546121a7dcec1dc37210a53dd99e9757",
+      "scripts/patients-performance/report-read-model.cjs": "4a48242fcce96d228d403e86be7db766ab27b424cbabab6f37f4f33af4025a81",
+      "scripts/patients-performance/report-recovery.cjs": "b74c1d45ea817c053eb1ad4efcde5521d0d481b86d7391ccdfd3cff0c7112b0a",
+      "scripts/patients-performance/report-refresh.cjs": "767219e0266473b31b486e49b8678c2af42cb30fc07bb894cac6555c215eeaa3",
+      "scripts/patients-performance/report-release.cjs": "aced0ef54dfb8c6481ee1080be671464895fc1f5d7c9dd551b99cfe2a37ea053",
+      "scripts/patients-performance/report-snapshots.cjs": "0d2087b6b0ff6f6891c917fed6b9f8d367b50d0287def30e8bd54344f1606ce9",
+      "scripts/patients-performance/server.cjs": "0f3809918a75df82f5cbcb09a9c9da13b895647a52f80f2b90c31bc8d51b7790",
+      "scripts/patients-performance/server.test.js": "c214fdf562f3704dd1d836fbc22bcfd09c7bb8718e76d4c9e01a0062ef1e8e55",
+      "scripts/patients-performance/snapshot-fixture.cjs": "ea9fac43119bf1bafb74f22baf0169909e55596ee0a9362ee5713d91be929bff",
+      "scripts/patients-performance/snapshots.test.js": "8b1079cdce001fb25391065f0df835a882f941aa93e70bc94d2b091714dce602",
+      "scripts/patients-performance/startup.test.js": "2c65d7b0e649c6286cfa843b9904f31a76e00a4962f66c723414f413c245243a",
+      "src/app.js": "533c8b2f1be46f0384a1241a11856a55323d1a438604222e4b45c35a5e17d0a6",
+      "src/env.js": "b236cd2bf60c67f117edb364c301e9c5cd881d3f40421c644a2992ff56bc1af0",
+      "src/index.js": "57f9713af5d07153b36a99947934b10feb0cb8fbce5fb5160c8b8e7639cfc041",
+      "src/lib/configure-open-api.js": "8ad97bbe7d37a8d82b47daf74aee14205c9ef1dd07d2ba8ce7e46cc7d66c135e",
+      "src/lib/discord.js": "291f6d1ef563876e5041cf823bfd3b836d21d6375486e01ffe27f55085c93e83",
+      "src/lib/generate-docs.js": "7abbb61807490fcf9f574d6e81d1bace17204b3344de61c31b4f5d3462257be7",
+      "src/lib/hash-cid.js": "e661581093542b663765cc9ea4c5fe3f3a7257b494c525e73e0a08bb85e808da",
+      "src/lib/mongo.js": "1222f519500c4c140e1706176895f37c44fd24eea8c7c021828159ca0aecf47a",
+      "src/lib/utils.js": "7d106fd405995d2db734496532f7bb3c93df5eeffb31957d2a315879cf25e11c",
+      "src/middlewares.js": "8069d86b6fbcf4a2ad43a7c844bdfc163e316e727fe1930d2d80145bdd130596",
+      "src/models/ncd-summary.js": "bccffff160433934169626e341c22f531cfc28240924c78ce90ea5ba55ca230e",
+      "src/models/temp-table-chart-pt.js": "b95adab7ca4e81684d13128a35450fc068c12d4fc7b850194255a08551768348",
+      "src/models/temp-table.js": "8d2e80fed1246a894e37f2a2f4d95c2ca45dce2bda6a5813cdabc756bc848bbb",
+      "src/modules/bar-chart/expense/chart-ex.controller.js": "5ac1ebe5d6b19aace443d05aee7ec26d5e91faf8cf6a804f23dedd815ecdb902",
+      "src/modules/bar-chart/expense/chart-ex.repository.js": "cf17f6a717dfd8c2ce431fd95f61018472dbfb77f7aef236327318bc8e988e48",
+      "src/modules/bar-chart/expense/chart-ex.routes.js": "fd016094e1863a58e625578cfe6ec762e991b7cb178f6717ccf04d3c4db944e9",
+      "src/modules/bar-chart/expense/chart-ex.service.js": "f6a5714bd269bbab4fec568e551c269565a606bd072f98fdb454ff352ce3e962",
+      "src/modules/bar-chart/patients/chart-pt.controller.js": "c45e59e0343cbcc9232f95253c7fb24aa34f576f91ebb36f3c386635085620e0",
+      "src/modules/bar-chart/patients/chart-pt.repository.js": "92a08d78dd230cd518795b797bf964085bfd9493365d9146dca5abee2b4a6375",
+      "src/modules/bar-chart/patients/chart-pt.routes.js": "a8f465b5553fe8a5d466bf7d7062d6ec928a831415efbf4f0478eb89c2ed93be",
+      "src/modules/bar-chart/patients/chart-pt.service.js": "67a75eb5ddcd66f209952e3caec5438e3f4887e54a82a7a4f46a0fbd9c09c8f9",
+      "src/modules/card-summary/card.controller.js": "292e9424c2882744b6aff3cd95daee314590ded1655806db89b7e0c31e035385",
+      "src/modules/card-summary/card.repository.js": "efd049656657c09cfe7b9322269c2eab78c06bfaa3b2de569a0fd86ec3dbc885",
+      "src/modules/card-summary/card.routes.js": "8e76bc6416187e8eac987de5124fa92593365a4081d0d4629142f32a56bbe0df",
+      "src/modules/card-summary/card.service.js": "91fde4dd02afbef9e5895d1da55ab37b3fc48dbffff18944866edcc413bcb913",
+      "src/modules/filter-bar/filter.controller.js": "258761867a1f95d8b0541acb89235d8b2ee590b0ccb23e36edd7f1668dde9daa",
+      "src/modules/filter-bar/filter.repository.js": "b4e7784ef438b6c1498966fed20c55b594d0d8a77c6c2a299cfd07c0cc5ee8bc",
+      "src/modules/filter-bar/filter.routes.js": "f023bdeb3c34cf631cc54db1270945ffed1898a34e59ea32d9e281f4413d50a8",
+      "src/modules/filter-bar/filter.service.js": "fd1c03cbac91ef3ea0b394d1e5e9ef7c3b6c9f93cfbf1cacc6c00bd78b47c461",
+      "src/modules/graph/ca-expense/ca-ex.controller.js": "e430e91e5b8b2527d756ea3ac78c13573b786a95ebbbdea4e4d51e947b1686f0",
+      "src/modules/graph/ca-expense/ca-ex.repository.js": "30897d5ceca136fc42797c7aed49e5394a8cfaccc134aad0f7e0c14cfaa4408d",
+      "src/modules/graph/ca-expense/ca-ex.routes.js": "a3a1479af7d6bf901c400527cc5f7f00fe25ecb85d667112268e410e33f7a89b",
+      "src/modules/graph/ca-expense/ca-ex.service.js": "66f2e621c4af5070a35456026b97bb0052d4aedf8be5bc09add6c80524ece02e",
+      "src/modules/graph/ca-patients/ca-pt.controller.js": "cd8cc7c67f2ed72e34b0a799a23258739c746e3c9406cc750e6c2e7d409ed7a7",
+      "src/modules/graph/ca-patients/ca-pt.repository.js": "b85e2ce4cef6a4c54a1468d500e324d6fdf888169931775aa1037a3f838528e0",
+      "src/modules/graph/ca-patients/ca-pt.routes.js": "5e728a24e9c24521045efa533d0d678ec28124a61642983bb49f68df56f06214",
+      "src/modules/graph/ca-patients/ca-pt.service.js": "34ccc6fc78aaf1a162b54837f4c1628dcfa77246cd11efef93dcf54f97b8c691",
+      "src/modules/graph/disease-expense/disease-ex.controller.js": "14dee4f4c0640a88360f11c8c800f3c06b00645bea5a77c21678284503aaf338",
+      "src/modules/graph/disease-expense/disease-ex.repository.js": "7a060c13757fe073db7c7f9c48b62f0dd03c0bfec3da0ad26dcdb1f0115833e0",
+      "src/modules/graph/disease-expense/disease-ex.routes.js": "a3cf4ec41e11a4bb0ff947d613cd0dbbce6417b3e4012c0e97e079c427d68598",
+      "src/modules/graph/disease-expense/disease-ex.service.js": "7004199eb8d83968ddae5e6177106fe6016e094e9e9a0d74b25ede0d5de12523",
+      "src/modules/graph/disease-patients/disease-pt.controller.js": "bb480a702c83f01518c880b56e79937665c3bb41ba3c30754c127c6c6cbc49b5",
+      "src/modules/graph/disease-patients/disease-pt.repository.js": "e0622d527d5a66340eb1f49f654842dd7ee70c74b5177f58ce54a938c9f961d8",
+      "src/modules/graph/disease-patients/disease-pt.routes.js": "a15f2e6bb956ec05699459b7b19a282d85a43098308268c92186b2c0f35297c1",
+      "src/modules/graph/disease-patients/disease-pt.service.js": "e388ce05a7f83f6efa93ab41077a1bccb0e2be663093c2fec5f3032e2bcc7e95",
+      "src/modules/graph/dm-expense/dm-ex.controller.js": "32b88ea6ae00318db0c8e56df72089b7a5a6316731950ac8c2e5081afa2fd074",
+      "src/modules/graph/dm-expense/dm-ex.repository.js": "8fea8d50dd5ab79e98d6150f1895261149a47afbc6204e11ac95fe03e5713f24",
+      "src/modules/graph/dm-expense/dm-ex.routes.js": "56f7c4efbc27f2972a44592c2eb62858871031639a04707653960b4b4f0da91c",
+      "src/modules/graph/dm-expense/dm-ex.service.js": "c39b47a248ddfa61c33be473a1969c0aaae742a948b1fecc955e1d10931b9ca1",
+      "src/modules/graph/dm-patients/dm-pt.controller.js": "51f9f7c59d44bd4066ff9995a6c7e2b5bd66ce74b00595cf4efd2cf53657f4d5",
+      "src/modules/graph/dm-patients/dm-pt.repository.js": "98baccdf9424a5f1f84dc657ec7ae21f7eb2504786f1643278681d0b2a41bf5d",
+      "src/modules/graph/dm-patients/dm-pt.routes.js": "17b7ccddaacc7a4fb52aed2853dac3dd97d0319e93c0e83fd7f9d140c5a43cc3",
+      "src/modules/graph/dm-patients/dm-pt.service.js": "04c0aa933bb4d920fa67dee9147a3d48452bf7bcd4f9b02b7293b165bbe7f054",
+      "src/modules/migration-temp-table/temp-table.controller.js": "403aa551a74164cd4f858db9fd95c9830aabcf8fe7f9823522b1e09b664c75a8",
+      "src/modules/migration-temp-table/temp-table.routes.js": "ee9fc897d1b9fe26c8119e8bc04419fc259b2df5c2504865efe7e278b10c2d08",
+      "src/modules/migration-temp-table/temp-table.service.js": "53d12960bf43719fe8584eb921aa6e6fd2b1946056b74f6e5146e382a8f305c2",
+      "src/modules/migration/hash-cids.js": "d28b0e97ff8ebb4591f0439a7328237cc4ed06dbaff1d3cff4bcc0b96e67bb48",
+      "src/modules/migration/migration.controller.js": "6840b94e76a318b699c823c2c8d55a2be70dfd519871065788e16b26b9f9d780",
+      "src/modules/migration/migration.routes.js": "cbd924079b315e715956cf2eda1915da789e68fed46e0a6649d8eb1d3b9dead7",
+      "src/modules/migration/migration.service.js": "4629989039fb89ad40ce8e6ea9b89350e6bacc9a9de8ff577964f4b2e1201d0f",
+      "src/modules/migration/pipeline.js": "d944f5ff8a2642b600b9d7bdfa3101d539d1e87a32431e5207fbac28a5761667",
+      "src/modules/patients/backend.js": "cb6a5dc0fd57f1e2256235953504e0d69503c074809ff95a7abf46d1c828eca3",
+      "src/modules/patients/read-model/bitmap.js": "8e689ea377689b0ceb024550915fcc8fb2e37d8a3c87b4daf06703cfa584caeb",
+      "src/modules/patients/read-model/budget.js": "e612109c77e69a648dcd782333ef452cede1c29c0e20abd3710a361a4a605def",
+      "src/modules/patients/read-model/builder.js": "8bac626ff550bddf93c4d073e3d20fb7ca7d898bbf344d18ada564d5979203fa",
+      "src/modules/patients/read-model/capacity.js": "6f35efa4e90114a88ef7fb98e101e7e8202a17d8bca451892423252349363a4c",
+      "src/modules/patients/read-model/card.js": "e35d632c9f0e5cff543bf34e9b4b4117bb315fb88300790b4ffbfb3dfc1a6090",
+      "src/modules/patients/read-model/control.js": "377830747aeee2efd25d92c135cfc1af821e401387b13851aeca2ad83f3c5312",
+      "src/modules/patients/read-model/daily-card.js": "3c35f1dee9d5330c14d85aba1c796b89ef8de17f88898d20038917713d187342",
+      "src/modules/patients/read-model/date-months.js": "ae5cf7c319b292e9de99510a6a0db3bdfb49f94ea1ff32ec2f83d4e2e1d53e4a",
+      "src/modules/patients/read-model/expense-bar.js": "665a314b5fe45359f8134fca574efbedd94835db498e8fba9456a30b2bae43c9",
+      "src/modules/patients/read-model/expense.js": "1d566e5a5255839caccf1f3ee7e6ef98d258017f10cc58d38e63abeefce4c4f5",
+      "src/modules/patients/read-model/generation.js": "87e1f7be2a11255443fdba9fd8c92b34cbc361d41c27707f3ea77735e8a3bc43",
+      "src/modules/patients/read-model/graphs.js": "7af2892c4dbcea782ac8ada6bd6f67ecce38474586ccaf3f35eb9a05ac377b6f",
+      "src/modules/patients/read-model/lifetime.js": "beddef895f0603373dc0efca05abbc7eb73a2cde9ae5252fdeb4a35e96482c09",
+      "src/modules/patients/read-model/metadata.js": "3bfcef21fdd7a4f0ed27a0d34e919dc93deb0ca37f7cf770766e0df1650fde6c",
+      "src/modules/patients/read-model/patients-bar.js": "3c0a94735e5ccdf6971a00f3f4b0a4386d675dcee698c823c91f6ad4bd98fb15",
+      "src/modules/patients/read-model/prepared-scopes.js": "a62fb44f084e35edc612640b8b49da450a36b79dd944d55f105414fa50c651ac",
+      "src/modules/patients/read-model/reader.js": "5e31011cfd0e1b1c56d34ffc6725e70df2a39a7c99678bf373f6622e8ad5e4e0",
+      "src/modules/patients/read-model/recovery.js": "fcd16f2ebec66e86c3c42cf46a06fdf1d35ce0ffe2ee8f042f0ee945944089d5",
+      "src/modules/patients/read-model/refresh.js": "fc5fedc59391af365791d8cb051ebcbaa6fe25e7011a14cfa7e76ddcda1e5333",
+      "src/modules/patients/read-model/release-evidence.js": "0af6396f0d670aa0c33de25b6968a1300b1fc22f5b7ee897e0752dc9e107bf26",
+      "src/modules/patients/read-model/release.js": "56133766c613f3ba547122cc12ca706a2494e9a28f2cc5b3b919544c3f574e3d",
+      "src/modules/patients/read-model/schema.js": "7addd7c7070b486e880f9afd4f47dd87f1164619bf91d75dc8d309acac145950",
+      "src/modules/patients/read-model/snapshots.js": "0d7a2a75442218159e39f317fde63610bf69ac955f8d5a5eeda0a22013c2e43e",
+      "src/modules/patients/read-model/source.js": "f449184955d531828a098048d2e36e992e9f3cb8dc0a9bcfb7be1144737a7f76",
+      "src/modules/patients/read-model/stored-months.js": "a380f9b019acdfcb0ee262439cac723eebe12a7c8f643ea29704d5d2e79addf3",
+      "src/modules/patients/read-model/supervision.js": "5b90ca1f3d6cf711cc1470d5b542029ed1111e942226b5d4e3f79e3fca853416",
+      "src/modules/shared/count-cid.repository.js": "912522a97da10f340d423a557003c33b9f60173299ed85f0c687a8bc7e50b094",
+      "src/routes/index.js": "f038cfeb5f9ed312379abc5c7c013831f17b6c8ab422f8fb6d5491c48200de4d",
+      "src/utils/constant.js": "284fa3c22f4b3c0b125b430d784eb147422aacf77757523677cc743cf7ddccf0",
+      "vite.config.ts": "73dcd115dd71843a6ee5b23b91f8b2189829c60a8bc45dc2cb62c5e7741f2b2a"
+    }
+  },
+  "fixedBudget": {
+    "maxTimeMS": 30000,
+    "maxSourceBytes": 8388608,
+    "maxStorageBytes": 33292288,
+    "maxAdditionalRssBytes": 134217728,
+    "maxSerializedBytes": 8388608,
+    "maxChunkBytes": 1048576,
+    "maxPayloadBytes": 983040,
+    "maxHeavyOperations": 1
+  },
+  "fixedReportAllowanceBytes": 262144,
+  "prepared": {
+    "mode": "read-model",
+    "activation": "fixture-exercise",
+    "targetActivation": "blocked",
+    "reason": "fixture-protocol-only",
+    "gates": [
+      {
+        "name": "source",
+        "state": "unverified"
+      },
+      {
+        "name": "correctness",
+        "state": "unverified"
+      },
+      {
+        "name": "native",
+        "state": "unverified"
+      },
+      {
+        "name": "capacity",
+        "state": "unverified"
+      },
+      {
+        "name": "full-workload",
+        "state": "unverified"
+      },
+      {
+        "name": "page",
+        "state": "unverified"
+      },
+      {
+        "name": "freshness",
+        "state": "unverified"
+      },
+      {
+        "name": "frontend",
+        "state": "unverified"
+      },
+      {
+        "name": "operations",
+        "state": "unverified"
+      }
+    ],
+    "subject": {
+      "database": "patients_contract_f7b5d174b4c24b2798951a1d2909e257",
+      "mongoConnectionSha256": "3eb86f24cfda312075300544d5435fc3400536d92a8c93598b28eb0b0d9097a4",
+      "actor": {
+        "pid": 45026,
+        "startedAt": 1792139948960,
+        "hostSha256": "76dc3fe6d0509607cd2b6749e3b92356710375f3fb3c00c6f225734eaf222dc6"
+      },
+      "node": "v24.22.0",
+      "platform": "darwin",
+      "arch": "arm64",
+      "driver": "6.10.0",
+      "codec": "2.7.0",
+      "timeZone": "UTC",
+      "productSha256": "2a6001311f20d342dce61a50fd669ac9c9ed0fa95bae34dc69216dbc20cb40fa",
+      "lockfileSha256": "2a178f7a49cf660882bcc48ff6ccfcc7de3402ec7fb81b0ea3d3324b2ae0c32f"
+    },
+    "evidenceSha256": "9e3ce8ceb6796224f913d84318157779e1250d0e3a4d191fb6ff9380128c0746",
+    "policyRevision": "fixture-reviewed-release-v1",
+    "descriptors": [
+      {
+        "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+        "seal": "09019cef95c674c4b996401777b5a229f63b3687cc649bf6571ff46a0043cde2",
+        "publications": ["1"]
+      }
+    ]
+  },
+  "snapshot": {
+    "id": "3002e128-672c-4d68-888d-15ccac760a00",
+    "requestBytes": "{\"startDate\":\"2024-01-07\",\"endDate\":\"2024-01-09\",\"area\":\"\",\"province\":\"\",\"district\":\"\",\"hcode\":\"\"}",
+    "origin": "https://fixture.invalid",
+    "responses": [
+      {
+        "route": "card",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"98-pMoThxxKnMcuRjH4ULIDfJmf7xc\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "service_count": 9,
+              "patient_count": 6,
+              "expense": 370,
+              "hcode_count": 2,
+              "avg_service": 1.5,
+              "avg_expense": 61.67
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"service_count\":9,\"patient_count\":6,\"expense\":370,\"hcode_count\":2,\"avg_service\":1.5,\"avg_expense\":61.67}]}",
+        "bodyBytes": 152,
+        "parsed": true,
+        "parsedBodyMS": 111.49612500000057
+      },
+      {
+        "route": "bar-chart-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"23b-YbPMVqmTwh5fpbPUH9ZVA1HcYY8\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfPatient": 2,
+              "avg": 2
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfPatient": 1,
+              "avg": 1
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคเบาหวาน\",\"qtyOfPatient\":2,\"avg\":2},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคมะเร็ง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"สุขภาพจิต\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"qtyOfPatient\":1,\"avg\":1}]}",
+        "bodyBytes": 571,
+        "parsed": true,
+        "parsedBodyMS": 92.39254100000016
+      },
+      {
+        "route": "bar-chart-ex",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"248-F67glk1sNGqZtz/NcpiDZBsT4G4\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfExpense": 100,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfExpense": 10,
+              "avg": 10
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfExpense": 50,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfExpense": 60,
+              "avg": 60
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfExpense": 70,
+              "avg": 70
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfExpense": 80,
+              "avg": 80
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคเบาหวาน\",\"qtyOfExpense\":100,\"avg\":50},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"qtyOfExpense\":10,\"avg\":10},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"qtyOfExpense\":50,\"avg\":50},{\"diseaseName\":\"โรคมะเร็ง\",\"qtyOfExpense\":60,\"avg\":60},{\"diseaseName\":\"สุขภาพจิต\",\"qtyOfExpense\":70,\"avg\":70},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"qtyOfExpense\":80,\"avg\":80}]}",
+        "bodyBytes": 584,
+        "parsed": true,
+        "parsedBodyMS": 67.15779100000054
+      },
+      {
+        "route": "graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"2b4-J9ywX4clsawjHrXyDgFXC8PjCu0\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"ทั้งหมด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,7]},{\"diseaseName\":\"โรคเบาหวาน\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,2]},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคมะเร็ง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"สุขภาพจิต\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]}]}",
+        "bodyBytes": 692,
+        "parsed": true,
+        "parsedBodyMS": 98.98433400000067
+      },
+      {
+        "route": "graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33c-uVTLsjbiaPbP+I4WI2OT5wj2+7k\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดอื่น ๆ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,2]}]}",
+        "bodyBytes": 828,
+        "parsed": true,
+        "parsedBodyMS": 90.65829200000007
+      },
+      {
+        "route": "graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"27b-UA8V/whUx4VQvDDfZYVa4AMNUAM\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคมะเร็งปอด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคมะเร็งเต้านม\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งปากมดลูก\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งตับ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งลำไส้ใหญ่\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งชนิดอื่น ๆ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]}]}",
+        "bodyBytes": 635,
+        "parsed": true,
+        "parsedBodyMS": 79.5751250000003
+      }
+    ],
+    "combinedObservedMS": 111.60899999999947,
+    "combinedParsedBodiesMS": 111.60899999999947,
+    "drainMS": 8.62579100000039,
+    "telemetry": {
+      "id": "3002e128-672c-4d68-888d-15ccac760a00",
+      "commandsStarted": 200,
+      "commandsSettled": 200,
+      "commandCounts": {
+        "find": 109,
+        "update": 79,
+        "aggregate": 6,
+        "killCursors": 6
+      },
+      "commandDurationMS": 422.68287300000054,
+      "queryErrors": [],
+      "errorCount": 0,
+      "errorOverflow": 0,
+      "violations": [],
+      "activeCommands": 0,
+      "requests": [
+        {
+          "route": "card",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "bar-chart-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "bar-chart-ex",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-disease-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-dm-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-ca-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        }
+      ],
+      "limits": {
+        "activeCommands": 256,
+        "errors": 128,
+        "bytes": 262144
+      },
+      "settlement": {
+        "safe": true,
+        "proof": "reader-shared-renewals-http-and-capacity-settled"
+      },
+      "errorEvidenceVerified": true,
+      "preflightCommands": 307
+    },
+    "queryErrors": [],
+    "errorEvidenceVerified": true,
+    "settlement": {
+      "safe": true,
+      "proof": "reader-shared-renewals-http-and-capacity-settled"
+    },
+    "complete": true
+  },
+  "live": {
+    "id": "bd3f5a23-163e-4570-b01b-3d907acf4158",
+    "requestBytes": "{\"startDate\":\"2024-01-07\",\"endDate\":\"2024-01-09\"}",
+    "origin": "https://fixture.invalid",
+    "responses": [
+      {
+        "route": "card",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"98-pMoThxxKnMcuRjH4ULIDfJmf7xc\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "service_count": 9,
+              "patient_count": 6,
+              "expense": 370,
+              "hcode_count": 2,
+              "avg_service": 1.5,
+              "avg_expense": 61.67
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"service_count\":9,\"patient_count\":6,\"expense\":370,\"hcode_count\":2,\"avg_service\":1.5,\"avg_expense\":61.67}]}",
+        "bodyBytes": 152,
+        "parsed": true,
+        "parsedBodyMS": 140.0767910000004
+      },
+      {
+        "route": "bar-chart-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"23b-YbPMVqmTwh5fpbPUH9ZVA1HcYY8\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfPatient": 2,
+              "avg": 2
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfPatient": 1,
+              "avg": 1
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfPatient": 1,
+              "avg": 1
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคเบาหวาน\",\"qtyOfPatient\":2,\"avg\":2},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคมะเร็ง\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"สุขภาพจิต\",\"qtyOfPatient\":1,\"avg\":1},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"qtyOfPatient\":1,\"avg\":1}]}",
+        "bodyBytes": 571,
+        "parsed": true,
+        "parsedBodyMS": 133.98316599999998
+      },
+      {
+        "route": "bar-chart-ex",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"248-F67glk1sNGqZtz/NcpiDZBsT4G4\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "qtyOfExpense": 100,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "qtyOfExpense": 10,
+              "avg": 10
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "qtyOfExpense": 50,
+              "avg": 50
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "qtyOfExpense": 60,
+              "avg": 60
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "qtyOfExpense": 70,
+              "avg": 70
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "qtyOfExpense": 80,
+              "avg": 80
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคเบาหวาน\",\"qtyOfExpense\":100,\"avg\":50},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"qtyOfExpense\":10,\"avg\":10},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"qtyOfExpense\":50,\"avg\":50},{\"diseaseName\":\"โรคมะเร็ง\",\"qtyOfExpense\":60,\"avg\":60},{\"diseaseName\":\"สุขภาพจิต\",\"qtyOfExpense\":70,\"avg\":70},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"qtyOfExpense\":80,\"avg\":80}]}",
+        "bodyBytes": 584,
+        "parsed": true,
+        "parsedBodyMS": 147.5704999999998
+      },
+      {
+        "route": "graph-disease-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"2b4-J9ywX4clsawjHrXyDgFXC8PjCu0\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "ทั้งหมด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+            },
+            {
+              "diseaseName": "โรคเบาหวาน",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            },
+            {
+              "diseaseName": "โรคความดันโลหิตสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็ง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "สุขภาพจิต",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคหัวใจและหลอดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"ทั้งหมด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,7]},{\"diseaseName\":\"โรคเบาหวาน\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,2]},{\"diseaseName\":\"โรคความดันโลหิตสูง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคปอดอุดกั้นเรื้อรัง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคมะเร็ง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"สุขภาพจิต\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคหัวใจและหลอดเลือด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]}]}",
+        "bodyBytes": 692,
+        "parsed": true,
+        "parsedBodyMS": 114.43212499999936
+      },
+      {
+        "route": "graph-dm-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33c-uVTLsjbiaPbP+I4WI2OT5wj2+7k\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "เบาหวานชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"เบาหวานชนิดอื่น ๆ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,2]}]}",
+        "bodyBytes": 828,
+        "parsed": true,
+        "parsedBodyMS": 122.18012499999986
+      },
+      {
+        "route": "graph-ca-pt",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": "2024-01-09T05:00:00.000Z",
+          "x-ncd-data-state": "fresh",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"27b-UA8V/whUx4VQvDDfZYVa4AMNUAM\""
+        },
+        "body": {
+          "status": true,
+          "message": "success",
+          "result": [
+            {
+              "diseaseName": "โรคมะเร็งปอด",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+            },
+            {
+              "diseaseName": "โรคมะเร็งเต้านม",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งปากมดลูก",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งตับ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+              "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ]
+        },
+        "bodyWire": "{\"status\":true,\"message\":\"success\",\"result\":[{\"diseaseName\":\"โรคมะเร็งปอด\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,1]},{\"diseaseName\":\"โรคมะเร็งเต้านม\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งปากมดลูก\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งตับ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งลำไส้ใหญ่\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]},{\"diseaseName\":\"โรคมะเร็งชนิดอื่น ๆ\",\"data\":[0,0,0,0,0,0,0,0,0,0,0,0]}]}",
+        "bodyBytes": 635,
+        "parsed": true,
+        "parsedBodyMS": 116.42008299999998
+      }
+    ],
+    "combinedObservedMS": 147.97525000000041,
+    "combinedParsedBodiesMS": 147.97525000000041,
+    "drainMS": 1.6373330000005808,
+    "telemetry": {
+      "id": "bd3f5a23-163e-4570-b01b-3d907acf4158",
+      "commandsStarted": 323,
+      "commandsSettled": 323,
+      "commandCounts": {
+        "find": 157,
+        "update": 128,
+        "aggregate": 10,
+        "killCursors": 8,
+        "getMore": 20
+      },
+      "commandDurationMS": 565.7934329999998,
+      "queryErrors": [],
+      "errorCount": 0,
+      "errorOverflow": 0,
+      "violations": [],
+      "activeCommands": 0,
+      "requests": [
+        {
+          "route": "card",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "bar-chart-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "bar-chart-ex",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-disease-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-dm-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        },
+        {
+          "route": "graph-ca-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "all-commands-settled-and-cursors-exhausted"
+          },
+          "capacity": {
+            "generationId": "bc67e575-8c3d-4d62-9fd5-8d4b35660b43",
+            "policyKey": "7b770a57c8f57a891788d686783651185d2828395e1358f2771e421cea604d34",
+            "scope": "isolated-fixture"
+          }
+        }
+      ],
+      "limits": {
+        "activeCommands": 256,
+        "errors": 128,
+        "bytes": 262144
+      },
+      "settlement": {
+        "safe": true,
+        "proof": "reader-shared-renewals-http-and-capacity-settled"
+      },
+      "errorEvidenceVerified": true,
+      "preflightCommands": 307
+    },
+    "queryErrors": [],
+    "errorEvidenceVerified": true,
+    "settlement": {
+      "safe": true,
+      "proof": "reader-shared-renewals-http-and-capacity-settled"
+    },
+    "complete": true
+  },
+  "rejected": {
+    "mode": "read-model",
+    "activation": "blocked",
+    "targetActivation": "blocked",
+    "reason": "release-review-missing",
+    "gates": [
+      {
+        "name": "source",
+        "state": "unverified"
+      },
+      {
+        "name": "correctness",
+        "state": "unverified"
+      },
+      {
+        "name": "native",
+        "state": "unverified"
+      },
+      {
+        "name": "capacity",
+        "state": "unverified"
+      },
+      {
+        "name": "full-workload",
+        "state": "unverified"
+      },
+      {
+        "name": "page",
+        "state": "unverified"
+      },
+      {
+        "name": "freshness",
+        "state": "unverified"
+      },
+      {
+        "name": "frontend",
+        "state": "unverified"
+      },
+      {
+        "name": "operations",
+        "state": "unverified"
+      }
+    ],
+    "subject": {
+      "database": "patients_contract_f7b5d174b4c24b2798951a1d2909e257",
+      "mongoConnectionSha256": "3eb86f24cfda312075300544d5435fc3400536d92a8c93598b28eb0b0d9097a4",
+      "actor": {
+        "pid": 45026,
+        "startedAt": 1792139948960,
+        "hostSha256": "76dc3fe6d0509607cd2b6749e3b92356710375f3fb3c00c6f225734eaf222dc6"
+      },
+      "node": "v24.22.0",
+      "platform": "darwin",
+      "arch": "arm64",
+      "driver": "6.10.0",
+      "codec": "2.7.0",
+      "timeZone": "UTC",
+      "productSha256": "2a6001311f20d342dce61a50fd669ac9c9ed0fa95bae34dc69216dbc20cb40fa",
+      "lockfileSha256": "2a178f7a49cf660882bcc48ff6ccfcc7de3402ec7fb81b0ea3d3324b2ae0c32f"
+    }
+  },
+  "unavailable": {
+    "id": "4be134e4-3ab9-4d93-8a9b-fad57708ad42",
+    "requestBytes": "{\"startDate\":\"2024-01-07\",\"endDate\":\"2024-01-09\",\"area\":\"\",\"province\":\"\",\"district\":\"\",\"hcode\":\"\"}",
+    "origin": "https://fixture.invalid",
+    "responses": [
+      {
+        "route": "card",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.2707080000000133
+      },
+      {
+        "route": "bar-chart-pt",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.3592909999997573
+      },
+      {
+        "route": "bar-chart-ex",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.4058750000003783
+      },
+      {
+        "route": "graph-disease-pt",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.4832500000002256
+      },
+      {
+        "route": "graph-dm-pt",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.5632920000007289
+      },
+      {
+        "route": "graph-ca-pt",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-ncd-source-cut": null,
+          "x-ncd-data-state": "unknown",
+          "access-control-expose-headers": "X-NCD-Source-Cut, X-NCD-Data-State",
+          "access-control-allow-origin": "*",
+          "vary": null,
+          "etag": "W/\"33-CemfLS8IZo1qiPf85cXEk6hU/VU\""
+        },
+        "body": {
+          "status": false,
+          "message": "Read model unavailable"
+        },
+        "bodyWire": "{\"status\":false,\"message\":\"Read model unavailable\"}",
+        "bodyBytes": 51,
+        "parsed": true,
+        "parsedBodyMS": 1.6487910000005286
+      }
+    ],
+    "combinedObservedMS": 2.0702080000000933,
+    "combinedParsedBodiesMS": 2.0702080000000933,
+    "drainMS": 0.07866699999976845,
+    "telemetry": {
+      "id": "4be134e4-3ab9-4d93-8a9b-fad57708ad42",
+      "commandsStarted": 0,
+      "commandsSettled": 0,
+      "commandCounts": {},
+      "commandDurationMS": 0,
+      "queryErrors": [],
+      "errorCount": 0,
+      "errorOverflow": 0,
+      "violations": [],
+      "activeCommands": 0,
+      "requests": [
+        {
+          "route": "card",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        },
+        {
+          "route": "bar-chart-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        },
+        {
+          "route": "bar-chart-ex",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        },
+        {
+          "route": "graph-disease-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        },
+        {
+          "route": "graph-dm-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        },
+        {
+          "route": "graph-ca-pt",
+          "httpEnded": true,
+          "proof": {
+            "safe": true,
+            "proof": "backend-rejected-before-reader-acquisition"
+          }
+        }
+      ],
+      "limits": {
+        "activeCommands": 256,
+        "errors": 128,
+        "bytes": 262144
+      },
+      "settlement": {
+        "safe": true,
+        "proof": "reader-shared-renewals-http-and-capacity-settled"
+      },
+      "errorEvidenceVerified": true,
+      "preflightCommands": 316
+    },
+    "queryErrors": [],
+    "errorEvidenceVerified": true,
+    "settlement": {
+      "safe": true,
+      "proof": "reader-shared-renewals-http-and-capacity-settled"
+    },
+    "complete": true
+  },
+  "legacyReport": {
+    "mode": "legacy",
+    "activation": "legacy"
+  },
+  "legacy": [
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "service_count": 0,
+            "patient_count": 0,
+            "expense": 0,
+            "hcode_count": 0,
+            "avg_service": 0,
+            "avg_expense": 0
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfPatient": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfPatient": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "qtyOfExpense": 0,
+            "avg": 0
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "qtyOfExpense": 0,
+            "avg": 0
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "ทั้งหมด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคเบาหวาน",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคความดันโลหิตสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคปอดอุดกั้นเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็ง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "สุขภาพจิต",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคหัวใจและหลอดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ที่มีภาวะน้ำตาลในเลือดสูง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคไตเรื้อรัง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหัวใจขาดเลือด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดต่าง ๆ ร่วมกับโรคหลอดเลือดสมอง",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "เบาหวานชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": true,
+        "message": "success",
+        "result": [
+          {
+            "diseaseName": "โรคมะเร็งปอด",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งเต้านม",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งปากมดลูก",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งตับ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งลำไส้ใหญ่",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            "diseaseName": "โรคมะเร็งชนิดอื่น ๆ",
+            "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      },
+      "source": null,
+      "state": "unknown"
+    }
+  ],
+  "closed": {
+    "exited": true,
+    "graceful": true,
+    "dependencySettlement": "no-unresolved-observed-load"
+  },
+  "finalOwnership": {
+    "pins": 0,
+    "capacityOwners": 0,
+    "occupiedSlots": 1
+  },
+  "releaseGates": [
+    {
+      "name": "source",
+      "state": "unverified"
+    },
+    {
+      "name": "correctness",
+      "state": "unverified"
+    },
+    {
+      "name": "native",
+      "state": "unverified"
+    },
+    {
+      "name": "capacity",
+      "state": "unverified"
+    },
+    {
+      "name": "full-workload",
+      "state": "unverified"
+    },
+    {
+      "name": "page",
+      "state": "unverified"
+    },
+    {
+      "name": "freshness",
+      "state": "unverified"
+    },
+    {
+      "name": "frontend",
+      "state": "unverified"
+    },
+    {
+      "name": "operations",
+      "state": "unverified"
+    }
+  ],
+  "targetActivation": "blocked",
+  "limitations": [
+    "Synthetic source and fixture-only reviewer; not target authority",
+    "No real frontend, page or visible freshness measurement",
+    "Representative source/history/workload/headroom/native/topology/target release inputs remain absent",
+    "This is not a 20/100 timing or Production acceptance run"
+  ]
+}
