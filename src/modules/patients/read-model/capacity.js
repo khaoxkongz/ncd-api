@@ -270,7 +270,7 @@ function createCapacity({ db, config }) {
   return {
     key: resolved.key,
     source,
-    async begin(budget, role, { pin, worker, generationId, dependents = new Set() } = {}) {
+    async begin(budget, role, { pin, worker, generationId, dependents = new Set(), managed = false } = {}) {
       if (resolved.selected && !resolved.selected.roles.includes(role))
         throw new Error("Capacity role is inapplicable to this process");
       for (const limit of resolved.limits ?? []) {
@@ -779,8 +779,9 @@ function createCapacity({ db, config }) {
       budget.capacity = account;
       budget.metrics.capacity = state();
       try {
-        active = !!pin || role === "builder";
+        active = managed || !!pin || role === "builder";
         if (active) active = await control.exists(budget);
+        if (managed && !active) throw new Error("Managed capacity control unavailable");
         await account.flush();
         return account;
       } catch (error) {

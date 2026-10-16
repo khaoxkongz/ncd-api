@@ -14,10 +14,10 @@ async function caPatientController(req, res) {
       hcode,
     };
     const response =
-      backend.mode === "candidate-validation"
+      backend.mode !== "legacy"
         ? await require("../../patients/read-model/graphs").readGraph(backend.reader, "ca", body)
         : await caPatientServiceV2(body);
-    const result = backend.mode === "candidate-validation" ? responseResult(res, response) : response;
+    const result = backend.mode !== "legacy" ? responseResult(res, response) : response;
     return res.status(200).json({
       status: true,
       message: "success",

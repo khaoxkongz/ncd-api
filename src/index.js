@@ -1,6 +1,8 @@
-const app = require("./app");
 const { env } = require("./env");
+const { initializePatientsBackend } = require("./modules/patients/backend");
 
-app.listen(env.PORT, () => {
-  console.log(`Listening: http://localhost:${env.PORT}`);
+void initializePatientsBackend().then(() => {
+  require("./app").listen(env.PORT, () => {
+    console.log(`Listening: http://localhost:${env.PORT}`);
+  });
 });

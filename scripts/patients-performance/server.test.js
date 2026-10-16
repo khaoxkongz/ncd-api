@@ -51,6 +51,8 @@ it("blocks an unvalidated read-model selection for every route before source rea
   const previous = process.env.NCD_PATIENTS_BACKEND;
   process.env.NCD_PATIENTS_BACKEND = "read-model";
   try {
+    await server.close();
+    server = await startServer({ db, clock: "2026-10-13T05:00:00.000Z", timeZone: "Asia/Bangkok" });
     const responses = await Promise.all(
       routes.map(async (route) => {
         const response = await fetch(`${server.url}/ncds_api/api/v1/${route}`, {
@@ -79,6 +81,8 @@ it("rejects an unknown shared backend configuration without reading legacy data"
   const previous = process.env.NCD_PATIENTS_BACKEND;
   process.env.NCD_PATIENTS_BACKEND = "unsupported-fixture-mode";
   try {
+    await server.close();
+    server = await startServer({ db, clock: "2026-10-13T05:00:00.000Z", timeZone: "Asia/Bangkok" });
     const responses = await Promise.all(
       routes.map(async (route) => {
         const response = await fetch(`${server.url}/ncds_api/api/v1/${route}`, {

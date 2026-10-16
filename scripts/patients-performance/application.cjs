@@ -24,6 +24,8 @@ async function startApplication({
   responseHeaders = {},
   transportUri,
   capacityFactory,
+  backendMode = "legacy",
+  releaseFactory,
   startupTimeoutMS = 20000,
   shutdownTimeoutMS = 3000,
 }) {
@@ -42,7 +44,7 @@ async function startApplication({
       NODE_PATH: path.resolve(__dirname, "../../node_modules"),
       NODE_ENV: "production",
       TZ: timeZone,
-      NCD_PATIENTS_BACKEND: "legacy",
+      NCD_PATIENTS_BACKEND: backendMode,
       MONGO_URI: uri.toString(),
       DISCORD_BOT_TOKEN: "unused-fixture",
       DISCORD_CHANNEL_ID_SUCCESS: "unused-fixture",
@@ -55,6 +57,7 @@ async function startApplication({
       ...(generationId ? { PATIENTS_CANDIDATE_GENERATION: generationId } : {}),
       ...(activeGeneration ? { PATIENTS_ACTIVE_GENERATION: "1" } : {}),
       ...(capacityFactory ? { PATIENTS_APPLICATION_CAPACITY: "1" } : {}),
+      ...(releaseFactory ? { PATIENTS_APPLICATION_RELEASE: "1" } : {}),
     },
   });
   const messages = [],
@@ -148,6 +151,11 @@ async function startApplication({
           child.send({ capacity: { ...config, trustedOperators } });
           continue;
         }
+        if (message.releaseSubject) {
+          if (!releaseFactory) throw new Error("Unexpected fixture release handshake");
+          child.send({ release: await releaseFactory(message.releaseSubject) });
+          continue;
+        }
         if (message.error) throw new Error(`Fixture app failed: ${message.error}`);
         if (typeof message.url !== "string" || !/^http:\/\/127\.0\.0\.1:\d+$/.test(message.url))
           throw new Error("Invalid fixture ready message");
@@ -155,6 +163,7 @@ async function startApplication({
       }
     })();
     const message = await bound(ready, startupTimeoutMS, "Fixture startup deadline");
+    let releaseReport = message.release;
     let closing,
       capturing = false,
       unresolvedId;
@@ -179,6 +188,22 @@ async function startApplication({
       runtime: message.runtime,
       productSources: message.productSources,
       generation: message.generation,
+      get release() {
+        return releaseReport;
+      },
+      async applyRelease(configuration, kind) {
+        if (capturing || unresolvedId || closing || !releaseFactory)
+          throw new Error("Fixture release composition is unavailable");
+        const id = randomUUID();
+        child.send({ releaseUpdate: { id, configuration, kind } });
+        const reply = (await bound(receive(), 61000, "Fixture release preparation deadline"))?.releaseReply;
+        if (reply?.id !== id || reply.error || !reply.report) throw new Error("Fixture release preparation failed");
+        releaseReport = reply.report;
+        return releaseReport;
+      },
+      async rollbackRelease(configuration) {
+        return this.applyRelease(configuration, "rollback");
+      },
       diagnostics: () => diagnostics.join(""),
       settleLoad,
       async captureLoad({
