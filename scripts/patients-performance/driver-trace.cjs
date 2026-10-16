@@ -1,6 +1,7 @@
 const { createHash } = require("node:crypto");
 const { performance: monotonicClock } = require("node:perf_hooks");
 const { PARTS } = require("./contract-fixture.cjs");
+const { Int32 } = require("mongodb");
 
 const LIMITS = Object.freeze({ activeCommands: 256, errors: 128, bytes: 256 * 1024 });
 const NAMES = new Set([
@@ -22,6 +23,9 @@ const NAMES = new Set([
   "collStats",
   "endSessions",
   "ping",
+  // Independent database termination/visibility checks are owned commands too.
+  "hello",
+  "getCmdLineOpts",
 ]);
 const ERRORS = new Set([
   "MongoServerError",
@@ -36,15 +40,18 @@ const ERRORS = new Set([
   "MongoRuntimeError",
   "MongoInvalidArgumentError",
 ]);
-const diagnostic = (error) => ({
-  name: ERRORS.has(error?.name) ? error.name : "UnclassifiedDatabaseError",
-  code: Number.isSafeInteger(error?.code)
-    ? error.code
-    : typeof error?.code === "string" && /^[A-Z][A-Z0-9_]{0,31}$/.test(error.code)
-      ? error.code
-      : null,
-  sanitized: !ERRORS.has(error?.name),
-});
+const diagnostic = (error) => {
+  const code = error?.code instanceof Int32 ? error.code.value : error?.code;
+  return {
+    name: ERRORS.has(error?.name) ? error.name : "UnclassifiedDatabaseError",
+    code: Number.isSafeInteger(code)
+      ? code
+      : typeof code === "string" && /^[A-Z][A-Z0-9_]{0,31}$/.test(code)
+        ? code
+        : null,
+    sanitized: !ERRORS.has(error?.name),
+  };
+};
 
 // Command monitoring is real driver evidence. It is sealed only after the
 // independent Reader/HTTP ownership handoff ends, never from a quiet key map.

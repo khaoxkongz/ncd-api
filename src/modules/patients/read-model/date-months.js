@@ -1,7 +1,8 @@
 const { createHash, randomUUID } = require("node:crypto");
 const { BSON, Binary } = require("mongodb");
 const { CATEGORIES, COLLECTIONS, BSON_OPTIONS } = require("./schema");
-const { codec, writeChunks, decodeChunk, directoryToken } = require("./bitmap");
+const { codec, writeChunks, decodeChunk } = require("./bitmap");
+const { verifySelectedSets, verifyChunkDirectory } = require("./selected-sets");
 const card = require("./daily-card");
 const expense = require("./expense");
 const { buildScopeCatalog, lookupPreparedScope } = require("./prepared-scopes");
@@ -563,62 +564,17 @@ async function calculateDateRange({ db, generation, selection, budget }) {
     )
     .toArray();
   if (matchedRows !== (scalars?.matchedRows ?? 0)) throw new Error("Date-month row coverage changed");
-  function selectedDirectory(match) {
-    return [
-      { $match: match },
-      {
-        $lookup: {
-          from: COLLECTIONS.directory,
-          localField: "rowId",
-          foreignField: "setId",
-          pipeline: [{ $match: { generationId, category: { $in: SETS } } }],
-          as: "parts",
-        },
-      },
-      { $unwind: "$parts" },
-      { $replaceWith: { $mergeObjects: ["$parts", { eligible: { members: "$members" } }] } },
-    ];
-  }
-  const directoryCursor = monthlyCollection.aggregate(
-    [
-      ...selectedDirectory(monthlyMatch),
-      { $unionWith: { coll: COLLECTIONS.daily, pipeline: selectedDirectory(dailyMatch) } },
-      { $sort: { setId: 1, category: 1, block: 1, chunkNo: 1 } },
+  await verifySelectedSets({
+    db,
+    generationId,
+    selections: [
+      { collection: monthlyCollection.collectionName, match: monthlyMatch },
+      { collection: COLLECTIONS.daily, match: dailyMatch },
     ],
-    options({ promoteLongs: false, allowDiskUse: false })
-  );
-  let sealedSet;
-  function finishDirectory() {
-    if (!sealedSet) return;
-    if (
-      sealedSet.digest.digest("hex") !== sealedSet.inventory.directorySha256 ||
-      sealedSet.chunks !== sealedSet.inventory.chunks ||
-      sealedSet.members !== sealedSet.inventory.cardinality
-    )
-      throw new Error("Changed UTC-date set directory");
-  }
-  try {
-    for await (const document of directoryCursor) {
-      budget.serialized(BSON.serialize(document).length * 4 + 65536);
-      if (!sealedSet || sealedSet.setId !== document.setId || sealedSet.category !== document.category) {
-        finishDirectory();
-        sealedSet = {
-          setId: document.setId,
-          category: document.category,
-          inventory: document.eligible.members[document.category],
-          chunks: 0,
-          members: 0,
-          digest: createHash("sha256"),
-        };
-      }
-      sealedSet.digest.update(directoryToken(document));
-      sealedSet.chunks += 1;
-      sealedSet.members += document.popcount;
-    }
-    finishDirectory();
-  } finally {
-    await directoryCursor.close();
-  }
+    categories: SETS,
+    budget,
+    collation: generation.collation,
+  });
   const cursor = monthlyCollection.aggregate(
     [
       ...chunkSelection(monthlyMatch),
@@ -664,17 +620,12 @@ async function calculateDateRange({ db, generation, selection, budget }) {
   try {
     for await (const document of cursor) {
       const index = SETS.indexOf(document.category);
-      if (
-        index < 0 ||
-        document.directory.length !== 1 ||
-        !directoryToken(document).equals(directoryToken(document.directory[0]))
-      )
-        throw new Error("Missing or changed UTC-date directory entry");
+      if (index < 0) throw new Error("Unexpected UTC-date set category");
+      verifyChunkDirectory(document);
       if (current && (current.index !== index || !current.block.equals(document.block))) finish();
       current = { index, block: document.block };
       readChunks[index] += 1;
       readMembers[index] += document.popcount;
-      delete document.directory;
       const contribution = decodeChunk(document, budget);
       try {
         bitmap.orInPlace(contribution);

@@ -15,6 +15,32 @@ import { COLLECTIONS } from "../../src/modules/patients/read-model/schema.js";
 import { referencePage } from "./load-fixture.cjs";
 import { summarizeAttempts } from "./compare.cjs";
 
+it("starts a fixture without importing a harmless environment file from its caller directory", async () => {
+  const fixture = await openFixture();
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "patients-caller-env-"));
+  const source = fs.mkdtempSync(path.join(os.tmpdir(), "patients-env-probe-"));
+  const previous = process.cwd();
+  let app;
+  fs.writeFileSync(path.join(directory, ".env"), "PATIENTS_HARMLESS_CALLER_MARKER=caller-only\n");
+  fs.writeFileSync(
+    path.join(source, "app.js"),
+    `require(${JSON.stringify(path.resolve("src/env.js"))});
+     if (process.env.PATIENTS_HARMLESS_CALLER_MARKER) throw new Error("Caller environment imported");
+     module.exports = (req, res) => res.end();\n`
+  );
+  try {
+    process.chdir(directory);
+    app = await startApplication({ db: fixture.db, sourceRoot: source });
+    expect((await app.close()).exited).toBe(true);
+  } finally {
+    process.chdir(previous);
+    await app?.close();
+    fs.rmSync(directory, { recursive: true, force: true });
+    fs.rmSync(source, { recursive: true, force: true });
+    await fixture.close();
+  }
+}, 10000);
+
 it("rejects a real application exit during startup and observes its termination within the startup bound", async () => {
   const fixture = await openFixture();
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "patients-load-startup-"));

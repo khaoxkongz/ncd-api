@@ -4,7 +4,7 @@ const { createHash, createPublicKey } = require("node:crypto");
 const { BSON } = require("mongodb");
 const { digest } = require("../../src/modules/patients/read-model/capacity");
 const { REQUIRED_FAMILIES } = require("./cases.cjs");
-const { BASELINE_REVISION, PARTS } = require("./contract-fixture.cjs");
+const { BASELINE_REVISION } = require("./contract-fixture.cjs");
 
 const SUPPLEMENTAL = [
   "typed-bson-collation",
@@ -37,46 +37,7 @@ function deploymentEvidence(subject, descriptors, config) {
     frontendRevision: "fixture-frontend-v1",
     referenceSha256: hex(2),
   };
-  const page = ["first", "later"].map((trial) => ({
-    id: trial,
-    trial,
-    requestSha256: hex(3),
-    routing: "live",
-    warmups:
-      trial === "first"
-        ? []
-        : Array(5).fill({
-            elapsedMS: 10,
-            errors: 0,
-            currentResults: 6,
-            session: "later-session",
-            referenceSha256: deployment.referenceSha256,
-          }),
-    attempts: Array.from({ length: 100 }, (_, i) => ({
-      id: `${trial}-${i}`,
-      session: trial === "first" ? `fresh-${i}` : "later-session",
-      actionAt: i * 1000,
-      renderedAt: i * 1000 + 10,
-      errors: 0,
-      apiCompletedAt: i * 1000 + 5,
-      api: {
-        commandsStarted: 6,
-        commandsSettled: 6,
-        activeCommands: 0,
-        queryErrors: 0,
-        overflow: 0,
-        proof: "reader-shared-renewals-http-and-capacity-settled",
-      },
-      responses: PARTS.map(({ route }) => ({
-        route,
-        status: 200,
-        bodySha256: hex(4),
-        headersSha256: hex(5),
-        parsedAt: i * 1000 + 5,
-        renderedForCurrentLoad: true,
-      })),
-    })),
-  }));
+  const matrix = require("./release-matrix-fixture.cjs").timingMatrix(coverage);
   const gate = (name, observations) => ({
     schema: `patients-release-${name}-v1`,
     failures: [],
@@ -115,21 +76,8 @@ function deploymentEvidence(subject, descriptors, config) {
         sourceSha256: source.sha256,
         comparison: "exact-status-headers-types-presence-array-order-approved-expense-503-metadata",
         coverage,
-        cases: coverage.map((family) => ({
-          family,
-          requestSha256: hex(3),
-          clock: "2024-01-09T05:00:00.000Z",
-          timeZone: "UTC",
-          responses: PARTS.map(({ route }) => ({
-            route,
-            expectedStatus: 200,
-            actualStatus: 200,
-            expectedBodySha256: hex(4),
-            actualBodySha256: hex(4),
-            expectedHeadersSha256: hex(5),
-            actualHeadersSha256: hex(5),
-          })),
-        })),
+        cases: matrix.cases,
+        responseDictionaries: matrix.correctnessDictionaries,
       }),
       native: gate("native", {
         runtime: {
@@ -156,7 +104,11 @@ function deploymentEvidence(subject, descriptors, config) {
           {
             id: "fixture-host",
             ram: { ...peak, response: 1, api: 2, builder: 3, database: 4, combined: 9, total: 9 },
-            disk: { ...BSON.deserialize(config.evidence.manifest).domains[0].disk, additional: 10, total: 10 },
+            disk: {
+              ...BSON.deserialize(config.evidence.manifest).domains[0].disk,
+              additional: matrix.allocatedBytes + 512 * 1024 + 10,
+              total: matrix.allocatedBytes + 512 * 1024 + 10,
+            },
             cpu: {
               allocation: 8,
               totalLimit: 8,
@@ -254,7 +206,10 @@ function deploymentEvidence(subject, descriptors, config) {
         calculationClock: "2024-01-09T05:00:00.000Z",
         timeZone: "UTC",
         coverage,
-        conditions: page,
+        scenarios: matrix.scenarios,
+        conditions: matrix.conditions,
+        negativeComparisons: matrix.negativeComparisons,
+        apiReceipts: matrix.apiReceipts,
       }),
       freshness: gate("freshness", {
         sourceSha256: source.sha256,
@@ -271,7 +226,46 @@ function deploymentEvidence(subject, descriptors, config) {
         displayedAt: Date.parse(source.sourceCutAt) + 7,
         coordinationMS: 1,
         cleanupMS: 1,
-        recoveryMS: 1,
+        recoveryMS: 0,
+        readerMS: 1,
+        displayMS: 1,
+        recoveryRunId: "11111111-1111-4111-8111-111111111111",
+        ledger: {
+          version: "full-refresh-v1",
+          runId: "11111111-1111-4111-8111-111111111111",
+          generationId: descriptors[0].generationId,
+          sourceSha256: source.sha256,
+          cutAt: source.sourceCutAt,
+          deadlineAt: new Date(Date.parse(source.sourceCutAt) + 12 * 3600000).toISOString(),
+          acquisitionLimitMS: 2 * 3600000,
+          buildLimitMS: 6 * 3600000,
+          reserveLimitMS: 4 * 3600000,
+          queueMS: 0,
+          acquisitionMS: 2,
+          buildMS: 1,
+          coordinationMS: 1,
+          readerMS: 1,
+          cleanupMS: 1,
+          recoveryMS: 0,
+          displayMS: 1,
+          reserveSpentMS: 4,
+          reserveRemainingMS: 4 * 3600000 - 4,
+          elapsedMS: 7,
+          events: [
+            ["acquisition", 0, 2],
+            ["build", 2, 3],
+            ["coordination", 3, 4],
+            ["reader", 4, 5],
+            ["cleanup", 5, 6],
+            ["display", 6, 7],
+          ].map(([phase, start, end]) => ({
+            phase,
+            startedAt: Date.parse(source.sourceCutAt) + start,
+            endedAt: Date.parse(source.sourceCutAt) + end,
+            elapsedMS: end - start,
+            runId: "11111111-1111-4111-8111-111111111111",
+          })),
+        },
         recoveredSourceSha256: source.sha256,
         recovery: "same-cut-same-run-fixed-ledger",
         termination: "registered-worker-and-independent-database-proof",

@@ -196,11 +196,12 @@ function createControl({ db, now = () => Date.now(), worker }) {
       document.revision = next(previous.revision);
       document.transitions = [...document.transitions.slice(-15), { id, result }];
       validate(document);
+      const writeOptions = options(budget, { writeConcern: { w: "majority", wtimeoutMS: 3000 } });
       try {
         const updated = await collection.replaceOne(
           { _id: "patients", revision: previous.revision },
           document,
-          options(budget, { writeConcern: { w: "majority", wtimeoutMS: 3000 } })
+          writeOptions
         );
         if (updated.matchedCount === 1) return result;
       } catch (error) {
@@ -215,7 +216,9 @@ function createControl({ db, now = () => Date.now(), worker }) {
         }
         const recorded = observed.transitions.find((item) => item.id === id);
         if (recorded) return recorded.result;
-        error.controlOutcome = "not-recorded";
+        // Absence in this readback does not rule out a pre-server or queued
+        // mutation continuation. Only the exact acknowledged transition proves
+        // its result; otherwise retain the unknown logical acquisition.
         throw error;
       }
     }
@@ -377,29 +380,36 @@ function createControl({ db, now = () => Date.now(), worker }) {
         const selection = await read(budget);
         const selected = claim ? claim.generationId : selection.active?.generationId;
         if (!selected) throw new Error("No active read-model generation");
-        const attempt = await change(budget, (document) => {
-          if (claim) {
-            if (
-              document.builder?.run !== claim.run ||
-              document.builder.owner !== claim.owner ||
-              document.fence.toString() !== claim.fence
+        const proposed = {
+          id,
+          worker,
+          generationId: selected,
+          kind: claim ? "validation" : "reader",
+          state: "live",
+          leaseUntil: now() + LEASE_MS,
+        };
+        let attempt;
+        try {
+          attempt = await change(budget, (document) => {
+            if (claim) {
+              if (
+                document.builder?.run !== claim.run ||
+                document.builder.owner !== claim.owner ||
+                document.fence.toString() !== claim.fence
+              )
+                throw new Error("Candidate is not owned by this builder");
+            } else if (
+              document.active?.generationId !== selected ||
+              !document.publicationVersion.equals(selection.publicationVersion) ||
+              !readable(document, selected)
             )
-              throw new Error("Candidate is not owned by this builder");
-          } else if (
-            document.active?.generationId !== selected ||
-            !document.publicationVersion.equals(selection.publicationVersion) ||
-            !readable(document, selected)
-          )
-            return null;
-          return appendPin(document, {
-            id,
-            worker,
-            generationId: selected,
-            kind: claim ? "validation" : "reader",
-            state: "live",
-            leaseUntil: now() + LEASE_MS,
+              return null;
+            return appendPin(document, proposed);
           });
-        });
+        } catch (error) {
+          if (error.controlOutcome === "unknown") error.acquisitionPin = proposed;
+          throw error;
+        }
         if (attempt)
           return {
             ...attempt,
@@ -464,6 +474,22 @@ function createControl({ db, now = () => Date.now(), worker }) {
       return change(budget, (document) => {
         const selected = document.pins.find((item) => item.id === pin.id && item.worker === pin.worker);
         if (selected) selected.state = "suspect";
+        return true;
+      });
+    },
+    async retainAcquisition(pin, budget) {
+      return change(budget, (document) => {
+        const existing = document.pins.find((item) => item.id === pin.id && item.worker === pin.worker);
+        if (existing) existing.state = "suspect";
+        else {
+          if (
+            !document.slots.some(
+              (slot) => slot.generationId === pin.generationId && !["free", "deleting"].includes(slot.state)
+            )
+          )
+            throw new Error("Unknown acquisition generation is no longer retained");
+          appendPin(document, { ...pin, state: "suspect" });
+        }
         return true;
       });
     },
